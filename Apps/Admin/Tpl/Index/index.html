@@ -1,0 +1,65 @@
+<include file="Public:header" />
+</head>
+<body class="easyui-layout">
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.sider li a').click(function(){
+		var subtitle = $(this).text();
+		var url = $(this).attr('href');
+		if(!$('#tabs').tabs('exists',subtitle)){
+			$('#tabs').tabs('add',{
+				title:subtitle,
+				content:subtitle,
+				closable:true,
+				href:url,
+			});
+			return false;
+		}else{
+			$('#tabs').tabs('select',subtitle);
+			var tab = $('#tabs').tabs('getSelected');  // get selected panel
+			tab.panel('refresh', url);
+			return false;
+		}
+	});
+});
+</script>
+
+<noscript>
+<div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+    <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
+</div>
+</noscript>
+	<div data-options="region:'north',border:false,split:true" style="height:80px;padding:2px">
+   	<div class="admintop">
+    	<div class="adminlogo fleft">
+<img src="__PUBLIC__/Style/images/logo2.gif" />
+        </div>
+    	<div class="admincon fleft"></div>
+    	<div class="adminmember fright"><a href="__APP__/Login/logout">退出登录</a></div>
+<div class="clear"></div>
+    </div><!--admintop-->
+    </div>
+	<div data-options="region:'west',split:true,title:'导航菜单'" style="width:180px;">
+		<div class="easyui-accordion sider" data-options="fit:true,border:false">
+<!--//左侧菜单导航-->
+	<include file="lefter" />
+<!--//左侧菜单导航-->	
+		</div><!--accordion-->
+        
+    </div><!--west-->
+	<div data-options="region:'east',split:true,collapsed:false,title:'公告及官方微博'" style="width:180px;padding:10px;">east region</div>
+	<div data-options="region:'south',split:false,border:false" style="height:50px;padding:10px; text-align:center;">dingcms版权south region<br/>hualo.net开发团队</div>
+<!--//主体内容部分-->
+	<div data-options="region:'center'">
+    <div id="tabs" class="easyui-tabs"  fit="true" border="false"  >
+			<div title="首页" style="padding:20px;overflow:hidden; color:red; " >
+			</div>
+            
+			<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; " data-options="iconCls:'icon-reload',closable:true" >
+			</div>
+		</div>
+    </div><!--center-->
+<!--//主体内容部分-->
+<include file="Public:footer" />
+</body>
+</html>

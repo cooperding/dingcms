@@ -1,0 +1,59 @@
+<div class="pagecontent">
+
+	<div class="easyui-tabs" data-options="tools:'#tab-tools'" style="width:auto;height:250px;">
+		
+		<div title="站点设置" style="padding:20px;">
+		</div>
+		<div title="附件设置" style="padding:20px;">
+			This is Tab2 with close buttonddd55555.
+		</div>
+		<div title="信息相关" style="padding:20px;">
+			This is Tab2 with close buttonddd55555.
+		</div>
+		<div title="会员设置" style="padding:20px;">
+			This is Tab2 with close buttonddd55555.
+		</div>
+		<div title="邮箱设置" style="padding:20px;">
+			This is Tab2 with close buttonddd55555.
+		</div>
+		<div title="其他设置" style="padding:20px;">
+			This is Tab2 with close buttonddd55555.
+		</div>
+        
+        
+        
+	</div><!--tabs-->
+        <div id="tab-tools">
+		<a href="#" class="easyui-linkbutton dialog" data-options="plain:true,iconCls:'icon-add'"></a>
+		</div>
+        
+<script>
+$(function(){
+	$('.dialog').click(function(){
+		$('#dialog').dialog({
+			href:'__APP__/Setting/add',
+			width:500,
+			height:300,
+			buttons:[{
+				text:'保存',
+				iconCls:'icon-ok',
+				handler:function(){
+					alert('ok');
+				}
+			},{
+				text:'取消',
+				handler:function(){
+					$('#dialog').dialog('close');
+				}
+			}],
+		
+		});
+		$('#dialog').dialog('refresh', '__APP__/Setting/add'); 
+		
+	});
+})
+</script>
+<div id="dialog" data-options="iconCls:'icon-save'">
+		
+</div>
+</div><!--pagecontent-->
