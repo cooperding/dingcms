@@ -21,11 +21,19 @@ class SettingAction extends Action {
 	//进入页面
     public function index(){
 			
-			$this->display();
+		$this->display();
     }
 	
 	public function add(){
-			$this->display();
+            $name = array(
+                '5'=>'ss',
+                '1'=>'dd',
+                '2'=>'565',
+                '3'=>'888'
+            );
+            $this->assign('list',$name);
+            $this->assign('vv','565');
+            $this->display();
 	}
 	
 	public function edit(){
@@ -40,14 +48,22 @@ class SettingAction extends Action {
 		$sys_name['sys_name'] = $_POST['sys_name'];
 		$rs = $setting->where($sys_name)->find();
 		if(!empty($rs)){//不为空说明存在，存在就不能添加
-			echo '1';
-			exit;
+                    echo '1';
+                    exit;
 		}else{
-			
+                    if($setting->create()){
+                        $rs = $setting->add();
+                        if($rs){
+                            echo 2;
+                        }else{
+                            echo 3;
+                        }
+                    }
+                    
 		}
 		
 		
-		echo $_POST['sys_name'];
+		//echo $_POST['sys_name'];
 		//exit;
 		//$this->display();
 	}

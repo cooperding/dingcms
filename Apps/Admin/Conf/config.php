@@ -3,9 +3,10 @@
 
 defined('THINK_PATH') or exit();
 $miniConfig = array (
-       'LANG_SWITCH_ON' =>True,
-	    'DEBUG_MODE'		=>	false,
-        'DEFAULT_ACTION'    =>   'index',
+    'LANG_SWITCH_ON'=>True,
+    'DEBUG_MODE'    =>	false,
+    'DEFAULT_ACTION'=>'index',
+    'TAGLIB_PRE_LOAD'=> 'html',
 		/*
 		APP_NAME=>array(
 		  "stringcount" => "150",

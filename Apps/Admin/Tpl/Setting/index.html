@@ -29,56 +29,47 @@
         
 <script>
 $(function(){
-	$('.dialog').click(function(){
-		var title = $('.setting-tools > a').attr('rel');
-		$('#dialog').dialog({
-			href:'__APP__/Setting/add',
-			width:600,
-			height:400,
-			title:title, 
-			buttons:[{
-				text:'保存',
-				iconCls:'icon-ok',
-				handler:function(){
-					var url = $("#form").attr('action');
-					
-					
-					$('#form').form('submit',{
-						
-						url:url,
-						onSubmit:function(){
-						//$('#dialog').dialog('refresh', '__APP__/Setting/add');
-							//alert(url); 
-							//$('#dialog').dialog('close');
-						},
-						success:function(data){
-							if(data==1){
-								$.messager.alert('信息提示','变量名已经存在!','error');
-							}else{
-								alert('555');
-							}
-							
-							//$('#dialog').dialog('refresh', '__APP__/Setting/add');
-							//$('#dialog').dialog('close');
-							
-						}
-					});
-					
-					//alert(url);
-					//$('#dialog').dialog('refresh', '__APP__/Setting/add'); 
-					
-				}
-			},{
-				text:'取消',
-				handler:function(){
-					$('#dialog').dialog('close');
-				}
-			}],
-		
-		});
-		$('#dialog').dialog('refresh', '__APP__/Setting/add'); 
-		
+    $('.dialog').click(function(){
+        var title = $('.setting-tools > a').attr('rel');
+	$('#dialog').dialog({
+            href:'__APP__/Setting/add',
+            width:600,
+            height:400,
+            title:title, 
+            buttons:[{
+                text:'保存',
+		iconCls:'icon-ok',
+		handler:function(){
+                    var url = $("#form").attr('action');
+                    $('#form').form('submit',{				
+                        url:url,
+			onSubmit:function(){
+			//$('#dialog').dialog('refresh', '__APP__/Setting/add');
+			//alert(url); 
+			//$('#dialog').dialog('close');
+			},
+			success:function(data){
+                            if(data==1){
+                                $.messager.alert('信息提示','变量名已经存在!','error');
+                            }else{
+                            	alert(data);
+                            }
+                            //$('#dialog').dialog('refresh', '__APP__/Setting/add');
+                            //$('#dialog').dialog('close');	
+			}
+                    });		
+                    //alert(url);
+                    //$('#dialog').dialog('refresh', '__APP__/Setting/add'); 
+		}
+		},{
+                    text:'取消',
+                    handler:function(){
+                    	$('#dialog').dialog('close');
+                    }
+                }],
 	});
+	$('#dialog').dialog('refresh', '__APP__/Setting/add'); 	
+    });
 })
 </script>
 <div id="dialog" data-options="iconCls:'icon-save'">
