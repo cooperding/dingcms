@@ -1,27 +1,13 @@
 <div class="pagecontent">
 
 	<div class="easyui-tabs" data-options="tools:'.setting-tools'" style="width:auto;height:250px;">
-		
-		<div title="站点设置" style="padding:20px;">
+            <volist name="list" id="vo">
+                <div title="{$vo.title}" style="padding:20px;">
+                    <volist name="vo['slist']" id="sub">
+                        {$sub.sys_name}-{$sub.sys_info}
+                    </volist>
 		</div>
-		<div title="附件设置" style="padding:20px;">
-			This is Tab2 with close buttonddd55555.
-		</div>
-		<div title="信息相关" style="padding:20px;">
-			This is Tab2 with close buttonddd55555.
-		</div>
-		<div title="会员设置" style="padding:20px;">
-			This is Tab2 with close buttonddd55555.
-		</div>
-		<div title="邮箱设置" style="padding:20px;">
-			This is Tab2 with close buttonddd55555.
-		</div>
-		<div title="其他设置" style="padding:20px;">
-			This is Tab2 with close buttonddd55555.
-		</div>
-        
-        
-        
+            </volist>
 	</div><!--tabs-->
         <div class="setting-tools">
 		<a href="#" class="easyui-linkbutton dialog" data-options="plain:true,iconCls:'icon-add'" rel="添加系统变量"></a>
@@ -51,11 +37,12 @@ $(function(){
 			success:function(data){
                             if(data==1){
                                 $.messager.alert('信息提示','变量名已经存在!','error');
-                            }else{
-                            	alert(data);
+                            }else if(data==2){
+                            	$.messager.alert('信息提示','添加成功!');
+                                $('#dialog').dialog('refresh', '__APP__/Setting/add');
+                            }else if(data==3){
+                            	$.messager.alert('信息提示','添加失败!','error');
                             }
-                            //$('#dialog').dialog('refresh', '__APP__/Setting/add');
-                            //$('#dialog').dialog('close');	
 			}
                     });		
                     //alert(url);

@@ -2,34 +2,26 @@
 <form action="__APP__/Setting/insert" id="form" method="post">
 <ul>
 <li>
-<label>test：</label>
-<p><html:select selected="" id="se" options="list" name="select" style="dede" first="请选择" /></p>
-</li>
-<li>
 <label>变量名：</label>
-<p><input type="text" name="sys_name" value="" data-options="required:true" class="easyui-validatebox"/></p>
+<p><input type="text" name="sys_name" value="cfg_" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
 </li>
 <li>
-<label>变量类型：</label><p><input type="text" name="sys_type" value="" /></p>
+<label>所属分组：</label>
+<p><html:select selected="" options="list" name="sys_gid" style="dede" first="请选择所属分组" /></p
+</li>
+<li>
+<label>变量类型：</label>
+<p><html:radio name="sys_type" checked="text" radios="radios" /></p>
+</li>
+<li>
+<label>参数值：</label><p><input type="text" name="sys_value" value="" /><span class="red">*选择布尔值输入否：1/是：2</span></p>
 </li>
 <li>
 <label>参数说明;</label><p><input type="text" name="sys_info" value="" /></p>
 </li>
 <li>
-<label>参数值：</label><p><input type="text" name="sys_value" value="" /></p>
-</li>
-<li>
-<label>所属分组：</label><p><input type="text" name="sys_gid" value="" /></p>
-</li>
-<li>
 <label>排序：</label><p><input type="text" name="myorder" value="" /></p>
 </li>
-
-<li>
-<label>备注：</label><p><input type="text" name="remark" value="" /></p>
-</li>
-
-
 </ul>
 </form>
 </div>
