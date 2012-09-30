@@ -1,24 +1,66 @@
 <div class="pagecontent">
-
-	<div class="easyui-tabs" data-options="tools:'.setting-tools'" style="width:auto;height:250px;">
+    <form>
+	<div class="easyui-tabs" data-options="tools:'.setting-tools'" style="width:auto;height:auto;">
+            
             <volist name="list" id="vo">
-                <div title="{$vo.title}" style="padding:20px;">
-                    <volist name="vo['slist']" id="sub">
-                        {$sub.sys_name}-{$sub.sys_info}
-                    </volist>
+                <div title="{$vo.title}">
+                    
+
+<table class="tt" style="height:auto" >
+    <thead>
+        <tr>
+            <th data-options="field:'sys_info',width:180,align:'center'">参数名称</th>
+            <th data-options="field:'sys_value',width:450,align:'left'">参数值</th>
+            <th data-options="field:'sys_name',width:150,align:'center'">参数变量</th>
+            <th data-options="field:'sys_do',width:120,align:'center'">操作</th>
+	</tr>
+    </thead>
+    <tbody>
+        <volist name="vo['slist']" id="sub">
+        <tr>
+            <td>{$sub.sys_info}</td>
+            <td>
+        <if condition="$sub.sys_type eq text">
+            <input type="text" name="{$sub.sys_id}" value="{$sub.sys_value}" />
+        <elseif condition="$sub.sys_type eq radio"/>
+            <if condition="$sub.sys_value eq 1">
+                <input name="{$sub.sys_id}" type="radio" value="1" checked="checked">是
+                <input name="{$sub.sys_id}" type="radio" value="2">否
+            <elseif  condition="$sub.sys_value eq 2"/>
+                <input name="{$sub.sys_id}" type="radio" value="1">是
+                <input name="{$sub.sys_id}" type="radio" value="2" checked="checked" >否
+            </if>
+        <elseif condition="$sub.sys_type eq textarea"/>
+        <textarea name="{$sub.sys_id}" rows="5" cols="50">{$sub.sys_value}</textarea>
+        </if>
+                
+            
+            </td>
+            <td>{$sub.sys_name}</td>
+            <td><a ref="__APP__/Setting/edit?id={$sub.sys_id}" class="edit dialog" rel="修改-{$sub.sys_info}">编辑</a></td>
+        </tr>
+        </volist>
+    </tbody>
+</table>
+                    
 		</div>
             </volist>
+                
 	</div><!--tabs-->
+        </form>
         <div class="setting-tools">
-		<a href="#" class="easyui-linkbutton dialog" data-options="plain:true,iconCls:'icon-add'" rel="添加系统变量"></a>
+		<a ref="__APP__/Setting/add" class="edit easyui-linkbutton dialog" data-options="plain:true,iconCls:'icon-add'" rel="添加系统变量"></a>
 		</div>
         
 <script>
 $(function(){
+    $('.tt').datagrid({});
     $('.dialog').click(function(){
-        var title = $('.setting-tools > a').attr('rel');
+        var title = $(this).attr('rel');
+        var href = $(this).attr('ref');
+        alert(href);
 	$('#dialog').dialog({
-            href:'__APP__/Setting/add',
+            href:href,
             width:600,
             height:400,
             title:title, 
@@ -39,7 +81,7 @@ $(function(){
                                 $.messager.alert('信息提示','变量名已经存在!','error');
                             }else if(data==2){
                             	$.messager.alert('信息提示','添加成功!');
-                                $('#dialog').dialog('refresh', '__APP__/Setting/add');
+                                $('#dialog').dialog('refresh', href);
                             }else if(data==3){
                             	$.messager.alert('信息提示','添加失败!','error');
                             }
@@ -55,7 +97,7 @@ $(function(){
                     }
                 }],
 	});
-	$('#dialog').dialog('refresh', '__APP__/Setting/add'); 	
+	$('#dialog').dialog('refresh', href); 	
     });
 })
 </script>

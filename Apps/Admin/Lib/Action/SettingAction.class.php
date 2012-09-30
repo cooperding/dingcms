@@ -17,7 +17,7 @@
  * @subpackage  admin Action
  * @author    正侠客 <lookcms@gmail.com>
  */
-class SettingAction extends Action {
+class SettingAction extends AdminAction {
 	//进入页面
         public function index(){
             $setting = M('Setting');
@@ -59,12 +59,12 @@ class SettingAction extends Action {
             );
             $this->assign('list',$name);
             $this->assign('radios',$radios);
-            $this->assign('vv','565');
             $this->display();
 	}
 	
 	public function edit(){
-		
+            //exit;
+            $this->display();
 	}
 	
 	public function insert(){
@@ -88,11 +88,7 @@ class SettingAction extends Action {
                         }
                     }
 		}
-		
-		
-		//echo $_POST['sys_name'];
-		//exit;
-		//$this->display();
+
 	}
 	
 	public function update(){

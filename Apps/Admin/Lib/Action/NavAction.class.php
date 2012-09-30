@@ -17,7 +17,7 @@
  * @subpackage  admin Action
  * @author    正侠客 <lookcms@gmail.com>
  */
-class NavAction extends Action {
+class NavAction extends AdminAction {
 	//进入页面
     public function index(){
 			

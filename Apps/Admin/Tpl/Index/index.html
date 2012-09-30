@@ -12,12 +12,19 @@ $(document).ready(function(){
 				content:subtitle,
 				closable:true,
 				href:url,
+                                tools:[{
+                                    iconCls:'icon-mini-refresh',
+                                    handler:function(){
+                                        var tab = $('#tabs').tabs('getSelected');  // 实现刷新功能
+                                        tab.panel('refresh', url);
+                                    }
+                                }]
 			});
 			return false;
 		}else{
 			$('#tabs').tabs('select',subtitle);
-			var tab = $('#tabs').tabs('getSelected');  // get selected panel
-			tab.panel('refresh', url);
+			//var tab = $('#tabs').tabs('getSelected');  // get selected panel
+			//tab.panel('refresh', url);
 			return false;
 		}
 	});
