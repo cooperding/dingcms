@@ -70,6 +70,9 @@ body#login{ background-color:#F5F6F8;}
 .pageheader{}
 .pagecontent{ padding:10px;}
 .pagefooter{}
+.pagebar{border: 1px solid #D2E0F2;height: 35px;margin: 10px 0;}
+.pagebar li{padding: 5px 10px;margin: 5px;border: 1px solid #D2E0F2;float: left;display: block;cursor:pointer}
+.pagebar{}
 
 .pageform{margin: 5px 10px;}
 .pageinput{}
@@ -78,7 +81,7 @@ body#login{ background-color:#F5F6F8;}
 .pagesubmit{}
 
 .pageform ul{}
-.pageform ul li{height:30px;line-height:30px;}
+.pageform ul li{line-height:30px;}
 .pageform ul li label{width:100px;float:left;}
 .pageform ul li p{float:left;}
 .pageform ul li input{height:20px;margin: 0 5px;}

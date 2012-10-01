@@ -44,7 +44,7 @@ class SettingAction extends AdminAction {
     }
 	
 	public function add(){
-            $name = array(
+            $select = array(
                 '1'=>'站点设置',
                 '2'=>'附件设置',
                 '3'=>'信息相关',
@@ -57,13 +57,33 @@ class SettingAction extends AdminAction {
                 'radio'=>'布尔型',
                 'textarea'=>'多行文本'
             );
-            $this->assign('list',$name);
+            $this->assign('select',$select);
             $this->assign('radios',$radios);
             $this->display();
 	}
 	
 	public function edit(){
-            //exit;
+            $setting = M('Setting');
+            $id = $_GET['id'];
+            $data = $setting->where('sys_id='.$id)->find();
+            $select = array(
+                '1'=>'站点设置',
+                '2'=>'附件设置',
+                '3'=>'信息相关',
+                '4'=>'会员设置',
+                '5'=>'邮箱设置',
+                '6'=>'其它设置'
+            );
+            $radios = array(
+                'text'=>'文本',
+                'radio'=>'布尔型',
+                'textarea'=>'多行文本'
+            );
+            $this->assign('select',$select);
+            $this->assign('radios',$radios);
+            $this->assign('sys_gid',$data['sys_gid']);
+            $this->assign('sys_type',$data['sys_type']);
+            $this->assign('list',$data);
             $this->display();
 	}
 	
@@ -92,10 +112,48 @@ class SettingAction extends AdminAction {
 	}
 	
 	public function update(){
-	
+            $setting = M('Setting');
+            $sys_name['sys_name'] = trim($_POST['sys_name']);
+            $sys_name['sys_id'] = array('neq',$_POST['sys_id']);
+            $rs = $setting->where($sys_name)->find();
+            if(!empty($rs)){
+                echo '1';
+                exit;
+            }else{
+                $sys_type = $_POST['sys_type'];
+                $_POST['sys_type'] = $sys_type[0];
+                $rs = $setting->save($_POST);
+                if($rs==1){
+                    echo 2;
+                }elseif($rs==0){
+                    echo 4;
+                }else{
+                    echo 3;
+                }
+            }
+          
 	}
 	
-	
+	public function batchupdate(){
+            echo '<pre>';
+            print_r($_POST);
+            $setting = M('Setting');
+            foreach ($_POST as $k=>$v){
+                //$data['sys_id'] = $k;
+                echo $v;
+                exit;
+                $data['sys_value'] = $v;
+                $rs = $setting->where('sys_id='.$k)->data($data)->save();
+            }
+            if($rs==1){
+                echo 2;
+            }elseif($rs==0){
+                echo 4;
+            }else{
+                echo 3;
+            }
+            
+        }
 	
 	
 	

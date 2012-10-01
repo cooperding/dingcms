@@ -1,107 +1,166 @@
 <div class="pagecontent">
-    <form>
-	<div class="easyui-tabs" data-options="tools:'.setting-tools'" style="width:auto;height:auto;">
-            
+    <form action="__APP__/Setting/batchupdate" id="form" method="post">
+        <div class="easyui-tabs" data-options="tools:'.setting-tools'" style="width:auto;height:auto;">
+
             <volist name="list" id="vo">
                 <div title="{$vo.title}">
-                    
 
-<table class="tt" style="height:auto" >
-    <thead>
-        <tr>
-            <th data-options="field:'sys_info',width:180,align:'center'">参数名称</th>
-            <th data-options="field:'sys_value',width:450,align:'left'">参数值</th>
-            <th data-options="field:'sys_name',width:150,align:'center'">参数变量</th>
-            <th data-options="field:'sys_do',width:120,align:'center'">操作</th>
-	</tr>
-    </thead>
-    <tbody>
-        <volist name="vo['slist']" id="sub">
-        <tr>
-            <td>{$sub.sys_info}</td>
-            <td>
-        <if condition="$sub.sys_type eq text">
-            <input type="text" name="{$sub.sys_id}" value="{$sub.sys_value}" />
-        <elseif condition="$sub.sys_type eq radio"/>
-            <if condition="$sub.sys_value eq 1">
-                <input name="{$sub.sys_id}" type="radio" value="1" checked="checked">是
-                <input name="{$sub.sys_id}" type="radio" value="2">否
-            <elseif  condition="$sub.sys_value eq 2"/>
-                <input name="{$sub.sys_id}" type="radio" value="1">是
-                <input name="{$sub.sys_id}" type="radio" value="2" checked="checked" >否
-            </if>
-        <elseif condition="$sub.sys_type eq textarea"/>
-        <textarea name="{$sub.sys_id}" rows="5" cols="50">{$sub.sys_value}</textarea>
-        </if>
-                
-            
-            </td>
-            <td>{$sub.sys_name}</td>
-            <td><a ref="__APP__/Setting/edit?id={$sub.sys_id}" class="edit dialog" rel="修改-{$sub.sys_info}">编辑</a></td>
-        </tr>
-        </volist>
-    </tbody>
-</table>
-                    
-		</div>
+
+                    <table class="tt" style="height:auto" >
+                        <thead>
+                            <tr>
+                                <th data-options="field:'sys_info',width:180,align:'center'">参数名称</th>
+                                <th data-options="field:'sys_value',width:450,align:'left'">参数值</th>
+                                <th data-options="field:'sys_name',width:150,align:'center'">参数变量</th>
+                                <th data-options="field:'sys_do',width:120,align:'center'">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="vo['slist']" id="sub">
+                            <tr>
+                                <td>{$sub.sys_info}</td>
+                                <td>
+                            <if condition="$sub.sys_type eq text">
+                                <input type="text" name="{$sub.sys_id}" value="{$sub.sys_value}" />
+                                <elseif condition="$sub.sys_type eq radio"/>
+                                <if condition="$sub.sys_value eq 1">
+                                    <input name="{$sub.sys_id}" type="radio" value="1" checked="checked">是
+                                    <input name="{$sub.sys_id}" type="radio" value="2">否
+                                    <elseif  condition="$sub.sys_value eq 2"/>
+                                    <input name="{$sub.sys_id}" type="radio" value="1">是
+                                    <input name="{$sub.sys_id}" type="radio" value="2" checked="checked" >否
+                                </if>
+                                <elseif condition="$sub.sys_type eq textarea"/>
+                                <textarea name="{$sub.sys_id}" rows="5" cols="50">{$sub.sys_value}</textarea>
+                            </if>
+
+
+                            </td>
+                            <td>{$sub.sys_name}</td>
+                            <td><a ref="__APP__/Setting/edit?id={$sub.sys_id}" class="edit dialog" rel="修改-{$sub.sys_info}">编辑</a></td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+
+                </div>
             </volist>
-                
-	</div><!--tabs-->
-        </form>
-        <div class="setting-tools">
-		<a ref="__APP__/Setting/add" class="edit easyui-linkbutton dialog" data-options="plain:true,iconCls:'icon-add'" rel="添加系统变量"></a>
-		</div>
-        
-<script>
-$(function(){
-    $('.tt').datagrid({});
-    $('.dialog').click(function(){
-        var title = $(this).attr('rel');
-        var href = $(this).attr('ref');
-        alert(href);
-	$('#dialog').dialog({
-            href:href,
-            width:600,
-            height:400,
-            title:title, 
-            buttons:[{
-                text:'保存',
-		iconCls:'icon-ok',
-		handler:function(){
-                    var url = $("#form").attr('action');
-                    $('#form').form('submit',{				
-                        url:url,
-			onSubmit:function(){
-			//$('#dialog').dialog('refresh', '__APP__/Setting/add');
-			//alert(url); 
-			//$('#dialog').dialog('close');
-			},
-			success:function(data){
-                            if(data==1){
-                                $.messager.alert('信息提示','变量名已经存在!','error');
-                            }else if(data==2){
-                            	$.messager.alert('信息提示','添加成功!');
-                                $('#dialog').dialog('refresh', href);
-                            }else if(data==3){
-                            	$.messager.alert('信息提示','添加失败!','error');
-                            }
-			}
-                    });		
-                    //alert(url);
-                    //$('#dialog').dialog('refresh', '__APP__/Setting/add'); 
-		}
-		},{
-                    text:'取消',
-                    handler:function(){
-                    	$('#dialog').dialog('close');
+
+        </div><!--tabs-->
+    </form>
+    <div class="pagebar">
+        <ul>
+            <li class="button">保存</li>
+        </ul>
+    </div>
+    <div class="setting-tools">
+        <a ref="__APP__/Setting/add" class="edit easyui-linkbutton dialog" data-options="plain:true,iconCls:'icon-add'" rel="添加系统变量"></a>
+    </div>
+
+    <script>
+        $(function(){
+            $('.tt').datagrid({});
+            $('.button').click(function(){
+                var url = $("#form").attr('action');
+                //alert(url);
+                $('#form').form('submit',{				
+                    url:url,
+                    onSubmit:function(){
+                        //$('#dialog').dialog('refresh', '__APP__/Setting/add');
+                        //alert(url); 
+                        //$('#dialog').dialog('close');
+                    },
+                    success:function(data){
+                        alert(data);
+                        if(data==1){
+                            $.messager.alert('信息提示','变量名已经存在!','error');
+                        }else if(data==2){
+                            $.messager.show({
+                                title:'信息提示',
+                                msg:'添加修改成功!',
+                                timeout:5000,
+                                showType:'slide'
+                            });
+                            $('#dialog').dialog('refresh', href);
+                        }else if(data==3){
+                            $.messager.show({
+                                title:'信息提示',
+                                msg:'添加修改失败!',
+                                timeout:5000,
+                                showType:'slide'
+                            });
+                        }else{
+                            $.messager.show({
+                                title:'信息提示',
+                                msg:'未修改信息!',
+                                timeout:5000,
+                                showType:'slide'
+                            });
+                        }
                     }
-                }],
-	});
-	$('#dialog').dialog('refresh', href); 	
-    });
-})
-</script>
-<div id="dialog" data-options="iconCls:'icon-save'">
-		
-</div>
+                }); 
+	
+            });
+    
+    
+            $('.dialog').click(function(){
+                var title = $(this).attr('rel');
+                var href = $(this).attr('ref');
+                $('#dialog').dialog({
+                    href:href,
+                    width:600,
+                    height:400,
+                    title:title, 
+                    buttons:[{
+                            text:'保存',
+                            iconCls:'icon-ok',
+                            handler:function(){
+                                var url = $("#form").attr('action');
+                                alert(url);
+                                $('#form').form('submit',{				
+                                    url:url,
+                                    onSubmit:function(){
+                                        //$('#dialog').dialog('refresh', '__APP__/Setting/add');
+                                        //alert(url); 
+                                        //$('#dialog').dialog('close');
+                                    },
+                                    success:function(data){
+                                        //alert(data);
+                                        if(data==1){
+                                            $.messager.alert('信息提示','变量名已经存在!','error');
+                                        }else if(data==2){
+                                            $.messager.show({
+                                                title:'信息提示',
+                                                msg:'添加修改成功!',
+                                                timeout:5000,
+                                                showType:'slide'
+                                            });
+                                            $('#dialog').dialog('refresh', href);
+                                        }else if(data==3){
+                                            $.messager.show({
+                                                title:'信息提示',
+                                                msg:'添加修改失败!',
+                                                timeout:5000,
+                                                showType:'slide'
+                                            });
+                                        }else{
+                                            $.messager.show({
+                                                title:'信息提示',
+                                                msg:'未修改信息!',
+                                                timeout:5000,
+                                                showType:'slide'
+                                            });
+                                        }
+                                    }
+                                }); 
+                            }
+                        }]
+                });
+                $('#dialog').dialog('refresh', href); 	
+            });
+        })
+    </script>
+    <div id="dialog" data-options="iconCls:'icon-save'">
+
+    </div>
 </div><!--pagecontent-->

@@ -32,7 +32,7 @@ $(document).ready(function(){
 </script>
 
 <noscript>
-<div style=" position:absolute; z-index:100000; height:2046px;top:0px;left:0px; width:100%; background:white; text-align:center;">
+<div style=" position:absolute; z-index:100000; height:246px;top:0px;left:0px; width:100%; background:white; text-align:center;">
     <img src="images/noscript.gif" alt='抱歉，请开启脚本支持！' />
 </div>
 </noscript>
@@ -46,7 +46,7 @@ $(document).ready(function(){
 <div class="clear"></div>
     </div><!--admintop-->
     </div>
-	<div data-options="region:'west',split:true,title:'导航菜单'" style="width:180px;">
+	<div data-options="region:'west',split:true,title:'导航菜单'" style="width:200px;">
 		<div class="easyui-accordion sider" data-options="fit:true,border:false">
 <!--//左侧菜单导航-->
 	<include file="lefter" />
@@ -54,15 +54,16 @@ $(document).ready(function(){
 		</div><!--accordion-->
         
     </div><!--west-->
-	<div data-options="region:'east',split:true,collapsed:false,title:'公告及官方微博'" style="width:180px;padding:10px;">east region</div>
+	<div data-options="region:'east',split:true,collapsed:false,title:'公告及官方微博'" style="width:220px;padding:10px;">east region</div>
 	<div data-options="region:'south',split:false,border:false" style="height:50px;padding:10px; text-align:center;">dingcms版权south region<br/>hualo.net开发团队</div>
 <!--//主体内容部分-->
 	<div data-options="region:'center'">
     <div id="tabs" class="easyui-tabs"  fit="true" border="false"  >
-			<div title="首页" style="padding:20px;overflow:hidden; color:red; " >
+			<div title="首页" style="padding:10px;overflow:hidden; " >
+<include file="windows"/>
 			</div>
             
-			<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; " data-options="iconCls:'icon-reload',closable:true" >
+			<div title="欢迎使用" style="padding:10px;overflow:hidden; color:red; " data-options="iconCls:'icon-reload',closable:true" >
 			</div>
 		</div>
     </div><!--center-->
