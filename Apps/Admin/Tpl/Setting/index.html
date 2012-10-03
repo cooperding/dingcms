@@ -1,5 +1,5 @@
 <div class="pagecontent">
-    <form action="__APP__/Setting/batchupdate" id="form" method="post">
+    <form action="__APP__/Setting/batchupdate" id="dform" method="post">
         <div class="easyui-tabs" data-options="tools:'.setting-tools'" style="width:auto;height:auto;">
 
             <volist name="list" id="vo">
@@ -60,47 +60,6 @@
     <script>
         $(function(){
             $('.tt').datagrid({});
-            $('.button').click(function(){
-                var url = $("#form").attr('action');
-                //alert(url);
-                $('#form').form('submit',{				
-                    url:url,
-                    onSubmit:function(){
-                        //$('#dialog').dialog('refresh', '__APP__/Setting/add');
-                        //alert(url); 
-                        //$('#dialog').dialog('close');
-                    },
-                    success:function(data){
-                        alert(data);
-                        if(data==1){
-                            $.messager.alert('信息提示','变量名已经存在!','error');
-                        }else if(data==2){
-                            $.messager.show({
-                                title:'信息提示',
-                                msg:'添加修改成功!',
-                                timeout:5000,
-                                showType:'slide'
-                            });
-                            $('#dialog').dialog('refresh', href);
-                        }else if(data==3){
-                            $.messager.show({
-                                title:'信息提示',
-                                msg:'添加修改失败!',
-                                timeout:5000,
-                                showType:'slide'
-                            });
-                        }else{
-                            $.messager.show({
-                                title:'信息提示',
-                                msg:'未修改信息!',
-                                timeout:5000,
-                                showType:'slide'
-                            });
-                        }
-                    }
-                }); 
-	
-            });
     
     
             $('.dialog').click(function(){
@@ -110,57 +69,33 @@
                     href:href,
                     width:600,
                     height:400,
-                    title:title, 
+                    title:title,
+                    modal:true,
+                    resizable:true,
+                    collapsible:true,
                     buttons:[{
                             text:'保存',
                             iconCls:'icon-ok',
                             handler:function(){
-                                var url = $("#form").attr('action');
-                                alert(url);
-                                $('#form').form('submit',{				
-                                    url:url,
-                                    onSubmit:function(){
-                                        //$('#dialog').dialog('refresh', '__APP__/Setting/add');
-                                        //alert(url); 
-                                        //$('#dialog').dialog('close');
-                                    },
-                                    success:function(data){
-                                        //alert(data);
-                                        if(data==1){
-                                            $.messager.alert('信息提示','变量名已经存在!','error');
-                                        }else if(data==2){
-                                            $.messager.show({
-                                                title:'信息提示',
-                                                msg:'添加修改成功!',
-                                                timeout:5000,
-                                                showType:'slide'
-                                            });
-                                            $('#dialog').dialog('refresh', href);
-                                        }else if(data==3){
-                                            $.messager.show({
-                                                title:'信息提示',
-                                                msg:'添加修改失败!',
-                                                timeout:5000,
-                                                showType:'slide'
-                                            });
-                                        }else{
-                                            $.messager.show({
-                                                title:'信息提示',
-                                                msg:'未修改信息!',
-                                                timeout:5000,
-                                                showType:'slide'
-                                            });
-                                        }
-                                    }
-                                }); 
+                                var formid = '#form';
+                                var url = $(formid).attr('action');
+                                submitform(formid,url);
                             }
-                        }]
+                        }
+                        /*,{
+                            text:'取消',
+                            handler:function(){
+                                $('.opendialog').dialog('close');
+                            }
+                        }*/
+                        ]
+                    
                 });
-                $('#dialog').dialog('refresh', href); 	
+               $('#dialog').dialog('refresh', href); 	
             });
         })
     </script>
-    <div id="dialog" data-options="iconCls:'icon-save'">
+    <div id="dialog" class="opendialog" data-options="iconCls:'icon-save'">
 
     </div>
 </div><!--pagecontent-->
