@@ -21,7 +21,8 @@ function submitform(formid,url){
                     timeout:5000,
                     showType:'slide'
                 });
-                $('#dialog').dialog('refresh', href);//此处需要调整
+               // $('#dialog').dialog('refresh', href);//此处需要调整
+                $('#dialog').dialog('close');
             }else if(data==3){
                 $.messager.show({
                     title:'信息提示',
