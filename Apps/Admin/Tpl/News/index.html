@@ -1,0 +1,74 @@
+<div class="pagecontent">
+
+    <table title="文章列表" id="newsindex" class="easyui-datagrid datagrid">
+        <thead>
+            <tr>
+                <th data-options="field:'cat_id',align:'center'" rowspan="2" width="50">cat_id</th>
+                <th data-options="field:'cat_name'" width="200">cat_name</th>
+                <th data-options="field:'parent_id'" width="200">parent_id</th>
+                <th data-options="field:'myorder'" width="200">myorder</th>
+                <th data-options="field:'do'" width="80">操作</th>
+            </tr>
+        </thead>
+    </table>
+
+
+
+
+    <script>
+        $(function(){
+            $('#newsindex').datagrid({
+                url:'__APP__/News/json?id=12555553',
+                idField:'cat_id',
+                //treeField:'cat_name',
+                pagination:true,
+                rownumbers:true,
+                fitColumns:true,
+                checkbox:true,
+                //autoRowHeight:false,
+                //showFooter:true,
+                //singleSelect:true,
+                height:460,
+                frozenColumns:[[
+                        {field:'ck',checkbox:true}
+                    ]],
+                //                columns:[[
+                //                    {field:'myorder',title:'Operation',width:100,align:'center', rowspan:1,
+                //                        formatter:function(value,rec){
+                //                            return '<span style="color:red">编辑</span>';
+                //                        }
+                //                    }
+                //                ]],
+                toolbar:[{
+                        id:'newsindexbtnadd',
+                        text:'添加',
+                        iconCls:'icon-add',
+                        handler:function(){
+                            $('#btnsave').linkbutton('enable');
+                            alert('add')
+                        }
+                    },'-',{
+                        id:'newsindexbtncancel',
+                        text:'删除',
+                        iconCls:'icon-cancel',
+                        handler:function(){
+                            //$('#btnsave').linkbutton('enable');
+                            var ids = [];
+                            var rows = $('#newsindex').datagrid('getSelections');
+                            for(var i=0;i<rows.length;i++){
+                                ids.push(rows[i].cat_id);
+                            }
+                            //alert('cancel');
+                            alert(ids.join(','));
+                        }
+                    }
+                ]
+            });
+            
+           
+        })
+    </script>
+    <div id="dialog" data-options="iconCls:'icon-save'">
+
+    </div>
+</div><!--pagecontent-->

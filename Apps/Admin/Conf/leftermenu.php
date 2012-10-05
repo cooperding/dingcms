@@ -26,8 +26,8 @@ $array= array(
        	array('label'=>'信息中心','type'=>'content','items' =>array(
               array('label' =>'文章管理','type'=>'setting','items' =>array(
                     array('label' => '添加文章','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '文章列表','type'=>'setting','link' => 'www.baidu.com'),
-                    array('label' => '文章分类栏目','type'=>'setting','link' => 'www.baidu.com'),
+                    array('label' => '文章列表','type'=>'setting','link' => __APP__.'/News/index'),
+                    array('label' => '文章分类栏目','type'=>'setting','link' => __APP__.'/NewsCat/index'),
                     array('label' => '文章回收站','type'=>'setting','link' => 'www.baidu.com')
               )),
               array('label' =>'产品管理','type'=>'setting','items' =>array(

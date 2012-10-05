@@ -18,7 +18,7 @@
  * @subpackage  admin Action
  * @author    正侠客 <lookcms@gmail.com>
  */
-class NavAction extends AdminAction {
+class NewsCatAction extends AdminAction {
 
     //进入页面
     public function index() {
@@ -62,11 +62,11 @@ class NavAction extends AdminAction {
         echo json_encode($b);
         */
         //print_r($a);
-        $this->display();
+        $this->display('../News/cat');
     }
 
     public function json() {
-        $m = M('NavCat');
+        $m = M('NewsCat');
         $list = $m->select();
         $navcatCount = $m->count("cat_id");
         $a = array();
