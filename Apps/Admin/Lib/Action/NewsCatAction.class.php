@@ -62,9 +62,16 @@ class NewsCatAction extends AdminAction {
         echo json_encode($b);
         */
         //print_r($a);
-        $this->display('../News/cat');
+//        $this->display('../News/cat');
+        $this->display();
+    }
+    public function add(){
+        $this->display();
     }
 
+    public function edit(){
+        $this->display();
+    }
     public function json() {
         $m = M('NewsCat');
         $list = $m->select();

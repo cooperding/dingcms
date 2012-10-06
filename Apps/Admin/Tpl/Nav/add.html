@@ -1,21 +1,27 @@
-<form action="">
+<div class="pageform">
+<form action="__APP__/Nav/insert" id="formnav" method="post">
 <ul>
 <li>
-<label>变量名</label><input type="text" name="" value="" />
+<label>分类名：</label>
+<p><input type="text" name="sys_name" value="" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
 </li>
 <li>
-<label>变量名</label><input type="text" name="" value="" />
+<label>分类分组：</label>
+<p><html:select selected="" options="select" name="sys_gid" first="请选择所属分组" /></p
 </li>
 <li>
-<label>变量名</label><input type="text" name="" value="" />
+<label>变量类型：</label>
+<p><html:radio name="sys_type" checked="text" radios="radios" /></p>
 </li>
 <li>
-<label>变量名</label><input type="text" name="" value="" />
+<label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30"></textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
 </li>
 <li>
-<label>变量名</label><input type="text" name="" value="" />
+<label>参数说明;</label><p><input type="text" name="sys_info" value="" /></p>
 </li>
-
-
+<li>
+<label>排序：</label><p><input type="text" name="myorder" value="" /></p>
+</li>
 </ul>
 </form>
+</div>

@@ -62,42 +62,15 @@
     <script>
         $(function(){
             $('.tt').datagrid({});
-    
-    
             $('.dialog').click(function(){
                 var title = $(this).attr('rel');
                 var href = $(this).attr('ref');
-                $('#dialog').dialog({
-                    href:href,
-                    width:600,
-                    height:400,
-                    title:title,
-                    modal:true,
-                    resizable:true,
-                    collapsible:true,
-                    buttons:[{
-                            text:'保存',
-                            iconCls:'icon-ok',
-                            handler:function(){
-                                var formid = '#form';
-                                var url = $(formid).attr('action');
-                                submitform(formid,url);
-                            }
-                        }
-                        /*,{
-                            text:'取消',
-                            handler:function(){
-                                $('.opendialog').dialog('close');
-                            }
-                        }*/
-                        ]
-                    
-                });
-               $('#dialog').dialog('refresh', href); 	
+                var classId = 'setting';
+                openDialog(classId,href,title);
             });
         })
     </script>
-    <div id="dialog" class="opendialog" data-options="iconCls:'icon-save'">
+    <div id="dialogsetting" data-options="iconCls:'icon-save'">
 
     </div>
 </div><!--pagecontent-->

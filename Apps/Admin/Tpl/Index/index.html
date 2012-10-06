@@ -6,8 +6,6 @@
             $('.sider li a').click(function(){
                 var subtitle = $(this).text();
                 var url = $(this).attr('href');
-                //addTab(subtitle, url);
-                
                 if(!$('#tabs').tabs('exists',subtitle)){
                     $('#tabs').tabs('add',{
                         title:subtitle,
@@ -63,7 +61,7 @@
     <div data-options="region:'east',split:true,collapsed:false,title:'公告及官方微博'" style="width:220px;padding:10px;">east region</div>
     <div data-options="region:'south',split:false,border:false" style="height:50px;padding:10px; text-align:center;">dingcms版权south region<br/>hualo.net开发团队</div>
     <!--//主体内容部分-->
-    <div data-options="region:'center'">
+    <div data-options="region:'center'" class="indexcenter">
         <div id="tabs" class="easyui-tabs"  fit="true" border="false"  >
             <div title="首页" style="padding:10px;overflow:hidden; " >
                 <include file="windows"/>

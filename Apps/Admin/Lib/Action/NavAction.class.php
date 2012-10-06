@@ -64,6 +64,14 @@ class NavAction extends AdminAction {
         //print_r($a);
         $this->display();
     }
+    
+    public function add(){
+        $this->display();
+    }
+    public function edit(){
+        echo $_GET['id'];
+        $this->display();
+    }
 
     public function json() {
         $m = M('NavCat');
