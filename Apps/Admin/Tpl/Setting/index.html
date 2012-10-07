@@ -61,7 +61,9 @@
 
     <script>
         $(function(){
-            $('.tt').datagrid({});
+            $('.tt').datagrid({
+                singleSelect:true
+            });
             $('.dialog').click(function(){
                 var title = $(this).attr('rel');
                 var href = $(this).attr('ref');
