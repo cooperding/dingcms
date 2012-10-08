@@ -18,7 +18,7 @@
  * @subpackage  admin Action
  * @author    正侠客 <lookcms@gmail.com>
  */
-class NavAction extends AdminAction {
+class NavHeadAction extends AdminAction {
 
     //进入页面
     public function index() {
@@ -29,29 +29,32 @@ class NavAction extends AdminAction {
         $this->display();
     }
     public function edit(){
-        $m = M('NavCat');
-        $data = $m->where('cat_id='.intval($_GET['id']))->select();
-        
-        echo '<pre>';
-        //echo $m->getLastSql();
-        print_r($data);
+        $m = M('NavHead');
+        $data = $m->where('id='.intval($_GET['id']))->select();
         $this->assign('data',$data);
         $this->display();
     }
 
     public function json() {
-        $m = M('NavCat');
+        $m = M('NavHead');
         $list = $m->select();
-        $navcatCount = $m->count("cat_id");
+        $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {
             $a[$k] = $v;
-            $a[$k]['_parentId'] = intval($v['parent_id']);
+            $a[$k]['_parentId'] = intval($v['parent_id']);//_parentId为easyui中标识父id
         }
         $array = array();
         $array['total'] = $navcatCount;
         $array['rows'] = $a;
         echo json_encode($array);
+    }
+    public function jsonTree(){
+        Load('extend');
+        $m = M('NavHead');
+        $tree = $m->field('id,parent_id,text')->select();
+        $tree = list_to_tree($tree,'id','parent_id','children');
+        echo json_encode($tree);
     }
 
 }

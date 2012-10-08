@@ -4,10 +4,11 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('.sider li a').click(function(){
+                var classId = 'index';
                 var subtitle = $(this).text();
                 var url = $(this).attr('href');
-                if(!$('#tabs').tabs('exists',subtitle)){
-                    $('#tabs').tabs('add',{
+                if(!$('#tabs'+classId).tabs('exists',subtitle)){
+                    $('#tabs'+classId).tabs('add',{
                         title:subtitle,
                         content:subtitle,
                         closable:true,
@@ -15,13 +16,13 @@
                         tools:[{
                                 iconCls:'icon-mini-refresh',
                                 handler:function(){
-                                    updateTab(url);
+                                    updateTab(classId,url,subtitle);
                                 }
                             }]
                     });
                     return false;
                 }else{
-                    $('#tabs').tabs('select',subtitle);
+                    $('#tabs'+classId).tabs('select',subtitle);
                     //var tab = $('#tabs').tabs('getSelected');  // get selected panel
                     //tab.panel('refresh', url);
                     //updateTab(url);
@@ -62,7 +63,7 @@
     <div data-options="region:'south',split:false,border:false" style="height:50px;padding:10px; text-align:center;">dingcms版权south region<br/>hualo.net开发团队</div>
     <!--//主体内容部分-->
     <div data-options="region:'center'" class="indexcenter">
-        <div id="tabs" class="easyui-tabs"  fit="true" border="false"  >
+        <div id="tabsindex" class="easyui-tabs"  fit="true" border="false"  >
             <div title="首页" style="padding:10px;overflow:hidden; " >
                 <include file="windows"/>
             </div>

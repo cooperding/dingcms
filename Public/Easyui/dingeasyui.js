@@ -47,15 +47,10 @@ function submitForm(classId){
     }); 
 }
 /*更新tab功能*/
-function updateTab(url){
-    var tab = $('#tabs').tabs('getSelected');
-    $("#tabs").tabs('update',{
-        tab: tab,
-        options: {
-            href: url
-        }
-    });
-    tab.panel('refresh');
+function updateTab(classId,url,subtitle){
+    $('#tabs'+classId).tabs('select',subtitle);
+    var tab = $('#tabs'+classId).tabs('getSelected');  // get selected panel
+    tab.panel('refresh', url);
 }
 /*
  *openDialog 弹出框
@@ -72,6 +67,7 @@ function openDialog(classId,href,title){
         modal:true,
         resizable:true,
         collapsible:true,
+        maximizable:true,
         buttons:[{
             text:'保存',
             iconCls:'icon-ok',
@@ -126,8 +122,8 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
     var height = $('.indexcenter').height();
     $('#index'+classId).treegrid({
         url:urljson,
-        idField:'cat_id',
-        treeField:'cat_name',
+        idField:'id',
+        treeField:'text',
         pagination:true,
         rownumbers:true,
         fitColumns:true,
@@ -168,4 +164,7 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
         }
         ]
     });         
+}
+function openDatagrid(){
+    
 }

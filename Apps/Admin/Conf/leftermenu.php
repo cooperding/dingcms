@@ -9,7 +9,7 @@ defined('THINK_PATH') or exit();
 $array= array(
        	array('label'=>'系统设置','type'=>'setting','items' =>array(
               array('label' =>'导航设置','type'=>'setting','items' =>array(
-                    array('label' => '网站导航','type'=>'nav','link' => __APP__.'/Nav/index'),
+                    array('label' => '网站导航','type'=>'nav','link' => __APP__.'/NavHead/index'),
                     array('label' => '底部导航','type'=>'setting','link' => __APP__.'/Login/add')
               )),
               array('label' =>'数据管理','type'=>'setting','items' =>array(

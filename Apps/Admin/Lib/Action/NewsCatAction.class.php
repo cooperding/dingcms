@@ -75,7 +75,7 @@ class NewsCatAction extends AdminAction {
     public function json() {
         $m = M('NewsCat');
         $list = $m->select();
-        $navcatCount = $m->count("cat_id");
+        $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {
             $a[$k] = $v;
@@ -85,31 +85,6 @@ class NewsCatAction extends AdminAction {
         $array = array();
         $array['total'] = $navcatCount;
         $array['rows'] = $a;
-        
-        /*
-        $id = $_GET['id'];
-        $array = array(
-            'total' => '9',
-            'rows' => array(array(
-                    'id' => 1,
-                    'code' => 'code1',
-                    'name' => 'name1',
-                    'addr' => $id,
-                    '_parentId' => 0
-                ), array(
-                    'id' => 2,
-                    'code' => 'code1',
-                    'name' => 'name1',
-                    'addr' => $id,
-                    '_parentId' => 1
-                ), array(
-                    'id' => 3,
-                    'code' => 'code1',
-                    'name' => 'name1',
-                    'addr' => $id
-                )
-                ));
-*/
         echo json_encode($array);
     }
 

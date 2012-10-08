@@ -3,8 +3,8 @@
     <table title="网站导航" id="indexnav" class="easyui-treegrid treegrid">
         <thead>
             <tr>
-                <th data-options="field:'cat_id',editor:'text',align:'center'" rowspan="2" width="50">cat_id</th>
-                <th data-options="field:'cat_name',editor:'text'" width="200">cat_name</th>
+                <th data-options="field:'id',editor:'text',align:'center'" rowspan="2" width="50">id</th>
+                <th data-options="field:'text',editor:'text'" width="200">text</th>
                 <th data-options="field:'parent_id',editor:'text'" width="200">parent_id</th>
                 <th data-options="field:'myorder',editor:'text'" width="200">myorder</th>
             </tr>
@@ -17,9 +17,9 @@
     <script>
         $(function(){
             var classId = 'nav';
-            var urljson = '__APP__/Nav/json?id=12555553';
-            var hrefadd = '__APP__/Nav/add';
-            var hrefedit = '__APP__/Nav/edit';
+            var urljson = '__APP__/NavHead/json';
+            var hrefadd = '__APP__/NavHead/add';
+            var hrefedit = '__APP__/NavHead/edit';
             openTreeGrid(classId,urljson,hrefadd,hrefedit);
         })
     </script>
