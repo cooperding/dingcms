@@ -30,7 +30,7 @@ class NavHeadAction extends AdminAction {
     }
     public function edit(){
         $m = M('NavHead');
-        $data = $m->where('id='.intval($_GET['id']))->select();
+        $data = $m->where('id='.intval($_GET['id']))->find();
         $this->assign('data',$data);
         $this->display();
     }

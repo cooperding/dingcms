@@ -145,8 +145,8 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
             iconCls:'icon-edit',
             handler:function(){
                 var selected = $('#index'+classId).datagrid('getSelected');
-                var cat_id = selected.cat_id;
-                var href = hrefedit+'?id='+cat_id;
+                var id = selected.id;
+                var href = hrefedit+'?id='+id;
                 var title = '编辑信息';
                 openDialog(classId,href,title);
             }
@@ -156,8 +156,8 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
             iconCls:'icon-cancel',
             handler:function(){
                 var selected = $('#index'+classId).datagrid('getSelected');
-                var cat_id = selected.cat_id;
-                var href = hrefcancel+'?id='+cat_id;
+                var id = selected.id;
+                var href = hrefcancel+'?id='+id;
                 var title = '删除信息';
                 openDialog(classId,href,title);
             }

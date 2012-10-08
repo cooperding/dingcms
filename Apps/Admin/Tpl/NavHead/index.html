@@ -1,6 +1,6 @@
 <div class="pagecontent">
 
-    <table title="网站导航" id="indexnav" class="easyui-treegrid treegrid">
+    <table title="网站导航" id="indexnavhead" class="easyui-treegrid treegrid">
         <thead>
             <tr>
                 <th data-options="field:'id',editor:'text',align:'center'" rowspan="2" width="50">id</th>
@@ -16,14 +16,14 @@
 
     <script>
         $(function(){
-            var classId = 'nav';
+            var classId = 'navhead';
             var urljson = '__APP__/NavHead/json';
             var hrefadd = '__APP__/NavHead/add';
             var hrefedit = '__APP__/NavHead/edit';
             openTreeGrid(classId,urljson,hrefadd,hrefedit);
         })
     </script>
-    <div id="dialognav" data-options="iconCls:'icon-save'">
+    <div id="dialognavhead" data-options="iconCls:'icon-save'">
 
     </div>
 </div><!--pagecontent-->

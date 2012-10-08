@@ -7,6 +7,10 @@ $miniConfig = array (
     'DEBUG_MODE'    =>	false,
     'DEFAULT_ACTION'=>'index',
     'TAGLIB_PRE_LOAD'=> 'html',
+    'LANG_SWITCH_ON'=>true,
+    'DEFAULT_LANG'=>'zh-cn',
+    'LANG_AUTO_DETECT'=>false,
+    //'LANG_LIST'=>'zh-cn,zh-tw',
 		/*
 		APP_NAME=>array(
 		  "stringcount" => "150",
