@@ -38,7 +38,7 @@ function submitForm(classId){
             }else{
                 $.messager.show({
                     title:'信息提示',
-                    msg:'未修改信息!',
+                    msg:'{:L("add")}!',
                     timeout:5000,
                     showType:'slide'
                 });

@@ -51,7 +51,7 @@
             <div class="clear"></div>
         </div><!--admintop-->
     </div>
-    <div data-options="region:'west',split:true,title:'导航菜单'" style="width:200px;">
+    <div data-options="region:'west',split:true,title:'{:L('menu_name')}'" style="width:200px;">
         <div class="easyui-accordion sider" data-options="fit:true,border:false">
             <!--//左侧菜单导航-->
             <include file="lefter" />
@@ -64,11 +64,11 @@
     <!--//主体内容部分-->
     <div data-options="region:'center'" class="indexcenter">
         <div id="tabsindex" class="easyui-tabs"  fit="true" border="false"  >
-            <div title="首页" style="padding:10px;overflow:hidden; " >
+            <div title="{:L('home')}" style="padding:10px;overflow:hidden; " >
                 <include file="windows"/>
             </div>
 
-            <div title="欢迎使用" style="padding:10px;overflow:hidden; color:red; " data-options="iconCls:'icon-reload',closable:true" >
+            <div title="{:L('welcome')}" style="padding:10px;overflow:hidden; color:red; " data-options="iconCls:'icon-reload',closable:true" >
             </div>
         </div>
     </div><!--center-->

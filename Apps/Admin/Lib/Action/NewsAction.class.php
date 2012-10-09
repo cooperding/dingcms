@@ -67,7 +67,7 @@ class NewsAction extends AdminAction {
 
     public function json() {
         
-        $m = M('NavCat');
+        $m = M('NavHead');
         $list = $m->select();
         $navcatCount = $m->count("id");
         $a = array();

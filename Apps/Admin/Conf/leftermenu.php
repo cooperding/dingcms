@@ -1,72 +1,62 @@
 <?php
-//由ThinkPHP工具箱生成的配置文件
-
+//menu菜单
 defined('THINK_PATH') or exit();
-
-
-
-
 $array= array(
-       	array('label'=>'系统设置','type'=>'setting','items' =>array(
-              array('label' =>'导航设置','type'=>'setting','items' =>array(
-                    array('label' => '网站导航','type'=>'nav','link' => __APP__.'/NavHead/index'),
-                    array('label' => '底部导航','type'=>'setting','link' => __APP__.'/Login/add')
+       	array('label'=>L('menu_sys_name'),'type'=>'sys_name','items' =>array(
+              array('label' =>L('menu_nav_name'),'type'=>'nav_name','items' =>array(
+                    array('label' => L('menu_nav_head'),'type'=>'nav_head','link' => __APP__.'/NavHead/index'),
+                    array('label' => L('menu_nav_foot'),'type'=>'nav_foot','link' => __APP__.'/Login/add')
               )),
-              array('label' =>'数据管理','type'=>'setting','items' =>array(
-                    array('label' => '数据恢复','type'=>'datahuifu','link' => __APP__.'/Setting/index'),
-                    array('label' => '数据备份','type'=>'databeifen','link' =>  __APP__.'/Setting/index'),
-                    array('label' => '数据备份删除','type'=>'datadelete','link' =>  __APP__.'/Setting/index'),
-                    array('label' => '数据工具','type'=>'datatools','link' =>  __APP__.'/Setting/index'),
-
+              array('label' =>L('menu_data_name'),'type'=>'data_name','items' =>array(
+                    array('label' => L('menu_data_recover'),'type'=>'data_recover','link' => __APP__.'/Setting/index'),
+                    array('label' => L('menu_data_backup'),'type'=>'data_backup','link' =>  __APP__.'/Setting/index'),
+                    array('label' => L('menu_data_backup_del'),'type'=>'data_backup_del','link' =>  __APP__.'/Setting/index'),
+                    array('label' => L('menu_data_tool'),'type'=>'data_tool','link' =>  __APP__.'/Setting/index'),
               )),
-              array('label' =>'系统设置','type'=>'sysconf','items' =>array(
-                    array('label' => '基本参数设置','type'=>'basesysconf','link' => __APP__.'/Setting/index'),
-              )),
-        )),
-       	array('label'=>'信息中心','type'=>'content','items' =>array(
-              array('label' =>'文章管理','type'=>'setting','items' =>array(
-                    array('label' => '添加文章','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '文章列表','type'=>'setting','link' => __APP__.'/News/index'),
-                    array('label' => '文章分类栏目','type'=>'setting','link' => __APP__.'/NewsCat/index'),
-                    array('label' => '文章回收站','type'=>'setting','link' => 'www.baidu.com')
-              )),
-              array('label' =>'产品管理','type'=>'setting','items' =>array(
-                    array('label' => '添加产品','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '产品列表','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '产品分类栏目','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '产品回收站','type'=>'setting','link' => 'www.baidu.com')
-              )),
-              array('label' =>'留言管理','type'=>'setting','items' =>array(
-                    array('label' => '留言信息','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '留言设置','type'=>'sss','link' => 'www.baidu.com'),
-              )),
-              array('label' =>'评论管理','type'=>'setting','items' =>array(
-                    array('label' => '评论信息','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '评论设置','type'=>'sss','link' => 'www.baidu.com'),
-              )),
-              array('label' =>'单页管理','type'=>'setting','items' =>array(
-                    array('label' => '单页文档','type'=>'sss','link' => 'www.baidu.com'),
-              )),
-              array('label' =>'碎片文档','type'=>'setting','items' =>array(
-                    array('label' => '添加碎片','type'=>'sss','link' => 'www.baidu.com'),
-                    array('label' => '碎片列表','type'=>'setting','link' => 'www.baidu.com'),
-                    array('label' => '碎片分类','type'=>'setting','link' => 'www.baidu.com')
+              array('label' =>L('menu_setting_name'),'type'=>'setting_name','items' =>array(
+                    array('label' => L('menu_setting_base'),'type'=>'setting_base','link' => __APP__.'/Setting/index'),
               )),
         )),
-
-       	array('label'=>'用户管理','type'=>'user','items' =>array(
-              array('label' =>'用户管理','type'=>'setting','items' =>array(
-                    array('label' => '个人资料','type'=>'adddbc','link' => 'www.baidu.com'),
-                    array('label' => '后台用户列表','type'=>'setting','link' => 'www.baidu.com'),
-                    array('label' => '前台会员列表','type'=>'setting','link' => 'www.baidu.com'),
+       	array('label'=>L('menu_info_name'),'type'=>'info_name','items' =>array(
+              array('label' =>L('menu_news_name'),'type'=>'news_name','items' =>array(
+                    array('label' => L('menu_news_list'),'type'=>'news_list','link' => __APP__.'/News/index'),
+                    array('label' => L('menu_news_cat'),'type'=>'news_cat','link' => __APP__.'/NewsCat/index'),
+                    array('label' => L('menu_news_recycle'),'type'=>'news_recycle','link' => 'www.baidu.com')
               )),
-              array('label' =>'后台权限管理','type'=>'setting','items' =>array(
-                    array('label' => '后台权限分类','type'=>'adddbc','link' => 'www.baidu.com'),
-                    array('label' => '后台权限列表','type'=>'setting','link' => 'www.baidu.com')
+              array('label' =>L('menu_product_name'),'type'=>'product_name','items' =>array(
+                    array('label' => L('menu_product_list'),'type'=>'product_list','link' => 'www.baidu.com'),
+                    array('label' => L('menu_product_cat'),'type'=>'product_cat','link' => 'www.baidu.com'),
+                    array('label' => L('menu_product_recycle'),'type'=>'product_recycle','link' => 'www.baidu.com')
               )),
-              array('label' =>'前台权限管理','type'=>'setting','items' =>array(
-                    array('label' => '基础设置','type'=>'adddbc','link' => 'www.baidu.com'),
-                    array('label' => '基础设置','type'=>'setting','link' => 'www.baidu.com')
+              array('label' =>L('menu_message_name'),'type'=>'message_name','items' =>array(
+                    array('label' => L('menu_message_list'),'type'=>'message_list','link' => 'www.baidu.com'),
+                    array('label' => L('menu_message_setting'),'type'=>'message_setting','link' => 'www.baidu.com'),
+              )),
+              array('label' =>L('menu_comment_name'),'type'=>'comment_name','items' =>array(
+                    array('label' => L('menu_comment_list'),'type'=>'comment_list','link' => 'www.baidu.com'),
+                    array('label' => L('menu_comment_setting'),'type'=>'comment_setting','link' => 'www.baidu.com'),
+              )),
+              array('label' =>L('menu_singlepage_name'),'type'=>'singlepage_name','items' =>array(
+                    array('label' => L('menu_singlepage_list'),'type'=>'singlepage_list','link' => 'www.baidu.com'),
+              )),
+              array('label' =>L('menu_block_name'),'type'=>'block_name','items' =>array(
+                    array('label' => L('menu_block_list'),'type'=>'block_list','link' => 'www.baidu.com'),
+                    array('label' => L('menu_block_cat'),'type'=>'block_cat','link' => 'www.baidu.com')
+              )),
+        )),
+       	array('label'=>L('menu_user_name'),'type'=>'user_name','items' =>array(
+              array('label' =>L('menu_member_name'),'type'=>'member_name','items' =>array(
+                    array('label' => L('menu_member_perinfo'),'type'=>'member_perinfo','link' => 'www.baidu.com'),
+                    array('label' => L('menu_member_adminlist'),'type'=>'member_adminlist','link' => 'www.baidu.com'),
+                    array('label' => L('menu_member_frontlist'),'type'=>'member_frontlist','link' => 'www.baidu.com'),
+              )),
+              array('label' =>L('menu_backcom_name'),'type'=>'backcom_name','items' =>array(
+                    array('label' => L('menu_backcom_cat'),'type'=>'backcom_cat','link' => 'www.baidu.com'),
+                    array('label' => L('menu_backcom_list'),'type'=>'backcom_list','link' => 'www.baidu.com')
+              )),
+              array('label' =>L('menu_frontcom_name'),'type'=>'frontcom_name','items' =>array(
+                    array('label' => L('menu_frontcom_cat'),'type'=>'frontcom_cat','link' => 'www.baidu.com'),
+                    array('label' => L('menu_frontcom_list'),'type'=>'frontcom_list','link' => 'www.baidu.com')
               )),
         )),
 

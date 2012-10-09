@@ -17,6 +17,7 @@
 
     <script>
         $(function(){
+            var height = $('.indexcenter').height();
             $('#newsindex').datagrid({
                 url:'__APP__/News/json',
                 idField:'id',
@@ -28,7 +29,7 @@
                 //autoRowHeight:false,
                 //showFooter:true,
                 //singleSelect:true,
-                height:460,
+                height:height-50,
                 frozenColumns:[[
                         {field:'ck',checkbox:true}
                     ]],
@@ -49,14 +50,14 @@
                         }
                     },'-',{
                         id:'newsindexbtncancel',
-                        text:'删除',
+                        text:'放入回收站',
                         iconCls:'icon-cancel',
                         handler:function(){
                             //$('#btnsave').linkbutton('enable');
                             var ids = [];
                             var rows = $('#newsindex').datagrid('getSelections');
                             for(var i=0;i<rows.length;i++){
-                                ids.push(rows[i].cat_id);
+                                ids.push(rows[i].id);
                             }
                             //alert('cancel');
                             alert(ids.join(','));
