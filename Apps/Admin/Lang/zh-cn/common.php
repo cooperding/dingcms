@@ -60,10 +60,13 @@ return array(
     //开发工具
     'menu_' => '',
     'site_name' => '我的网站',
-    'site_keywords' => '网站,SEO',
+    'cat_root_name' => '--根目录--',
     'home' => '首页',
     'add' => '添加',
     'edit' => '编辑',
-    'welcome' => '欢迎使用CMS'
+    'welcome' => '欢迎使用CMS',
+    'keywords' => '关键词',
+    'description' => '描述',
+    'orderby' => '排序',
         )
 ?>

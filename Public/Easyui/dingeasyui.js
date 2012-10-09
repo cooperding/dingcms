@@ -16,7 +16,8 @@ function submitForm(classId){
         //$('#dialog').dialog('close');
         },
         success:function(data){
-            //alert(data);
+            alert(data);
+            return false;
             if(data==1){
                 $.messager.alert('信息提示','变量名已经存在!','error');
             }else if(data==2){
@@ -38,7 +39,7 @@ function submitForm(classId){
             }else{
                 $.messager.show({
                     title:'信息提示',
-                    msg:'{:L("add")}!',
+                    msg:'未修改信息',
                     timeout:5000,
                     showType:'slide'
                 });

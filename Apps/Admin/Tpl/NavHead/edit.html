@@ -8,21 +8,29 @@
             </li>
             <li>
                 <label>上级分组名：</label>
-                <p><input class="easyui-combotree " data-options="url:'__APP__/NavHead/jsonTree',required:true" value="{$data.parent_id}"  style="width:200px;"></p
+                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true" value="{$data.parent_id}"  style="width:200px;"></p
             </li>
             <li>
-                <label>关键词{$Think.lang.site_keywords}：</label>
+                <label>{:L("keywords")}：</label>
                 <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
             </li>
             <li>
-                <label>描述：{:L("site_name")}</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
+                <label>{:L("description")}：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
             </li>
             <li>
                 <label>参数说明;</label><p><input type="text" name="sys_info" value="{$list.sys_info}" /></p>
             </li>
             <li>
-                <label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
+                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
             </li>
         </ul>
     </form>
 </div>
+    <script>
+        $(function(){
+            $('.combotree').combotree('loadData',[{
+                    id: 0   ,
+                    text: 'Languages'
+            }]);
+        })
+    </script>

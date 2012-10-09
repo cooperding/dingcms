@@ -34,6 +34,13 @@ class NavHeadAction extends AdminAction {
         $this->assign('data',$data);
         $this->display();
     }
+    public function insert(){
+        
+    }
+    public function update(){
+        print_r($_POST);
+        exit;
+    }
 
     public function json() {
         $m = M('NavHead');
@@ -54,6 +61,7 @@ class NavHeadAction extends AdminAction {
         $m = M('NavHead');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree,'id','parent_id','children');
+        $tree = array_merge(array(array('id'=>0,'text'=>L('cat_root_name'))),$tree);
         echo json_encode($tree);
     }
 

@@ -60,8 +60,8 @@ $array= array(
               )),
         )),
 
-       	array('label'=>'模板设置','type'=>'themes','items' =>array(
-              array('label' =>'模板管理','type'=>'setting','items' =>array(
+       	array('label'=>'模板设置','type'=>'templet_name','items' =>array(
+              array('label' =>'模板管理','type'=>'templet_','items' =>array(
                     array('label' => '模板列表','type'=>'ffg','link' => 'www.baidu.com'),
                     array('label' => '基础设置','type'=>'setting','link' => 'www.baidu.com')
               )),
