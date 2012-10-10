@@ -49,6 +49,8 @@ function submitForm(classId){
 }
 /*更新tab功能*/
 function updateTab(classId,url,subtitle){
+    alert(url);
+    //return false;
     $('#tabs'+classId).tabs('select',subtitle);
     var tab = $('#tabs'+classId).tabs('getSelected');  // get selected panel
     tab.panel('refresh', url);
@@ -59,7 +61,7 @@ function updateTab(classId,url,subtitle){
  *title 弹出窗口的标题
  */
 function openDialog(classId,href,title){
-    $('#dialogding').dialog({
+    $('#dialog'+classId).dialog({
         href:href,
         width:500,
         height:200,

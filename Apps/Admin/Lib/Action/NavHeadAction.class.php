@@ -39,10 +39,18 @@ class NavHeadAction extends AdminAction {
     public function insert() {
         //添加功能还需要验证数据不能为空的字段
         $m = M('NavHead');
-        if (intval($_POST['parent_id']) != 0) {
-            $data = $m->where('id=' . intval($_POST['parent_id']))->find();
-            $_POST['path'] = $data['path'] . intval($_POST['parent_id']) . ',';
+        $parent_id = intval($_POST['parent_id']);
+        if ($parent_id!= 0) {
+            $data = $m->where('id='.$parent_id)->find();
+            if($data['path']==','){
+                $_POST['path'] = $parent_id . ',';
+            }else{
+                $_POST['path'] = $data['path'].$parent_id . ',';
+            }
         }
+//        echo '<pre>';
+//        print_r($_POST);
+//        exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
@@ -59,17 +67,23 @@ class NavHeadAction extends AdminAction {
         $m = M('NavHead');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-//        if (intval($_POST['parent_id']) != 0) {
-//            $data = $m->where('id=' . intval($_POST['parent_id']))->find();
-//            $_POST['path'] = $data['path'] . intval($_POST['parent_id']) . ',';
-//        }
+        if ($parent_id!= 0) {
+            $data = $m->where('id='.$parent_id)->find();
+            if($data['path']==','){
+                $_POST['path'] = $parent_id . ',';
+            }else{
+                $_POST['path'] = $data['path'].$parent_id . ',';
+            }
+        }
+        echo 2;
+        echo '<pre>';
+        print_r($_POST);
+        exit;
         //先取得父级path 
         $data = $m->field('id,path')->where('id=' .$id)->find();
         $path = $data['path'];
         
-        echo '<pre>';
-        print_r($data);
-        exit;
+        
         //取得所有匹配的数据
         $tree = $m->field('id,parent_id,path')->where('path like %,'.$id.',% or parent_id='.$id)->select();
 
