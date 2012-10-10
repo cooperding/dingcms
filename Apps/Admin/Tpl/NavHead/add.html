@@ -1,27 +1,23 @@
 <div class="pageform">
-    <form action="__APP__/Nav/update" id="formnavhead" method="post">
-        <input type="hidden" name="sys_id" value="{$list.sys_id}" />
+    <form action="__APP__/NavHead/insert" id="formnavhead" method="post">
         <ul>
             <li>
-                <label>变量名：</label>
-                <p><input type="text" name="sys_name" value="{$list.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+                <label>分类名称：</label>
+                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
-                <label>所属分组：</label>
-                <p><input class="easyui-combotree " data-options="url:'__APP__/NavHead/jsonTree',required:true" value="0"  style="width:200px;"></p
+                <label>上级分组名：</label>
+                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true" value="0"  style="width:200px;"></p
             </li>
             <li>
-                <label>变量类型：</label>
-                <p><html:radio name="sys_type" radios="radios" checked="sys_type"/></p>
+                <label>{:L("keywords")}：</label>
+                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
             </li>
             <li>
-                <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$list.sys_value}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
+                <label>{:L("description")}：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
             </li>
             <li>
-                <label>参数说明;</label><p><input type="text" name="sys_info" value="{$list.sys_info}" /></p>
-            </li>
-            <li>
-                <label>排序：</label><p><input type="text" name="myorder" value="{$list.myorder}" /></p>
+                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
             </li>
         </ul>
     </form>

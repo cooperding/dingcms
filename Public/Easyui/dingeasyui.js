@@ -59,16 +59,17 @@ function updateTab(classId,url,subtitle){
  *title 弹出窗口的标题
  */
 function openDialog(classId,href,title){
-    $('#dialog'+classId).dialog({
+    $('#dialogding').dialog({
         href:href,
-        width:600,
-        height:400,
+        width:500,
+        height:200,
         resizable:true,
         title:title,
         modal:true,
         resizable:true,
         collapsible:true,
         maximizable:true,
+        cache: false,
         buttons:[{
             text:'保存',
             iconCls:'icon-ok',
@@ -77,7 +78,7 @@ function openDialog(classId,href,title){
             }
         }]	
     });
-    $('#dialog'+classId).dialog('refresh', href);
+    //$('#dialog'+classId).dialog('refresh', href);
 }
 function deleteConfirm(){
     

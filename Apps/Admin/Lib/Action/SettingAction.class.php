@@ -153,5 +153,8 @@ class SettingAction extends AdminAction {
             echo 3;
         }
     }
+    public function jsonTree(){
+        
+    }
 
 }
