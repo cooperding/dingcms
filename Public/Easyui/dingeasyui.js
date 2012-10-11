@@ -49,11 +49,12 @@ function submitForm(classId){
 }
 /*更新tab功能*/
 function updateTab(classId,url,subtitle){
-    alert(url);
+    //alert(url);
     //return false;
     $('#tabs'+classId).tabs('select',subtitle);
-    var tab = $('#tabs'+classId).tabs('getSelected');  // get selected panel
+    var tab = $('#tabs'+classId).tabs('getSelected');
     tab.panel('refresh', url);
+    closeCombo();
 }
 /*
  *openDialog 弹出框
@@ -67,7 +68,7 @@ function openDialog(classId,href,title){
         height:200,
         resizable:true,
         title:title,
-        modal:true,
+        // modal:true,
         resizable:true,
         collapsible:true,
         maximizable:true,
@@ -78,9 +79,23 @@ function openDialog(classId,href,title){
             handler:function(){
                 submitForm(classId);
             }
-        }]	
+        },{
+            text:'取消',
+            iconCls:'icon-canel',
+            handler:function(){
+                $('#dialog'+classId).dialog('close');
+                closeCombo();
+            }
+        }
+        ]	
     });
-    //$('#dialog'+classId).dialog('refresh', href);
+//$('#dialog'+classId).dialog('refresh', href);
+}
+function closeCombo(){
+    $('body.layoutindex>.combo-p').remove();
+    $('body.layoutindex>.window').remove();
+    $('body.layoutindex>.window-shadow').remove();
+    $('body.layoutindex>.window-mask').remove();
 }
 function deleteConfirm(){
     
@@ -172,3 +187,7 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
 function openDatagrid(){
     
 }
+$('.window').click(function(){
+    //$('a.panel-tool-close').click(function(){
+    alert('44444');
+});

@@ -40,6 +40,7 @@ class NavHeadAction extends AdminAction {
         //添加功能还需要验证数据不能为空的字段
         $m = M('NavHead');
         $parent_id = intval($_POST['parent_id']);
+        
         if ($parent_id!= 0) {
             $data = $m->where('id='.$parent_id)->find();
             if($data['path']==','){
@@ -48,9 +49,6 @@ class NavHeadAction extends AdminAction {
                 $_POST['path'] = $data['path'].$parent_id . ',';
             }
         }
-//        echo '<pre>';
-//        print_r($_POST);
-//        exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
