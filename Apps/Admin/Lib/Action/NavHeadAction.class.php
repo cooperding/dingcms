@@ -49,6 +49,11 @@ class NavHeadAction extends AdminAction {
                 $_POST['path'] = $data['path'].$parent_id . ',';
             }
         }
+        
+        //echo '<pre>';
+        $array = array('id'=>12,'msg'=>'ceshi');
+        echo json_encode($array);
+        exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
@@ -75,7 +80,7 @@ class NavHeadAction extends AdminAction {
         }
         echo 2;
         echo '<pre>';
-        print_r($_POST);
+        print_r(json_encode($_POST));
         exit;
         //先取得父级path 
         $data = $m->field('id,path')->where('id=' .$id)->find();

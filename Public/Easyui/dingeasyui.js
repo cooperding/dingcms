@@ -16,7 +16,8 @@ function submitForm(classId){
         //$('#dialog').dialog('close');
         },
         success:function(data){
-            alert(data);
+            var da = JSON.parse(data);
+            alert(da.msg+'=======dede===='+data);
             return false;
             if(data==1){
                 $.messager.alert('信息提示','变量名已经存在!','error');
@@ -84,7 +85,7 @@ function openDialog(classId,href,title){
             iconCls:'icon-canel',
             handler:function(){
                 $('#dialog'+classId).dialog('close');
-                closeCombo();
+                //closeCombo();
             }
         }
         ]	
