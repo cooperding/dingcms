@@ -16,34 +16,21 @@ function submitForm(classId){
         //$('#dialog').dialog('close');
         },
         success:function(data){
-            var da = JSON.parse(data);
-            alert(da.msg+'=======dede===='+data);
-            return false;
-            if(data==1){
-                $.messager.alert('信息提示','变量名已经存在!','error');
-            }else if(data==2){
+            var data = jQuery.parseJSON(data);
+            //alert(data.msg+'=======dede====');
+            //return false;
+            if(data.code==1){
+                $.messager.alert(data.msg,data.msg,'error');
+            }else if(data.code==2){
                 $.messager.show({
-                    title:'信息提示',
-                    msg:'添加修改成功!',
+                    title:data.msg,
+                    msg:data.msg,
                     timeout:5000,
                     showType:'slide'
                 });
-                // $('#dialog').dialog('refresh', href);//此处需要调整
-                $('#dialog'+classId).dialog('close');
-            }else if(data==3){
-                $.messager.show({
-                    title:'信息提示',
-                    msg:'添加修改失败!',
-                    timeout:5000,
-                    showType:'slide'
-                });
-            }else{
-                $.messager.show({
-                    title:'信息提示',
-                    msg:'未修改信息',
-                    timeout:5000,
-                    showType:'slide'
-                });
+                if(data.isclose=='ok'){
+                    $('#dialog'+classId).dialog('close');
+                }
             }
         }
     }); 
@@ -85,7 +72,7 @@ function openDialog(classId,href,title){
             iconCls:'icon-canel',
             handler:function(){
                 $('#dialog'+classId).dialog('close');
-                //closeCombo();
+            //closeCombo();
             }
         }
         ]	

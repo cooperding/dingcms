@@ -51,8 +51,8 @@ class NavHeadAction extends AdminAction {
         }
         
         //echo '<pre>';
-        $array = array('id'=>12,'msg'=>'ceshi');
-        echo json_encode($array);
+        $json = array('code'=>'1','msg'=>'这是个错误','isclose'=>'ok');
+        echo json_encode($json);
         exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
