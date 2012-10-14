@@ -40,26 +40,28 @@ class NavHeadAction extends AdminAction {
         //添加功能还需要验证数据不能为空的字段
         $m = M('NavHead');
         $parent_id = intval($_POST['parent_id']);
-        
-        if ($parent_id!= 0) {
-            $data = $m->where('id='.$parent_id)->find();
-            if($data['path']==','){
+        $text = trim($_POST['text']);
+        if (empty($text)) {
+            $json = array('code' => '1', 'msg' => '分类名不能为空！');
+            echo json_encode($json);
+            exit;
+        }
+        if ($parent_id != 0) {
+            $data = $m->where('id=' . $parent_id)->find();
+            if ($data['path'] == ',') {
                 $_POST['path'] = $parent_id . ',';
-            }else{
-                $_POST['path'] = $data['path'].$parent_id . ',';
+            } else {
+                $_POST['path'] = $data['path'] . $parent_id . ',';
             }
         }
-        
-        //echo '<pre>';
-        $json = array('code'=>'1','msg'=>'这是个错误','isclose'=>'ok');
-        echo json_encode($json);
-        exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                echo 2;
+                $json = array('code' => '2', 'msg' => '分类添加成功！', 'isclose' => 'ok');
+                echo json_encode($json);
             } else {
-                echo 3;
+                $json = array('code' => '2', 'msg' => '分类添加失败！');
+                echo json_encode($json);
             }
         }
     }
@@ -70,28 +72,37 @@ class NavHeadAction extends AdminAction {
         $m = M('NavHead');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        if ($parent_id!= 0) {
-            $data = $m->where('id='.$parent_id)->find();
-            if($data['path']==','){
+        if ($parent_id != 0) {
+            $cun = $m->where('id=' . $parent_id . ' and path like \'' . $id . ',% \' or path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            if ($cun) {
+                $json = array('code' => '1', 'msg' => '不能选择当前分类的子类为父级分类！',);
+                echo json_encode($json);
+                exit;
+            }
+            $data = $m->where('id=' . $parent_id)->find();
+
+            if ($data['path'] == ',') {
                 $_POST['path'] = $parent_id . ',';
-            }else{
-                $_POST['path'] = $data['path'].$parent_id . ',';
+            } else {
+                $_POST['path'] = $data['path'] . $parent_id . ',';
             }
         }
         echo 2;
-        echo '<pre>';
-        print_r(json_encode($_POST));
+        //echo '<pre>';
+        $json = array('code' => '1', 'msg' => '这是个错误', 'isclose' => 'ok');
+        echo json_encode($json);
+        exit;
         exit;
         //先取得父级path 
-        $data = $m->field('id,path')->where('id=' .$id)->find();
+        $data = $m->field('id,path')->where('id=' . $id)->find();
         $path = $data['path'];
-        
-        
+
+
         //取得所有匹配的数据
-        $tree = $m->field('id,parent_id,path')->where('path like %,'.$id.',% or parent_id='.$id)->select();
+        $tree = $m->field('id,parent_id,path')->where('path like %,' . $id . ',% or parent_id=' . $id)->select();
 
 
-        
+
         $rs = $setting->save($_POST);
         if ($rs == 1) {
             echo 2;
