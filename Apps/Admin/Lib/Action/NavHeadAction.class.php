@@ -48,11 +48,7 @@ class NavHeadAction extends AdminAction {
         }
         if ($parent_id != 0) {
             $data = $m->where('id=' . $parent_id)->find();
-            if ($data['path'] == ',') {
-                $_POST['path'] = $parent_id . ',';
-            } else {
-                $_POST['path'] = $data['path'] . $parent_id . ',';
-            }
+            $_POST['path'] = $data['path'] . $parent_id . ',';
         }
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
@@ -79,7 +75,19 @@ class NavHeadAction extends AdminAction {
                 echo json_encode($json);
                 exit;
             }
-            $data = $m->where('id=' . $parent_id)->find();
+            $fdata = $m->where('id=' . $parent_id)->find();
+            $fpath = $fdata['path'].$parent_id.',';//替换
+            $sdata = $m->where('id=' . $id)->find();
+            $spath = $sdata['path'];//搜索
+            if($fpath!=$spath){//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+                
+            }
+
+            $json = array('code' => '1', 'msg' => $fpath.'+'.$spath, 'isclose' => 'ok');
+            echo json_encode($json);
+            exit;
+
+
 
             if ($data['path'] == ',') {
                 $_POST['path'] = $parent_id . ',';
@@ -111,6 +119,9 @@ class NavHeadAction extends AdminAction {
         } else {
             echo 3;
         }
+    }
+    public function delete(){
+        
     }
 
     public function json() {
