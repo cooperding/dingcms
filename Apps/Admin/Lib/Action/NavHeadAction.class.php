@@ -69,58 +69,37 @@ class NavHeadAction extends AdminAction {
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
         if ($parent_id != 0) {
-            $cun = $m->where('id=' . $parent_id . ' and path like \'' . $id . ',% \' or path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {
                 $json = array('code' => '1', 'msg' => '不能选择当前分类的子类为父级分类！',);
                 echo json_encode($json);
                 exit;
             }
             $fdata = $m->where('id=' . $parent_id)->find();
-            $fpath = $fdata['path'].$parent_id.',';//替换
+            $fpath = $fdata['path'] . $parent_id . ','; //替换
             $sdata = $m->where('id=' . $id)->find();
-            $spath = $sdata['path'];//搜索
-            if($fpath!=$spath){//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
-                
+            $spath = $sdata['path']; //搜索
+            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+                $sfid = $sdata['parent_id'];
+                $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
+                $m->query($sql);
             }
-
-            $json = array('code' => '1', 'msg' => $fpath.'+'.$spath, 'isclose' => 'ok');
-            echo json_encode($json);
-            exit;
-
-
-
-            if ($data['path'] == ',') {
-                $_POST['path'] = $parent_id . ',';
+            $_POST['path'] = $fpath;
+            $rs = $m->save($_POST);
+            if ($rs == 1) {
+                $json = array('code' => '2', 'msg' => '更新成功！', 'isclose' => 'ok');
+                echo json_encode($json);
+            } elseif ($rs == 0) {
+                $json = array('code' => '1', 'msg' => '更新失败！');
+                echo json_encode($json);
             } else {
-                $_POST['path'] = $data['path'] . $parent_id . ',';
+                $json = array('code' => '2', 'msg' => '未有操作！');
+                echo json_encode($json);
             }
-        }
-        echo 2;
-        //echo '<pre>';
-        $json = array('code' => '1', 'msg' => '这是个错误', 'isclose' => 'ok');
-        echo json_encode($json);
-        exit;
-        exit;
-        //先取得父级path 
-        $data = $m->field('id,path')->where('id=' . $id)->find();
-        $path = $data['path'];
-
-
-        //取得所有匹配的数据
-        $tree = $m->field('id,parent_id,path')->where('path like %,' . $id . ',% or parent_id=' . $id)->select();
-
-
-
-        $rs = $setting->save($_POST);
-        if ($rs == 1) {
-            echo 2;
-        } elseif ($rs == 0) {
-            echo 4;
-        } else {
-            echo 3;
         }
     }
-    public function delete(){
+
+    public function delete() {
         
     }
 
