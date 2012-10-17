@@ -166,7 +166,10 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                 var id = selected.id;
                 var href = hrefcancel+'?id='+id;
                 var title = '删除信息';
-                openDialog(classId,href,title);
+                $.messager.confirm(title,href, function(){
+                    submitForm(classId,href);
+                    });
+            //openDialog(classId,href,title);
             }
         }
         ]

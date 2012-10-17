@@ -39,6 +39,7 @@ return array(
     'menu_block_name' => '碎片文档',
     'menu_block_list' => '碎片列表',
     'menu_block_cat' => '碎片分类',
+    
     //用户管理
     'menu_user_name' => '用户管理',
     'menu_member_name' => '会员管理',
@@ -53,6 +54,8 @@ return array(
     'menu_frontcom_list' => '前台权限列表',
     'menu_' => '',
     //模板设置
+    'menu_channel_name' => '频道管理',
+    'menu_model_list' => '模型管理',
     //插件管理
     //更新生成
     //采集管理
