@@ -51,9 +51,7 @@ body#login{ background-color:#F5F6F8;}
 /*loginad*/
 .loginad{ height:30px;}
 
-.login input[type="text"]:hover,
-.login input[type="password"]:hover,
-.login input[type="submit"]:hover{border: 1px solid #D2D2D2; -moz-box-shadow:3px 2px 4px #ccc;  -webkit-box-shadow:3px 2px 4px #ccc;box-shadow:3px 2px 4px #ccc;}
+
 .button{ cursor:pointer;}
 
 
@@ -84,10 +82,16 @@ body#login{ background-color:#F5F6F8;}
 .pageform ul li{line-height:30px;}
 .pageform ul li label{width:100px;float:left;}
 .pageform ul li p{float:left;}
-.pageform ul li input{height:20px;margin: 0 5px;}
+
 .pageform ul li select{margin: 0 5px;}
 
+/*
+.login input[type="text"]:hover,
+.login input[type="password"]:hover,
+.login input[type="submit"]:hover{border: 1px solid #D2D2D2; -moz-box-shadow:3px 2px 4px #ccc;  -webkit-box-shadow:3px 2px 4px #ccc;box-shadow:3px 2px 4px #ccc;}
 
+.pageform ul li input{height:20px;margin: 0 5px;}
+*/
 
 
 

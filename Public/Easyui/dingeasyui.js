@@ -168,7 +168,7 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                 var title = '删除信息';
                 $.messager.confirm(title,href, function(){
                     submitForm(classId,href);
-                    });
+                });
             //openDialog(classId,href,title);
             }
         }
@@ -178,7 +178,21 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
 function openDatagrid(){
     
 }
-$('.window').click(function(){
-    //$('a.panel-tool-close').click(function(){
-    alert('44444');
-});
+function changeTheme(themeName){
+    var $easyuiTheme = $('#easyuiTheme');
+    var url = $easyuiTheme.attr('href');
+    var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';
+    $easyuiTheme.attr('href', href);
+
+    var $iframe = $('iframe');
+    if ($iframe.length > 0) {
+        for ( var i = 0; i < $iframe.length; i++) {
+            var ifr = $iframe[i];
+            $(ifr).contents().find('#easyuiTheme').attr('href', href);
+        }
+    }
+
+    $.cookie('easyuiThemeName', themeName, {
+        expires : 7
+    });
+}
