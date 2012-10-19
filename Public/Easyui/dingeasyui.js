@@ -19,12 +19,12 @@ function submitForm(classId){
             var data = jQuery.parseJSON(data);
             //alert(data.msg+'=======dede====');
             //return false;
-            if(data.code==1){
-                $.messager.alert(data.msg,data.msg,'error');
-            }else if(data.code==2){
+            if(data.status==1){
+                $.messager.alert(data.info,data.info,'error');
+            }else if(data.status==2){
                 $.messager.show({
-                    title:data.msg,
-                    msg:data.msg,
+                    title:data.info,
+                    msg:data.info,
                     timeout:5000,
                     showType:'slide'
                 });

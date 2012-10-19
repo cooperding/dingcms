@@ -42,7 +42,7 @@ class NavHeadAction extends AdminAction {
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
-            $json = array('code' => '1', 'msg' => '分类名不能为空！');
+            $json = array('status' => '1', 'info' => '分类名不能为空！');
             echo json_encode($json);
             exit;
         }
@@ -53,10 +53,10 @@ class NavHeadAction extends AdminAction {
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $json = array('code' => '2', 'msg' => '分类添加成功！', 'isclose' => 'ok');
+                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
                 echo json_encode($json);
             } else {
-                $json = array('code' => '2', 'msg' => '分类添加失败！');
+                $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
         }
@@ -71,7 +71,7 @@ class NavHeadAction extends AdminAction {
         if ($parent_id != 0) {
             $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {
-                $json = array('code' => '1', 'msg' => '不能选择当前分类的子类为父级分类！',);
+                $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
                 echo json_encode($json);
                 exit;
             }
@@ -87,13 +87,13 @@ class NavHeadAction extends AdminAction {
             $_POST['path'] = $fpath;
             $rs = $m->save($_POST);
             if ($rs == 1) {
-                $json = array('code' => '2', 'msg' => '更新成功！', 'isclose' => 'ok');
+                $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
                 echo json_encode($json);
             } elseif ($rs == 0) {
-                $json = array('code' => '1', 'msg' => '更新失败！');
+                $json = array('status' => '1', 'info' => '更新失败！');
                 echo json_encode($json);
             } else {
-                $json = array('code' => '2', 'msg' => '未有操作！');
+                $json = array('status' => '2', 'info' => '未有操作！');
                 echo json_encode($json);
             }
         }
