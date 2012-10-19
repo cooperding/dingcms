@@ -75,27 +75,25 @@ class NavHeadAction extends AdminAction {
                 echo json_encode($json);
                 exit;
             }
-            $fdata = $m->where('id=' . $parent_id)->find();
-            $fpath = $fdata['path'] . $parent_id . ','; //替换
-            $sdata = $m->where('id=' . $id)->find();
-            $spath = $sdata['path']; //搜索
-            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
-                $sfid = $sdata['parent_id'];
-                $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
-                $m->query($sql);
-            }
-            $_POST['path'] = $fpath;
-            $rs = $m->save($_POST);
-            if ($rs == 1) {
-                $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-                echo json_encode($json);
-            } elseif ($rs == 0) {
-                $json = array('status' => '1', 'info' => '更新失败！');
-                echo json_encode($json);
-            } else {
-                $json = array('status' => '2', 'info' => '未有操作！');
-                echo json_encode($json);
-            }
+        }
+        $fdata = $m->where('id=' . $parent_id)->find();
+        $fpath = $fdata['path'] . $parent_id . ','; //替换
+        $sdata = $m->where('id=' . $id)->find();
+        $spath = $sdata['path']; //搜索
+        if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+            $sfid = $sdata['parent_id'];
+            $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
+            $m->query($sql);
+        }
+        $_POST['path'] = $fpath;
+        
+        $rs = $m->save($_POST);
+        if ($rs == 1) {
+            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
+            echo json_encode($json);
+        } else {
+            $json = array('status' => '2', 'info' => '未有操作！');
+            echo json_encode($json);
         }
     }
 

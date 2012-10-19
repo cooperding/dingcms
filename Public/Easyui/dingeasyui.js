@@ -31,6 +31,7 @@ function submitForm(classId){
                 if(data.isclose=='ok'){
                     $('#dialog'+classId).dialog('close');
                 }
+                $('#index'+classId).treegrid('reload');
             }
         }
     }); 
