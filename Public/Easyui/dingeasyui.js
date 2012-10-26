@@ -8,33 +8,38 @@
  */
 function submitForm(classId){
     var url = $('#form_'+classId).attr('action');
-    $('#form_'+classId).form('submit',{
+     $('#form_'+classId).form('submit',{
         url:url,
         onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
         //alert(url); 
         //$('#dialog').dialog('close');
         },
-        success:function(data){
-            var data = jQuery.parseJSON(data);
+        success:function(msg){
+            var data = $.parseJSON(msg);
             //alert(data.msg+'=======dede====');
             //return false;
-            if(data.status==1){
-                $.messager.alert(data.info,data.info,'error');
-            }else if(data.status==2){
-                $.messager.show({
-                    title:data.info,
-                    msg:data.info,
-                    timeout:5000,
-                    showType:'slide'
-                });
-                if(data.isclose=='ok'){
-                    $('#dialog_'+classId).dialog('close');
-                }
-                $('#treegrid_'+classId).treegrid('reload');
-            }
+            formAjax(data,classId);
         }
     }); 
+   
+    
+    /*
+   
+    
+     $.ajax({
+        url:url,
+        type:'post',
+        
+//        data:{
+//            id:id
+//        },
+        dataType:'json',
+        success:function(data){
+            formAjax(data,classId);
+        }
+    });
+    */
 }
 /*更新tab功能*/
 function updateTab(classId,url,subtitle){
@@ -43,7 +48,6 @@ function updateTab(classId,url,subtitle){
     $('#tabs'+classId).tabs('select',subtitle);
     var tab = $('#tabs'+classId).tabs('getSelected');
     tab.panel('refresh', url);
-    closeCombo();
 }
 /*
  *openDialog 弹出框
@@ -63,9 +67,7 @@ function openDialog(classId,href,title){
         maximizable:true,
         cache: false,
         onClose:function(){
-            alert('调试关闭onClose');
-            $('#dialog_'+classId).dialog('destroy');
-            $('body.easyui-layout').append('<div id="dialog_'+classId+'"></div>');
+            dialogOnClose(classId);
         },
         buttons:[{
             text:'保存',
@@ -77,23 +79,24 @@ function openDialog(classId,href,title){
             text:'取消',
             iconCls:'icon-canel',
             handler:function(){
-                $('#dialog_'+classId).dialog('close');
-            //closeCombo();
+                dialogOnClose(classId);
             }
         }
         ]	
     });
 //$('#dialog'+classId).dialog('refresh', href);
 }
-function closeCombo(){
-    $('body.layoutindex>.combo-p').remove();
-    $('body.layoutindex>.window').remove();
-    $('body.layoutindex>.window-shadow').remove();
-    $('body.layoutindex>.window-mask').remove();
+/*
+* 关闭dialog时，销毁dialog代码
+*/
+function dialogOnClose(classId){
+    $('#dialog_'+classId).dialog('destroy');
+    $('body.easyui-layout').append('<div id="dialog_'+classId+'"></div>');
+    var frame = $('iframe[src="about:blank"]');//destroy与iframe冲突问题，大概是内存释放的原因
+    frame.remove();
 }
-function deleteConfirm(){
-    
-}
+
+
 /*
  *添加tab
  *暂未使用，有问题
@@ -178,12 +181,23 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                     return false;
                 }
                 var id = selected.id;
-                var href = hrefcancel+'?id='+id;
+                var href = hrefcancel;
                 var title = '删除信息';
                 $.messager.confirm(title,href, function(){
-                    submitForm(classId,href);
-                });
-            //openDialog(classId,href,title);
+                    //alert(href);
+                    //                    return false;
+                    $.ajax({
+                        url:href,
+                        type:'post',
+                        data:{
+                            id:id
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            formAjax(data,classId);
+                        }
+                    });
+                });//$
             }
         }
         ]
@@ -191,6 +205,28 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
 }
 function openDatagrid(){
     
+}
+function formAjax(data,classId){
+    //alert(classId);
+    //return false;
+    
+    if(data.status==1){
+        $.messager.alert(data.info,data.info,'error');
+    }else if(data.status==2){
+        $.messager.show({
+            title:data.info,
+            msg:data.info,
+            timeout:5000,
+            showType:'slide'
+        });
+        $('#treegrid_'+classId).treegrid('reload');
+        if(data.isclose=='ok'){
+            $('#dialog_'+classId).dialog('close');
+            dialogOnClose(classId);
+        }
+        
+        
+    }
 }
 function changeTheme(themeName){
     var $easyuiTheme = $('#easyuiTheme');
@@ -205,8 +241,47 @@ function changeTheme(themeName){
             $(ifr).contents().find('#easyuiTheme').attr('href', href);
         }
     }
-
+  
     $.cookie('easyuiThemeName', themeName, {
         expires : 7
     });
+}
+
+
+$.fn.panel.defaults = $.extend({},$.fn.panel.defaults,{
+    destroy:function(){
+        var frame=$('iframe', this);
+        if(frame.length>0){
+            frame[0].contentWindow.document.write('');
+            frame[0].contentWindow.close();
+            frame.remove();
+            if($.browser.msie){
+                CollectGarbage();
+            }
+        }
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ *  失去作用
+ *
+ */
+function closeCombo(){
+    $('body.layoutindex>.combo-p').remove();
+    $('body.layoutindex>.window').remove();
+    $('body.layoutindex>.window-shadow').remove();
+    $('body.layoutindex>.window-mask').remove();
 }

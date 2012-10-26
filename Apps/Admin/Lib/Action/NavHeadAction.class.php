@@ -86,7 +86,7 @@ class NavHeadAction extends AdminAction {
             $m->query($sql);
         }
         $_POST['path'] = $fpath;
-        
+
         $rs = $m->save($_POST);
         if ($rs == 1) {
             $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
@@ -98,6 +98,27 @@ class NavHeadAction extends AdminAction {
     }
 
     public function delete() {
+        $m = M('NavHead');
+        $id = intval($_POST['id']);
+        if (empty($id)) {
+            $json = array('status' => '1', 'info' => '未有id值，无法删除！');
+            echo json_encode($json);
+        } else {
+            $data = $m->where('path like \'%,' . $id . ',%\'')->select();
+            if (is_array($data)) {
+                $json = array('status' => '1', 'info' => '该分类下还有子级分类，无法删除！');
+                echo json_encode($json);
+            } else {
+                $del = $m->where('id=' . $id)->delete();
+                if ($del == 1) {
+                    $json = array('status' => '2', 'info' => '删除成功！');
+                    echo json_encode($json);
+                }else{
+                    $json = array('status' => '1', 'info' => '删除失败！');
+                    echo json_encode($json);
+                }//if
+            }
+        }//if id
         
     }
 

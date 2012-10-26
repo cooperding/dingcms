@@ -1,30 +1,28 @@
 <div class="pagecontent">
 
-    <table title="文章分类栏目" id="indexnewscat" class="easyui-treegrid treegrid">
-        <thead>
-            <tr>
-                <th data-options="field:'id',editor:'text',align:'center'" rowspan="2" width="50">cat_id</th>
-                <th data-options="field:'text',editor:'text'" width="200">名称</th>
-                <th data-options="field:'parent_id',editor:'text'" width="200">parent_id</th>
-                <th data-options="field:'myorder',editor:'text'" width="200">myorder</th>
-            </tr>
-        </thead>
+    <table title="文章分类栏目" id="treegrid_newscat" class="easyui-treegrid treegrid">
+
     </table>
-
-
-
 
     <script>
         $(function(){
             var classId = 'newscat';
-            var urljson = '__APP__/NewsCat/json?id=12555553';
+            var urljson = '__APP__/NewsCat/json';
             var hrefadd = '__APP__/NewsCat/add';
             var hrefedit = '__APP__/NewsCat/edit';
             var hrefcancel = '__APP__/NewsCat/delete';
             openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+            $('#treegrid_'+classId).treegrid({
+                columns:[[  
+                        {field:'id',title:'id',width:50},
+                        {field:'text',title:'text',width:200},
+                        {field:'parent_id',title:'parent_id',width:200},
+                        {field:'myorder',title:'myorder',width:80}
+                    ]]
+            })
         })
     </script>
-    <div id="dialognewscat" data-options="iconCls:'icon-save'">
+    <div id="dialog_newscat" data-options="iconCls:'icon-save'">
 
     </div>
 </div><!--pagecontent-->
