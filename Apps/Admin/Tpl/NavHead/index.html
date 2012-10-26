@@ -1,6 +1,6 @@
 <div class="pagecontent">
 
-    <table title="{:L('menu_nav_head')}" id="indexnavhead" class="easyui-treegrid treegrid">
+    <table title="{:L('menu_nav_head')}" id="treegrid_navhead" class="easyui-treegrid treegrid">
 
     </table>
 
@@ -15,7 +15,7 @@
             var hrefedit = '__APP__/NavHead/edit';
             var hrefcancel = '__APP__/NewsCat/delete';
             openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
-            $('#index'+classId).treegrid({
+            $('#treegrid_'+classId).treegrid({
                 columns:[[  
                         {field:'id',title:'id',width:50},
                         {field:'text',title:'text',width:200},
@@ -25,7 +25,7 @@
             })
         })
     </script>
-    <div id="dialognavhead" data-options="iconCls:'icon-save'">
+    <div id="dialog_navhead" data-options="iconCls:'icon-save'">
 
     </div>
 </div><!--pagecontent-->

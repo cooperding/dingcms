@@ -7,8 +7,8 @@
  *  classId 为当前表单的id
  */
 function submitForm(classId){
-    var url = $('#form'+classId).attr('action');
-    $('#form'+classId).form('submit',{
+    var url = $('#form_'+classId).attr('action');
+    $('#form_'+classId).form('submit',{
         url:url,
         onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
@@ -29,9 +29,9 @@ function submitForm(classId){
                     showType:'slide'
                 });
                 if(data.isclose=='ok'){
-                    $('#dialog'+classId).dialog('close');
+                    $('#dialog_'+classId).dialog('close');
                 }
-                $('#index'+classId).treegrid('reload');
+                $('#treegrid_'+classId).treegrid('reload');
             }
         }
     }); 
@@ -51,7 +51,7 @@ function updateTab(classId,url,subtitle){
  *title 弹出窗口的标题
  */
 function openDialog(classId,href,title){
-    $('#dialog'+classId).dialog({
+    $('#dialog_'+classId).dialog({
         href:href,
         width:500,
         height:200,
@@ -62,6 +62,11 @@ function openDialog(classId,href,title){
         collapsible:true,
         maximizable:true,
         cache: false,
+        onClose:function(){
+            alert('调试关闭onClose');
+            $('#dialog_'+classId).dialog('destroy');
+            $('body.easyui-layout').append('<div id="dialog_'+classId+'"></div>');
+        },
         buttons:[{
             text:'保存',
             iconCls:'icon-ok',
@@ -72,7 +77,7 @@ function openDialog(classId,href,title){
             text:'取消',
             iconCls:'icon-canel',
             handler:function(){
-                $('#dialog'+classId).dialog('close');
+                $('#dialog_'+classId).dialog('close');
             //closeCombo();
             }
         }
@@ -128,7 +133,7 @@ function addTab(subtitle, url){
 
 function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
     var height = $('.indexcenter').height();
-    $('#index'+classId).treegrid({
+    $('#treegrid_'+classId).treegrid({
         url:urljson,
         idField:'id',
         treeField:'text',
@@ -152,7 +157,11 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
             text:'编辑',
             iconCls:'icon-edit',
             handler:function(){
-                var selected = $('#index'+classId).datagrid('getSelected');
+                var selected = $('#treegrid_'+classId).datagrid('getSelected');
+                if(!selected){
+                    $.messager.alert('信息提示', '请选择要操作的项', 'error');
+                    return false;
+                }
                 var id = selected.id;
                 var href = hrefedit+'?id='+id;
                 var title = '编辑信息';
@@ -163,7 +172,11 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
             text:'删除',
             iconCls:'icon-cancel',
             handler:function(){
-                var selected = $('#index'+classId).datagrid('getSelected');
+                var selected = $('#treegrid_'+classId).datagrid('getSelected');
+                if(!selected){
+                    $.messager.alert('信息提示', '请选择要操作的项', 'error');
+                    return false;
+                }
                 var id = selected.id;
                 var href = hrefcancel+'?id='+id;
                 var title = '删除信息';
