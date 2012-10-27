@@ -21,13 +21,11 @@ $array = array(
     array('label' => L('menu_info_name'), 'type' => 'info_name', 'items' => array(
             array('label' => L('menu_news_name'), 'type' => 'news_name', 'items' => array(
                     array('label' => L('menu_news_list'), 'type' => 'news_list', 'link' => __APP__ . '/News/index'),
-                    array('label' => L('menu_news_cat'), 'type' => 'news_cat', 'link' => __APP__ . '/NewsCat/index'),
-                    array('label' => L('menu_news_recycle'), 'type' => 'news_recycle', 'link' => 'www.baidu.com')
+                    array('label' => L('menu_news_recycle'), 'type' => 'news_recycle', 'link' => __APP__ . '/News/recycle')
             )),
-            array('label' => L('menu_product_name'), 'type' => 'product_name', 'items' => array(
-                    array('label' => L('menu_product_list'), 'type' => 'product_list', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_product_cat'), 'type' => 'product_cat', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_product_recycle'), 'type' => 'product_recycle', 'link' => 'www.baidu.com')
+            array('label' => L('menu_sort_name'), 'type' => 'sort_name', 'items' => array(
+                    array('label' => L('menu_sort_list'), 'type' => 'sort_list', 'link' => __APP__ . '/Sort/index'),
+                    array('label' => L('menu_sort_add'), 'type' => 'sort_add', 'link' => __APP__ . '/Sort/add','rel'=>'dialog'),
             )),
             array('label' => L('menu_message_name'), 'type' => 'message_name', 'items' => array(
                     array('label' => L('menu_message_list'), 'type' => 'message_list', 'link' => 'www.baidu.com'),
