@@ -54,6 +54,11 @@ return array(
     //模板设置
     'menu_channel_name' => '频道管理',
     'menu_model_list' => '模型管理',
+    'menu_model_cat' => '模型分类',
+    'menu_model_list' => '模型列表',
+    'menu_linkpage_name' => '联动信息',
+    'menu_linkpage_cat' => '联动分类',
+    'menu_linkpage_list' => '联动列表',
     //插件管理
     //更新生成
     //采集管理

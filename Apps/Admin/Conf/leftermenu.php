@@ -25,7 +25,7 @@ $array = array(
             )),
             array('label' => L('menu_sort_name'), 'type' => 'sort_name', 'items' => array(
                     array('label' => L('menu_sort_list'), 'type' => 'sort_list', 'link' => __APP__ . '/Sort/index'),
-                    array('label' => L('menu_sort_add'), 'type' => 'sort_add', 'link' => __APP__ . '/Sort/add','rel'=>'dialog'),
+                    array('label' => L('menu_sort_add'), 'type' => 'sort_add', 'link' => __APP__ . '/Sort/add', 'rel' => 'dialog'),
             )),
             array('label' => L('menu_message_name'), 'type' => 'message_name', 'items' => array(
                     array('label' => L('menu_message_list'), 'type' => 'message_list', 'link' => 'www.baidu.com'),
@@ -67,7 +67,12 @@ $array = array(
                     array('label' => '基础设置', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
             array('label' => L('menu_channel_name'), 'type' => 'channel_name', 'items' => array(
-                    array('label' => L('menu_model_list'), 'type' => 'model_list', 'link' => __APP__ . '/Model/index'),
+                    array('label' => L('menu_model_cat'), 'type' => 'model_cat', 'link' => __APP__ . '/Model/cat'),
+                    array('label' => L('menu_model_list'), 'type' => 'model_list', 'link' => __APP__ . '/Model/catlist'),
+            )),
+            array('label' => L('menu_linkpage_name'), 'type' => 'linkpage_name', 'items' => array(
+                    array('label' => L('menu_linkpage_cat'), 'type' => 'linkpage_cat', 'link' => __APP__ . '/LinkPage/cat'),
+                    array('label' => L('menu_linkpage_list'), 'type' => 'linkpage_list', 'link' => __APP__ . '/LinkPage/catlist'),
             )),
     )),
     array('label' => '插件管理', 'type' => 'plugins', 'items' => array(
