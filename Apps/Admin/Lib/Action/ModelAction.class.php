@@ -20,11 +20,11 @@
  */
 class ModelAction extends AdminAction
 {
-    public function cat(){
+    public function cate(){
         $this->display();
     }
     
-    public function catlist(){
+    public function catelist(){
         echo '23232';
     }
     

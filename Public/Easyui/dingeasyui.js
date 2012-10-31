@@ -61,7 +61,7 @@ function openDialog(classId,href,title){
         height:200,
         resizable:true,
         title:title,
-        // modal:true,
+        modal:true,
         resizable:true,
         collapsible:true,
         maximizable:true,
@@ -185,7 +185,7 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                 var title = '删除信息';
                 $.messager.confirm(title,href, function(){
                     //alert(href);
-                    //                    return false;
+                    //return false;
                     $.ajax({
                         url:href,
                         type:'post',
