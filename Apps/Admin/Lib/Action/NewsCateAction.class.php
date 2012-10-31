@@ -18,7 +18,7 @@
  * @subpackage  admin Action
  * @author    正侠客 <lookcms@gmail.com>
  */
-class NewsCatAction extends AdminAction {
+class NewsCateAction extends AdminAction {
 
     //进入页面
     public function index() {
@@ -30,7 +30,7 @@ class NewsCatAction extends AdminAction {
     }
 
     public function edit() {
-        $m = M('NewsCat');
+        $m = M('NewsCate');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $this->assign('data', $data);
         $this->display();
@@ -38,7 +38,7 @@ class NewsCatAction extends AdminAction {
 
     public function insert() {
         //添加功能还需要验证数据不能为空的字段
-        $m = M('NewsCat');
+        $m = M('NewsCate');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
@@ -71,7 +71,7 @@ class NewsCatAction extends AdminAction {
     public function update() {
         //流程：当选择的父级分类是现有分类的子级元素修改失败，当修改父级元素时，path同时也要修改
         //判断：
-        $m = M('NewsCat');
+        $m = M('NewsCate');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
         if ($parent_id != 0) {
@@ -116,7 +116,7 @@ class NewsCatAction extends AdminAction {
     }
 
     public function json() {
-        $m = M('NewsCat');
+        $m = M('NewsCate');
         $list = $m->select();
         $navcatCount = $m->count("id");
         $a = array();
@@ -132,7 +132,7 @@ class NewsCatAction extends AdminAction {
 
     public function jsonTree() {
         Load('extend');
-        $m = M('NewsCat');
+        $m = M('NewsCate');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);

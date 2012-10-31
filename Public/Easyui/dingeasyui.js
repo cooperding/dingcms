@@ -55,7 +55,7 @@ function updateTab(classId,url,subtitle){
  *title 弹出窗口的标题
  */
 function openDialog(classId,href,title){
-    $('#dialog_'+classId).dialog({
+    $('#dialog_cms').dialog({
         href:href,
         width:500,
         height:200,
@@ -90,8 +90,8 @@ function openDialog(classId,href,title){
 * 关闭dialog时，销毁dialog代码
 */
 function dialogOnClose(classId){
-    $('#dialog_'+classId).dialog('destroy');
-    $('body.easyui-layout').append('<div id="dialog_'+classId+'"></div>');
+    $('#dialog_cms').dialog('destroy');
+    $('body.easyui-layout').append('<div id="dialog_cms"  data-options="iconCls:\'icon-save\'"></div>');
     var frame = $('iframe[src="about:blank"]');//destroy与iframe冲突问题，大概是内存释放的原因
     frame.remove();
 }
