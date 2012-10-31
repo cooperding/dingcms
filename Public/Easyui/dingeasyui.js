@@ -248,19 +248,7 @@ function changeTheme(themeName){
 }
 
 
-$.fn.panel.defaults = $.extend({},$.fn.panel.defaults,{
-    destroy:function(){
-        var frame=$('iframe', this);
-        if(frame.length>0){
-            frame[0].contentWindow.document.write('');
-            frame[0].contentWindow.close();
-            frame.remove();
-            if($.browser.msie){
-                CollectGarbage();
-            }
-        }
-    }
-});
+
 
 
 
