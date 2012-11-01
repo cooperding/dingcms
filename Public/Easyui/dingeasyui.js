@@ -8,7 +8,7 @@
  */
 function submitForm(classId){
     var url = $('#form_'+classId).attr('action');
-     $('#form_'+classId).form('submit',{
+    $('#form_'+classId).form('submit',{
         url:url,
         onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
@@ -24,7 +24,7 @@ function submitForm(classId){
     }); 
    
     
-    /*
+/*
    
     
      $.ajax({
@@ -133,6 +133,71 @@ function addTab(subtitle, url){
 * hrefedit修改信息路径
 * hrefcancel 删除信息路径 暂未使用
 */
+function openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
+var height = $('.indexcenter').height();
+    $('#datagrid_'+classId).datagrid({
+        url:urljson,
+        idField:'id',
+        pagination:true,
+        rownumbers:true,
+        fitColumns:true,
+        checkbox:true,
+        height:height-50,
+        frozenColumns:[[
+        {
+            field:'ck',
+            checkbox:true
+        }
+        ]],
+        toolbar:[{
+            id:'btnadd_'+classId,
+            text:'添加',
+            iconCls:'icon-add',
+            handler:function(){
+                var title = '添加分类';
+                openDialog(classId,hrefadd,title);
+            }
+        },'-',{
+            id:'btnedit_'+classId,
+            text:'编辑',
+            iconCls:'icon-edit',
+            handler:function(){
+                var selected = $('#datagrid_'+classId).datagrid('getSelected');
+                if(!selected){
+                    $.messager.alert('信息提示', '请选择要操作的项', 'error');
+                    return false;
+                }
+                var id = selected.id;
+                var href = hrefedit+'?id='+id;
+                var title = '编辑信息';
+                openDialog(classId,href,title);
+            }
+        },'-',{
+            id:'btncanel_'+classId,
+            text:'删除',
+            iconCls:'icon-cancel',
+            handler:function(){
+                var selected = $('#datagrid_'+classId).datagrid('getSelected');
+                if(!selected){
+                    $.messager.alert('信息提示', '请选择要操作的项', 'error');
+                    return false;
+                }
+            }
+        }//
+        ]//toolbar
+    });
+
+}
+
+
+/*
+* openTreeGrid 执行树结构的文档
+*classId id
+* urljson 读取数据的url地址
+* hrefadd 添加信息路径
+* hrefedit修改信息路径
+* hrefcancel 删除信息路径 暂未使用
+*/
 
 function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
     var height = $('.indexcenter').height();
@@ -203,9 +268,7 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
         ]
     });         
 }
-function openDatagrid(){
-    
-}
+
 function formAjax(data,classId){
     //alert(classId);
     //return false;

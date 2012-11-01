@@ -12,59 +12,14 @@
         </thead>
     </table>
 
-
-
-
     <script>
         $(function(){
-            var height = $('.indexcenter').height();
             var classId = 'linkpagecate';
             var hrefadd = '__APP__/LinkPage/add';
             var hrefedit = '__APP__/LinkPage/edit';
             var hrefcancel = '__APP__/LinkPage/delete';
-            
-            $('#datagrid'+classId).datagrid({
-                url:'__APP__/LinkPage/json',
-                idField:'id',
-                //treeField:'cat_name',
-                pagination:true,
-                rownumbers:true,
-                fitColumns:true,
-                checkbox:true,
-                //autoRowHeight:false,
-                //showFooter:true,
-                //singleSelect:true,
-                height:height-50,
-                frozenColumns:[[
-                        {field:'ck',checkbox:true}
-                    ]],
-                toolbar:[{
-                        id:'btnadd'+classId,
-                        text:'添加',
-                        iconCls:'icon-add',
-                        handler:function(){
-                            var title = '添加分类';
-                            openDialog(classId,hrefadd,title);
-                        }
-                    },'-',{
-                        id:'btnedit'+classId,
-                        text:'编辑',
-                        iconCls:'icon-edit',
-                        handler:function(){
-                            var selected = $('#treegrid_'+classId).datagrid('getSelected');
-                            if(!selected){
-                                $.messager.alert('信息提示', '请选择要操作的项', 'error');
-                                return false;
-                            }
-                            var id = selected.id;
-                            var href = hrefedit+'?id='+id;
-                            var title = '编辑信息';
-                            openDialog(classId,href,title);
-                        }
-                    }
-                ]
-            });
-            
+            var urljson = '__APP__/LinkPage/cateJson';
+            openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
            
         })
     </script>
