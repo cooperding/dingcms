@@ -25,7 +25,7 @@ class ModelAction extends AdminAction
     }
     
     public function catelist(){
-        echo '23232';
+        $this->display();
     }
     
     

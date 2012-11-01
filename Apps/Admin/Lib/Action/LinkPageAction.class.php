@@ -23,9 +23,15 @@ class LinkPageAction extends AdminAction {
     public function cate() {
         $this->display();
     }
+    public function cateedit() {
+        $this->display();
+    }
+    public function cateadd() {
+        $this->display();
+    }
 
     public function catelist() {
-        echo '23232';
+        $this->display();
     }
 
     public function cateJson() {

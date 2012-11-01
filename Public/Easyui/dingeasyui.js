@@ -91,7 +91,7 @@ function openDialog(classId,href,title){
 */
 function dialogOnClose(classId){
     $('#dialog_cms').dialog('destroy');
-    $('body.easyui-layout').append('<div id="dialog_cms"  data-options="iconCls:\'icon-save\'"></div>');
+    $('body.layout_index').append('<div id="dialog_cms"  data-options="iconCls:\'icon-save\'"></div>');
     var frame = $('iframe[src="about:blank"]');//destroy与iframe冲突问题，大概是内存释放的原因
     frame.remove();
 }
