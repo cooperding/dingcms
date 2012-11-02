@@ -1,12 +1,9 @@
 <div class="pagecontent">
-    <div class="easyui-layout" style="height:400px;">
+    <div class="easyui-layout layout_model_catelist" style="height:400px;">
         <div data-options="region:'west',split:true" title="模型分类" style="width:150px;"></div>
         <div data-options="region:'center',title:'相关模型列表'" style="">
            
-            
-            
-            
-            <table id="datagrid_linkpagecate" class="easyui-datagrid datagrid linkpagecate">
+            <table id="datagrid_model_catelist" class="easyui-datagrid datagrid model_catelist">
         <thead>
             <tr>
                 <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
@@ -20,13 +17,14 @@
 
     <script>
         $(function(){
-            var classId = 'linkpagecate';
+            var height = $('.indexcenter').height();
+            var classId = 'model_catelist';
             var hrefadd = '__APP__/LinkPage/cateadd';
             var hrefedit = '__APP__/LinkPage/cateedit';
             var hrefcancel = '__APP__/LinkPage/delete';
             var urljson = '__APP__/LinkPage/cateJson';
+            $('.layout_'+classId).css('height',height-50);
             openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
-           
         })
     </script>
     

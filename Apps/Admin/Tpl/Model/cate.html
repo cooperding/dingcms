@@ -1,0 +1,27 @@
+<div class="pagecontent">
+
+    <table id="datagrid_modelcate" class="easyui-datagrid datagrid modelcate">
+        <thead>
+            <tr>
+                <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
+                <th data-options="field:'ename'" width="200">标题</th>
+                <th data-options="field:'egroup'" width="200">parent_id</th>
+                <th data-options="field:'status'" width="200">myorder</th>
+                <th data-options="field:'myorder'" width="80">操作</th>
+            </tr>
+        </thead>
+    </table>
+
+    <script>
+        $(function(){
+            var classId = 'modelcate';
+            var hrefadd = '__APP__/LinkPage/cateadd';
+            var hrefedit = '__APP__/LinkPage/cateedit';
+            var hrefcancel = '__APP__/LinkPage/delete';
+            var urljson = '__APP__/LinkPage/cateJson';
+            openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+           
+        })
+    </script>
+
+</div><!--pagecontent-->

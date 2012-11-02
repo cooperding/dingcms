@@ -134,7 +134,7 @@ function addTab(subtitle, url){
 * hrefcancel 删除信息路径 暂未使用
 */
 function openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
-var height = $('.indexcenter').height();
+    var height = $('.indexcenter').height();
     $('#datagrid_'+classId).datagrid({
         url:urljson,
         idField:'id',
@@ -162,13 +162,20 @@ var height = $('.indexcenter').height();
             text:'编辑',
             iconCls:'icon-edit',
             handler:function(){
-                var selected = $('#datagrid_'+classId).datagrid('getSelected');
-                if(!selected){
+                var ids = [];
+                var rows = $('#datagrid_'+classId).datagrid('getSelections');
+                for(var i=0;i<rows.length;i++){
+                    ids.push(rows[i].id);
+                }
+                if(ids==''){
                     $.messager.alert('信息提示', '请选择要操作的项', 'error');
                     return false;
+                }else if(rows.length>1){
+                    $.messager.alert('信息提示', '请选择一个要操作的项', 'error');
+                    return false;
                 }
-                var id = selected.id;
-                var href = hrefedit+'?id='+id;
+                
+                var href = hrefedit+'?id='+ids;
                 var title = '编辑信息';
                 openDialog(classId,href,title);
             }
