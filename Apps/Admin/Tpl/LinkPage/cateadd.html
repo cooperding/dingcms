@@ -1,1 +1,21 @@
-add
+<div class="pageform">
+    <form action="__APP__/LinkPage/cateinsert" id="form_linkpagecate" method="post">
+        <ul>
+            <li>
+                <label>名称：</label>
+                <p><input type="text" name="ename" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+            </li>
+            <li>
+                <label>标识：</label>
+                <p><input type="text" name="egroup" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+            </li>
+            <li>
+                <label>状态：</label>
+                <p><html:radio name="status" radios="radios"  checked="true"/></p>
+            </li>
+            <li>
+                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="" /></p>
+            </li>
+        </ul>
+    </form>
+</div>

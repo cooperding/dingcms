@@ -249,9 +249,9 @@ class TagLibHtml extends TagLib{
         $parseStr   = '';
         foreach($radios as $key=>$val) {
             if($checked == $key ) {
-                $parseStr .= '<input type="radio" checked="checked" name="'.$name.'[]" value="'.$key.'">'.$val.$separator;
+                $parseStr .= '<input type="radio" checked="checked" name="'.$name.'" value="'.$key.'">'.$val.$separator;
             }else {
-                $parseStr .= '<input type="radio" name="'.$name.'[]" value="'.$key.'">'.$val.$separator;
+                $parseStr .= '<input type="radio" name="'.$name.'" value="'.$key.'">'.$val.$separator;
             }
 
         }
