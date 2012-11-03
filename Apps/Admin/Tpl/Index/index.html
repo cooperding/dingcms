@@ -2,23 +2,13 @@
 </head>
 <body class="easyui-layout layout_index">
     <script type="text/javascript">
-        $.fn.panel.defaults.onBeforeDestroy = function() {/* 回收内存 */
-		var frame = $('iframe', this);
-		if (frame.length > 0) {
-			frame[0].contentWindow.document.write('');
-			frame[0].contentWindow.close();
-			frame.remove();
-			if ($.browser.msie) {
-				CollectGarbage();
-			}
-		}
-	};
+       
         $(function(){
             
             $('.sider li a').click(function(){
                 var classId = 'index';
                 var subtitle = $(this).text();
-                var url = $(this).attr('href');
+                var url = $(this).attr('cmshref');
                 if(!$('#tabs'+classId).tabs('exists',subtitle)){
                     $('#tabs'+classId).tabs('add',{
                         title:subtitle,
@@ -39,7 +29,7 @@
                 }
                 
             });
-        });
+                    });
     </script>
 
     <noscript>

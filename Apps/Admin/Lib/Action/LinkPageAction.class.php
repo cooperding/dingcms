@@ -104,6 +104,11 @@ class LinkPageAction extends AdminAction {
     }
 
     public function catelist() {
+        $m = M('LinkpageCate');
+        $cate = $m->field('id,ename')->select();
+        
+        
+        $this->assign('cate', $cate);
         $this->display();
     }
 
