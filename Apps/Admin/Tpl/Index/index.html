@@ -9,8 +9,8 @@
                 var classId = 'index';
                 var subtitle = $(this).text();
                 var url = $(this).attr('cmshref');
-                if(!$('#tabs'+classId).tabs('exists',subtitle)){
-                    $('#tabs'+classId).tabs('add',{
+                if(!$('#tabs_'+classId).tabs('exists',subtitle)){
+                    $('#tabs_'+classId).tabs('add',{
                         title:subtitle,
                         content:subtitle,
                         closable:true,
@@ -24,7 +24,7 @@
                     });
                     return false;
                 }else{
-                    $('#tabs'+classId).tabs('select',subtitle);
+                    $('#tabs_'+classId).tabs('select',subtitle);
                     return false;
                 }
                 
@@ -64,7 +64,7 @@
     <div data-options="region:'south',split:false,border:false" style="height:50px;padding:10px; text-align:center;">dingcms版权south region<br/>hualo.net开发团队</div>
     <!--//主体内容部分-->
     <div data-options="region:'center'" class="indexcenter" title="内容管理系统">
-        <div id="tabsindex" class="easyui-tabs"  fit="true" border="false"  >
+        <div id="tabs_index" class="easyui-tabs"  fit="true" border="false"  >
             <div title="{:L('home')}" style="overflow:hidden; " >
                 <include file="windows"/>
             </div>

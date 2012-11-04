@@ -45,8 +45,8 @@ function submitForm(classId){
 function updateTab(classId,url,subtitle){
     //alert(url);
     //return false;
-    $('#tabs'+classId).tabs('select',subtitle);
-    var tab = $('#tabs'+classId).tabs('getSelected');
+    $('#tabs_'+classId).tabs('select',subtitle);
+    var tab = $('#tabs_'+classId).tabs('getSelected');
     tab.panel('refresh', url);
 }
 /*

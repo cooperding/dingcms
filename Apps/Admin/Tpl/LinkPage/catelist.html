@@ -3,7 +3,7 @@
         <div data-options="region:'west',split:true" title="联动分类" style="width:150px;">
             <ul class="easyui-tree catelist" style="padding: 10px 5px 10px 0;">
                 <foreach name="cate" item="cate">
-                    <li><a href="javascript:viod(0);" cmshref="__APP__/LinkPage/{$cate.id}">{$cate.ename}</a></li>
+                    <li><a href="javascript:viod(0);" cmshref="__APP__/LinkPage/catelistcate?id={$cate.id}">{$cate.ename}</a></li>
                 </foreach>
             </ul>
         </div>
@@ -13,17 +13,7 @@
             </div>
 
 
-            <!--            <table id="datagrid_linkpage_catelist" class="easyui-datagrid datagrid linkpage_catelist">
-                            <thead>
-                                <tr>
-                                    <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
-                                    <th data-options="field:'ename'" width="200">标题</th>
-                                    <th data-options="field:'egroup'" width="200">parent_id</th>
-                                    <th data-options="field:'status'" width="200">myorder</th>
-                                    <th data-options="field:'myorder'" width="80">操作</th>
-                                </tr>
-                            </thead>
-                        </table>-->
+            
             <script>
                 $(function(){
                     var height = $('.indexcenter').height();

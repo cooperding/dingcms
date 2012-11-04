@@ -111,6 +111,25 @@ class LinkPageAction extends AdminAction {
         $this->assign('cate', $cate);
         $this->display();
     }
+    public function catelistcate(){//点击左侧信息打开右侧
+        
+        $id = $_GET['id'];
+        //echo $id;
+        $this->assign('id', $id);
+        $this->display('catelisttab');
+    }
+    public function catelistadd(){
+        $id = $_GET['id'];
+        echo $id;
+    }
+    public function catelistedit(){
+        $id = $_GET['id'];
+        echo $id;
+    }
+    public function catelistdelete(){
+        $id = $_GET['id'];
+        echo $id;
+    }
 
     public function cateJson() {
         $m = M('LinkpageCate');
@@ -126,6 +145,28 @@ class LinkPageAction extends AdminAction {
         echo json_encode($array);
     }
 
+    public function cateJsonId() {
+        $m = M('LinkpageCate');
+        $list = $m->select();
+        $count = $m->count("id");
+        $a = array();
+        foreach ($list as $k => $v) {
+            $a[$k] = $v;
+        }
+        $array = array();
+        $array['total'] = $count;
+        $array['rows'] = $a;
+        echo json_encode($array);
+    }
+    public function jsonTreeId() {
+        Load('extend');
+        $m = M('LinkpageList');
+        $id = $_GET['id'];
+        $tree = $m->field('id,parent_id,cate_name as text')->where('linkpage_id='.$id)->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        //$tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);
+        echo json_encode($tree);
+    }
 }
 ?>
 
