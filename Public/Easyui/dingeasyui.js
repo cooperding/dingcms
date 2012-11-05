@@ -77,7 +77,7 @@ function openDialog(classId,href,title){
             }
         },{
             text:'取消',
-            iconCls:'icon-canel',
+            iconCls:'icon-cancel',
             handler:function(){
                 dialogOnClose(classId);
             }

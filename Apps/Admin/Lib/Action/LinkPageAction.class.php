@@ -11,8 +11,7 @@
  * @package  Controller
  * @todo 联动模型其他操作
  */
-class LinkPageAction extends AdminAction
-{
+class LinkPageAction extends AdminAction {
 
     /**
      * cate
@@ -21,8 +20,7 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function cate()
-    {
+    public function cate() {
         $this->display();
     }
 
@@ -33,8 +31,7 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function cateadd()
-    {
+    public function cateadd() {
         $radios = array(
             'true' => '启用',
             'false' => '禁用'
@@ -50,8 +47,7 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function cateedit()
-    {
+    public function cateedit() {
         $m = M('LinkpageCate');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -71,8 +67,7 @@ class LinkPageAction extends AdminAction
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateinsert()
-    {
+    public function cateinsert() {
         $m = M('LinkpageCate');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -109,8 +104,7 @@ class LinkPageAction extends AdminAction
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateupdate()
-    {
+    public function cateupdate() {
         $m = M('LinkpageCate');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -145,8 +139,7 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function catedelete()
-    {
+    public function catedelete() {
         $id = intval($_GET['id']);
         $m = M('LinkpageCate');
         $list = M('LinkpageList');
@@ -173,8 +166,7 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function catelist()
-    {
+    public function catelist() {
         $m = M('LinkpageCate');
         $cate = $m->field('id,ename')->select();
 
@@ -190,9 +182,8 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistcate()
-    {//点击左侧信息打开右侧
-        $id = $_GET['id'];
+    public function catelistcate() {//点击左侧信息打开右侧
+        $id = intval($_GET['id']);
         //echo $id;
         $this->assign('id', $id);
         $this->display('catelisttab');
@@ -205,11 +196,10 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistadd()
-    {
-        $id = $_GET['id'];
-        $this->assign('pranet_id', $id);
-        $this->display('catelisttab');
+    public function catelistadd() {
+        $id = intval($_GET['id']);
+        $this->assign('linkpage_id', $id);
+        $this->display();
     }
 
     /**
@@ -219,10 +209,12 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistedit()
-    {
-        $id = $_GET['id'];
-        echo $id;
+    public function catelistedit() {
+        $id = intval($_GET['id']);
+        $list = M('LinkpageList');
+        $data = $list->where('id=' . $id)->find();
+        $this->assign('data', $data);
+        $this->display();
     }
 
     /**
@@ -232,12 +224,34 @@ class LinkPageAction extends AdminAction
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistdelete()
-    {
-        $id = $_GET['id'];
+    public function catelistdelete() {
+        $id = intval($_GET['id']);
         echo $id;
     }
-
+ /**
+     * catelistinsert
+     * 联动列表编辑插入数据
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function catelistinsert() {
+        $id = intval($_GET['id']);
+        //$this->assign('linkpage_id', $id);
+        //$this->display();
+    }
+     /**
+     * catelistupdate
+     * 联动列表编辑更新
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function catelistupdate() {
+        $id = intval($_GET['id']);
+        //$this->assign('linkpage_id', $id);
+        //$this->display();
+    }
     /**
      * cateJson
      * 返回catejson联动分类数据
@@ -245,8 +259,7 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function cateJson()
-    {
+    public function cateJson() {
         $m = M('LinkpageCate');
         $list = $m->select();
         $count = $m->count("id");
@@ -267,14 +280,30 @@ class LinkPageAction extends AdminAction
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonTreeId()
-    {
+    public function jsonTreeId() {
         Load('extend');
         $m = M('LinkpageList');
-        $id = $_GET['id'];
+        $id = intval($_GET['id']);
         $tree = $m->field('id,parent_id,cate_name as text')->where('linkpage_id=' . $id)->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         //$tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);
+        echo json_encode($tree);
+    }
+
+    /**
+     * jsonTreeListId
+     * 通过id返回jsonTreeList数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTreeListId() {
+        Load('extend');
+        $m = M('LinkpageList');
+        $id = intval($_GET['id']);
+        $tree = $m->field('id,parent_id,cate_name as text')->where('linkpage_id=' . $id)->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);
         echo json_encode($tree);
     }
 

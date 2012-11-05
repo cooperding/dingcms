@@ -1,0 +1,25 @@
+<div class="pageform">
+    <form action="__APP__/LinkPage/cateinsert" id="form_catelistadd" method="post">
+        <input type="hidden" name="linkpage_id" value="{$linkpage_id}" />
+         <ul>
+            <li>
+                <label>分类名称：</label>
+                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+            </li>
+            <li>
+                <label>上级分组名：</label>
+                <p><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/LinkPage/jsonTreeListId?id={$linkpage_id}',required:true"  value="0"  style="width:200px;"></p
+            </li>
+            <li>
+                <label>{:L("keywords")}：</label>
+                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
+            </li>
+            <li>
+                <label>{:L("description")}：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
+            </li>
+            <li>
+                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
+            </li>
+        </ul>
+    </form>
+</div>
