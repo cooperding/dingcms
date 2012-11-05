@@ -65,37 +65,31 @@ class NewsCateAction extends AdminAction
         $m = M('NewsCate');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
-        if (empty($text))
-        {
+        if (empty($text)) {
             $json = array('status' => '1', 'info' => '分类名不能为空！');
             echo json_encode($json);
             exit;
         }
         $en_name = trim($_POST['en_name']);
-        if (empty($en_name))
-        {
+        if (empty($en_name)) {
             import("ORG.Util.Pinyin");
             $pinyin = new Pinyin();
             $_POST['en_name'] = $pinyin->output($_POST['text']);
         }
-        if ($parent_id != 0)
-        {
+        if ($parent_id != 0) {
             $data = $m->where('id=' . $parent_id)->find();
             $_POST['path'] = $data['path'] . $parent_id . ',';
         }
-        if ($m->create($_POST))
-        {
+        if ($m->create($_POST)) {
             $rs = $m->add($_POST);
-            if ($rs)
-            {
+            if ($rs) {
                 $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
                 echo json_encode($json);
-            } else
-            {
+            } else {
                 $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
-        }
+        }//if
     }
 
     /**
@@ -112,18 +106,15 @@ class NewsCateAction extends AdminAction
         $m = M('NewsCate');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        if ($parent_id != 0)
-        {
+        if ($parent_id != 0) {
             $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
-            if ($cun)
-            {
+            if ($cun) {
                 $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
                 echo json_encode($json);
                 exit;
             }
             $en_name = trim($_POST['en_name']);
-            if (empty($en_name))
-            {
+            if (empty($en_name)) {
                 import("ORG.Util.Pinyin");
                 $pinyin = new Pinyin();
                 $_POST['en_name'] = $pinyin->output($_POST['text']);
@@ -132,24 +123,20 @@ class NewsCateAction extends AdminAction
             $fpath = $fdata['path'] . $parent_id . ','; //替换
             $sdata = $m->where('id=' . $id)->find();
             $spath = $sdata['path']; //搜索
-            if ($fpath != $spath)
-            {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
                 $sfid = $sdata['parent_id'];
                 $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
                 $m->query($sql);
             }
             $_POST['path'] = $fpath;
             $rs = $m->save($_POST);
-            if ($rs == 1)
-            {
+            if ($rs == 1) {
                 $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
                 echo json_encode($json);
-            } elseif ($rs == 0)
-            {
+            } elseif ($rs == 0) {
                 $json = array('status' => '1', 'info' => '更新失败！');
                 echo json_encode($json);
-            } else
-            {
+            } else {
                 $json = array('status' => '2', 'info' => '未有操作！');
                 echo json_encode($json);
             }
@@ -181,8 +168,7 @@ class NewsCateAction extends AdminAction
         $list = $m->select();
         $navcatCount = $m->count("id");
         $a = array();
-        foreach ($list as $k => $v)
-        {
+        foreach ($list as $k => $v) {
             $a[$k] = $v;
             $a[$k]['_parentId'] = intval($v['parent_id']); //_parentId为easyui中标识父id
         }

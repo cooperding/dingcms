@@ -10,7 +10,8 @@
  * @package  Controller
  * @todo 信息各项操作
  */
-class NewsAction extends AdminAction {
+class NewsAction extends AdminAction
+{
 
     /**
      * index
@@ -19,19 +20,22 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index() {
-        
+    public function index()
+    {
+
         $this->display();
     }
-/**
+
+    /**
      * json
      * 信息json数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function json() {
-        
+    public function json()
+    {
+
         $m = M('NavHead');
         $list = $m->select();
         $navcatCount = $m->count("id");

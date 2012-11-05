@@ -25,15 +25,11 @@ class IndexAction extends AdminAction
     public function index()
     {
         require_once(APP_PATH . '/Conf/leftermenu.php'); //引入菜单
-        foreach ($array as $key => $val)
-        {
-            foreach ($val['items'] as $skey => $sval)
-            {
+        foreach ($array as $key => $val) {
+            foreach ($val['items'] as $skey => $sval) {
 
-                foreach ($sval['items'] as $sskey => $ssval)
-                {
-                    if ($ssval['type'] == 'abc')
-                    {//echo '<pre>';print_r(c);//exit();
+                foreach ($sval['items'] as $sskey => $ssval) {
+                    if ($ssval['type'] == 'abc') {//echo '<pre>';print_r(c);//exit();
                         //unset($array[$key]['items'][$sskey]['items'][$sskey]);
                     }
                 }

@@ -24,11 +24,9 @@ class LoginAction extends Action
     public function index()
     {
         //此处判断是否已经登录，如果登录跳转到后台首页否则跳转到登录页面
-        if (session('LOGIN_STATUS') == 'TRUE')
-        {
+        if (session('LOGIN_STATUS') == 'TRUE') {
             $this->redirect('../' . APP_NAME);
-        } else
-        {
+        } else {
             $this->display();
         }
     }
@@ -44,37 +42,30 @@ class LoginAction extends Action
     {
         $ver_code = $_POST['vd_code'];
         $verify = session('verify');
-        if (empty($ver_code) || md5($ver_code) != $verify)
-        {
+        if (empty($ver_code) || md5($ver_code) != $verify) {
             $this->error('验证码为空或者输入错误！');
             exit;
         }
         $condition['username'] = $_POST['user_name'];
         $password = $_POST['user_password'];
-        if (!empty($condition['username']) && !empty($password))
-        {//依据用户名查询
+        if (!empty($condition['username']) && !empty($password)) {//依据用户名查询
             $login = M('Operators');
             $rs = $login->where($condition)->find();
-            if ($rs)
-            {//对查询出的结果进行判断
+            if ($rs) {//对查询出的结果进行判断
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
-                if ($password == $rs['password'])
-                {//判断密码是否匹配
+                if ($password == $rs['password']) {//判断密码是否匹配
                     session('LOGIN_STATUS', 'TRUE');
                     session('LOGIN_NAME', $rs['username']);
                     session('LOGIN_UID', $rs['id']);
                     session('LOGIN_CTIME', $rs['creat_time']);
                     $this->success('登陆成功！', __APP__);
-                } else
-                {
+                } else {
                     $this->error('您的输入密码错误！');
                 }
-            } else
-            {
+            } else {
                 $this->error('您的输入用户名或者密码错误！');
             }
-        } else
-        {
+        } else {
             $this->error('用户名或密码输入为空！');
         }
     }

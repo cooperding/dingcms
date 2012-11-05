@@ -12,6 +12,7 @@
  */
 class ModelAction extends AdminAction
 {
+
     /**
      * cate
      * 内容模型分类
@@ -20,9 +21,11 @@ class ModelAction extends AdminAction
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function cate(){
+    public function cate()
+    {
         $this->display();
     }
+
     /**
      * catelist
      * 内容模型字段列表
@@ -31,12 +34,11 @@ class ModelAction extends AdminAction
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function catelist(){
+    public function catelist()
+    {
         $this->display();
     }
-    
-    
-}
 
+}
 ?>
 

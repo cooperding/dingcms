@@ -24,8 +24,7 @@ class AdminAction extends Action
     public function loginjudge()
     {
         $logged = session('LOGIN_STATUS'); //取得session值
-        if (empty($logged) || $logged != 'TRUE')
-        {
+        if (empty($logged) || $logged != 'TRUE') {
             $this->error('请登录后操作', __APP__ . '/Login');
         }
     }
@@ -42,8 +41,7 @@ class AdminAction extends Action
 
         $logged = 'TRUE2';
         //$logged = $_SESSION['logged'];//取得session值
-        if (empty($logged) || $logged != 'TRUE')
-        {
+        if (empty($logged) || $logged != 'TRUE') {
             $this->error('请登录后操作', __APP__ . '/Login');
         }
     }

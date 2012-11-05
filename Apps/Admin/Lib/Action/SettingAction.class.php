@@ -33,12 +33,9 @@ class SettingAction extends AdminAction
             '6' => '其它设置'
         );
         $array = array();
-        foreach ($name as $m => $n)
-        {
-            foreach ($list as $k => $v)
-            {
-                if ($m == $v['sys_gid'])
-                {
+        foreach ($name as $m => $n) {
+            foreach ($list as $k => $v) {
+                if ($m == $v['sys_gid']) {
                     $array[$m]['title'] = $n;
                     $array[$m]['slist'][] = $v;
                 }
@@ -122,22 +119,17 @@ class SettingAction extends AdminAction
         //先判断是否有重复的名称
         $sys_name['sys_name'] = $_POST['sys_name'];
         $rs = $setting->where($sys_name)->find();
-        if (!empty($rs))
-        {//不为空说明存在，存在就不能添加
+        if (!empty($rs)) {//不为空说明存在，存在就不能添加
             echo '1';
             exit;
-        } else
-        {
+        } else {
             $sys_type = $_POST['sys_type'];
             $_POST['sys_type'] = $sys_type[0];
-            if ($setting->create($_POST))
-            {
+            if ($setting->create($_POST)) {
                 $rs = $setting->add($_POST);
-                if ($rs)
-                {
+                if ($rs) {
                     echo 2;
-                } else
-                {
+                } else {
                     echo 3;
                 }
             }
@@ -157,23 +149,18 @@ class SettingAction extends AdminAction
         $sys_name['sys_name'] = trim($_POST['sys_name']);
         $sys_name['sys_id'] = array('neq', $_POST['sys_id']);
         $rs = $setting->where($sys_name)->find();
-        if (!empty($rs))
-        {
+        if (!empty($rs)) {
             echo '1';
             exit;
-        } else
-        {
+        } else {
             $sys_type = $_POST['sys_type'];
             $_POST['sys_type'] = $sys_type[0];
             $rs = $setting->save($_POST);
-            if ($rs == 1)
-            {
+            if ($rs == 1) {
                 echo 2;
-            } elseif ($rs == 0)
-            {
+            } elseif ($rs == 0) {
                 echo 4;
-            } else
-            {
+            } else {
                 echo 3;
             }
         }
@@ -192,22 +179,18 @@ class SettingAction extends AdminAction
         echo '<pre>';
         print_r($_POST);
         $setting = M('Setting');
-        foreach ($_POST as $k => $v)
-        {
+        foreach ($_POST as $k => $v) {
             //$data['sys_id'] = $k;
             echo $v;
             exit;
             $data['sys_value'] = $v;
             $rs = $setting->where('sys_id=' . $k)->data($data)->save();
         }
-        if ($rs == 1)
-        {
+        if ($rs == 1) {
             echo 2;
-        } elseif ($rs == 0)
-        {
+        } elseif ($rs == 0) {
             echo 4;
-        } else
-        {
+        } else {
             echo 3;
         }
     }

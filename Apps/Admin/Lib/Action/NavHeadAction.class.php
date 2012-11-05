@@ -65,26 +65,21 @@ class NavHeadAction extends AdminAction
         $m = M('NavHead');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
-        if (empty($text))
-        {
+        if (empty($text)) {
             $json = array('status' => '1', 'info' => '分类名不能为空！');
             echo json_encode($json);
             exit;
         }
-        if ($parent_id != 0)
-        {
+        if ($parent_id != 0) {
             $data = $m->where('id=' . $parent_id)->find();
             $_POST['path'] = $data['path'] . $parent_id . ',';
         }
-        if ($m->create($_POST))
-        {
+        if ($m->create($_POST)) {
             $rs = $m->add($_POST);
-            if ($rs)
-            {
+            if ($rs) {
                 $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
                 echo json_encode($json);
-            } else
-            {
+            } else {
                 $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
@@ -105,11 +100,9 @@ class NavHeadAction extends AdminAction
         $m = M('NavHead');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        if ($parent_id != 0)
-        {
+        if ($parent_id != 0) {
             $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
-            if ($cun)
-            {
+            if ($cun) {
                 $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
                 echo json_encode($json);
                 exit;
@@ -119,8 +112,7 @@ class NavHeadAction extends AdminAction
         $fpath = $fdata['path'] . $parent_id . ','; //替换
         $sdata = $m->where('id=' . $id)->find();
         $spath = $sdata['path']; //搜索
-        if ($fpath != $spath)
-        {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+        if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
             $sfid = $sdata['parent_id'];
             $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
             $m->query($sql);
@@ -128,12 +120,10 @@ class NavHeadAction extends AdminAction
         $_POST['path'] = $fpath;
 
         $rs = $m->save($_POST);
-        if ($rs == 1)
-        {
+        if ($rs == 1) {
             $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
             echo json_encode($json);
-        } else
-        {
+        } else {
             $json = array('status' => '2', 'info' => '未有操作！');
             echo json_encode($json);
         }
@@ -150,26 +140,20 @@ class NavHeadAction extends AdminAction
     {
         $m = M('NavHead');
         $id = intval($_POST['id']);
-        if (empty($id))
-        {
+        if (empty($id)) {
             $json = array('status' => '1', 'info' => '未有id值，无法删除！');
             echo json_encode($json);
-        } else
-        {
+        } else {
             $data = $m->where('path like \'%,' . $id . ',%\'')->select();
-            if (is_array($data))
-            {
+            if (is_array($data)) {
                 $json = array('status' => '1', 'info' => '该分类下还有子级分类，无法删除！');
                 echo json_encode($json);
-            } else
-            {
+            } else {
                 $del = $m->where('id=' . $id)->delete();
-                if ($del == 1)
-                {
+                if ($del == 1) {
                     $json = array('status' => '2', 'info' => '删除成功！');
                     echo json_encode($json);
-                } else
-                {
+                } else {
                     $json = array('status' => '1', 'info' => '删除失败！');
                     echo json_encode($json);
                 }//if
@@ -190,8 +174,7 @@ class NavHeadAction extends AdminAction
         $list = $m->select();
         $navcatCount = $m->count("id");
         $a = array();
-        foreach ($list as $k => $v)
-        {
+        foreach ($list as $k => $v) {
             $a[$k] = $v;
             $a[$k]['_parentId'] = intval($v['parent_id']); //_parentId为easyui中标识父id
         }
