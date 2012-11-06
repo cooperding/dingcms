@@ -9,27 +9,21 @@
         </div>
         <div data-options="region:'center'" style="">
             <div id="tabs_catelist" class="easyui-tabs"  fit="true" border="false"  >
-                
+
             </div>
 
 
-            
+
             <script>
                 $(function(){
                     var height = $('.indexcenter').height();
                     var classId = 'linkpage_catelist';
-                    var hrefadd = '__APP__/LinkPage/cateadd';
-                    var hrefedit = '__APP__/LinkPage/cateedit';
-                    var hrefcancel = '__APP__/LinkPage/delete';
-                    var urljson = '__APP__/LinkPage/cateJson';
                     $('.layout_'+classId).css('height',height-50);
-                    openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
                     $('.catelist').tree({
                         onClick:function(){
                             var url = $('.tree-node-selected a').attr('cmshref');
                             var classId = 'catelist';
                             var subtitle = $('.tree-node-selected a').text();
-                            //var url = $(this).attr('cmshref');
                             if(!$('#tabs_'+classId).tabs('exists',subtitle)){
                                 $('#tabs_'+classId).tabs('add',{
                                     title:subtitle,
@@ -48,7 +42,7 @@
                                 $('#tabs_'+classId).tabs('select',subtitle);
                                 return false;
                             }
-                            
+
                         }//onclick
                     });
                 })

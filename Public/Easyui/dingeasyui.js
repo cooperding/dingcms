@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -12,7 +12,7 @@ function submitForm(classId){
         url:url,
         onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
-        //alert(url); 
+        //alert(url);
         //$('#dialog').dialog('close');
         },
         success:function(msg){
@@ -21,16 +21,16 @@ function submitForm(classId){
             //return false;
             formAjax(data,classId);
         }
-    }); 
-   
-    
+    });
+
+
 /*
-   
-    
+
+
      $.ajax({
         url:url,
         type:'post',
-        
+
 //        data:{
 //            id:id
 //        },
@@ -82,7 +82,7 @@ function openDialog(classId,href,title){
                 dialogOnClose(classId);
             }
         }
-        ]	
+        ]
     });
 //$('#dialog'+classId).dialog('refresh', href);
 }
@@ -126,8 +126,8 @@ function addTab(subtitle, url){
 }
 
 /*
-* openTreeGrid 执行树结构的文档
-*classId id
+* openDatagrid 执行数据结构的文档
+* classId id
 * urljson 读取数据的url地址
 * hrefadd 添加信息路径
 * hrefedit修改信息路径
@@ -174,7 +174,7 @@ function openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                     $.messager.alert('信息提示', '请选择一个要操作的项', 'error');
                     return false;
                 }
-                
+
                 var href = hrefedit+'?id='+ids;
                 var title = '编辑信息';
                 openDialog(classId,href,title);
@@ -273,13 +273,13 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
             }
         }
         ]
-    });         
+    });
 }
 
 function formAjax(data,classId){
     //alert(classId);
     //return false;
-    
+
     if(data.status==1){
         $.messager.alert(data.info,data.info,'error');
     }else if(data.status==2){
@@ -294,8 +294,8 @@ function formAjax(data,classId){
             $('#dialog_'+classId).dialog('close');
             dialogOnClose(classId);
         }
-        
-        
+
+
     }
 }
 function changeTheme(themeName){
@@ -311,7 +311,7 @@ function changeTheme(themeName){
             $(ifr).contents().find('#easyuiTheme').attr('href', href);
         }
     }
-  
+
     $.cookie('easyuiThemeName', themeName, {
         expires : 7
     });

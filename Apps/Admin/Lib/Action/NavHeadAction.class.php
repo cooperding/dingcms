@@ -5,13 +5,12 @@
  * 头部导航
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
- * @license http://www.apache.org/licenses/LICENSE-2.0 
+ * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:08
  * @package  Controller
  * @todo 内容模型各项操作
  */
-class NavHeadAction extends AdminAction
-{
+class NavHeadAction extends AdminAction {
 
     /**
      * index
@@ -107,6 +106,16 @@ class NavHeadAction extends AdminAction
                 echo json_encode($json);
                 exit;
             }
+
+            $fdata = $m->where('id=' . $parent_id)->find();
+            $fpath = $fdata['path'] . $parent_id . ','; //替换
+            $sdata = $m->where('id=' . $id)->find();
+            $spath = $sdata['path']; //搜索
+            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+                $sfid = $sdata['parent_id'];
+                $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
+                $m->query($sql);
+            }
         }
         $fdata = $m->where('id=' . $parent_id)->find();
         $fpath = $fdata['path'] . $parent_id . ','; //替换
@@ -117,6 +126,7 @@ class NavHeadAction extends AdminAction
             $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
             $m->query($sql);
         }
+
         $_POST['path'] = $fpath;
 
         $rs = $m->save($_POST);
