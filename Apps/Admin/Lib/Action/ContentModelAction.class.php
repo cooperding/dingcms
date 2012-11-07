@@ -51,7 +51,7 @@ class ContentModelAction extends AdminAction {
      */
     public function cateedit()
     {
-        $m = M('LinkpageCate');
+        $m = M('ModelCate');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
             'true' => '启用',
@@ -72,19 +72,19 @@ class ContentModelAction extends AdminAction {
      */
     public function cateinsert()
     {
-        $m = M('LinkpageCate');
+        $m = M('ModelCate');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
-        $_POST['egroup'] = trim($_POST['egroup']);
-        $data['egroup'] = $_POST['egroup'];
+        $_POST['emark'] = trim($_POST['emark']);
+        $data['emark'] = $_POST['emark'];
         $data['ename'] = $_POST['ename'];
-        if (empty($_POST['ename']) || empty($_POST['egroup'])) {
+        if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $json = array('status' => '1', 'info' => '请将信息输入完整。');
             echo json_encode($json);
             exit;
         }
         if ($m->where($data)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！');
+            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
         }
@@ -110,20 +110,20 @@ class ContentModelAction extends AdminAction {
      */
     public function cateupdate()
     {
-        $m = M('LinkpageCate');
+        $m = M('ModelCate');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
-        $_POST['egroup'] = trim($_POST['egroup']);
-        $data['egroup'] = $_POST['egroup'];
+        $_POST['emark'] = trim($_POST['emark']);
+        $data['emark'] = $_POST['emark'];
         $data['ename'] = $_POST['ename'];
         $data['id'] = array('neq', $id);
-        if (empty($_POST['ename']) || empty($_POST['egroup'])) {
+        if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $json = array('status' => '1', 'info' => '请将信息输入完整。');
             echo json_encode($json);
             exit;
         }
         if ($m->where($data)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！');
+            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
         }
