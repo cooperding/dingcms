@@ -67,8 +67,8 @@ $array = array(
                     array('label' => '基础设置', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
             array('label' => L('menu_channel_name'), 'type' => 'channel_name', 'items' => array(
-                    array('label' => L('menu_model_cat'), 'type' => 'model_cat', 'link' => __APP__ . '/Model/cate'),
-                    array('label' => L('menu_model_list'), 'type' => 'model_list', 'link' => __APP__ . '/Model/catelist')
+                    array('label' => L('menu_model_cat'), 'type' => 'model_cat', 'link' => __APP__ . '/ContentModel/cate'),
+                    array('label' => L('menu_model_list'), 'type' => 'model_list', 'link' => __APP__ . '/ContentModel/catelist')
             )),
             array('label' => L('menu_linkpage_name'), 'type' => 'linkpage_name', 'items' => array(
                     array('label' => L('menu_linkpage_cat'), 'type' => 'linkpage_cat', 'link' => __APP__ . '/LinkPage/cate'),
