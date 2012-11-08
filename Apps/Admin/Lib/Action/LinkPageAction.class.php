@@ -74,21 +74,19 @@ class LinkPageAction extends AdminAction {
     {
         $m = M('LinkpageCate');
         $id = intval($_POST['id']);
-        $_POST['ename'] = trim($_POST['ename']);
-        $_POST['egroup'] = trim($_POST['egroup']);
-        $data['egroup'] = $_POST['egroup'];
-        $data['ename'] = $_POST['ename'];
-        if (empty($_POST['ename']) || empty($_POST['egroup'])) {
+        $condition['ename'] = trim($_POST['ename']);
+        $condition['egroup'] = trim($_POST['egroup']);
+        $condition['_logic'] = 'OR';
+        if (empty($condition['ename']) || empty($condition['egroup'])) {
             $json = array('status' => '1', 'info' => '请将信息输入完整。');
             echo json_encode($json);
             exit;
         }
-        if ($m->where($data)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！');
+        if ($m->where($condition)->find()) {
+            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['egroup'] . '已经存在！');
             echo json_encode($json);
             exit;
         }
-
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
@@ -98,6 +96,10 @@ class LinkPageAction extends AdminAction {
                 $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
+        }else{
+            $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
+            echo json_encode($json);
+            exit;
         }//if
     }
 
@@ -114,15 +116,17 @@ class LinkPageAction extends AdminAction {
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['egroup'] = trim($_POST['egroup']);
-        $data['egroup'] = $_POST['egroup'];
-        $data['ename'] = $_POST['ename'];
-        $data['id'] = array('neq', $id);
+        $where['ename'] = $_POST['ename'];
+        $where['egroup'] = $_POST['egroup'];
+        $where['_logic'] = 'or';
+        $condition['_complex'] = $where;
+        $condition['id'] = array('neq', $id);
         if (empty($_POST['ename']) || empty($_POST['egroup'])) {
             $json = array('status' => '1', 'info' => '请将信息输入完整。');
             echo json_encode($json);
             exit;
         }
-        if ($m->where($data)->find()) {
+        if ($m->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！');
             echo json_encode($json);
             exit;

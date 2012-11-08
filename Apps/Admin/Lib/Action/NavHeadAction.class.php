@@ -82,6 +82,10 @@ class NavHeadAction extends AdminAction {
                 $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
+        }else{
+            $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
+            echo json_encode($json);
+            exit;
         }
     }
 

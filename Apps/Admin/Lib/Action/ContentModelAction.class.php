@@ -72,33 +72,36 @@ class ContentModelAction extends AdminAction {
      */
     public function cateinsert()
     {
+
         $m = M('ModelCate');
         $id = intval($_POST['id']);
-        $_POST['ename'] = trim($_POST['ename']);
-        $_POST['emark'] = trim($_POST['emark']);
-        $data['emark'] = $_POST['emark'];
-        $data['ename'] = $_POST['ename'];
-        if (empty($_POST['ename']) || empty($_POST['emark'])) {
+        $condition['ename'] = trim($_POST['ename']);
+        $condition['emark'] = trim($_POST['emark']);
+        $condition['_logic'] = 'OR';
+        if (empty($condition['ename']) || empty($condition['emark'])) {
             $json = array('status' => '1', 'info' => '请将信息输入完整。');
             echo json_encode($json);
             exit;
         }
-        if ($m->where($data)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['emark'] . '已经存在！');
+        if ($m->where($condition)->find()) {
+            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
         }
-
-        if ($m->create($_POST)) {
+        if ($m->create()) {
             $rs = $m->add($_POST);
-            if ($rs) {
+            if ($rs) {//存在值
                 $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
                 echo json_encode($json);
             } else {
                 $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
-        }//if
+        }else{
+            $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
+            echo json_encode($json);
+            exit;
+        }
     }
 
     /**
@@ -114,16 +117,19 @@ class ContentModelAction extends AdminAction {
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['emark'] = trim($_POST['emark']);
-        $data['emark'] = $_POST['emark'];
-        $data['ename'] = $_POST['ename'];
-        $data['id'] = array('neq', $id);
+        $where['ename'] = $_POST['ename'];
+        $where['emark'] = $_POST['emark'];
+        $where['_logic'] = 'or';
+        $condition['_complex'] = $where;
+        $condition['id'] = array('neq', $id);
+
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $json = array('status' => '1', 'info' => '请将信息输入完整。');
             echo json_encode($json);
             exit;
         }
-        if ($m->where($data)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['emark'] . '已经存在！');
+        if ($m->where($condition)->find()) {
+            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
         }
@@ -147,9 +153,9 @@ class ContentModelAction extends AdminAction {
     public function catedelete()
     {
         $id = intval($_GET['id']);
-        $m = M('LinkpageCate');
-        $list = M('LinkpageList');
-        if ($list->where('linkpage_id=' . $id)->find()) {
+        $m = M('ModelCate');
+        $list = M('ModelField');
+        if ($list->where('cate_id=' . $id)->find()) {
             $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
             echo json_encode($json);
             exit;
@@ -175,6 +181,9 @@ class ContentModelAction extends AdminAction {
      */
     public function catelist()
     {
+        $m = M('ModelCate');
+        $cate = $m->field('id,ename')->select();
+        $this->assign('cate', $cate);
         $this->display();
     }
 
@@ -187,7 +196,7 @@ class ContentModelAction extends AdminAction {
      */
     public function cateJson()
     {
-        $m = M('LinkpageCate');
+        $m = M('ModelCate');
         $list = $m->select();
         $count = $m->count("id");
         $a = array();
