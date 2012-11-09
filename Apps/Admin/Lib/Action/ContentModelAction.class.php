@@ -97,7 +97,7 @@ class ContentModelAction extends AdminAction {
                 $json = array('status' => '2', 'info' => '分类添加失败！');
                 echo json_encode($json);
             }
-        }else{
+        } else {
             $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
             echo json_encode($json);
             exit;
@@ -184,6 +184,51 @@ class ContentModelAction extends AdminAction {
         $m = M('ModelCate');
         $cate = $m->field('id,ename')->select();
         $this->assign('cate', $cate);
+        $this->display();
+    }
+
+    /**
+     * catelistcate
+     * 模型列表左侧菜单
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function catelistcate()
+    {//点击左侧信息打开右侧
+        $id = intval($_GET['id']);
+        //echo $id;
+        $this->assign('id', $id);
+        $this->display('catelisttab');
+    }
+
+    /**
+     * catelistadd
+     * 模型列表编辑添加
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function catelistadd()
+    {
+        $id = intval($_GET['id']);
+        $this->assign('id', $id);
+        $this->display();
+    }
+
+    /**
+     * catelistedit
+     * 模型列表编辑
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function catelistedit()
+    {
+        $id = intval($_GET['id']);
+        $list = M('ModelField');
+        $data = $list->where('id=' . $id)->find();
+        $this->assign('data', $data);
         $this->display();
     }
 

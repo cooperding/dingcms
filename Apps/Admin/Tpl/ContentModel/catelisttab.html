@@ -1,0 +1,24 @@
+<table id="treegrid_contentmodel_catelisttab{$id}" class="easyui-treegrid treegrid contentmodel_catelisttab{$id}">
+    <thead>
+        <tr>
+            <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
+            <th data-options="field:'text'" width="200">标题</th>
+            <th data-options="field:'parent_id'" width="200">parent_id</th>
+            <th data-options="field:'status'" width="200">myorder</th>
+            <th data-options="field:'myorder'" width="80">操作</th>
+        </tr>
+    </thead>
+</table>
+<script>
+    $(function(){
+        var height = $('.indexcenter').height();
+        var classId = 'contentmodel_catelisttab{$id}';
+        var hrefadd = '__APP__/ContentModel/catelistadd?id={$id}';
+        var hrefedit = '__APP__/ContentModel/catelistedit';
+        var hrefcancel = '__APP__/ContentModel/catelistdelete';
+        var urljson = '__APP__/ContentModel/jsonTreeId?id={$id}';
+        $('.layout_'+classId).css('height',height-50);
+        openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+
+    })
+</script>
