@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 /*
  *  submitForm  提交表单时执行
  *  classId 为当前表单的id
@@ -23,23 +20,6 @@ function submitForm(classId){
         }
     });
 
-
-/*
-
-
-     $.ajax({
-        url:url,
-        type:'post',
-
-//        data:{
-//            id:id
-//        },
-        dataType:'json',
-        success:function(data){
-            formAjax(data,classId);
-        }
-    });
-    */
 }
 /*更新tab功能*/
 function updateTab(classId,url,subtitle){
@@ -57,8 +37,8 @@ function updateTab(classId,url,subtitle){
 function openDialog(classId,href,title){
     $('#dialog_cms').dialog({
         href:href,
-        width:500,
-        height:200,
+        width:800,
+        height:500,
         resizable:true,
         title:title,
         modal:true,

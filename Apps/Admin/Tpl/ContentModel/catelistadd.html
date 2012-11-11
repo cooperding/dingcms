@@ -1,14 +1,30 @@
 <div class="pageform">
-    <form action="__APP__/ContentModel/catelistinsert" id="form_contentmodel_catelisttab{$linkpage_id}" method="post">
-        <input type="hidden" name="linkpage_id" value="{$linkpage_id}" />
-         <ul>
+    <form action="__APP__/ContentModel/catelistinsert" id="form_contentmodel_catelisttab{$id}" method="post">
+        <input type="hidden" name="cate_id" value="{$id}" />
+        <ul>
             <li>
-                <label>分类名称：</label>
-                <p><input type="text" name="cate_name" value="{$data.cate_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <label>表单提示文字：</label>
+                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
-                <label>上级分组名：</label>
-                <p><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/LinkPage/jsonTreeListId?id={$linkpage_id}',required:true"  value="0"  style="width:200px;"></p
+                <label>字段名称：</label>
+                <p><input type="text" name="emark" value="{$data.emark}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+            </li>
+            <li>
+                <label>数据类型：</label>
+                <p><input value="text" name="etype" class="listadd" style="width:200px;"></p>
+            </li>
+            <li class="liandong" style="display: none">
+                <label>联动分类：</label>
+                <p><input value="" name="elink" class="modellinkpage" style="width:200px;"></p>
+            </li>
+            <li>
+                <label>默认值：</label>
+                <p><textarea name="evalue"></textarea></p>
+            </li>
+            <li>
+                <label>最大长度：</label>
+                <p><input type="text" name="maxlength" value="255" /></p>
             </li>
             <li>
                 <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
@@ -16,3 +32,32 @@
         </ul>
     </form>
 </div>
+<script>
+    $(function(){
+        $('.listadd').combobox({
+            url:'__APP__/ContentModel/radioJson',
+            valueField:'name',
+            textField:'text',
+            multiple:false,
+            onChange:function(){
+                var val = $('.listadd').combobox('getValue');
+                if(val =='stepselect'){
+                    linkpage();
+                }else{
+                    $('.liandong').css('display','none');
+                    $('.modellinkpage').combobox('setValue','');
+                }
+                
+            }
+        });
+        function linkpage(){
+            $('.liandong').css('display','block');
+            $('.modellinkpage').combobox({
+                url:'__APP__/LinkPage/cateModelJson',
+                valueField:'id',
+                textField:'ename',
+                multiple:false
+            })
+        }//fun
+    });
+</script>
