@@ -1,4 +1,4 @@
-<table id="treegrid_contentmodel_catelisttab{$id}" class="easyui-treegrid treegrid contentmodel_catelisttab{$id}">
+<table id="datagrid_contentmodel_catelisttab{$id}" class="contentmodel_catelisttab{$id}">
     <thead>
         <tr>
             <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
@@ -18,7 +18,7 @@
         var hrefcancel = '__APP__/ContentModel/catelistdelete';
         var urljson = '__APP__/ContentModel/fieldJsonId?id={$id}';
         $('.layout_'+classId).css('height',height-50);
-        openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+        openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
 
     })
 </script>
