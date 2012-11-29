@@ -5,7 +5,7 @@
  *
  * @author Adminsir
  */
-class ContentmodelModel {
+class ModelCateModel extends Model{
 
     //创建数据表
     function addtable()
