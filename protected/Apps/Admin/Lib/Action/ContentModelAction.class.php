@@ -20,7 +20,8 @@ class ContentModelAction extends AdminAction {
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function cate() {
+    public function cate()
+    {
         $this->display();
     }
 
@@ -31,7 +32,8 @@ class ContentModelAction extends AdminAction {
      * @return 返回页面
      * @version dogocms 1.0
      */
-    public function cateadd() {
+    public function cateadd()
+    {
         $radios = array(
             'true' => '启用',
             'false' => '禁用'
@@ -47,7 +49,8 @@ class ContentModelAction extends AdminAction {
      * @return 返回页面
      * @version dogocms 1.0
      */
-    public function cateedit() {
+    public function cateedit()
+    {
         $m = M('ModelCate');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -67,8 +70,9 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateinsert() {
-
+    public function cateinsert()
+    {
+        $d = D('ModelCate');
         $m = M('ModelCate');
         $id = intval($_POST['id']);
         $condition['ename'] = trim($_POST['ename']);
@@ -84,6 +88,8 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
+        $d->addtable($condition['emark']); //创建数据表
+
         if ($m->create()) {
             $rs = $m->add($_POST);
             if ($rs) {//存在值
@@ -107,7 +113,8 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateupdate() {
+    public function cateupdate()
+    {
         $m = M('ModelCate');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -128,6 +135,10 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
+        $data = $m->field('emark')->where('id=' . $id)->find();
+        if ($data['emark'] != $_POST['emark']) {
+            D('ModelCate')->edittable($data['emark'], $_POST['emark']);
+        }
         $rs = $m->save($_POST);
         if ($rs == 1) {
             $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
@@ -145,8 +156,10 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catedelete() {
-        $id = intval($_GET['id']);
+    public function catedelete()
+    {
+        $id = intval($_POST['id']);
+        $d = D('ModelCate');
         $m = M('ModelCate');
         $list = M('ModelField');
         if ($list->where('cate_id=' . $id)->find()) {
@@ -154,6 +167,8 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
+        $rs = $m->field('emark')->where('id=' . $id)->find();
+        $d->droptable($rs['emark']);
         $del = $m->where('id=' . $id)->delete();
         if ($del == 1) {
             $json = array('status' => '2', 'info' => '删除成功！');
@@ -173,7 +188,8 @@ class ContentModelAction extends AdminAction {
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function catelist() {
+    public function catelist()
+    {
         $m = M('ModelCate');
         $cate = $m->field('id,ename')->select();
         $this->assign('cate', $cate);
@@ -187,7 +203,8 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistcate() {//点击左侧信息打开右侧
+    public function catelistcate()
+    {//点击左侧信息打开右侧
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display('catelisttab');
@@ -200,7 +217,8 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistadd() {
+    public function catelistadd()
+    {
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display();
@@ -213,7 +231,8 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistedit() {
+    public function catelistedit()
+    {
         $id = intval($_GET['id']);
         $list = M('ModelField');
         $data = $list->where('id=' . $id)->find();
@@ -229,7 +248,8 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistinsert() {
+    public function catelistinsert()
+    {
         $m = M('ModelField');
         $_POST['cate_id'] = trim($_POST['cate_id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -265,7 +285,8 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistupdate() {
+    public function catelistupdate()
+    {
         $m = M('ModelField');
         $_POST['cate_id'] = trim($_POST['cate_id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -292,19 +313,21 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
         }//if
     }
- /**
+
+    /**
      * catelistdelete
      * 模型列表删除
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistdelete() {
+    public function catelistdelete()
+    {
         $id = intval($_GET['id']);
         $m = M('ModelField');
         $json = array('status' => '1', 'info' => $id);
-            echo json_encode($json);
-            exit;
+        echo json_encode($json);
+        exit;
         $del = $m->where('id=' . $id)->delete();
         if ($del == 1) {
             $json = array('status' => '2', 'info' => '删除成功！');
@@ -315,6 +338,7 @@ class ContentModelAction extends AdminAction {
             exit;
         }//if
     }
+
     /**
      * cateJson
      * 返回catejson联动分类数据
@@ -322,7 +346,8 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function cateJson() {
+    public function cateJson()
+    {
         $m = M('ModelCate');
         $list = $m->select();
         $count = $m->count("id");
@@ -343,7 +368,8 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function radioJson() {
+    public function radioJson()
+    {
         $radio = array(
             array('name' => 'text', 'text' => '单行文本(varchar)'),
             array('name' => 'textchar', 'text' => '单行文本(char)'),
@@ -370,7 +396,8 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function fieldJsonId() {
+    public function fieldJsonId()
+    {
         $id = intval($_GET['id']);
         $m = M('ModelField');
         $list = $m->field('id,ename,emark,etype,elink')->where('cate_id=' . $id)->select();

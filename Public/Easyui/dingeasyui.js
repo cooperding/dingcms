@@ -169,6 +169,26 @@ function openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                     $.messager.alert('信息提示', '请选择要操作的项', 'error');
                     return false;
                 }
+                var id = selected.id;
+                var href = hrefcancel;
+                var title = '删除信息';
+                $.messager.confirm(title,href, function(){
+//                    alert(id);
+//                    return false;
+                    $.ajax({
+                        url:href,
+                        type:'post',
+                        data:{
+                            id:id
+                        },
+                        dataType:'json',
+                        success:function(data){
+                            formAjax(data,classId);
+                        }
+                    });
+                });//$
+
+
             }
         }//
         ]//toolbar
