@@ -21,7 +21,7 @@
             </li>
             <li>
                 <label>默认值：</label>
-                <p><textarea name="evalue">{$data.evalue}</textarea></p>
+                <p><textarea name="evalue" rows="5" cols="30">{$data.evalue}</textarea><span class="red">*使用英文状态下的逗号分开</span></p>
             </li>
             <li>
                 <label>最大长度：</label>
@@ -52,7 +52,7 @@
                     $('.liandong').css('display','none');
                     $('.modellinkpage').combobox('setValue','');
                 }
-                
+
             }
         });//end
         function linkpage(){

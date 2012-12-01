@@ -84,9 +84,12 @@ class ModelCateModel extends Model {
      * @return boolean
      * @version dogocms 1.0
      */
-    function addfield()
+    function addfield($tablename,$field,$type,$length,$null)
     {
+        $Model = new Model();
         $sql = 'alter table $table add $field $type($length) $null';
+        $sql = 'ALTER TABLE `d2d` ADD `dede` INT( 8 ) UNSIGNED NULL';
+        $sql = 'ALTER TABLE `d2d` ADD `test` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT  \'得得\'';
     }
 
     /**
@@ -98,7 +101,8 @@ class ModelCateModel extends Model {
      */
     function editfield()
     {
-
+        $Model = new Model();
+        $sql = 'ALTER TABLE `d2d` CHANGE `dede` `dede22` INT( 8 ) UNSIGNED NULL DEFAULT NULL';
     }
 
     /**
@@ -108,9 +112,10 @@ class ModelCateModel extends Model {
      * @return boolean
      * @version dogocms 1.0
      */
-    function detelefield()
+    function detelefield($tablename,$field)
     {
-
+        $Model = new Model();
+        $sql = 'ALTER TABLE `d2d` DROP `dede22`';
     }
 
 }

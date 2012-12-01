@@ -12,7 +12,7 @@
             </li>
             <li>
                 <label>数据类型：</label>
-                <p><input value="text" name="etype" class="listadd" style="width:200px;"></p>
+                <p><input value="varchar" name="etype" class="listadd" style="width:200px;"></p>
             </li>
             <li class="liandong" style="display: none">
                 <label>联动分类：</label>
@@ -20,7 +20,7 @@
             </li>
             <li>
                 <label>默认值：</label>
-                <p><textarea name="evalue"></textarea></p>
+                <p><textarea name="evalue" rows="5" cols="30"></textarea><span class="red">*使用英文状态下的逗号分开</span></p>
             </li>
             <li>
                 <label>最大长度：</label>
@@ -47,7 +47,7 @@
                     $('.liandong').css('display','none');
                     $('.modellinkpage').combobox('setValue','');
                 }
-                
+
             }
         });
         function linkpage(){

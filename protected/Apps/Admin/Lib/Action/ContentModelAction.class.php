@@ -251,7 +251,7 @@ class ContentModelAction extends AdminAction {
     public function catelistinsert()
     {
         $m = M('ModelField');
-        $_POST['cate_id'] = trim($_POST['cate_id']);
+        $_POST['cate_id'] = intval($_POST['cate_id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['emark'] = trim($_POST['emark']);
         $condition['emark'] = $_POST['emark'];
@@ -266,6 +266,13 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
+        $mc = M('ModelCate');
+        $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
+        $tablename = $data['emark'];
+        $d = D('ModelField');
+        $field = $_POST['emark'];
+        $d->addfield($tablename,$field,$type,$length,$null);
+
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
@@ -288,7 +295,7 @@ class ContentModelAction extends AdminAction {
     public function catelistupdate()
     {
         $m = M('ModelField');
-        $_POST['cate_id'] = trim($_POST['cate_id']);
+        $_POST['cate_id'] = intval($_POST['cate_id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['emark'] = trim($_POST['emark']);
         $condition['id'] = array('neq', $_POST['id']);
@@ -371,20 +378,19 @@ class ContentModelAction extends AdminAction {
     public function radioJson()
     {
         $radio = array(
-            array('name' => 'text', 'text' => '单行文本(varchar)'),
-            array('name' => 'textchar', 'text' => '单行文本(char)'),
-            array('name' => 'multitext', 'text' => '多行文本'),
+            array('name' => 'varchar', 'text' => '单行文本(varchar)'),
+            array('name' => 'textarea', 'text' => '多行文本'),
             array('name' => 'htmltext', 'text' => 'HTML文本'),
             array('name' => 'int', 'text' => '整数类型'),
-            array('name' => 'float', 'text' => '小数类型'),
+            array('name' => 'double', 'text' => '小数类型'),
             array('name' => 'datetime', 'text' => '时间类型'),
-            array('name' => 'img', 'text' => '图片'),
+            array('name' => 'images', 'text' => '图片'),
             array('name' => 'media', 'text' => '多媒体文件'),
             array('name' => 'addon', 'text' => '附件类型'),
             array('name' => 'select', 'text' => '使用option下拉框'),
             array('name' => 'radio', 'text' => '使用radio选项卡'),
             array('name' => 'checkbox', 'text' => 'Checkbox多选框'),
-            array('name' => 'stepselect', 'text' => '联动类型'),
+            array('name' => 'stepselect', 'text' => '联动类型')
         );
         echo json_encode($radio);
     }

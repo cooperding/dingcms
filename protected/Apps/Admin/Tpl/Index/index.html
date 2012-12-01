@@ -2,9 +2,9 @@
 </head>
 <body class="easyui-layout layout_index">
     <script type="text/javascript">
-       
+
         $(function(){
-            
+
             $('.sider li a').click(function(){
                 var classId = 'index';
                 var subtitle = $(this).text();
@@ -27,9 +27,9 @@
                     $('#tabs_'+classId).tabs('select',subtitle);
                     return false;
                 }
-                
+
             });
-                    });
+        });
     </script>
 
     <noscript>
@@ -54,7 +54,7 @@
         <div class="easyui-accordion sider" data-options="fit:true,border:false">
             <!--//左侧菜单导航-->
             <include file="lefter" />
-            <!--//左侧菜单导航-->	
+            <!--//左侧菜单导航-->
         </div><!--accordion-->
 
     </div><!--west-->
@@ -70,7 +70,7 @@
             </div>
 
             <div title="{:L('welcome')}" style="padding:10px; " data-options="closable:true" >
-                
+
             </div>
         </div>
     </div><!--center-->
