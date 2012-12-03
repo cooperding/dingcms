@@ -275,9 +275,6 @@ class ContentModelAction extends AdminAction {
         $type = $_POST['etype'];
         $length = trim($_POST['maxlength']);
         $d->addfield($tablename,$field,$type,$length);
-$json = array('status' => '1', 'info' => '您输入的名称或者标22识' . $_POST['emark'] . '已经存在！');
-            echo json_encode($json);
-            exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
@@ -316,6 +313,15 @@ $json = array('status' => '1', 'info' => '您输入的名称或者标22识' . $_
             echo json_encode($json);
             exit;
         }
+        $mc = M('ModelCate');
+        $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
+        $tablename = $data['emark'];
+        $d = D('ModelCate');
+
+        $field = $_POST['emark'];
+        $type = $_POST['etype'];
+        $length = trim($_POST['maxlength']);
+        $d->editfield($tablename,$field,$type,$length);
         $rs = $m->save($_POST);
         if ($rs == 1) {
             $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
