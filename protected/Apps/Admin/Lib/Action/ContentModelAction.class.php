@@ -269,10 +269,15 @@ class ContentModelAction extends AdminAction {
         $mc = M('ModelCate');
         $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
         $tablename = $data['emark'];
-        $d = D('ModelField');
-        $field = $_POST['emark'];
-        $d->addfield($tablename,$field,$type,$length,$null);
+        $d = D('ModelCate');
 
+        $field = $_POST['emark'];
+        $type = $_POST['etype'];
+        $length = trim($_POST['maxlength']);
+        $d->addfield($tablename,$field,$type,$length);
+$json = array('status' => '1', 'info' => '您输入的名称或者标22识' . $_POST['emark'] . '已经存在！');
+            echo json_encode($json);
+            exit;
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
