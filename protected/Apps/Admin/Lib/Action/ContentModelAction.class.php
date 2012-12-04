@@ -315,13 +315,15 @@ class ContentModelAction extends AdminAction {
         }
         $mc = M('ModelCate');
         $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
-        $tablename = $data['emark'];
+        $tablename = $data['emark'];//表名
+        $field = $m->field('emark')->where('id=' . $_POST['id'])->find();
+        $oldfield = $field['emark'];//旧字段名
         $d = D('ModelCate');
 
-        $field = $_POST['emark'];
+        $newfield = $_POST['emark'];//新字段名
         $type = $_POST['etype'];
         $length = trim($_POST['maxlength']);
-        $d->editfield($tablename,$field,$type,$length);
+        $d->editfield($tablename, $newfield, $oldfield, $type, $length);
         $rs = $m->save($_POST);
         if ($rs == 1) {
             $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
@@ -341,11 +343,19 @@ class ContentModelAction extends AdminAction {
      */
     public function catelistdelete()
     {
-        $id = intval($_GET['id']);
+        $id = intval($_POST['id']);
         $m = M('ModelField');
-        $json = array('status' => '1', 'info' => $id);
-        echo json_encode($json);
-        exit;
+        $d = D('ModelCate');
+        $data = $m->join(C('DB_PREFIX').'model_cate mc on mc.id='.C('DB_PREFIX').'model_field.cate_id')->where(C('DB_PREFIX').'model_field.id=' . $id)
+                ->field('mc.emark as tbname,'.C('DB_PREFIX').'model_field.emark as tbfield')->find();
+        $tablename = $data['tbname'];
+        $field = $data['tbfield'];
+        if(empty($tablename)||empty($field)){
+            $json = array('status' => '1', 'info' => '字段信息为空不能执行删除！');
+            echo json_encode($json);
+            exit;
+        }
+        $d->detelefield($tablename, $field);
         $del = $m->where('id=' . $id)->delete();
         if ($del == 1) {
             $json = array('status' => '2', 'info' => '删除成功！');

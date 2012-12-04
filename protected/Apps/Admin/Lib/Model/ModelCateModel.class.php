@@ -91,116 +91,116 @@ class ModelCateModel extends Model {
         switch ($type) {
             case varchar:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
-                    $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
+                if (!is_numeric($length) || $length < 0) {
+                    $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！' . $length);
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case textarea:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` '.$type.' CHARACTER SET utf8 COLLATE utf8_unicode_ci NUL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case htmltext:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` '.$type.' CHARACTER SET utf8 COLLATE utf8_unicode_ci NUL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case int:
                 $type = 'int';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?10:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $length = ($length > 255) ? 10 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             case double:
                 $type = 'double';
                 $length = $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             case datetime:
                 $type = 'int';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?10:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $length = ($length > 255) ? 10 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             case images:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case media:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case addon:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case select:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case radio:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case checkbox:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case stepselect:
                 $type = 'mediumint';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?8:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $length = ($length > 255) ? 8 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             default :
                 $json = array('status' => '1', 'info' => '字段类型选择错误，请重新选择字段类型！');
@@ -208,7 +208,6 @@ class ModelCateModel extends Model {
                 exit;
         }
         $Model->query($sql);
-        
     }
 
     /**
@@ -218,123 +217,123 @@ class ModelCateModel extends Model {
      * @return boolean
      * @version dogocms 1.0
      */
-    function editfield($tablename, $field, $type, $length)
+    function editfield($tablename, $newfield, $oldfield, $type, $length)
     {
         $Model = new Model();
         $tablename = C('DB_PREFIX') . C('DB_ADD_PREFIX') . $tablename;
         switch ($type) {
             case varchar:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' .$oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case textarea:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $field . '` '.$type.' CHARACTER SET utf8 COLLATE utf8_unicode_ci NUL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case htmltext:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $field . '` '.$type.' CHARACTER SET utf8 COLLATE utf8_unicode_ci NUL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case int:
                 $type = 'int';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?10:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $length = ($length > 255) ? 10 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` '. $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             case double:
                 $type = 'double';
                 $length = $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             case datetime:
                 $type = 'int';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?10:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $length = ($length > 255) ? 10 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             case images:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case media:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case addon:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case select:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case radio:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case checkbox:
                 $type = 'varchar';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?255:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `'.$field.'` '.$type.'('.$length.') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $length = ($length > 255) ? 255 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
                 break;
             case stepselect:
                 $type = 'mediumint';
-                if (!is_int($length)||$length<0) {
+                if (!is_numeric($length) || $length < 0) {
                     $json = array('status' => '1', 'info' => '有效长度，不是数字或数字字符，请重新输入！');
                     echo json_encode($json);
                     exit;
                 }
-                $length = ($length>255)?8:$length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $field . '` '.$type.'('.$length.') UNSIGNED NULL';
+                $length = ($length > 255) ? 8 : $length;
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') UNSIGNED NULL';
                 break;
             default :
                 $json = array('status' => '1', 'info' => '字段类型选择错误，请重新选择字段类型！');
