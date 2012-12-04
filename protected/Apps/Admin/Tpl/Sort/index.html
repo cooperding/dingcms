@@ -1,19 +1,19 @@
 <div class="pagecontent">
 
-    <table title="文章分类栏目" id="treegrid_newscat" class="easyui-treegrid treegrid">
+    <table title="文章分类栏目" id="treegrid_sort">
 
     </table>
 
     <script>
         $(function(){
-            var classId = 'newscat';
-            var urljson = '__APP__/NewsCat/json';
-            var hrefadd = '__APP__/NewsCat/add';
-            var hrefedit = '__APP__/NewsCat/edit';
-            var hrefcancel = '__APP__/NewsCat/delete';
+            var classId = 'sort';
+            var urljson = '__APP__/Sort/json';
+            var hrefadd = '__APP__/Sort/add';
+            var hrefedit = '__APP__/Sort/edit';
+            var hrefcancel = '__APP__/Sort/delete';
             openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
             $('#treegrid_'+classId).treegrid({
-                columns:[[  
+                columns:[[
                         {field:'id',title:'id',width:50},
                         {field:'text',title:'text',width:200},
                         {field:'parent_id',title:'parent_id',width:200},

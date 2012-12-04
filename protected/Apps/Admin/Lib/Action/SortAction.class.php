@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 分类各项操作
  */
-class NewsCateAction extends AdminAction
+class SortAction extends AdminAction
 {
 
     /**
