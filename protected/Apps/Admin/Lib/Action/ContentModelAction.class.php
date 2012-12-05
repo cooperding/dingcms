@@ -369,7 +369,7 @@ class ContentModelAction extends AdminAction {
 
     /**
      * cateJson
-     * 返回catejson联动分类数据
+     * 返回catejson模型分类数据
      * @access public
      * @return array
      * @version dogocms 1.0
@@ -388,7 +388,20 @@ class ContentModelAction extends AdminAction {
         $array['rows'] = $a;
         echo json_encode($array);
     }
-
+ /**
+     * cateSortJson
+     * 返回cateSortJson文档分类模型分类数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function cateSortJson()
+    {
+        $m = M('ModelCate');
+        $list = $m->field('id,ename as text')->order('myorder desc,id asc')->select();
+        $list = array_merge(array(array('id' => 0, 'text' => '--请选择相应的内容模型--')), $list);
+        echo json_encode($list);
+    }
     /**
      * radioJson
      * 返回radioJson数据类型
