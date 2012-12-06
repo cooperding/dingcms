@@ -5,7 +5,7 @@
  * 信息分类
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
- * @license http://www.apache.org/licenses/LICENSE-2.0 
+ * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:23
  * @package  Controller
  * @todo 分类各项操作
@@ -152,7 +152,7 @@ class SortAction extends AdminAction
      */
     public function delete()
     {
-        
+
     }
 
     /**
