@@ -399,7 +399,7 @@ class ContentModelAction extends AdminAction {
     {
         $m = M('ModelCate');
         $list = $m->field('id,ename as text')->order('myorder desc,id asc')->select();
-        $list = array_merge(array(array('id' => 0, 'text' => '--请选择相应的内容模型--')), $list);
+        //$list = array_merge(array(array('id' => 0, 'text' => '--请选择相应的内容模型--')), $list);
         echo json_encode($list);
     }
     /**
