@@ -107,14 +107,12 @@ class NewsCateAction extends AdminAction {
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
 
-//        $data = $m->where('id=' . $id)->find();
-//        $cate_path = $data['path']; //取得不为0时的path
-//                $tbname = 'NewsCate';
-//                $d->updatePath($id, $cate_path, $tbname);
-//
-//        $json = array('status' => '1', 'info' => '不能222！',);
-//        echo json_encode($json);
-//        exit;
+        //$data = $m->where('id=' . $parent_id)->find();
+        //$cate_path = $data['path'].$parent_id.','; //取得不为0时的path
+       // $tbname = 'NewsCate';
+       // $cate_path = $data['path'].$parent_id.',';
+       // $d->updatePath($id, $cate_path, $tbname);
+
 
 
         if ($parent_id != 0) {//不为0时判断是否为子分类
@@ -124,8 +122,8 @@ class NewsCateAction extends AdminAction {
                 echo json_encode($json);
                 exit;
             }
-            $data = $m->where('id=' . $id)->find();
-            $cate_path = $data['path']; //取得不为0时的path
+            $data = $m->where('id=' . $parent_id)->find();
+            $cate_path = $data['path'].$parent_id.','; //取得不为0时的path
             $_POST['path'] = $data['path'].$parent_id.',';
             $tbname = 'NewsCate';
             $d->updatePath($id, $cate_path, $tbname);
@@ -149,8 +147,15 @@ class NewsCateAction extends AdminAction {
             $_POST['en_name'] = $pinyin->output(trim($_POST['text']));
         }
 
-exit;
 
+//        $data = $m->where('id=' . $id)->find();
+//        $cate_path = $data['path']; //取得不为0时的path
+//                $tbname = 'NewsCate';
+//                $d->updatePath($id, $cate_path, $tbname);
+//
+//        $json = array('status' => '1', 'info' => '不能222！',);
+//        echo json_encode($json);
+//        exit;
         /*
 
           if ($parent_id != 0) {
