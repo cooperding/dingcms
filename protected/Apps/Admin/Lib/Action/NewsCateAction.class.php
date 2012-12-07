@@ -10,8 +10,7 @@
  * @package  Controller
  * @todo 分类各项操作
  */
-class SortAction extends AdminAction
-{
+class NewsCateAction extends AdminAction {
 
     /**
      * index
@@ -74,7 +73,7 @@ class SortAction extends AdminAction
         if (empty($en_name)) {
             import("ORG.Util.Pinyin");
             $pinyin = new Pinyin();
-            $_POST['en_name'] = $pinyin->output($_POST['text']);
+            $_POST['en_name'] = $pinyin->output(trim($_POST['text']));
         }
         if ($parent_id != 0) {
             $data = $m->where('id=' . $parent_id)->find();
@@ -104,42 +103,92 @@ class SortAction extends AdminAction
         //流程：当选择的父级分类是现有分类的子级元素修改失败，当修改父级元素时，path同时也要修改
         //判断：
         $m = M('NewsCate');
+        $d = D('NewsCate');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        if ($parent_id != 0) {
+
+//        $data = $m->where('id=' . $id)->find();
+//        $cate_path = $data['path']; //取得不为0时的path
+//                $tbname = 'NewsCate';
+//                $d->updatePath($id, $cate_path, $tbname);
+//
+//        $json = array('status' => '1', 'info' => '不能222！',);
+//        echo json_encode($json);
+//        exit;
+
+
+        if ($parent_id != 0) {//不为0时判断是否为子分类
             $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {
                 $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
                 echo json_encode($json);
                 exit;
             }
-            $en_name = trim($_POST['en_name']);
-            if (empty($en_name)) {
-                import("ORG.Util.Pinyin");
-                $pinyin = new Pinyin();
-                $_POST['en_name'] = $pinyin->output($_POST['text']);
+            $data = $m->where('id=' . $id)->find();
+            $cate_path = $data['path']; //取得不为0时的path
+            $_POST['path'] = $data['path'].$parent_id.',';
+            $tbname = 'NewsCate';
+            $d->updatePath($id, $cate_path, $tbname);
+
+        } else {//为0，path为,
+            $data = $m->where('id=' . $id)->find();
+            if ($data['parent_id'] != $parent_id) {//相同不改变
+                $cate_path = ','; //取得不为0时的path
+                $tbname = 'NewsCate';
+                $d->updatePath($id, $cate_path, $tbname);
             }
-            $fdata = $m->where('id=' . $parent_id)->find();
-            $fpath = $fdata['path'] . $parent_id . ','; //替换
-            $sdata = $m->where('id=' . $id)->find();
-            $spath = $sdata['path']; //搜索
-            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
-                $sfid = $sdata['parent_id'];
-                $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
-                $m->query($sql);
-            }
-            $_POST['path'] = $fpath;
-            $rs = $m->save($_POST);
-            if ($rs == 1) {
-                $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-                echo json_encode($json);
-            } elseif ($rs == 0) {
-                $json = array('status' => '1', 'info' => '更新失败！');
-                echo json_encode($json);
-            } else {
-                $json = array('status' => '2', 'info' => '未有操作！');
-                echo json_encode($json);
-            }
+            $_POST['path'] = ','; //应该是这个
+        }
+//        $data = $m->where('id=' . $id)->find();
+//        $cate_path = $data['path'];
+        //$_POST['path'] = $fpath;
+        $en_name = trim($_POST['en_name']);
+        if (empty($en_name)) {
+            import("ORG.Util.Pinyin");
+            $pinyin = new Pinyin();
+            $_POST['en_name'] = $pinyin->output(trim($_POST['text']));
+        }
+
+exit;
+
+        /*
+
+          if ($parent_id != 0) {
+          $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+          if ($cun) {
+          $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
+          echo json_encode($json);
+          exit;
+          }
+          $en_name = trim($_POST['en_name']);
+          if (empty($en_name)) {
+          import("ORG.Util.Pinyin");
+          $pinyin = new Pinyin();
+          $_POST['en_name'] = $pinyin->output(trim($_POST['text']));
+          }
+          $fdata = $m->where('id=' . $parent_id)->find();
+          $fpath = $fdata['path'] . $parent_id . ','; //替换
+          $sdata = $m->where('id=' . $id)->find();
+          $spath = $sdata['path']; //搜索
+          if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
+          $sfid = $sdata['parent_id'];
+          $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
+          $m->query($sql);
+          }
+          $_POST['path'] = $fpath;
+          }
+         */
+
+        $rs = $m->save($_POST);
+        if ($rs == 1) {
+            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
+            echo json_encode($json);
+        } elseif ($rs == 0) {
+            $json = array('status' => '1', 'info' => '更新失败！');
+            echo json_encode($json);
+        } else {
+            $json = array('status' => '2', 'info' => '未有操作！');
+            echo json_encode($json);
         }
     }
 

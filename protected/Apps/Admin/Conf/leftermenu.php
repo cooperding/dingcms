@@ -24,8 +24,8 @@ $array = array(
                     array('label' => L('menu_news_recycle'), 'type' => 'news_recycle', 'link' => __APP__ . '/News/recycle')
             )),
             array('label' => L('menu_sort_name'), 'type' => 'sort_name', 'items' => array(
-                    array('label' => L('menu_sort_list'), 'type' => 'sort_list', 'link' => __APP__ . '/Sort/index'),
-                    array('label' => L('menu_sort_add'), 'type' => 'sort_add', 'link' => __APP__ . '/Sort/add', 'rel' => 'dialog')
+                    array('label' => L('menu_sort_list'), 'type' => 'sort_list', 'link' => __APP__ . '/NewsCate/index'),
+                    array('label' => L('menu_sort_add'), 'type' => 'sort_add', 'link' => __APP__ . '/NewsCate/add', 'rel' => 'dialog')
             )),
             array('label' => L('menu_message_name'), 'type' => 'message_name', 'items' => array(
                     array('label' => L('menu_message_list'), 'type' => 'message_list', 'link' => 'www.baidu.com'),

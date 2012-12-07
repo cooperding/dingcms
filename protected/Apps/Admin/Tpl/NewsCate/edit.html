@@ -1,5 +1,5 @@
 <div class="pageform">
-    <form action="__APP__/NewsCat/update" id="form_newscat" method="post">
+    <form action="__APP__/NewsCate/update" id="form_newscate" method="post">
         <input type="hidden" name="id" value="{$data.id}" />
         <ul>
             <li>
@@ -8,7 +8,7 @@
             </li>
             <li>
                 <label>上级分组名：</label>
-                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true," value="{$data.parent_id}"  style="width:200px;"></p
+                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsCate/jsonTree',required:true," value="{$data.parent_id}"  style="width:200px;"></p
             </li>
              <li>
                 <label>选择内容模型：</label>

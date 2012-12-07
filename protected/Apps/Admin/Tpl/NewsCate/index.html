@@ -1,16 +1,16 @@
 <div class="pagecontent">
 
-    <table title="文章分类栏目" id="treegrid_sort">
+    <table title="文章分类栏目" id="treegrid_newscate">
 
     </table>
 
     <script>
         $(function(){
-            var classId = 'sort';
-            var urljson = '__APP__/Sort/json';
-            var hrefadd = '__APP__/Sort/add';
-            var hrefedit = '__APP__/Sort/edit';
-            var hrefcancel = '__APP__/Sort/delete';
+            var classId = 'newscate';
+            var urljson = '__APP__/NewsCate/json';
+            var hrefadd = '__APP__/NewsCate/add';
+            var hrefedit = '__APP__/NewsCate/edit';
+            var hrefcancel = '__APP__/NewsCate/delete';
             openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
             $('#treegrid_'+classId).treegrid({
                 columns:[[
@@ -22,5 +22,5 @@
             })
         })
     </script>
-    
+
 </div><!--pagecontent-->
