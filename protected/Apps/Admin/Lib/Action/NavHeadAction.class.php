@@ -70,7 +70,7 @@ class NavHeadAction extends AdminAction {
             exit;
         }
         if ($parent_id != 0) {
-            $data = $m->where('id=' . $parent_id)->find();
+            $data = $m->field('path')->where('id=' . $parent_id)->find();
             $_POST['path'] = $data['path'] . $parent_id . ',';
         }
         if ($m->create($_POST)) {

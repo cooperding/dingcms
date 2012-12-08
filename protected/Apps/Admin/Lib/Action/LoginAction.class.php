@@ -40,17 +40,17 @@ class LoginAction extends Action
      */
     public function dologin()
     {
-        $ver_code = $_POST['vd_code'];
+        $ver_code = trim($_POST['vd_code']);
         $verify = session('verify');
         if (empty($ver_code) || md5($ver_code) != $verify) {
             $this->error('验证码为空或者输入错误！');
             exit;
         }
-        $condition['username'] = $_POST['user_name'];
-        $password = $_POST['user_password'];
+        $condition['username'] = trim($_POST['user_name']);
+        $password = trim($_POST['user_password']);
         if (!empty($condition['username']) && !empty($password)) {//依据用户名查询
             $login = M('Operators');
-            $rs = $login->where($condition)->find();
+            $rs = $login->field('username,creat_time,id,password')->where($condition)->find();
             if ($rs) {//对查询出的结果进行判断
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
                 if ($password == $rs['password']) {//判断密码是否匹配

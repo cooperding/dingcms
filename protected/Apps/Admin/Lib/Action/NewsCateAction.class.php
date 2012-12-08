@@ -116,20 +116,20 @@ class NewsCateAction extends AdminAction {
 
 
         if ($parent_id != 0) {//不为0时判断是否为子分类
-            $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {
                 $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
                 echo json_encode($json);
                 exit;
             }
-            $data = $m->where('id=' . $parent_id)->find();
+            $data = $m->field('path')->where('id=' . $parent_id)->find();
             $cate_path = $data['path'].$parent_id.','; //取得不为0时的path
             $_POST['path'] = $data['path'].$parent_id.',';
             $tbname = 'NewsCate';
             $d->updatePath($id, $cate_path, $tbname);
 
         } else {//为0，path为,
-            $data = $m->where('id=' . $id)->find();
+            $data = $m->field('parent_id')->where('id=' . $id)->find();
             if ($data['parent_id'] != $parent_id) {//相同不改变
                 $cate_path = ','; //取得不为0时的path
                 $tbname = 'NewsCate';

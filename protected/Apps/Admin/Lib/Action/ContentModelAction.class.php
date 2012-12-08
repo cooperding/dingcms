@@ -83,7 +83,7 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        if ($m->where($condition)->find()) {
+        if ($m->field('id')->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
@@ -130,7 +130,7 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        if ($m->where($condition)->find()) {
+        if ($m->field('id')->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
@@ -162,7 +162,7 @@ class ContentModelAction extends AdminAction {
         $d = D('ModelCate');
         $m = M('ModelCate');
         $list = M('ModelField');
-        if ($list->where('cate_id=' . $id)->find()) {
+        if ($list->field('cate_id')->where('cate_id=' . $id)->find()) {
             $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
             echo json_encode($json);
             exit;
@@ -261,7 +261,7 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        if ($m->where($condition)->find()) {
+        if ($m->field('id')->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['emark'] . '已经存在！');
             echo json_encode($json);
             exit;
@@ -308,7 +308,7 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        if ($m->where($condition)->find()) {
+        if ($m->field('id')->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['emark'] . '已经存在！');
             echo json_encode($json);
             exit;

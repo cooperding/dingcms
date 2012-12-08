@@ -24,7 +24,7 @@ class NewsCateModel extends Model {
         $condition['path'] = array('like', '%,' . $cate_id . ',%');
         $condition['parent_id'] = array('eq', intval($cate_id));
         $condition['_logic'] = 'OR';
-        $result = $m->where($condition)->select();
+        $result = $m->field('id,path')->where($condition)->select();
         //$aa = $m->getLastSql();
         //$json = array('status' => '1', 'info' => $aa,);
         //echo json_encode($json);

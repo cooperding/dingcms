@@ -117,13 +117,13 @@ class SettingAction extends AdminAction
         $setting = M('Setting');
         //判断参数是否符合条件
         //先判断是否有重复的名称
-        $sys_name['sys_name'] = $_POST['sys_name'];
+        $sys_name['sys_name'] = trim($_POST['sys_name']);
         $rs = $setting->where($sys_name)->find();
         if (!empty($rs)) {//不为空说明存在，存在就不能添加
             echo '1';
             exit;
         } else {
-            $sys_type = $_POST['sys_type'];
+            $sys_type = trim($_POST['sys_type']);
             $_POST['sys_type'] = $sys_type[0];
             if ($setting->create($_POST)) {
                 $rs = $setting->add($_POST);
@@ -153,7 +153,7 @@ class SettingAction extends AdminAction
             echo '1';
             exit;
         } else {
-            $sys_type = $_POST['sys_type'];
+            $sys_type = trim($_POST['sys_type']);
             $_POST['sys_type'] = $sys_type[0];
             $rs = $setting->save($_POST);
             if ($rs == 1) {

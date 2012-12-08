@@ -78,7 +78,7 @@ class LinkPageAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        if ($m->where($condition)->find()) {
+        if ($m->field('id')->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['egroup'] . '已经存在！');
             echo json_encode($json);
             exit;
@@ -121,7 +121,7 @@ class LinkPageAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        if ($m->where($condition)->find()) {
+        if ($m->field('id')->where($condition)->find()) {
             $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！');
             echo json_encode($json);
             exit;
@@ -147,7 +147,7 @@ class LinkPageAction extends AdminAction {
         $id = intval($_GET['id']);
         $m = M('LinkpageCate');
         $list = M('LinkpageList');
-        if ($list->where('linkpage_id=' . $id)->find()) {
+        if ($list->field('id')->where('linkpage_id=' . $id)->find()) {
             $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
             echo json_encode($json);
             exit;
@@ -236,7 +236,7 @@ class LinkPageAction extends AdminAction {
             $json = array('status' => '1', 'info' => '未有id值，无法删除！');
             echo json_encode($json);
         } else {
-            $data = $m->where('path like \'%,' . $id . ',%\'')->select();
+            $data = $m->field('id')->where('path like \'%,' . $id . ',%\'')->select();
             if (is_array($data)) {
                 $json = array('status' => '1', 'info' => '该分类下还有子级分类，无法删除！');
                 echo json_encode($json);
