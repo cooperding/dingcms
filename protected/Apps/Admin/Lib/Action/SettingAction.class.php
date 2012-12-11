@@ -5,13 +5,12 @@
  * 系统基本参数
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
- * @license http://www.apache.org/licenses/LICENSE-2.0 
+ * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:23
  * @package  Controller
  * @todo 视图重新写
  */
-class SettingAction extends AdminAction
-{
+class SettingAction extends AdminAction {
 
     /**
      * index
@@ -25,13 +24,33 @@ class SettingAction extends AdminAction
         $setting = M('Setting');
         $list = $setting->select();
         $name = array(
-            '1' => '站点设置',
-            '2' => '附件设置',
-            '3' => '信息相关',
-            '4' => '会员设置',
-            '5' => '邮箱设置',
-            '6' => '其它设置'
+            array(
+                'id' => 1,
+                'text' => '站点设置'
+            ),
+            array(
+                'id' => 2,
+                'text' => '附件设置'
+            ),
+            array(
+                'id' => 3,
+                'text' => '信息相关'
+            ),
+            array(
+                'id' => 4,
+                'text' => '会员设置'
+            ),
+            array(
+                'id' => 5,
+                'text' => '邮箱设置'
+            ),
+            array(
+                'id' => 6,
+                'text' => '其它设置'
+            )
         );
+        //echo json_encode($name);
+        //exit;
         $array = array();
         foreach ($name as $m => $n) {
             foreach ($list as $k => $v) {
@@ -42,7 +61,7 @@ class SettingAction extends AdminAction
             }
         }
         $this->assign('list', $array);
-        $this->display();
+        $this->display('settinglist');
     }
 
     /**
@@ -204,7 +223,39 @@ class SettingAction extends AdminAction
      */
     public function jsonTree()
     {
-        
+
+    }
+
+    public function jsonGrid()
+    {
+        $name = array(
+            array(
+                'id' => 1,
+                'text' => '站点设置'
+            ),
+            array(
+                'id' => 20,
+                'text' => '附件设置',
+                'attributes'=>'www.baidu.com'
+            ),
+            array(
+                'id' => 3,
+                'text' => '信息相关'
+            ),
+            array(
+                'id' => 4,
+                'text' => '会员设置'
+            ),
+            array(
+                'id' => 5,
+                'text' => '邮箱设置'
+            ),
+            array(
+                'id' => 6,
+                'text' => '其它设置'
+            )
+        );
+        echo json_encode($name);
     }
 
 }
