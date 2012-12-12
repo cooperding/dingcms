@@ -1,10 +1,10 @@
 <div class="pagecontent">
     <div class="easyui-layout layout_setting_settinglist">
         <div data-options="region:'west',split:true" title="参数分类" style="width:150px;">
-            <ul class="easyui-tree tree_setting_settinglist" data-options="url:'__APP__/Setting/jsonGrid'" style="padding: 10px 5px;">
-<!--                <foreach name="cate" item="cate">
-                    <li><a href="javascript:viod(0);" cmshref="__APP__/ContentModel/catelistcate?id={$cate.id}">{$cate.ename}</a></li>
-                </foreach>-->
+            <ul class="easyui-tree tree_setting_settinglist" style="padding: 10px 5px;">
+                <foreach name="list" item="cate">
+                    <li><a href="javascript:viod(0);" cmshref="__APP__/Setting/settinglist?id={$cate.id}">{$cate.text}</a></li>
+                </foreach>
             </ul>
         </div>
         <div data-options="region:'center'" style="">
@@ -21,9 +21,8 @@
                     $('.layout_'+classId).css('height',height-50);
                     $('.tree_'+classId).tree({
                         onClick:function(){
-                            var clickclass = $('.tree_'+classId+' .tree-node');
-                            var url = clickclass.attr('node-id');
-                            alert(url);
+                            var clickclass = $('.tree_'+classId+' .tree-node-selected a');
+                            var url = clickclass.attr('cmshref');
                             //var classId = 'modelcatelist';
                             var subtitle = clickclass.text();
                             if(!$('#tabs_'+classId).tabs('exists',subtitle)){

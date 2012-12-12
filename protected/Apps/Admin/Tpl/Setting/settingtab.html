@@ -1,22 +1,46 @@
-<table id="datagrid_contentmodel_catelisttab{$id}" class="contentmodel_catelisttab{$id}">
+<table id="datagrid_settingtab{$id}" class="settingtab{$id}">
     <thead>
         <tr>
-            <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
-            <th data-options="field:'ename'" width="200">标题</th>
-            <th data-options="field:'emark'" width="200">emark</th>
-            <th data-options="field:'etype'" width="200">etype</th>
-            <th data-options="field:'elink'" width="80">elink</th>
+            <th data-options="field:'sys_info',width:180,align:'center'">参数名称</th>
+            <th data-options="field:'sys_value',width:450,align:'left'">参数值</th>
+            <th data-options="field:'sys_name',width:150,align:'center'">参数变量</th>
+
         </tr>
     </thead>
+    <tbody>
+    <volist name="data" id="list">
+        <tr>
+            <td></td>
+            <td>{$list.sys_info}</td>
+            <td>
+        <if condition="$list.sys_type eq text">
+            <input type="text" name="{$list.sys_id}" value="{$list.sys_value}" />
+            <elseif condition="$list.sys_type eq radio"/>
+            <if condition="$list.sys_value eq 1">
+                <input name="{$list.sys_id}" type="radio" value="1" checked="checked">是
+                <input name="{$list.sys_id}" type="radio" value="2">否
+                <elseif  condition="$list.sys_value eq 2"/>
+                <input name="{$list.sys_id}" type="radio" value="1">是
+                <input name="{$list.sys_id}" type="radio" value="2" checked="checked" >否
+            </if>
+            <elseif condition="$list.sys_type eq textarea"/>
+            <textarea name="{$list.sys_id}" rows="5" cols="50">{$list.sys_value}</textarea>
+        </if>
+        </td>
+        <td>{$list.sys_name}</td>
+
+        </tr>
+    </volist>
+</tbody>
 </table>
 <script>
     $(function(){
         var height = $('.indexcenter').height();
-        var classId = 'contentmodel_catelisttab{$id}';
-        var hrefadd = '__APP__/ContentModel/catelistadd?id={$id}';
-        var hrefedit = '__APP__/ContentModel/catelistedit';
-        var hrefcancel = '__APP__/ContentModel/catelistdelete';
-        var urljson = '__APP__/ContentModel/fieldJsonId?id={$id}';
+        var classId = 'settingtab{$id}';
+        var hrefadd = '__APP__/Setting/add?id={$id}';
+        var hrefedit = '__APP__/Setting/edit';
+        var hrefcancel = '__APP__/Setting/delete';
+        var urljson = '__APP__/Setting/fieldJsonId?id={$id}';
         $('.layout_'+classId).css('height',height-50);
         openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
 

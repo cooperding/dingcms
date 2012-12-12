@@ -23,31 +23,24 @@ class SettingAction extends AdminAction {
     {
         $setting = M('Setting');
         $list = $setting->select();
+        /*
+          $name = array(
+          '1' => '站点设置',
+          '2' => '附件设置',
+          '3' => '信息相关',
+          '4' => '会员设置',
+          '5' => '邮箱设置',
+          '6' => '其它设置'
+          );
+         *
+         */
         $name = array(
-            array(
-                'id' => 1,
-                'text' => '站点设置'
-            ),
-            array(
-                'id' => 2,
-                'text' => '附件设置'
-            ),
-            array(
-                'id' => 3,
-                'text' => '信息相关'
-            ),
-            array(
-                'id' => 4,
-                'text' => '会员设置'
-            ),
-            array(
-                'id' => 5,
-                'text' => '邮箱设置'
-            ),
-            array(
-                'id' => 6,
-                'text' => '其它设置'
-            )
+            array('id' => 1, 'text' => '站点设置'),
+            array('id' => 2, 'text' => '附件设置'),
+            array('id' => 3, 'text' => '信息相关'),
+            array('id' => 4, 'text' => '会员设置'),
+            array('id' => 5, 'text' => '邮箱设置'),
+            array('id' => 6, 'text' => '其它设置')
         );
         //echo json_encode($name);
         //exit;
@@ -60,7 +53,8 @@ class SettingAction extends AdminAction {
                 }
             }
         }
-        $this->assign('list', $array);
+        //$this->assign('list', $array);
+        $this->assign('list', $name);
         $this->display('settinglist');
     }
 
@@ -215,45 +209,45 @@ class SettingAction extends AdminAction {
     }
 
     /**
-     * jsonTree
+     * settinglist
      * 系统基本参数jsonTree树结构
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonTree()
+    public function settinglist()
     {
+        $m = M('Setting');
+        $id = intval($_GET['id']);
+        $condition['sys_gid'] = $id;
+        $data = $m->where($condition)->select();
+        $this->assign('data', $data);
+        $this->assign('id', $id);
+        $this->display('settingtab');
+    }
+
+    /**
+     * fieldJsonId
+     * 取得field信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function fieldJsonId()
+    {
+        $id = intval($_GET['id']);
 
     }
 
     public function jsonGrid()
     {
         $name = array(
-            array(
-                'id' => 1,
-                'text' => '站点设置'
-            ),
-            array(
-                'id' => 20,
-                'text' => '附件设置',
-                'attributes'=>'www.baidu.com'
-            ),
-            array(
-                'id' => 3,
-                'text' => '信息相关'
-            ),
-            array(
-                'id' => 4,
-                'text' => '会员设置'
-            ),
-            array(
-                'id' => 5,
-                'text' => '邮箱设置'
-            ),
-            array(
-                'id' => 6,
-                'text' => '其它设置'
-            )
+            array('id' => 1, 'text' => '站点设置'),
+            array('id' => 2, 'text' => '附件设置'),
+            array('id' => 3, 'text' => '信息相关'),
+            array('id' => 4, 'text' => '会员设置'),
+            array('id' => 5, 'text' => '邮箱设置'),
+            array('id' => 6, 'text' => '其它设置')
         );
         echo json_encode($name);
     }
