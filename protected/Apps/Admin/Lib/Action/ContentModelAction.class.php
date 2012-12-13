@@ -20,8 +20,7 @@ class ContentModelAction extends AdminAction {
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function cate()
-    {
+    public function cate() {
         $this->display();
     }
 
@@ -32,8 +31,7 @@ class ContentModelAction extends AdminAction {
      * @return 返回页面
      * @version dogocms 1.0
      */
-    public function cateadd()
-    {
+    public function cateadd() {
         $radios = array(
             'true' => '启用',
             'false' => '禁用'
@@ -49,8 +47,7 @@ class ContentModelAction extends AdminAction {
      * @return 返回页面
      * @version dogocms 1.0
      */
-    public function cateedit()
-    {
+    public function cateedit() {
         $m = M('ModelCate');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -70,8 +67,7 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateinsert()
-    {
+    public function cateinsert() {
         $d = D('ModelCate');
         $m = M('ModelCate');
         $id = intval($_POST['id']);
@@ -113,8 +109,7 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateupdate()
-    {
+    public function cateupdate() {
         $m = M('ModelCate');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -156,8 +151,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catedelete()
-    {
+    public function catedelete() {
         $id = intval($_POST['id']);
         $d = D('ModelCate');
         $m = M('ModelCate');
@@ -188,8 +182,7 @@ class ContentModelAction extends AdminAction {
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function catelist()
-    {
+    public function catelist() {
         $m = M('ModelCate');
         $cate = $m->field('id,ename')->select();
         $this->assign('cate', $cate);
@@ -203,8 +196,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistcate()
-    {//点击左侧信息打开右侧
+    public function catelistcate() {//点击左侧信息打开右侧
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display('catelisttab');
@@ -217,8 +209,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistadd()
-    {
+    public function catelistadd() {
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display();
@@ -231,8 +222,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistedit()
-    {
+    public function catelistedit() {
         $id = intval($_GET['id']);
         $list = M('ModelField');
         $data = $list->where('id=' . $id)->find();
@@ -248,8 +238,7 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistinsert()
-    {
+    public function catelistinsert() {
         $m = M('ModelField');
         $_POST['cate_id'] = intval($_POST['cate_id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -274,7 +263,7 @@ class ContentModelAction extends AdminAction {
         $field = $_POST['emark'];
         $type = $_POST['etype'];
         $length = trim($_POST['maxlength']);
-        $d->addfield($tablename,$field,$type,$length);
+        $d->addfield($tablename, $field, $type, $length);
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
@@ -294,8 +283,7 @@ class ContentModelAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistupdate()
-    {
+    public function catelistupdate() {
         $m = M('ModelField');
         $_POST['cate_id'] = intval($_POST['cate_id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -315,12 +303,12 @@ class ContentModelAction extends AdminAction {
         }
         $mc = M('ModelCate');
         $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
-        $tablename = $data['emark'];//表名
+        $tablename = $data['emark']; //表名
         $field = $m->field('emark')->where('id=' . $_POST['id'])->find();
-        $oldfield = $field['emark'];//旧字段名
+        $oldfield = $field['emark']; //旧字段名
         $d = D('ModelCate');
 
-        $newfield = $_POST['emark'];//新字段名
+        $newfield = $_POST['emark']; //新字段名
         $type = $_POST['etype'];
         $length = trim($_POST['maxlength']);
         $d->editfield($tablename, $newfield, $oldfield, $type, $length);
@@ -341,16 +329,15 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistdelete()
-    {
+    public function catelistdelete() {
         $id = intval($_POST['id']);
         $m = M('ModelField');
         $d = D('ModelCate');
-        $data = $m->join(C('DB_PREFIX').'model_cate mc on mc.id='.C('DB_PREFIX').'model_field.cate_id')->where(C('DB_PREFIX').'model_field.id=' . $id)
-                ->field('mc.emark as tbname,'.C('DB_PREFIX').'model_field.emark as tbfield')->find();
+        $data = $m->join(C('DB_PREFIX') . 'model_cate mc on mc.id=' . C('DB_PREFIX') . 'model_field.cate_id')->where(C('DB_PREFIX') . 'model_field.id=' . $id)
+                        ->field('mc.emark as tbname,' . C('DB_PREFIX') . 'model_field.emark as tbfield')->find();
         $tablename = $data['tbname'];
         $field = $data['tbfield'];
-        if(empty($tablename)||empty($field)){
+        if (empty($tablename) || empty($field)) {
             $json = array('status' => '1', 'info' => '字段信息为空不能执行删除！');
             echo json_encode($json);
             exit;
@@ -374,8 +361,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function cateJson()
-    {
+    public function cateJson() {
         $m = M('ModelCate');
         $list = $m->select();
         $count = $m->count("id");
@@ -388,20 +374,21 @@ class ContentModelAction extends AdminAction {
         $array['rows'] = $a;
         echo json_encode($array);
     }
- /**
+
+    /**
      * cateSortJson
      * 返回cateSortJson文档分类模型分类数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateSortJson()
-    {
+    public function cateSortJson() {
         $m = M('ModelCate');
         $list = $m->field('id,ename as text')->order('myorder desc,id asc')->select();
         //$list = array_merge(array(array('id' => 0, 'text' => '--请选择相应的内容模型--')), $list);
         echo json_encode($list);
     }
+
     /**
      * radioJson
      * 返回radioJson数据类型
@@ -409,8 +396,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function radioJson()
-    {
+    public function radioJson() {
         $radio = array(
             array('name' => 'varchar', 'text' => '单行文本(varchar)'),
             array('name' => 'textarea', 'text' => '多行文本'),
@@ -436,8 +422,7 @@ class ContentModelAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function fieldJsonId()
-    {
+    public function fieldJsonId() {
         $id = intval($_GET['id']);
         $m = M('ModelField');
         $list = $m->field('id,ename,emark,etype,elink')->where('cate_id=' . $id)->select();
@@ -450,6 +435,22 @@ class ContentModelAction extends AdminAction {
         $array['total'] = $count;
         $array['rows'] = $a;
         echo json_encode($array);
+    }
+
+    /**
+     * jsonCateTree
+     * 分类树信息json数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonCateTree() {
+        Load('extend');
+        $m = M('ModelCate');
+        $tree = $m->field('id,ename as text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        //$tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);
+        echo json_encode($tree);
     }
 
 }

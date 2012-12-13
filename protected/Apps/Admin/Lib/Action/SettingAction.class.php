@@ -19,8 +19,7 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index()
-    {
+    public function index() {
         $m = M('Setting');
         //$list = $setting->select();
         /*
@@ -87,8 +86,7 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function add()
-    {
+    public function add() {
         $select = array(
             '1' => '站点设置',
             '2' => '附件设置',
@@ -116,8 +114,7 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function edit()
-    {
+    public function edit() {
         $m = M('Setting');
         $id = intval($_GET['id']);
         $condition['id'] = $id;
@@ -152,8 +149,7 @@ class SettingAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function insert()
-    {
+    public function insert() {
         $m = M('Setting');
         $condition['sys_name'] = trim($_POST['sys_name']);
         if (empty($_POST['sys_gid']) || empty($condition['sys_name'])) {//不为空说明存在，存在就不能添加
@@ -182,8 +178,7 @@ class SettingAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function update()
-    {
+    public function update() {
         $m = M('Setting');
         $condition['sys_name'] = trim($_POST['sys_name']);
         $condition['id'] = array('neq', $_POST['id']);
@@ -243,8 +238,7 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function settinglist()
-    {
+    public function settinglist() {
         $m = M('Setting');
         $id = intval($_GET['id']);
         //$condition['sys_gid'] = $id;
@@ -261,9 +255,8 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function delete()
-    {
-        $this->dmsg('1', '暂不支持删除操作！',false,true);
+    public function delete() {
+        $this->dmsg('1', '暂不支持删除操作！', false, true);
         exit;
         $m = M('Setting');
         $id = intval($_POST['id']);
@@ -283,8 +276,7 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function fieldJsonId()
-    {
+    public function fieldJsonId() {
         $m = M('Setting');
         $id = intval($_GET['id']);
         $condition['sys_gid'] = $id;
@@ -303,6 +295,32 @@ class SettingAction extends AdminAction {
             $array['rows'][] = $v;
         }
         echo json_encode($array);
+    }
+
+    /**
+     * jsonCateTree
+     * 分类树信息json数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTree() {
+        $name = array(
+            array('id' => 1, 'text' => '站点设置'),
+            array('id' => 2, 'text' => '附件设置'),
+            array('id' => 3, 'text' => '信息相关'),
+            array('id' => 4, 'text' => '会员设置'),
+            array('id' => 5, 'text' => '邮箱设置'),
+            array('id' => 6, 'text' => '其它设置')
+        );
+        echo json_encode($name);
+        /*
+        Load('extend');
+        $m = M('NewsCate');
+        $tree = $m->field('id,parent_id,text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);
+        */
     }
 
 }

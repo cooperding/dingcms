@@ -407,6 +407,21 @@ class LinkPageAction extends AdminAction {
         echo json_encode($tree);
     }
 
+    /**
+     * jsonCateTree
+     * 分类树信息json数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonCateTree() {
+        Load('extend');
+        $m = M('LinkpageCate');
+        $tree = $m->field('id,ename as text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        echo json_encode($tree);
+    }
+
 }
 ?>
 

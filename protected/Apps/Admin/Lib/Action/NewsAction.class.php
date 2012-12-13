@@ -19,9 +19,21 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index()
-    {
+    public function index() {
 
+        $this->display();
+    }
+
+    /**
+     * newslist
+     * 信息列表
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function newslist() {
+        $id = intval($_GET['id']);
+        $this->assign('id', $id);
         $this->display('newslist');
     }
 
@@ -32,8 +44,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function json()
-    {
+    public function json() {
 
         $m = M('NavHead');
         $list = $m->select();
@@ -56,8 +67,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonCateTree()
-    {
+    public function jsonCateTree() {
         Load('extend');
         $m = M('NewsCate');
         $tree = $m->field('id,parent_id,text')->select();
