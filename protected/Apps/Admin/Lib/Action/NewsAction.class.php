@@ -5,13 +5,12 @@
  * 信息内容
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
- * @license http://www.apache.org/licenses/LICENSE-2.0 
+ * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:23
  * @package  Controller
  * @todo 信息各项操作
  */
-class NewsAction extends AdminAction
-{
+class NewsAction extends AdminAction {
 
     /**
      * index
@@ -23,7 +22,7 @@ class NewsAction extends AdminAction
     public function index()
     {
 
-        $this->display();
+        $this->display('newslist');
     }
 
     /**
@@ -48,6 +47,23 @@ class NewsAction extends AdminAction
         $array['rows'] = $a;
         echo json_encode($array);
         //echo $json;
+    }
+
+    /**
+     * jsonCateTree
+     * 分类树信息json数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonCateTree()
+    {
+        Load('extend');
+        $m = M('NewsCate');
+        $tree = $m->field('id,parent_id,text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);
+        echo json_encode($tree);
     }
 
 }
