@@ -1,10 +1,10 @@
 <div class="pageform">
-<form action="__APP__/Setting/update" id="formsetting" method="post">
-    <input type="hidden" name="sys_id" value="{$list.sys_id}" />
+<form action="__APP__/Setting/update" id="form_settingtab{$data.sys_gid}" method="post">
+    <input type="hidden" name="id" value="{$data.id}" />
 <ul>
 <li>
 <label>变量名：</label>
-<p><input type="text" name="sys_name" value="{$list.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
 </li>
 <li>
 <label>所属分组：</label>
@@ -15,13 +15,13 @@
 <p><html:radio name="sys_type" radios="radios" checked="sys_type"/></p>
 </li>
 <li>
-<label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$list.sys_value}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
+<label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.sys_value}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
 </li>
 <li>
-<label>参数说明;</label><p><input type="text" name="sys_info" value="{$list.sys_info}" /></p>
+<label>参数说明;</label><p><input type="text" name="sys_info" value="{$data.sys_info}" /></p>
 </li>
 <li>
-<label>排序：</label><p><input type="text" name="myorder" value="{$list.myorder}" /></p>
+<label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
 </li>
 </ul>
 </form>

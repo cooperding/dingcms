@@ -21,8 +21,8 @@ class SettingAction extends AdminAction {
      */
     public function index()
     {
-        $setting = M('Setting');
-        $list = $setting->select();
+        $m = M('Setting');
+        //$list = $setting->select();
         /*
           $name = array(
           '1' => '站点设置',
@@ -33,7 +33,29 @@ class SettingAction extends AdminAction {
           '6' => '其它设置'
           );
          *
+
+          echo '<pre>';
+          $data = $m->select();
+          $array = array();
+
+          foreach ($data as $k=>$v){
+          if($v['sys_type']=='radio'){
+          if($v['sys_value']==1){
+          $v['sys_value'] = '是';
+          }elseif($v['sys_value']==2){
+          $v['sys_value'] = '否';
+          }
+          }
+          $array['rows'][] = $v;
+          }
+          echo json_encode($data);
+          echo '<br/>';
+          echo json_encode($array);
+          echo '<br/>';
+          print_r($data);
+          exit;
          */
+
         $name = array(
             array('id' => 1, 'text' => '站点设置'),
             array('id' => 2, 'text' => '附件设置'),
@@ -80,6 +102,8 @@ class SettingAction extends AdminAction {
             'radio' => '布尔型',
             'textarea' => '多行文本'
         );
+        $id = intval($_GET['id']);
+        $this->assign('id', $id);
         $this->assign('select', $select);
         $this->assign('radios', $radios);
         $this->display();
@@ -94,9 +118,11 @@ class SettingAction extends AdminAction {
      */
     public function edit()
     {
-        $setting = M('Setting');
-        $id = $_GET['id'];
-        $data = $setting->where('sys_id=' . $id)->find();
+        $m = M('Setting');
+        $id = intval($_GET['id']);
+        $condition['id'] = $id;
+        $data = $m->where($condition)->find();
+        //$data = $setting->where('sys_id=' . $id)->find();
         $select = array(
             '1' => '站点设置',
             '2' => '附件设置',
@@ -110,11 +136,12 @@ class SettingAction extends AdminAction {
             'radio' => '布尔型',
             'textarea' => '多行文本'
         );
+
         $this->assign('select', $select);
         $this->assign('radios', $radios);
         $this->assign('sys_gid', $data['sys_gid']);
         $this->assign('sys_type', $data['sys_type']);
-        $this->assign('list', $data);
+        $this->assign('data', $data);
         $this->display();
     }
 
@@ -127,24 +154,23 @@ class SettingAction extends AdminAction {
      */
     public function insert()
     {
-        $setting = M('Setting');
-        //判断参数是否符合条件
-        //先判断是否有重复的名称
-        $sys_name['sys_name'] = trim($_POST['sys_name']);
-        $rs = $setting->where($sys_name)->find();
+        $m = M('Setting');
+        $condition['sys_name'] = trim($_POST['sys_name']);
+        if (empty($_POST['sys_gid']) || empty($condition['sys_name'])) {//不为空说明存在，存在就不能添加
+            $this->dmsg('1', '变量名或者所属分组不能为空！');
+        }
+        $rs = $m->where($condition)->find();
         if (!empty($rs)) {//不为空说明存在，存在就不能添加
-            echo '1';
-            exit;
-        } else {
-            $sys_type = trim($_POST['sys_type']);
-            $_POST['sys_type'] = $sys_type[0];
-            if ($setting->create($_POST)) {
-                $rs = $setting->add($_POST);
-                if ($rs) {
-                    echo 2;
-                } else {
-                    echo 3;
-                }
+            $this->dmsg('1', '变量名"' . $condition['sys_name'] . '"已经存在');
+        }
+        $sys_type = trim($_POST['sys_type']);
+        $_POST['sys_type'] = $sys_type[0];
+        if ($m->create($_POST)) {
+            $rs = $m->add($_POST);
+            if ($rs) {
+                $this->dmsg('2', '添加成功！', true);
+            } else {
+                $this->dmsg('1', '添加失败！');
             }
         }
     }
@@ -158,24 +184,25 @@ class SettingAction extends AdminAction {
      */
     public function update()
     {
-        $setting = M('Setting');
-        $sys_name['sys_name'] = trim($_POST['sys_name']);
-        $sys_name['sys_id'] = array('neq', $_POST['sys_id']);
-        $rs = $setting->where($sys_name)->find();
-        if (!empty($rs)) {
-            echo '1';
-            exit;
+        $m = M('Setting');
+        $condition['sys_name'] = trim($_POST['sys_name']);
+        $condition['id'] = array('neq', $_POST['id']);
+        if (empty($_POST['sys_gid']) || empty($condition['sys_name'])) {//不为空说明存在，存在就不能添加
+            $this->dmsg('1', '变量名或者所属分组不能为空！');
+        }
+        $rs = $m->where($condition)->find();
+        if (!empty($rs)) {//不为空说明存在，存在就不能添加
+            $this->dmsg('1', '变量名"' . $condition['sys_name'] . '"已经存在');
+        }
+        //$sys_type = trim($_POST['sys_type']);
+        //$_POST['sys_type'] = $sys_type;
+        $rs = $m->save($_POST);
+        if ($rs == 1) {
+            $this->dmsg('2', '修改成功！', true);
+        } elseif ($rs == 0) {
+            $this->dmsg('1', '未有操作！');
         } else {
-            $sys_type = trim($_POST['sys_type']);
-            $_POST['sys_type'] = $sys_type[0];
-            $rs = $setting->save($_POST);
-            if ($rs == 1) {
-                echo 2;
-            } elseif ($rs == 0) {
-                echo 4;
-            } else {
-                echo 3;
-            }
+            $this->dmsg('1', '操作失败！');
         }
     }
 
@@ -186,27 +213,28 @@ class SettingAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      * @todo 重新写
+
+      public function batchupdate()
+      {
+      echo '<pre>';
+      print_r($_POST);
+      $setting = M('Setting');
+      foreach ($_POST as $k => $v) {
+      //$data['sys_id'] = $k;
+      echo $v;
+      exit;
+      $data['sys_value'] = $v;
+      $rs = $setting->where('sys_id=' . $k)->data($data)->save();
+      }
+      if ($rs == 1) {
+      echo 2;
+      } elseif ($rs == 0) {
+      echo 4;
+      } else {
+      echo 3;
+      }
+      }
      */
-    public function batchupdate()
-    {
-        echo '<pre>';
-        print_r($_POST);
-        $setting = M('Setting');
-        foreach ($_POST as $k => $v) {
-            //$data['sys_id'] = $k;
-            echo $v;
-            exit;
-            $data['sys_value'] = $v;
-            $rs = $setting->where('sys_id=' . $k)->data($data)->save();
-        }
-        if ($rs == 1) {
-            echo 2;
-        } elseif ($rs == 0) {
-            echo 4;
-        } else {
-            echo 3;
-        }
-    }
 
     /**
      * settinglist
@@ -219,11 +247,33 @@ class SettingAction extends AdminAction {
     {
         $m = M('Setting');
         $id = intval($_GET['id']);
-        $condition['sys_gid'] = $id;
-        $data = $m->where($condition)->select();
-        $this->assign('data', $data);
+        //$condition['sys_gid'] = $id;
+        //$data = $m->where($condition)->select();
+        //$this->assign('data', $data);
         $this->assign('id', $id);
         $this->display('settingtab');
+    }
+
+    /**
+     * delete
+     * 删除信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function delete()
+    {
+        $this->dmsg('1', '暂不支持删除操作！',false,true);
+        exit;
+        $m = M('Setting');
+        $id = intval($_POST['id']);
+        $condition['id'] = $id;
+        $del = $m->where($condition)->delete();
+        if ($del == 1) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '删除操作失败！');
+        }//if
     }
 
     /**
@@ -235,21 +285,24 @@ class SettingAction extends AdminAction {
      */
     public function fieldJsonId()
     {
+        $m = M('Setting');
         $id = intval($_GET['id']);
+        $condition['sys_gid'] = $id;
+        $data = $m->where($condition)->select();
+        //$data = $m->select();
+        $array = array();
 
-    }
-
-    public function jsonGrid()
-    {
-        $name = array(
-            array('id' => 1, 'text' => '站点设置'),
-            array('id' => 2, 'text' => '附件设置'),
-            array('id' => 3, 'text' => '信息相关'),
-            array('id' => 4, 'text' => '会员设置'),
-            array('id' => 5, 'text' => '邮箱设置'),
-            array('id' => 6, 'text' => '其它设置')
-        );
-        echo json_encode($name);
+        foreach ($data as $k => $v) {
+            if ($v['sys_type'] == 'radio') {
+                if ($v['sys_value'] == 1) {
+                    $v['sys_value'] = '是';
+                } elseif ($v['sys_value'] == 2) {
+                    $v['sys_value'] = '否';
+                }
+            }
+            $array['rows'][] = $v;
+        }
+        echo json_encode($array);
     }
 
 }
