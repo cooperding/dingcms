@@ -25,6 +25,7 @@ return array(
     'menu_sort_add' => '添加分类',
     'menu_news_name' => '文档管理',
     'menu_news_list' => '文档列表',
+    'menu_news_list_add' => '添加文档',
     'menu_news_recycle' => '文档回收站',
     'menu_message_name' => '留言管理',
     'menu_message_list' => '留言信息',

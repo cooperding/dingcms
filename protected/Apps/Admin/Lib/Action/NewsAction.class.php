@@ -22,17 +22,38 @@ class NewsAction extends AdminAction {
     public function index() {
         $m = M('Title');
         $id = intval($_GET['id']);
-        $id = 1;
-        $condition['sort_id'] = $id;
-        $data = $m->where($condition)->select();
-        $array = array();
-        $array['total'] = 50;
-        $array['rows'] = $data;
-//        echo '<pre>';
-//        echo json_encode($array);
-//        echo '<br/>';
-//        print_r($data);
-//        exit;
+        /* $id = 2;
+          $s = M('NewsSort');
+          $condition_sort['id'] = $id;
+          $condition_sort['path'] = array('like','%,'.$id.',%');
+          $condition_sort['_logic'] = 'OR';
+          $data_sort = $s->field('id')->where($condition_sort)->select();
+
+          $a = '';
+          foreach($data_sort as $v){
+          $a .= $v['id'].',';
+          }
+          $a = rtrim($a, ',');
+          $condition['sort_id'] = array('in',$a);
+          $condition['is_recycle'] = 'false';
+          $data = $m->where($condition)->select();
+          echo $m->getLastSql();
+          //$data = $m->field('t.id,t.title,t.updatetime,t.editor,t.status')->join(' join '.C('DB_PREFIX').'title as t')->join(C('DB_PREFIX') . 'news_sort ns ON ns.id = t.sort_id ')
+          //->where('ns.id='.$id.' or ns.path like \'%,'.$id.',%\' and t.is_recycle=false')->select();
+
+          $condition['sort_id'] = $id;
+          $data = $m->where($condition)->select();
+          $array = array();
+          $array['total'] = 50;
+          $array['rows'] = $data;
+
+          echo '<pre>';
+          //        echo json_encode($array);
+          //        echo '<br/>';
+          echo time();
+          echo '<br/>';
+          print_r($data);
+          exit; */
         $this->display();
     }
 
@@ -58,68 +79,63 @@ class NewsAction extends AdminAction {
      */
     public function listJsonId() {
         $m = M('Title');
-        //$c = M('Title');
-        import('ORG.Util.Page');// 导入分页类
+        $s = M('NewsSort');
+        import('ORG.Util.Page'); // 导入分页类
         $id = intval($_GET['id']);
-        //$id = 1;
-        $pageNumber = intval($_POST['page']);
-       // $pageRows = intval($_POST['rows']);
-        //$pageRows = intval($_GET['rows']);
-        
-        //$pageRows = (intval($_GET['rows'])==FALSE)?(intval($_POST['rows'])):intval($_GET['rows']);
-        if($_POST){
-            //$pageRows = intval($_GET['rows']);
-            $pageRows = intval($_POST['rows']);
-        }else{
-            $pageRows = intval($_GET['rows']);
+        if ($id != 0) {//id为0时调用全部文档
+            $condition_sort['id'] = $id;
+            $condition_sort['path'] = array('like', '%,' . $id . ',%');
+            $condition_sort['_logic'] = 'OR';
+            $data_sort = $s->field('id')->where($condition_sort)->select();
+            $sort_id = '';
+            foreach ($data_sort as $v) {
+                $sort_id .= $v['id'] . ',';
+            }
+            $sort_id = rtrim($sort_id, ',');
+            $condition['sort_id'] = array('in', $sort_id);
         }
-        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1:$pageNumber); 
-        $pageRows = (($pageRows == FALSE) ? 20:$pageRows);
-        //$pageRows = 5;
-        //$condition['sort_id'] = array('like','%,'.$id.',%');
-        $condition['sort_id'] = $id;
+        $pageNumber = intval($_POST['page']);
+        $pageRows = intval($_POST['rows']);
+        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
+        $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
         $condition['is_recycle'] = 'false';
         $count = $m->where($condition)->count();
-        $page       = new Page($count,$pageRows);
-        //$this->dmsg('1', 'dede', true, true);
-        //start = (intPage-1)*number
-        $firstRow = ($pageNumber-1)*$pageRows;
-        //limit($Page->firstRow.','.$Page->listRows)->
-        $data = $m->where($condition)->limit($firstRow.','.$pageRows)->select();
+        $page = new Page($count, $pageRows);
+        $firstRow = ($pageNumber - 1) * $pageRows;
+        $data = $m->where($condition)->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
         //$list = $User->where('status=1')->order('create_time')->limit($page->firstRow.','.$Page->listRows)->select();
-       // $data = $m->where($condition)->limit('1,5')->select();
-        
-        
+        // $data = $m->where($condition)->limit('1,5')->select();
         //$data = $m->select();
         $array = array();
         $array['total'] = $count;
         $array['rows'] = $data;
-        
         echo json_encode($array);
     }
+
     /**
      * json
      * 信息json数据
      * @access public
      * @return array
      * @version dogocms 1.0
-     
-    public function json() {
 
-        $m = M('NavHead');
-        $list = $m->select();
-        $navcatCount = $m->count("id");
-        $a = array();
-        foreach ($list as $k => $v) {
-            $a[$k] = $v;
-        }
-        $array = array();
-        $array['total'] = $navcatCount;
-        $array['rows'] = $a;
-        echo json_encode($array);
-        //echo $json;
-    }
-*/
+      public function json() {
+
+      $m = M('NavHead');
+      $list = $m->select();
+      $navcatCount = $m->count("id");
+      $a = array();
+      foreach ($list as $k => $v) {
+      $a[$k] = $v;
+      }
+      $array = array();
+      $array['total'] = $navcatCount;
+      $array['rows'] = $a;
+      echo json_encode($array);
+      //echo $json;
+      }
+     */
+
     /**
      * jsonSortTree
      * 分类树信息json数据

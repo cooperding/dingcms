@@ -255,8 +255,8 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        $mc = M('ModelSort');
-        $data = $mc->field('emark')->where('id=' . $_POST['sort_id'])->find();
+        $ms = M('ModelSort');
+        $data = $ms->field('emark')->where('id=' . $_POST['sort_id'])->find();
         $tablename = $data['emark'];
         $d = D('ModelSort');
 
@@ -301,8 +301,8 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        $mc = M('ModelSort');
-        $data = $mc->field('emark')->where('id=' . $_POST['sort_id'])->find();
+        $ms = M('ModelSort');
+        $data = $ms->field('emark')->where('id=' . $_POST['sort_id'])->find();
         $tablename = $data['emark']; //表名
         $field = $m->field('emark')->where('id=' . $_POST['id'])->find();
         $oldfield = $field['emark']; //旧字段名
@@ -333,8 +333,8 @@ class ContentModelAction extends AdminAction {
         $id = intval($_POST['id']);
         $m = M('ModelField');
         $d = D('ModelSort');
-        $data = $m->join(C('DB_PREFIX') . 'model_sort mc on mc.id=' . C('DB_PREFIX') . 'model_field.sort_id')->where(C('DB_PREFIX') . 'model_field.id=' . $id)
-                        ->field('mc.emark as tbname,' . C('DB_PREFIX') . 'model_field.emark as tbfield')->find();
+        $data = $m->join(C('DB_PREFIX') . 'model_sort ms on ms.id=' . C('DB_PREFIX') . 'model_field.sort_id')->where(C('DB_PREFIX') . 'model_field.id=' . $id)
+                        ->field('ms.emark as tbname,' . C('DB_PREFIX') . 'model_field.emark as tbfield')->find();
         $tablename = $data['tbname'];
         $field = $data['tbfield'];
         if (empty($tablename) || empty($field)) {
