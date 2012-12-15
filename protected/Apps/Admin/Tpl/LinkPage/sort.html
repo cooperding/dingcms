@@ -1,6 +1,6 @@
 <div class="pagecontent">
 
-    <table id="datagrid_linkpagecate" class="easyui-datagrid datagrid linkpagecate">
+    <table id="datagrid_linkpagesort" class="easyui-datagrid datagrid linkpagesort">
         <thead>
             <tr>
                 <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
@@ -14,11 +14,11 @@
 
     <script>
         $(function(){
-            var classId = 'linkpagecate';
-            var hrefadd = '__APP__/LinkPage/cateadd';
-            var hrefedit = '__APP__/LinkPage/cateedit';
+            var classId = 'linkpagesort';
+            var hrefadd = '__APP__/LinkPage/sortadd';
+            var hrefedit = '__APP__/LinkPage/sortedit';
             var hrefcancel = '__APP__/LinkPage/delete';
-            var urljson = '__APP__/LinkPage/cateJson';
+            var urljson = '__APP__/LinkPage/sortJson';
             openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
            
         })

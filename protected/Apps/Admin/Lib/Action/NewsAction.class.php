@@ -121,15 +121,15 @@ class NewsAction extends AdminAction {
     }
 */
     /**
-     * jsonCateTree
+     * jsonSortTree
      * 分类树信息json数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonCateTree() {
+    public function jsonSortTree() {
         Load('extend');
-        $m = M('NewsCate');
+        $m = M('NewsSort');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);

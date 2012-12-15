@@ -1,11 +1,11 @@
 <div class="pageform">
-    <form action="__APP__/LinkPage/catelistupdate" id="form_catelisttab{$data.linkpage_id}" method="post">
+    <form action="__APP__/LinkPage/sortlistupdate" id="form_sortlisttab{$data.linkpage_id}" method="post">
         <input type="hidden" name="linkpage_id" value="{$data.linkpage_id}" />
         <input type="hidden" name="id" value="{$data.id}" />
          <ul>
             <li>
                 <label>分类名称：</label>
-                <p><input type="text" name="cate_name" value="{$data.cate_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <p><input type="text" name="sort_name" value="{$data.sort_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
                 <label>上级分组名：</label>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NewsCateAction.class.php
+ * NewsSortAction.class.php
  * 信息分类
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 分类各项操作
  */
-class NewsCateAction extends AdminAction {
+class NewsSortAction extends AdminAction {
 
     /**
      * index
@@ -45,7 +45,7 @@ class NewsCateAction extends AdminAction {
      */
     public function edit()
     {
-        $m = M('NewsCate');
+        $m = M('NewsSort');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $this->assign('data', $data);
         $this->display();
@@ -61,7 +61,7 @@ class NewsCateAction extends AdminAction {
     public function insert()
     {
         //添加功能还需要验证数据不能为空的字段
-        $m = M('NewsCate');
+        $m = M('NewsSort');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
@@ -102,16 +102,16 @@ class NewsCateAction extends AdminAction {
     {
         //流程：当选择的父级分类是现有分类的子级元素修改失败，当修改父级元素时，path同时也要修改
         //判断：
-        $m = M('NewsCate');
-        $d = D('NewsCate');
+        $m = M('NewsSort');
+        $d = D('NewsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
 
         //$data = $m->where('id=' . $parent_id)->find();
-        //$cate_path = $data['path'].$parent_id.','; //取得不为0时的path
-       // $tbname = 'NewsCate';
-       // $cate_path = $data['path'].$parent_id.',';
-       // $d->updatePath($id, $cate_path, $tbname);
+        //$sort_path = $data['path'].$parent_id.','; //取得不为0时的path
+       // $tbname = 'NewsSort';
+       // $sort_path = $data['path'].$parent_id.',';
+       // $d->updatePath($id, $sort_path, $tbname);
 
 
 
@@ -123,22 +123,22 @@ class NewsCateAction extends AdminAction {
                 exit;
             }
             $data = $m->field('path')->where('id=' . $parent_id)->find();
-            $cate_path = $data['path'].$parent_id.','; //取得不为0时的path
+            $sort_path = $data['path'].$parent_id.','; //取得不为0时的path
             $_POST['path'] = $data['path'].$parent_id.',';
-            $tbname = 'NewsCate';
-            $d->updatePath($id, $cate_path, $tbname);
+            $tbname = 'NewsSort';
+            $d->updatePath($id, $sort_path, $tbname);
 
         } else {//为0，path为,
             $data = $m->field('parent_id')->where('id=' . $id)->find();
             if ($data['parent_id'] != $parent_id) {//相同不改变
-                $cate_path = ','; //取得不为0时的path
-                $tbname = 'NewsCate';
-                $d->updatePath($id, $cate_path, $tbname);
+                $sort_path = ','; //取得不为0时的path
+                $tbname = 'NewsSort';
+                $d->updatePath($id, $sort_path, $tbname);
             }
             $_POST['path'] = ','; //应该是这个
         }
 //        $data = $m->where('id=' . $id)->find();
-//        $cate_path = $data['path'];
+//        $sort_path = $data['path'];
         //$_POST['path'] = $fpath;
         $en_name = trim($_POST['en_name']);
         if (empty($en_name)) {
@@ -149,9 +149,9 @@ class NewsCateAction extends AdminAction {
 
 
 //        $data = $m->where('id=' . $id)->find();
-//        $cate_path = $data['path']; //取得不为0时的path
-//                $tbname = 'NewsCate';
-//                $d->updatePath($id, $cate_path, $tbname);
+//        $sort_path = $data['path']; //取得不为0时的path
+//                $tbname = 'NewsSort';
+//                $d->updatePath($id, $sort_path, $tbname);
 //
 //        $json = array('status' => '1', 'info' => '不能222！',);
 //        echo json_encode($json);
@@ -218,7 +218,7 @@ class NewsCateAction extends AdminAction {
      */
     public function json()
     {
-        $m = M('NewsCate');
+        $m = M('NewsSort');
         $list = $m->select();
         $navcatCount = $m->count("id");
         $a = array();
@@ -242,7 +242,7 @@ class NewsCateAction extends AdminAction {
     public function jsonTree()
     {
         Load('extend');
-        $m = M('NewsCate');
+        $m = M('NewsSort');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);

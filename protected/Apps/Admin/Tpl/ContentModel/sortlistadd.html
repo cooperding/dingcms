@@ -1,7 +1,6 @@
 <div class="pageform">
-    <form action="__APP__/ContentModel/catelistupdate" id="form_contentmodel_catelisttab{$data.cate_id}" method="post">
-        <input type="hidden" name="cate_id" value="{$data.cate_id}" />
-        <input type="hidden" name="id" value="{$data.id}" />
+    <form action="__APP__/ContentModel/sortlistinsert" id="form_contentmodel_sortlisttab{$id}" method="post">
+        <input type="hidden" name="sort_id" value="{$id}" />
         <ul>
             <li>
                 <label>表单提示文字：</label>
@@ -13,19 +12,19 @@
             </li>
             <li>
                 <label>数据类型：</label>
-                <p><input value="{$data.etype}" name="etype" class="listadd" style="width:200px;"></p>
+                <p><input value="varchar" name="etype" class="listadd" style="width:200px;"></p>
             </li>
             <li class="liandong" style="display: none">
-            <label>联动分类：</label>
-            <p><input value="{$data.elink}" name="elink" class="modellinkpage" style="width:200px;"></p>
+                <label>联动分类：</label>
+                <p><input value="" name="elink" class="modellinkpage" style="width:200px;"></p>
             </li>
             <li>
                 <label>默认值：</label>
-                <p><textarea name="evalue" rows="5" cols="30">{$data.evalue}</textarea><span class="red">*使用英文状态下的逗号分开</span></p>
+                <p><textarea name="evalue" rows="5" cols="30"></textarea><span class="red">*使用英文状态下的逗号分开</span></p>
             </li>
             <li>
                 <label>最大长度：</label>
-                <p><input type="text" name="maxlength" value="{$data.maxlength}" /><span class="red">*请根据所选的数据类型进行选择</span></p>
+                <p><input type="text" name="maxlength" value="" /><span class="red">*请根据所选的数据类型进行选择</span></p>
             </li>
             <li>
                 <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
@@ -35,10 +34,6 @@
 </div>
 <script>
     $(function(){
-        var elink = '{$data.elink}';
-        if(elink!=0){
-            linkpage();
-        }
         $('.listadd').combobox({
             url:'__APP__/ContentModel/radioJson',
             valueField:'name',
@@ -54,11 +49,11 @@
                 }
 
             }
-        });//end
+        });
         function linkpage(){
             $('.liandong').css('display','block');
             $('.modellinkpage').combobox({
-                url:'__APP__/LinkPage/cateModelJson',
+                url:'__APP__/LinkPage/sortModelJson',
                 valueField:'id',
                 textField:'ename',
                 multiple:false

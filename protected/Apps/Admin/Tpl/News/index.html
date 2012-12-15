@@ -1,10 +1,10 @@
 <div class="pagecontent">
     <div class="easyui-layout layout_newslist">
         <div data-options="region:'west',split:true" title="文档分类" style="width:150px;">
-            <ul class="easyui-tree tree_newslist" data-options="url:'__APP__/News/jsonCateTree'" style="padding: 10px 5px;">
+            <ul class="easyui-tree tree_newslist" data-options="url:'__APP__/News/jsonSortTree'" style="padding: 10px 5px;">
                 <!--
-                <foreach name="list" item="cate">
-                    <li><a href="javascript:viod(0);" cmshref="__APP__/Setting/settinglist?id={$cate.id}">{$cate.text}</a></li>
+                <foreach name="list" item="sort">
+                    <li><a href="javascript:viod(0);" cmshref="__APP__/Setting/settinglist?id={$sort.id}">{$sort.text}</a></li>
                 </foreach>
                 -->
             </ul>
@@ -33,7 +33,7 @@
                             var nid = node.id;
                             //var clickclass = $('.tree_'+classId+' .tree-node-selected a');
                             var url = '__APP__/News/newslist?id='+nid;
-                            //var classId = 'modelcatelist';
+                            //var classId = 'modelsortlist';
                             var subtitle = node.text;
                             if(!$('#tabs_'+classId).tabs('exists',subtitle)){
                                 $('#tabs_'+classId).tabs('add',{

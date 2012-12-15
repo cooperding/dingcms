@@ -1,4 +1,4 @@
-<table id="datagrid_contentmodel_catelisttab{$id}" class="contentmodel_catelisttab{$id}">
+<table id="datagrid_contentmodel_sortlisttab{$id}" class="contentmodel_sortlisttab{$id}">
     <thead>
         <tr>
             <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
@@ -12,10 +12,10 @@
 <script>
     $(function(){
         var height = $('.indexcenter').height();
-        var classId = 'contentmodel_catelisttab{$id}';
-        var hrefadd = '__APP__/ContentModel/catelistadd?id={$id}';
-        var hrefedit = '__APP__/ContentModel/catelistedit';
-        var hrefcancel = '__APP__/ContentModel/catelistdelete';
+        var classId = 'contentmodel_sortlisttab{$id}';
+        var hrefadd = '__APP__/ContentModel/sortlistadd?id={$id}';
+        var hrefedit = '__APP__/ContentModel/sortlistedit';
+        var hrefcancel = '__APP__/ContentModel/sortlistdelete';
         var urljson = '__APP__/ContentModel/fieldJsonId?id={$id}';
         $('.layout_'+classId).css('height',height-50);
         openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);

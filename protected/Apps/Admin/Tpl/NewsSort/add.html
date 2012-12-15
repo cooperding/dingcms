@@ -1,6 +1,5 @@
 <div class="pageform">
-    <form action="__APP__/NewsCate/update" id="form_newscate" method="post">
-        <input type="hidden" name="id" value="{$data.id}" />
+    <form action="__APP__/NewsSort/insert" id="form_newssort" method="post">
         <ul>
             <li>
                 <label>分类名称：</label>
@@ -8,11 +7,11 @@
             </li>
             <li>
                 <label>上级分组名：</label>
-                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsCate/jsonTree',required:true," value="{$data.parent_id}"  style="width:200px;"></p
+                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="0"  style="width:200px;"></p
             </li>
-             <li>
+            <li>
                 <label>选择内容模型：</label>
-                <p><input name="model_id" class="easyui-combotree combotree" data-options="url:'__APP__/ContentModel/cateSortJson',required:true"  value="{$data.model_id}"  style="width:200px;"></p
+                <p><input name="model_id" class="easyui-combotree combotree" data-options="url:'__APP__/ContentModel/sortSortJson',required:true"  value="0"  style="width:200px;"></p
             </li>
             <li>
                 <label>封面模板：</label><p><input type="text" name="tpl_index" value="{$data.tpl_index}" /></p>

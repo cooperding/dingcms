@@ -1,7 +1,7 @@
 <?php
 
 /**
- * NewsCateModel.class.php
+ * NewsSortModel.class.php
  * 分类相关信息
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo
  */
-class NewsCateModel extends Model {
+class NewsSortModel extends Model {
 
     /**
      * updatePath
@@ -19,10 +19,10 @@ class NewsCateModel extends Model {
      * @return boolean
      * @version dogocms 1.0
      */
-    function updatePath($cate_id, $cate_path, $tbname) {
+    function updatePath($sort_id, $sort_path, $tbname) {
         $m = M($tbname);
-        $condition['path'] = array('like', '%,' . $cate_id . ',%');
-        $condition['parent_id'] = array('eq', intval($cate_id));
+        $condition['path'] = array('like', '%,' . $sort_id . ',%');
+        $condition['parent_id'] = array('eq', intval($sort_id));
         $condition['_logic'] = 'OR';
         $result = $m->field('id,path')->where($condition)->select();
         //$aa = $m->getLastSql();
@@ -30,10 +30,10 @@ class NewsCateModel extends Model {
         //echo json_encode($json);
         //exit;
         foreach ($result as $k => $v) {
-            //if ($cate_path == ',')
-            //unset($cate_path);
-            $data['path'] = $cate_path . substr($v['path'], strpos($v['path'], $cate_id . ','), strlen($v['path']));
-              //$json = array('status' => '1', 'info' => $cate_path .'++++'.$cate_id.'===='.$v['path'].'----'.$data['path']);
+            //if ($sort_path == ',')
+            //unset($sort_path);
+            $data['path'] = $sort_path . substr($v['path'], strpos($v['path'], $sort_id . ','), strlen($v['path']));
+              //$json = array('status' => '1', 'info' => $sort_path .'++++'.$sort_id.'===='.$v['path'].'----'.$data['path']);
             //echo json_encode($json);
             //exit;
             $m->where('id=' . intval($v['id']))->save($data);

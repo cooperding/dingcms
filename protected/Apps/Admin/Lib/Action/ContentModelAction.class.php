@@ -13,25 +13,25 @@
 class ContentModelAction extends AdminAction {
 
     /**
-     * cate
+     * sort
      * 内容模型分类
      * @access public
      * @return 返回页面
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function cate() {
+    public function sort() {
         $this->display();
     }
 
     /**
-     * cateadd
+     * sortadd
      * 内容模型添加
      * @access public
      * @return 返回页面
      * @version dogocms 1.0
      */
-    public function cateadd() {
+    public function sortadd() {
         $radios = array(
             'true' => '启用',
             'false' => '禁用'
@@ -41,14 +41,14 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * cateedit
+     * sortedit
      * 内容模型编辑
      * @access public
      * @return 返回页面
      * @version dogocms 1.0
      */
-    public function cateedit() {
-        $m = M('ModelCate');
+    public function sortedit() {
+        $m = M('ModelSort');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
             'true' => '启用',
@@ -61,15 +61,15 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * cateinsert
+     * sortinsert
      * 模型分类插入
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateinsert() {
-        $d = D('ModelCate');
-        $m = M('ModelCate');
+    public function sortinsert() {
+        $d = D('ModelSort');
+        $m = M('ModelSort');
         $id = intval($_POST['id']);
         $condition['ename'] = trim($_POST['ename']);
         $condition['emark'] = trim($_POST['emark']);
@@ -103,14 +103,14 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * cateupdate
+     * sortupdate
      * 模型分类更新
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateupdate() {
-        $m = M('ModelCate');
+    public function sortupdate() {
+        $m = M('ModelSort');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['emark'] = trim($_POST['emark']);
@@ -132,7 +132,7 @@ class ContentModelAction extends AdminAction {
         }
         $data = $m->field('emark')->where('id=' . $id)->find();
         if ($data['emark'] != $_POST['emark']) {
-            D('ModelCate')->edittable($data['emark'], $_POST['emark']);
+            D('ModelSort')->edittable($data['emark'], $_POST['emark']);
         }
         $rs = $m->save($_POST);
         if ($rs == 1) {
@@ -145,18 +145,18 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * catedelete
+     * sortdelete
      * 模型分类删除
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catedelete() {
+    public function sortdelete() {
         $id = intval($_POST['id']);
-        $d = D('ModelCate');
-        $m = M('ModelCate');
+        $d = D('ModelSort');
+        $m = M('ModelSort');
         $list = M('ModelField');
-        if ($list->field('cate_id')->where('cate_id=' . $id)->find()) {
+        if ($list->field('sort_id')->where('sort_id=' . $id)->find()) {
             $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
             echo json_encode($json);
             exit;
@@ -175,54 +175,54 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * catelist
+     * sortlist
      * 内容模型字段列表
      * @access public
      * @return 返回页面
      * @version dogocms 1.0
      * @todo 模型各项操作
      */
-    public function catelist() {
-        $m = M('ModelCate');
-        $cate = $m->field('id,ename')->select();
-        $this->assign('cate', $cate);
+    public function sortlist() {
+        $m = M('ModelSort');
+        $sort = $m->field('id,ename')->select();
+        $this->assign('sort', $sort);
         $this->display();
     }
 
     /**
-     * catelistcate
+     * sortlistsort
      * 模型列表左侧菜单
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistcate() {//点击左侧信息打开右侧
+    public function sortlistsort() {//点击左侧信息打开右侧
         $id = intval($_GET['id']);
         $this->assign('id', $id);
-        $this->display('catelisttab');
+        $this->display('sortlisttab');
     }
 
     /**
-     * catelistadd
+     * sortlistadd
      * 模型列表编辑添加
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistadd() {
+    public function sortlistadd() {
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display();
     }
 
     /**
-     * catelistedit
+     * sortlistedit
      * 模型列表编辑
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistedit() {
+    public function sortlistedit() {
         $id = intval($_GET['id']);
         $list = M('ModelField');
         $data = $list->where('id=' . $id)->find();
@@ -232,19 +232,19 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * catelistinsert
+     * sortlistinsert
      * 模型列表插入数据
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistinsert() {
+    public function sortlistinsert() {
         $m = M('ModelField');
-        $_POST['cate_id'] = intval($_POST['cate_id']);
+        $_POST['sort_id'] = intval($_POST['sort_id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['emark'] = trim($_POST['emark']);
         $condition['emark'] = $_POST['emark'];
-        $condition['cate_id'] = array('eq', $_POST['cate_id']);
+        $condition['sort_id'] = array('eq', $_POST['sort_id']);
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $json = array('status' => '1', 'info' => '名称和标识不能为空！');
             echo json_encode($json);
@@ -255,10 +255,10 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        $mc = M('ModelCate');
-        $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
+        $mc = M('ModelSort');
+        $data = $mc->field('emark')->where('id=' . $_POST['sort_id'])->find();
         $tablename = $data['emark'];
-        $d = D('ModelCate');
+        $d = D('ModelSort');
 
         $field = $_POST['emark'];
         $type = $_POST['etype'];
@@ -277,20 +277,20 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * catelistupdate
+     * sortlistupdate
      * 模型列表更新数据
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistupdate() {
+    public function sortlistupdate() {
         $m = M('ModelField');
-        $_POST['cate_id'] = intval($_POST['cate_id']);
+        $_POST['sort_id'] = intval($_POST['sort_id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['emark'] = trim($_POST['emark']);
         $condition['id'] = array('neq', $_POST['id']);
         $condition['emark'] = $_POST['emark'];
-        $condition['cate_id'] = array('eq', $_POST['cate_id']);
+        $condition['sort_id'] = array('eq', $_POST['sort_id']);
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $json = array('status' => '1', 'info' => '名称和标识不能为空！');
             echo json_encode($json);
@@ -301,12 +301,12 @@ class ContentModelAction extends AdminAction {
             echo json_encode($json);
             exit;
         }
-        $mc = M('ModelCate');
-        $data = $mc->field('emark')->where('id=' . $_POST['cate_id'])->find();
+        $mc = M('ModelSort');
+        $data = $mc->field('emark')->where('id=' . $_POST['sort_id'])->find();
         $tablename = $data['emark']; //表名
         $field = $m->field('emark')->where('id=' . $_POST['id'])->find();
         $oldfield = $field['emark']; //旧字段名
-        $d = D('ModelCate');
+        $d = D('ModelSort');
 
         $newfield = $_POST['emark']; //新字段名
         $type = $_POST['etype'];
@@ -323,17 +323,17 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * catelistdelete
+     * sortlistdelete
      * 模型列表删除
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistdelete() {
+    public function sortlistdelete() {
         $id = intval($_POST['id']);
         $m = M('ModelField');
-        $d = D('ModelCate');
-        $data = $m->join(C('DB_PREFIX') . 'model_cate mc on mc.id=' . C('DB_PREFIX') . 'model_field.cate_id')->where(C('DB_PREFIX') . 'model_field.id=' . $id)
+        $d = D('ModelSort');
+        $data = $m->join(C('DB_PREFIX') . 'model_sort mc on mc.id=' . C('DB_PREFIX') . 'model_field.sort_id')->where(C('DB_PREFIX') . 'model_field.id=' . $id)
                         ->field('mc.emark as tbname,' . C('DB_PREFIX') . 'model_field.emark as tbfield')->find();
         $tablename = $data['tbname'];
         $field = $data['tbfield'];
@@ -355,14 +355,14 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * cateJson
-     * 返回catejson模型分类数据
+     * sortJson
+     * 返回sortjson模型分类数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateJson() {
-        $m = M('ModelCate');
+    public function sortJson() {
+        $m = M('ModelSort');
         $list = $m->select();
         $count = $m->count("id");
         $a = array();
@@ -376,14 +376,14 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * cateSortJson
-     * 返回cateSortJson文档分类模型分类数据
+     * sortSortJson
+     * 返回sortSortJson文档分类模型分类数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateSortJson() {
-        $m = M('ModelCate');
+    public function sortSortJson() {
+        $m = M('ModelSort');
         $list = $m->field('id,ename as text')->order('myorder desc,id asc')->select();
         //$list = array_merge(array(array('id' => 0, 'text' => '--请选择相应的内容模型--')), $list);
         echo json_encode($list);
@@ -425,8 +425,8 @@ class ContentModelAction extends AdminAction {
     public function fieldJsonId() {
         $id = intval($_GET['id']);
         $m = M('ModelField');
-        $list = $m->field('id,ename,emark,etype,elink')->where('cate_id=' . $id)->select();
-        $count = $m->where('cate_id=' . $id)->count("id");
+        $list = $m->field('id,ename,emark,etype,elink')->where('sort_id=' . $id)->select();
+        $count = $m->where('sort_id=' . $id)->count("id");
         $a = array();
         foreach ($list as $k => $v) {
             $a[$k] = $v;
@@ -438,15 +438,15 @@ class ContentModelAction extends AdminAction {
     }
 
     /**
-     * jsonCateTree
+     * jsonSortTree
      * 分类树信息json数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonCateTree() {
+    public function jsonSortTree() {
         Load('extend');
-        $m = M('ModelCate');
+        $m = M('ModelSort');
         $tree = $m->field('id,ename as text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         //$tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);

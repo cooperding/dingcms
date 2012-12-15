@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ModelCateModel.class.php
+ * ModelSortModel.class.php
  * 内容模型数据表字段
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 内容模型数据表及字段操作
  */
-class ModelCateModel extends Model {
+class ModelSortModel extends Model {
 
     /**
      * addtable

@@ -298,7 +298,7 @@ class SettingAction extends AdminAction {
     }
 
     /**
-     * jsonCateTree
+     * jsonTree
      * 分类树信息json数据
      * @access public
      * @return array
@@ -316,7 +316,7 @@ class SettingAction extends AdminAction {
         echo json_encode($name);
         /*
         Load('extend');
-        $m = M('NewsCate');
+        $m = M('NewsSort');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);

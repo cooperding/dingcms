@@ -1,4 +1,4 @@
-<table id="treegrid_catelisttab{$id}" class="catelisttab{$id}">
+<table id="treegrid_sortlisttab{$id}" class="sortlisttab{$id}">
     <thead>
         <tr>
             <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
@@ -12,10 +12,10 @@
 <script>
     $(function(){
         var height = $('.indexcenter').height();
-        var classId = 'catelisttab{$id}';
-        var hrefadd = '__APP__/LinkPage/catelistadd?id={$id}';
-        var hrefedit = '__APP__/LinkPage/catelistedit';
-        var hrefcancel = '__APP__/LinkPage/catelistdelete';
+        var classId = 'sortlisttab{$id}';
+        var hrefadd = '__APP__/LinkPage/sortlistadd?id={$id}';
+        var hrefedit = '__APP__/LinkPage/sortlistedit';
+        var hrefcancel = '__APP__/LinkPage/sortlistdelete';
         var urljson = '__APP__/LinkPage/jsonTreeId?id={$id}';
         $('.layout_'+classId).css('height',height-50);
         openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);

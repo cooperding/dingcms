@@ -66,7 +66,7 @@ return array(
     //开发工具
     'menu_' => '',
     'site_name' => '我的网站',
-    'cat_root_name' => '--根目录--',
+    'sort_root_name' => '--根目录--',
     'home' => '首页',
     'add' => '添加',
     'edit' => '编辑',

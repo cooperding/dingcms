@@ -1,16 +1,16 @@
 <div class="pagecontent">
-    <div class="easyui-layout layout_contentmodel_catelist" >
+    <div class="easyui-layout layout_contentmodel_sortlist" >
         <div data-options="region:'west',split:true" title="模型分类" style="width:150px;">
-            <ul class="easyui-tree tree_contentmodel_catelist" data-options="url:'__APP__/ContentModel/jsonCateTree'" style="padding: 10px 5px 10px 0;">
+            <ul class="easyui-tree tree_contentmodel_sortlist" data-options="url:'__APP__/ContentModel/jsonSortTree'" style="padding: 10px 5px 10px 0;">
                 <!--
-                <foreach name="cate" item="cate">
-                    <li><a href="javascript:viod(0);" cmshref="__APP__/ContentModel/catelistcate?id={$cate.id}">{$cate.ename}</a></li>
+                <foreach name="sort" item="sort">
+                    <li><a href="javascript:viod(0);" cmshref="__APP__/ContentModel/sortlistsort?id={$sort.id}">{$sort.ename}</a></li>
                 </foreach>
                 -->
             </ul>
         </div>
         <div data-options="region:'center'" style="">
-            <div id="tabs_contentmodel_catelist" class="easyui-tabs"  fit="true" border="false"  >
+            <div id="tabs_contentmodel_sortlist" class="easyui-tabs"  fit="true" border="false"  >
 
             </div>
 
@@ -19,15 +19,15 @@
             <script>
                 $(function(){
                     var height = $('.indexcenter').height();
-                    var classId = 'contentmodel_catelist';
+                    var classId = 'contentmodel_sortlist';
                     $('.layout_'+classId).css('height',height-50);
                     $('.tree_'+classId).tree({
                         onClick:function(){
                             var node = $('.tree_'+classId).tree('getSelected');
                             var nid = node.id;
                             //var clickclass = $('.tree_'+classId+' .tree-node-selected a');
-                            var url = '__APP__/ContentModel/catelistcate?id='+nid;
-                            //var classId = 'modelcatelist';
+                            var url = '__APP__/ContentModel/sortlistsort?id='+nid;
+                            //var classId = 'modelsortlist';
                             var subtitle = node.text;
                             if(!$('#tabs_'+classId).tabs('exists',subtitle)){
                                 $('#tabs_'+classId).tabs('add',{

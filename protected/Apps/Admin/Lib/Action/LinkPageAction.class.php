@@ -14,24 +14,24 @@
 class LinkPageAction extends AdminAction {
 
     /**
-     * cate
+     * sort
      * 联动分类信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cate() {
+    public function sort() {
         $this->display();
     }
 
     /**
-     * cateadd
+     * sortadd
      * 联动分类添加
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateadd() {
+    public function sortadd() {
         $radios = array(
             'true' => '启用',
             'false' => '禁用'
@@ -41,14 +41,14 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * cateedit
+     * sortedit
      * 联动分类编辑
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateedit() {
-        $m = M('LinkpageCate');
+    public function sortedit() {
+        $m = M('LinkpageSort');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
             'true' => '启用',
@@ -61,14 +61,14 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * cateinsert
+     * sortinsert
      * 联动分类插入
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateinsert() {
-        $m = M('LinkpageCate');
+    public function sortinsert() {
+        $m = M('LinkpageSort');
         $id = intval($_POST['id']);
         $condition['ename'] = trim($_POST['ename']);
         $condition['egroup'] = trim($_POST['egroup']);
@@ -100,14 +100,14 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * cateupdate
+     * sortupdate
      * 联动分类更新
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function cateupdate() {
-        $m = M('LinkpageCate');
+    public function sortupdate() {
+        $m = M('LinkpageSort');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
         $_POST['egroup'] = trim($_POST['egroup']);
@@ -137,15 +137,15 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * catedelete
+     * sortdelete
      * 联动分类删除
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catedelete() {
+    public function sortdelete() {
         $id = intval($_GET['id']);
-        $m = M('LinkpageCate');
+        $m = M('LinkpageSort');
         $list = M('LinkpageList');
         if ($list->field('id')->where('linkpage_id=' . $id)->find()) {
             $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
@@ -164,43 +164,43 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * catelist
+     * sortlist
      * 联动列表
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelist() {
-        $m = M('LinkpageCate');
-        $cate = $m->field('id,ename')->select();
+    public function sortlist() {
+        $m = M('LinkpageSort');
+        $sort = $m->field('id,ename')->select();
 
 
-        $this->assign('cate', $cate);
+        $this->assign('sort', $sort);
         $this->display();
     }
 
     /**
-     * catelistcate
+     * sortlistsort
      * 联动列表左侧菜单
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistcate() {//点击左侧信息打开右侧
+    public function sortlistsort() {//点击左侧信息打开右侧
         $id = intval($_GET['id']);
         //echo $id;
         $this->assign('id', $id);
-        $this->display('catelisttab');
+        $this->display('sortlisttab');
     }
 
     /**
-     * catelistadd
+     * sortlistadd
      * 联动列表编辑添加
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistadd() {
+    public function sortlistadd() {
 
         $id = intval($_GET['id']);
         $this->assign('linkpage_id', $id);
@@ -208,13 +208,13 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * catelistedit
+     * sortlistedit
      * 联动列表编辑
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function catelistedit() {
+    public function sortlistedit() {
         $id = intval($_GET['id']);
         $list = M('LinkpageList');
         $data = $list->where('id=' . $id)->find();
@@ -223,13 +223,13 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * catelistdelete
+     * sortlistdelete
      * 联动列表删除
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistdelete() {
+    public function sortlistdelete() {
         $m = M('LinkpageList');
         $id = intval($_POST['id']);
         if (empty($id)) {
@@ -254,17 +254,17 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * catelistinsert
+     * sortlistinsert
      * 联动列表编辑插入数据
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistinsert() {
+    public function sortlistinsert() {
         $m = M('LinkpageList');
         $parent_id = intval($_POST['parent_id']);
-        $_POST['cate_name'] = trim($_POST['cate_name']);
-        if (empty($_POST['cate_name'])) {
+        $_POST['sort_name'] = trim($_POST['sort_name']);
+        if (empty($_POST['sort_name'])) {
             $json = array('status' => '1', 'info' => '分类名不能为空！');
             echo json_encode($json);
             exit;
@@ -286,13 +286,13 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * catelistupdate
+     * sortlistupdate
      * 联动列表编辑更新
      * @access public
      * @return boolean
      * @version dogocms 1.0
      */
-    public function catelistupdate() {
+    public function sortlistupdate() {
         $m = M('LinkpageList');
         $id = intval($_POST['id']);
         $linkpage_id = intval($_POST['linkpage_id']);
@@ -336,14 +336,14 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * cateJson
-     * 返回catejson联动分类数据
+     * sortJson
+     * 返回sortJson联动分类数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateJson() {
-        $m = M('LinkpageCate');
+    public function sortJson() {
+        $m = M('LinkpageSort');
         $list = $m->select();
         $count = $m->count("id");
         $a = array();
@@ -357,14 +357,14 @@ class LinkPageAction extends AdminAction {
     }
 
     /**
-     * cateModelJson
-     * 返回cateModelJson联动分类数据,模型列表处使用
+     * sortModelJson
+     * 返回sortModelJsonn联动分类数据,模型列表处使用
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function cateModelJson() {
-        $m = M('LinkpageCate');
+    public function sortModelJson() {
+        $m = M('LinkpageSort');
         $list = $m->field('id,ename')->select();
         $array = array();
         foreach ($list as $k => $v) {
@@ -384,7 +384,7 @@ class LinkPageAction extends AdminAction {
         Load('extend');
         $m = M('LinkpageList');
         $id = intval($_GET['id']);
-        $tree = $m->field('id,parent_id,cate_name as text')->where('linkpage_id=' . $id)->select();
+        $tree = $m->field('id,parent_id,sort_name as text')->where('linkpage_id=' . $id)->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         //$tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);
         echo json_encode($tree);
@@ -401,22 +401,22 @@ class LinkPageAction extends AdminAction {
         Load('extend');
         $m = M('LinkpageList');
         $id = intval($_GET['id']);
-        $tree = $m->field('id,parent_id,cate_name as text')->where('linkpage_id=' . $id)->select();
+        $tree = $m->field('id,parent_id,sort_name as text')->where('linkpage_id=' . $id)->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
-        $tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);
+        $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);
     }
 
     /**
-     * jsonCateTree
+     * jsonSortTree
      * 分类树信息json数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonCateTree() {
+    public function jsonSortTree() {
         Load('extend');
-        $m = M('LinkpageCate');
+        $m = M('LinkpageSort');
         $tree = $m->field('id,ename as text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         echo json_encode($tree);

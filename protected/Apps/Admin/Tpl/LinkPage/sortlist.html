@@ -1,12 +1,12 @@
 <div class="pagecontent">
-    <div class="easyui-layout layout_linkpage_catelist" >
+    <div class="easyui-layout layout_linkpage_sortlist" >
         <div data-options="region:'west',split:true" title="联动分类" style="width:150px;">
-            <ul class="easyui-tree tree_linkpage_catelist" data-options="url:'__APP__/LinkPage/jsonCateTree'" style="padding: 10px 5px 10px 0;">
+            <ul class="easyui-tree tree_linkpage_sortlist" data-options="url:'__APP__/LinkPage/jsonSortTree'" style="padding: 10px 5px 10px 0;">
                
             </ul>
         </div>
         <div data-options="region:'center'" style="">
-            <div id="tabs_linkpage_catelist" class="easyui-tabs"  fit="true" border="false"  >
+            <div id="tabs_linkpage_sortlist" class="easyui-tabs"  fit="true" border="false"  >
 
             </div>
 
@@ -15,15 +15,15 @@
             <script>
                 $(function(){
                     var height = $('.indexcenter').height();
-                    var classId = 'linkpage_catelist';
+                    var classId = 'linkpage_sortlist';
                     $('.layout_'+classId).css('height',height-50);
                     $('.tree_'+classId).tree({
                         onClick:function(){
                             var node = $('.tree_'+classId).tree('getSelected');
                             var nid = node.id;
                             //var clickclass = $('.tree_'+classId+' .tree-node-selected a');
-                            var url = '__APP__/LinkPage/catelistcate?id='+nid;
-                            //var classId = 'modelcatelist';
+                            var url = '__APP__/LinkPage/sortlistsort?id='+nid;
+                            //var classId = 'modelsortelist';
                             var subtitle = node.text;
                             if(!$('#tabs_'+classId).tabs('exists',subtitle)){
                                 $('#tabs_'+classId).tabs('add',{

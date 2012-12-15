@@ -1,6 +1,6 @@
 <div class="pagecontent">
 
-    <table id="datagrid_contentmodel_cate" class="contentmodel_cate">
+    <table id="datagrid_contentmodel_sort" class="contentmodel_sort">
         <thead>
             <tr>
                 <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
@@ -14,11 +14,11 @@
 
     <script>
         $(function(){
-            var classId = 'contentmodel_cate';
-            var hrefadd = '__APP__/ContentModel/cateadd';
-            var hrefedit = '__APP__/ContentModel/cateedit';
-            var hrefcancel = '__APP__/ContentModel/catedelete';
-            var urljson = '__APP__/ContentModel/cateJson';
+            var classId = 'contentmodel_sort';
+            var hrefadd = '__APP__/ContentModel/sortadd';
+            var hrefedit = '__APP__/ContentModel/sortedit';
+            var hrefcancel = '__APP__/ContentModel/sortdelete';
+            var urljson = '__APP__/ContentModel/sortJson';
             openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
 
         })
