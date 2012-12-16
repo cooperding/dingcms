@@ -1,0 +1,76 @@
+<div class="pageform">
+<form action="__APP__/News/update" id="form_newstab{$id}" method="post">
+    <input type="hidden" name="id" value="{$data.id}" />
+<ul>
+<li>
+<label>文档标题：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>文档副标题：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>文档属性：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>文档分类：</label>
+<p><html:select selected="sys_gid" options="select" name="sys_gid" /></p
+</li>
+<li>
+<label>文档标题图：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>编辑：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>作者：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>来源：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>来源网址：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>关键词：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>描述简介：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>添加时间：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>更新时间：</label>
+<p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+</li>
+<li>
+<label>审核状态：</label>
+<p><html:radio name="sys_type" radios="radios" checked="sys_type"/></p>
+</li>
+<li>
+<label>文档内容：</label><p></p>
+</li>
+<li><textarea name="sys_value" rows="10" cols="50">{$data.sys_value}</textarea></li>
+<li>
+<label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.sys_value}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
+</li>
+<li>
+<label>参数说明;</label><p><input type="text" name="sys_info" value="{$data.sys_info}" /></p>
+</li>
+<li>
+<label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
+</li>
+</ul>
+</form>
+</div>

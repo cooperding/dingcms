@@ -69,7 +69,58 @@ class NewsAction extends AdminAction {
         $this->assign('id', $id);
         $this->display('newslist');
     }
-
+/**
+     * add
+     * 添加信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function add() {
+        $id = intval($_GET['id']);
+        
+        $this->assign('id', $id);
+        $this->display();
+    }
+    /**
+     * edit
+     * 编辑信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function edit() {
+        $id = intval($_GET['id']);
+        
+        $this->assign('id', $id);
+        $this->display();
+    }
+     /**
+     * insert
+     * 写入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function insert() {
+        $id = intval($_GET['id']);
+        
+        $this->assign('id', $id);
+        $this->display();
+    }
+     /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update() {
+        $id = intval($_GET['id']);
+        
+        $this->assign('id', $id);
+        $this->display();
+    }
     /**
      * listJsonId
      * 取得field信息
