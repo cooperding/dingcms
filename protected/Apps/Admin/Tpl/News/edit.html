@@ -10,6 +10,13 @@
                 <p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
             </li>
             <li>
+                <label>标题颜色：</label>
+                <p>
+                    <input type="text" id="color" name="sys_name" value="{$data.sys_name}"/>
+                    <input type="button" id="colorpicker" value="打开取色器" />
+                </p>
+            </li>
+            <li>
                 <label>文档副标题：</label>
                 <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
             </li>
@@ -19,11 +26,14 @@
             </li>
             <li>
                 <label>文档分类：</label>
-                <p><html:select selected="sys_gid" options="select" name="sys_gid" /></p
+                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="0"  style="width:200px;" /></p>
             </li>
             <li>
                 <label>文档标题图：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p>
+                    <input type="text" id="url1" name="sys_name" value="{$data.sys_name}" />
+                    <input type="button" id="image1" value="选择图片" />
+                </p>
             </li>
             <li>
                 <label>编辑：</label>
@@ -50,7 +60,7 @@
                 <p><textarea name="sys_value" rows="3" cols="30">{$data.sys_value}</textarea></p>
             </li>
             <li>
-                <label>添加时间：</label>
+                <label>发布时间：</label>
                 <p></p>
             </li>
             <li>
@@ -83,8 +93,59 @@
             KindEditor.create('#content1', {
                 themeType : 'simple'
             });
+            var editor = KindEditor.editor({
+                allowFileManager : true
+            });
+            KindEditor('#image1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : KindEditor('#url1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            KindEditor('#url1').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+            var colorpicker;
+            KindEditor('#colorpicker').bind('click', function(e) {
+                e.stopPropagation();
+                if (colorpicker) {
+                    colorpicker.remove();
+                    colorpicker = null;
+                    return;
+                }
+                var colorpickerPos = KindEditor('#colorpicker').pos();
+                colorpicker = KindEditor.colorpicker({
+                    x : colorpickerPos.x,
+                    y : colorpickerPos.y + KindEditor('#colorpicker').height(),
+                    z : 19811214,
+                    selectedColor : 'default',
+                    noColor : '无颜色',
+                    click : function(color) {
+                        KindEditor('#color').val(color);
+                        colorpicker.remove();
+                        colorpicker = null;
+                    }
+                });
+            });
+            KindEditor.click(function() {
+                if (colorpicker) {
+                    colorpicker.remove();
+                    colorpicker = null;
+                }
+            });
+
+
 
         });
+    </script>
+    <script>
+
+
+
     </script>
     <script>
         /*

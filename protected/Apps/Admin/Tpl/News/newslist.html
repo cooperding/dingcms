@@ -105,7 +105,7 @@
                 }//
             ]//toolbar
         });
-        var p = $('#datagrid_'+classId).datagrid('getPager'); 
+        var p = $('#datagrid_'+classId).datagrid('getPager');
         $(p).pagination({
             pageSize: 10,//每页显示的记录条数，默认为10
             pageList: [10,20,30,40,50,100],//可以设置每页记录条数的列表
@@ -121,63 +121,5 @@
 */
         })
     })
-</script>
-
-
-<script>
-    /*
-    $(function(){
-        var height = $('.indexcenter').height();
-        $('#newsindex').datagrid({
-            url:'__APP__/News/json',
-            idField:'id',
-            //treeField:'cat_name',
-            pagination:true,
-            rownumbers:true,
-            fitColumns:true,
-            checkbox:true,
-            //autoRowHeight:false,
-            //showFooter:true,
-            //singleSelect:true,
-            height:height-50,
-            frozenColumns:[[
-                    {field:'ck',checkbox:true}
-                ]],
-            //                columns:[[
-            //                    {field:'myorder',title:'Operation',width:100,align:'center', rowspan:1,
-            //                        formatter:function(value,rec){
-            //                            return '<span style="color:red">编辑</span>';
-            //                        }
-            //                    }
-            //                ]],
-            toolbar:[{
-                    id:'newsindexbtnadd',
-                    text:'添加',
-                    iconCls:'icon-add',
-                    handler:function(){
-                        $('#btnsave').linkbutton('enable');
-                        alert('add')
-                    }
-                },'-',{
-                    id:'newsindexbtncancel',
-                    text:'放入回收站',
-                    iconCls:'icon-cancel',
-                    handler:function(){
-                        //$('#btnsave').linkbutton('enable');
-                        var ids = [];
-                        var rows = $('#newsindex').datagrid('getSelections');
-                        for(var i=0;i<rows.length;i++){
-                            ids.push(rows[i].id);
-                        }
-                        //alert('cancel');
-                        alert(ids.join(','));
-                    }
-                }
-            ]
-        });
-            
-           
-    })
-     */
 </script>
 </div><!--pagecontent-->

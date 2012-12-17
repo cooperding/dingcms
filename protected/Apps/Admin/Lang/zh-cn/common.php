@@ -38,7 +38,7 @@ return array(
     'menu_block_name' => '碎片文档',
     'menu_block_list' => '碎片列表',
     'menu_block_cat' => '碎片分类',
-    
+
     //用户管理
     'menu_user_name' => '用户管理',
     'menu_member_name' => '会员管理',
@@ -67,7 +67,7 @@ return array(
     //开发工具
     'menu_' => '',
     'site_name' => '我的网站',
-    'sort_root_name' => '--根目录--',
+    'sort_root_name' => '--选择所属分类--',
     'home' => '首页',
     'add' => '添加',
     'edit' => '编辑',
