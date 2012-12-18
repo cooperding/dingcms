@@ -19,7 +19,8 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index() {
+    public function index()
+    {
         $m = M('Title');
         $id = intval($_GET['id']);
         /* $id = 2;
@@ -64,24 +65,28 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function newslist() {
+    public function newslist()
+    {
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display('newslist');
     }
-/**
+
+    /**
      * add
      * 添加信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function add() {
+    public function add()
+    {
         $id = intval($_GET['id']);
-        
+
         $this->assign('id', $id);
         $this->display();
     }
+
     /**
      * edit
      * 编辑信息
@@ -89,38 +94,60 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function edit() {
+    public function edit()
+    {
+        $m = M('Title');
         $id = intval($_GET['id']);
-        
+        $data = $m->field('t.*,c.content')->join(' join ' . C('DB_PREFIX') . 'title as t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
+                        ->where('t.id=' . $id)->find();
+        $radios = array(
+            'true' => '已审核',
+            'false' => '未审核'
+        );
+        $this->assign('radios', $radios);
         $this->assign('id', $id);
+        $this->assign('data', $data);
         $this->display();
     }
-     /**
+
+    /**
      * insert
      * 写入信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function insert() {
+    public function insert()
+    {
+        $m = M('Title');
         $id = intval($_GET['id']);
-        
+
         $this->assign('id', $id);
         $this->display();
     }
-     /**
+
+    /**
      * update
      * 更新信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function update() {
-        $id = intval($_GET['id']);
+    public function update()
+    {
+        $m = M('Title');
+        $id = intval($_POST['id']);
         
-        $this->assign('id', $id);
-        $this->display();
+        $rs = $m->save($_POST);
+        if ($rs == 1) {
+            $this->dmsg('2', '更新成功！',true);
+        } elseif ($rs == 0) {
+            $this->dmsg('1', '更新失败！', false,true);
+        } else {
+            $this->dmsg('2', '未有操作！',true);
+        }
     }
+
     /**
      * listJsonId
      * 取得field信息
@@ -128,7 +155,8 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function listJsonId() {
+    public function listJsonId()
+    {
         $m = M('Title');
         $s = M('NewsSort');
         import('ORG.Util.Page'); // 导入分页类
@@ -194,7 +222,8 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonSortTree() {
+    public function jsonSortTree()
+    {
         Load('extend');
         $m = M('NewsSort');
         $tree = $m->field('id,parent_id,text')->select();

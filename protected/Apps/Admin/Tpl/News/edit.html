@@ -7,7 +7,7 @@
         <ul>
             <li>
                 <label>文档标题：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
+                <p><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
                 <label>标题颜色：</label>
@@ -18,64 +18,64 @@
             </li>
             <li>
                 <label>文档副标题：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><input type="text" name="subtitle" value="{$data.subtitle}" /></p>
             </li>
             <li>
                 <label>文档属性：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><html:checkbox name="flag" checkboxes="" checked="" /></p>
             </li>
             <li>
                 <label>文档分类：</label>
-                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="0"  style="width:200px;" /></p>
+                <p><input name="sort_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="{$data.sort_id}"  style="width:200px;" /></p>
             </li>
             <li>
                 <label>文档标题图：</label>
                 <p>
-                    <input type="text" id="url1" name="sys_name" value="{$data.sys_name}" />
+                    <input type="text" id="url1" name="sys_name" value="{$data.titlepic}" />
                     <input type="button" id="image1" value="选择图片" />
                 </p>
             </li>
             <li>
                 <label>编辑：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><input type="text" name="editor" value="{$data.editor}" /></p>
             </li>
             <li>
                 <label>作者：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><input type="text" name="author" value="{$data.author}" /></p>
             </li>
             <li>
                 <label>来源：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><input type="text" name="source" value="{$data.source}" /></p>
             </li>
             <li>
                 <label>来源网址：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><input type="text" name="sourceurl" value="{$data.sourceurl}" /></p>
             </li>
             <li>
                 <label>关键词：</label>
-                <p><input type="text" name="sys_name" value="{$data.sys_name}" /></p>
+                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
             </li>
             <li>
                 <label>描述简介：</label>
-                <p><textarea name="sys_value" rows="3" cols="30">{$data.sys_value}</textarea></p>
+                <p><textarea name="description" rows="3" cols="30">{$data.description}</textarea></p>
             </li>
             <li>
                 <label>发布时间：</label>
-                <p></p>
+                <p>{$data.addtime|date="Y-m-d H:i:s",###}</p>
             </li>
             <li>
                 <label>更新时间：</label>
-                <p></p>
+                <p>{$data.updatetime|date="Y-m-d H:i:s",###}</p>
             </li>
             <li>
                 <label>审核状态：</label>
-                <p><html:radio name="sys_type" radios="radios" checked="sys_type"/></p>
+                <p><html:radio name="status" radios="radios" checked="true"/></p>
             </li>
             <li>
                 <label>文档内容：</label><p></p>
             </li>
             <li>
-                <textarea id="content1" name="content1" style="width:720px;height:400px;visibility:hidden;">KindEditor</textarea>
+                <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content}</textarea>
             </li>
             <li>
                 <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.sys_value}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
@@ -90,7 +90,7 @@
     </form>
     <script>
         $(function() {
-            KindEditor.create('#content1', {
+            KindEditor.create('#content', {
                 themeType : 'simple'
             });
             var editor = KindEditor.editor({
@@ -108,7 +108,7 @@
                 });
             });
 
-
+/*
             var colorpicker;
             KindEditor('#colorpicker').bind('click', function(e) {
                 e.stopPropagation();
@@ -138,7 +138,7 @@
                 }
             });
 
-
+*/
 
         });
     </script>
