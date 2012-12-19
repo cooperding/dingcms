@@ -98,8 +98,15 @@ class NewsAction extends AdminAction {
     {
         $m = M('Title');
         $id = intval($_GET['id']);
-        $data = $m->field('t.*,c.content')->join(' join ' . C('DB_PREFIX') . 'title as t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
+        $data = $m->field('t.*,c.content,ms.id as msid,ms.emark as msemaerk')->join(' join ' . C('DB_PREFIX') . 'title as t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
+                        ->join(C('DB_PREFIX') . 'news_sort ns ON ns.id=t.sort_id')->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
+                        //->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . 'msemaerk af ON af.title_id=t.id')
                         ->where('t.id=' . $id)->find();
+        //echo $data['msemaerk'];
+        $am = M(C('DB_ADD_PREFIX') . $data['msemaerk']);
+        $data = $am->where('title_id=' . $id)->find();
+        echo $am->getLastSql();
+        exit;
         $radios = array(
             'true' => '已审核',
             'false' => '未审核'
@@ -137,14 +144,14 @@ class NewsAction extends AdminAction {
     {
         $m = M('Title');
         $id = intval($_POST['id']);
-        
+
         $rs = $m->save($_POST);
         if ($rs == 1) {
-            $this->dmsg('2', '更新成功！',true);
+            $this->dmsg('2', '更新成功！', true);
         } elseif ($rs == 0) {
-            $this->dmsg('1', '更新失败！', false,true);
+            $this->dmsg('1', '更新失败！', false, true);
         } else {
-            $this->dmsg('2', '未有操作！',true);
+            $this->dmsg('2', '未有操作！', true);
         }
     }
 

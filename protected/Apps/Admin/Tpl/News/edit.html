@@ -1,9 +1,9 @@
 <div class="pageform">
-    <form action="__APP__/News/update" id="form_newstab{$id}" method="post">
+    <form action="__APP__/News/update" id="form_newstab{$id}" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="id" value="{$data.id}" />
         <script charset="utf-8" src="__PUBLIC__/Kindeditor/kindeditor-min.js"></script>
-
+        <div class="contentmodel"></div>
         <ul>
             <li>
                 <label>文档标题：</label>
@@ -26,7 +26,7 @@
             </li>
             <li>
                 <label>文档分类：</label>
-                <p><input name="sort_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="{$data.sort_id}"  style="width:200px;" /></p>
+                <p><input name="sort_id" id="sort_combotree" value="{$data.sort_id}"  style="width:200px;" /></p>
             </li>
             <li>
                 <label>文档标题图：</label>
@@ -86,10 +86,31 @@
             <li>
                 <label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
             </li>
+            <div id="conModel"></div>
         </ul>
     </form>
     <script>
         $(function() {
+            $('#sort_combotree').combotree({
+                url:'__APP__/NewsSort/jsonTree',
+                required:true,
+                onChange:function(){
+                    var nid = $(this).combotree('getValue');
+                    //取得id之后，判断是否修改内容模型
+                    //var nid = node.id;
+                    /*
+                    $.messager.confirm('确认信息', '确认是否修改?', function(r){
+                        if (r){
+                            alert('confirmed:'+r);
+                            location.href = 'http://www.google.com';
+                        }
+                    });
+                    */
+                   $('#conModel').html(nid+'<input type="text" name="myorder" value="{$data.myorder}" />');
+
+                    //alert(nid);
+                }
+            });
             KindEditor.create('#content', {
                 themeType : 'simple'
             });
@@ -108,7 +129,7 @@
                 });
             });
 
-/*
+            /*
             var colorpicker;
             KindEditor('#colorpicker').bind('click', function(e) {
                 e.stopPropagation();
@@ -138,7 +159,7 @@
                 }
             });
 
-*/
+             */
 
         });
     </script>
