@@ -104,17 +104,37 @@ class NewsAction extends AdminAction {
                         ->where('t.id=' . $id)->find();
         //echo $data['msemaerk'];
         $am = M(C('DB_ADD_PREFIX') . $data['msemaerk']);
-        $data = $am->where('title_id=' . $id)->find();
-        echo $am->getLastSql();
-        exit;
+        $data_ms = $am->where('title_id=' . $id)->find();
+        $mf = M('ModelField');
+        $data_filed = $mf->where('sort_id ='.$data['msid'])->order('myorder asc,id asc')->select();
+        //echo $mf->getLastSql();
+        //exit;
         $radios = array(
             'true' => '已审核',
             'false' => '未审核'
         );
         $this->assign('radios', $radios);
-        $this->assign('id', $id);
+        //$this->assign('id', $id);
         $this->assign('data', $data);
         $this->display();
+    }
+
+    /**
+     * tempmodel
+     * 写入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function tempmodel()
+    {
+        $id = intval($_POST['id']);
+        //$m = M('Title');
+        //$id = intval($_GET['id']);
+        ///$data = '4564564566455666';
+        echo json_encode($id);
+        //$this->assign('id', $id);
+        //$this->display();
     }
 
     /**
@@ -142,7 +162,9 @@ class NewsAction extends AdminAction {
      */
     public function update()
     {
-        $m = M('Title');
+        $this->dmsg('1', $_POST['test'], false, true);
+        //exit;
+        //$m = M('Title');
         $id = intval($_POST['id']);
 
         $rs = $m->save($_POST);
