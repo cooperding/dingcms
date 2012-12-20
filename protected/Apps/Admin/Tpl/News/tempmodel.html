@@ -1,9 +1,12 @@
+<foreach name="filed" item="vo">
+    <li>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+    </li>
+</foreach>
 <li>
     <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.id}{$id}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
 </li>
-<li>
-    <label>参数说明;</label><p><input type="text" name="sys_info" value="{$data.sys_info}" /></p>
-</li>
+
 <li>
     <label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
 </li>

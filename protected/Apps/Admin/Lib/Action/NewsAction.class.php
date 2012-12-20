@@ -108,7 +108,9 @@ class NewsAction extends AdminAction {
         $mf = M('ModelField');
         $data_filed = $mf->where('sort_id ='.$data['msid'])->order('myorder asc,id asc')->select();
         //echo $mf->getLastSql();
-        //exit;
+//        echo '<pre>';
+//        print_r($data_filed);
+//        exit;
         $radios = array(
             'true' => '已审核',
             'false' => '未审核'
@@ -116,6 +118,7 @@ class NewsAction extends AdminAction {
         $this->assign('radios', $radios);
         //$this->assign('id', $id);
         $this->assign('data', $data);
+        $this->assign('filed',$data_filed);
         $this->display();
     }
 
@@ -128,13 +131,21 @@ class NewsAction extends AdminAction {
      */
     public function tempmodel()
     {
-        $id = intval($_POST['id']);
+        $mf = M('ModelField');
+        //$id = intval($_POST['id']);
+        $id = 1;
+        $data_filed = $mf->where('sort_id ='.$id)->order('myorder asc,id asc')->select();
+//        echo '<pre>';
+//        print_r($data_filed);
+//        exit;
+        //$id = time();
         //$m = M('Title');
         //$id = intval($_GET['id']);
         ///$data = '4564564566455666';
-        echo json_encode($id);
-        //$this->assign('id', $id);
-        //$this->display();
+        //echo json_encode($id);
+        $this->assign('id', time());
+        $this->assign('filed',$data_filed);
+        $this->display();
     }
 
     /**

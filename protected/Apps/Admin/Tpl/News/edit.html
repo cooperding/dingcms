@@ -113,15 +113,12 @@
                         data:{
                             id:nid
                         },
-                        dataType:'json',
+                        dataType:'html',
                         success:function(data){
+                            //alert(data);
                             $('#conModel').html(data);
-                            //formAjax(data,classId);
                         }
-                    });
-                    //$('#conModel').html(nid+'<input type="text" name="test" value="{$data.myorder}" />');
-
-                    //alert(nid);
+                    });//ajax
                 }
             });
             KindEditor.create('#content', {
