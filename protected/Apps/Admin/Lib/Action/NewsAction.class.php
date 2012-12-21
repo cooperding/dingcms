@@ -135,9 +135,9 @@ class NewsAction extends AdminAction {
         //$id = intval($_POST['id']);
         $id = 1;
         $data_filed = $mf->where('sort_id ='.$id)->order('myorder asc,id asc')->select();
-//        echo '<pre>';
-//        print_r($data_filed);
-//        exit;
+        echo '<pre>';
+        print_r($data_filed);
+        exit;
         //$id = time();
         //$m = M('Title');
         //$id = intval($_GET['id']);

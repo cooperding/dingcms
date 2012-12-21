@@ -1,6 +1,23 @@
+<!--
+    array('name' => 'varchar', 'text' => '单行文本(varchar)'),
+    array('name' => 'textarea', 'text' => '多行文本'),
+    array('name' => 'htmltext', 'text' => 'HTML文本'),
+    array('name' => 'int', 'text' => '整数类型'),
+    array('name' => 'double', 'text' => '小数类型'),
+    array('name' => 'datetime', 'text' => '时间类型'),
+    array('name' => 'images', 'text' => '图片'),
+    array('name' => 'media', 'text' => '多媒体文件'),
+    array('name' => 'addon', 'text' => '附件类型'),
+    array('name' => 'select', 'text' => '使用option下拉框'),
+    array('name' => 'radio', 'text' => '使用radio选项卡'),
+    array('name' => 'checkbox', 'text' => 'Checkbox多选框'),
+    array('name' => 'stepselect', 'text' => '联动类型')
+-->
 <foreach name="filed" item="vo">
     <li>
+        {if $vo.etype}
         <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+
     </li>
 </foreach>
 <li>
