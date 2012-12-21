@@ -173,7 +173,7 @@ class NewsAction extends AdminAction {
      */
     public function update()
     {
-        $this->dmsg('1', $_POST['test'], false, true);
+        $this->dmsg('1', $_POST['ceshi'], false, true);
         //exit;
         //$m = M('Title');
         $id = intval($_POST['id']);

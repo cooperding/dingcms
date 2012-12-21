@@ -15,8 +15,35 @@
 -->
 <foreach name="filed" item="vo">
     <li>
-        {if $vo.etype}
+    <if condition="$vo.etype eq 'varchar'">
+        <elseif condition="($vo.etype eq 'varchar') OR ($vo.etype eq 'varchar')"/>
         <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'text'"/>
+        <label>参数值：</label><p><textarea name="{$vo.emark}" rows="3" cols="30">{$data.id}{$id}</textarea></p>
+        <elseif condition="$vo.etype eq 'htmltext'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'int'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'double'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'datetime'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'images'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'media'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'addon'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'select'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'radio'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'checkbox'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'stepselect'"/>
+        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+    </if>
+        
 
     </li>
 </foreach>
