@@ -3,7 +3,7 @@
         <input type="hidden" name="id" value="{$data.id}" />
         <script charset="utf-8" src="__PUBLIC__/Kindeditor/kindeditor-min.js"></script>
         <ul>
-            <div id="conModel"><include file="News:tempmodel" /></div>
+
             <li>
                 <label>文档标题：</label>
                 <p><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
@@ -76,16 +76,8 @@
             <li>
                 <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content}</textarea>
             </li>
-            <li>
-                <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.sys_value}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
-            </li>
-            <li>
-                <label>参数说明;</label><p><input type="text" name="sys_info" value="{$data.sys_info}" /></p>
-            </li>
-            <li>
-                <label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
-            </li>
 
+            <div id="conModel" style="border-top: 1px solid #0000ff;margin: 10px 0;"><include file="News:tempmodel" /></div>
         </ul>
     </form>
     <script>

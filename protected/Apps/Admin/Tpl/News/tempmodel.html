@@ -16,41 +16,88 @@
 <foreach name="filed" item="vo">
     <li>
     <if condition="$vo.etype eq 'varchar'">
-        <elseif condition="($vo.etype eq 'varchar') OR ($vo.etype eq 'varchar')"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'varchar'"/>
+        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.emark}{$id}" /></p>
         <elseif condition="$vo.etype eq 'text'"/>
-        <label>参数值：</label><p><textarea name="{$vo.emark}" rows="3" cols="30">{$data.id}{$id}</textarea></p>
+        <label>{$vo.ename}：</label><p><textarea name="filed['{$vo.emark}']" rows="3" cols="30">{$data.emark}</textarea></p>
         <elseif condition="$vo.etype eq 'htmltext'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label>
+        <p>
+            <script>
+                $(function() {
+                    KindEditor.create('#content_{$vo.emark}', {
+                        themeType : 'simple'
+                    });
+                });
+            </script>
+            <textarea id="content_{$vo.emark}" name="filed['{$vo.emark}']" style="width:720px;height:400px;visibility:hidden;">{$data.emark}</textarea>
+        </p>
         <elseif condition="$vo.etype eq 'int'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.emark}" /></p>
         <elseif condition="$vo.etype eq 'double'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.emark}" /></p>
         <elseif condition="$vo.etype eq 'datetime'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label>
+        <p>
+            <input type="text" name="filed['{$vo.emark}']" value="{$data.emark|date='Y-m-d H:i:s',###}" />
+        </p>
         <elseif condition="$vo.etype eq 'images'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
+        <script>
+            $(function() {
+                var editor = KindEditor.editor({
+                    allowFileManager : true
+                });
+                KindEditor('#image_{$vo.emark}').click(function() {
+                    editor.loadPlugin('image', function() {
+                        editor.plugin.imageDialog({
+                            imageUrl : KindEditor('#url_{$vo.emark}').val(),
+                            clickFn : function(url, title, width, height, border, align) {
+                                KindEditor('#url_{$vo.emark}').val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+        <label>{$vo.ename}:</label>
+        <p>
+            <input type="text" id="url_{$vo.emark}" name="filed['{$vo.emark}']" value="{$data.emark}" readonly="readonly"/>
+            <input type="button" id="image_{$vo.emark}" value="选择图片" />
+        </p>
         <elseif condition="$vo.etype eq 'media'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
-        <elseif condition="$vo.etype eq 'addon'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
-        <elseif condition="$vo.etype eq 'select'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
-        <elseif condition="$vo.etype eq 'radio'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
-        <elseif condition="$vo.etype eq 'checkbox'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
-        <elseif condition="$vo.etype eq 'stepselect'"/>
-        <label>{$vo.ename};</label><p><input type="text" name="sys_info" value="{$data.id}{$id}" /></p>
-    </if>
-        
+        <label>{$vo.ename}：</label>
+        <p>
 
-    </li>
+            <input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" />
+        </p>
+        <elseif condition="$vo.etype eq 'addon'"/>
+        <label>{$vo.ename}：</label>
+        <p>
+
+            <input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" />
+        </p>
+        <elseif condition="$vo.etype eq 'select'"/>
+        <label>{$vo.ename}：</label>
+        <p>
+            <input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" />
+        </p>
+        <elseif condition="$vo.etype eq 'radio'"/>
+        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'checkbox'"/>
+        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" /></p>
+        <elseif condition="$vo.etype eq 'stepselect'"/>
+        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" /></p>
+    </if>
+
+
+</li>
 </foreach>
 <li>
     <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.id}{$id}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
 </li>
 
 <li>
-    <label>排序：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
+    <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.id}{$id}</textarea></p>
+
 </li>
