@@ -386,7 +386,7 @@ class LinkPageAction extends AdminAction {
         $id = intval($_GET['id']);
         $tree = $m->field('id,parent_id,sort_name as text')->where('linkpage_id=' . $id)->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
-        //$tree = array_merge(array(array('id' => 0, 'text' => L('cat_root_name'))), $tree);
+        //$tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);
     }
 

@@ -8,9 +8,12 @@
     array('name' => 'images', 'text' => '图片'),
     array('name' => 'media', 'text' => '多媒体文件'),
     array('name' => 'addon', 'text' => '附件类型'),
+
+
     array('name' => 'select', 'text' => '使用option下拉框'),
     array('name' => 'radio', 'text' => '使用radio选项卡'),
     array('name' => 'checkbox', 'text' => 'Checkbox多选框'),
+
     array('name' => 'stepselect', 'text' => '联动类型')
 -->
 <foreach name="filed" item="vo">
@@ -65,39 +68,56 @@
             <input type="text" id="url_{$vo.emark}" name="filed['{$vo.emark}']" value="{$data.emark}" readonly="readonly"/>
             <input type="button" id="image_{$vo.emark}" value="选择图片" />
         </p>
-        <elseif condition="$vo.etype eq 'media'"/>
+        <elseif condition="($vo.etype eq 'addon') OR ($vo.etype eq 'media')"/>
+        <script>
+            $(function() {
+                var editorfile = KindEditor.editor({
+                    allowFileManager : true
+                });
+                KindEditor('#insertfile_{$vo.emark}').click(function() {
+                    editorfile.loadPlugin('insertfile', function() {
+                        editorfile.plugin.fileDialog({
+                            fileUrl : KindEditor('#url_{$vo.emark}').val(),
+                            clickFn : function(url, title) {
+                                KindEditor('#url_{$vo.emark}').val(url);
+                                editorfile.hideDialog();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
         <label>{$vo.ename}：</label>
         <p>
-
-            <input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" />
-        </p>
-        <elseif condition="$vo.etype eq 'addon'"/>
-        <label>{$vo.ename}：</label>
-        <p>
-
-            <input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" />
+            <input type="text" id="url_{$vo.emark}" name="filed['{$vo.emark}']" value="{$data.emark}" readonly="readonly"/>
+            <input type="button" id="insertfile_{$vo.emark}" value="选择文件" />
         </p>
         <elseif condition="$vo.etype eq 'select'"/>
         <label>{$vo.ename}：</label>
         <p>
+            <html:select options="filed['{$vo.emark}']" selected="value" />
             <input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" />
         </p>
         <elseif condition="$vo.etype eq 'radio'"/>
-        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label>
+        <p>
+        <html:radio name="filed['{$vo.emark}']" radios="radios" checked="{$data.emark}"/>
+        </p>
         <elseif condition="$vo.etype eq 'checkbox'"/>
-        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label>
+        <p>
+            <html:checkbox name="filed['{$vo.emark}']" checkboxes="checkbox" checked="tagss" />
+            <!--<input type="text" name="filed['{$vo.emark}']" value="{$data.emark}" />-->
+        </p>
         <elseif condition="$vo.etype eq 'stepselect'"/>
-        <label>{$vo.ename}：</label><p><input type="text" name="filed['{$vo.emark}']" value="{$data.id}{$id}" /></p>
+        <label>{$vo.ename}：</label>
+        <p>
+            <input name="filed['{$vo.emark}']" value="{$data.emark}" class="easyui-combotree combotree"
+                   data-options="url:'__APP__/LinkPage/jsonTreeId?id={$vo.elink}'" style="width:200px;"/>
+        </p>
     </if>
 
 
 </li>
 </foreach>
-<li>
-    <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.id}{$id}</textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
-</li>
 
-<li>
-    <label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30">{$data.id}{$id}</textarea></p>
-
-</li>

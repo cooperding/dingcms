@@ -115,7 +115,16 @@ class NewsAction extends AdminAction {
             'true' => '已审核',
             'false' => '未审核'
         );
+        $checkbox = array(
+            '已审核' => '已审核',
+            '22' => '22',
+            '33' => '33',
+            '未审核' => '未审核'
+        );
+        $tag = array('33','已审核');
         $this->assign('radios', $radios);
+        $this->assign('checkbox', $checkbox);
+        $this->assign('tagss', $tag);
         //$this->assign('id', $id);
         $this->assign('data', $data);
         $this->assign('filed',$data_filed);
