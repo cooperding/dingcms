@@ -42,7 +42,7 @@
         <elseif condition="$vo.etype eq 'datetime'"/>
         <label>{$vo.ename}：</label>
         <p>
-            <input type="text" name="filed['{$vo.emark}']" value="{$data.emark|date='Y-m-d H:i:s',###}" />
+            <input type="text" class="easyui-datetimebox" data-options="required:true,showSeconds:false" name="filed['{$vo.emark}']" value="{$data.emark|date='Y-m-d H:i:s',###}" />
         </p>
         <elseif condition="$vo.etype eq 'images'"/>
         <script>
