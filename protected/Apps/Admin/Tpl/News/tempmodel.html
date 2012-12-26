@@ -101,12 +101,12 @@
         <elseif condition="$vo.etype eq 'radio'"/>
         <label>{$vo.ename}：</label>
         <p>
-        <html:radio name="filed['{$vo.emark}']" radios="radios" checked="{$data.emark}"/>
+        <html:radio name="filed['{$vo.emark}']" radios="radio" checked="{$data.emark}"/>
         </p>
         <elseif condition="$vo.etype eq 'checkbox'"/>
         <label>{$vo.ename}：</label>
         <p>
-            <html:checkbox name="filed['{$vo.emark}']" checkboxes="checkbox" checked="tagss" />
+            <html:checkbox name="filed['{$vo.emark}']" checkboxes="checkbox_{$vo.emark}" checked="tagss" />
             <!--<input type="text" name="filed['{$vo.emark}']" value="{$data.emark}" />-->
         </p>
         <elseif condition="$vo.etype eq 'stepselect'"/>

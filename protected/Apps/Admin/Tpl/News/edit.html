@@ -3,7 +3,7 @@
         <input type="hidden" name="id" value="{$data.id}" />
         <script charset="utf-8" src="__PUBLIC__/Kindeditor/kindeditor-min.js"></script>
         <ul>
-
+ <div id="conModel" style="border-top: 1px solid #0000ff;margin: 10px 0;"><include file="News:tempmodel" /></div>
             <li>
                 <label>文档标题：</label>
                 <p><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
@@ -77,7 +77,7 @@
                 <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content}</textarea>
             </li>
 
-            <div id="conModel" style="border-top: 1px solid #0000ff;margin: 10px 0;"><include file="News:tempmodel" /></div>
+
         </ul>
     </form>
     <script>

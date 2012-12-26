@@ -106,28 +106,65 @@ class NewsAction extends AdminAction {
         $am = M(C('DB_ADD_PREFIX') . $data['msemaerk']);
         $data_ms = $am->where('title_id=' . $id)->find();
         $mf = M('ModelField');
-        $data_filed = $mf->where('sort_id ='.$data['msid'])->order('myorder asc,id asc')->select();
+        $data_filed = $mf->where('sort_id =' . $data['msid'])->order('myorder asc,id asc')->select();
         //echo $mf->getLastSql();
 //        echo '<pre>';
 //        print_r($data_filed);
 //        exit;
-        $radios = array(
-            'true' => '已审核',
-            'false' => '未审核'
-        );
-        $checkbox = array(
-            '已审核' => '已审核',
-            '22' => '22',
-            '33' => '33',
-            '未审核' => '未审核'
-        );
-        $tag = array('33','已审核');
-        $this->assign('radios', $radios);
-        $this->assign('checkbox', $checkbox);
+        //echo '<pre>';
+        foreach ($data_filed as $k => $v) {
+            //$mm['etype']=$v['etype'].'======='.$v['etype'].'<br/>';
+            //echo $mm['etype'];
+            if ($v['etype'] == 'radio') {
+                $radios = array(
+                    'true' => '已审核',
+                    'false' => '未审核'
+                );
+                //$a = explode(',',$v['evalue']);
+                foreach (explode(',',$v['evalue']) as $m=>$n){
+                $msn[$n] =$n;
+                }
+                //print_r($msn);
+                //echo $v['emark'];
+                $this->assign($v['emark'], $msn);
+            } elseif ($v['etype'] == 'checkbox') {
+                $checkbox = array(
+                    '已审核' => '已审核',
+                    '22' => '22',
+                    '33' => '33',
+                    '未审核' => '未审核'
+                );
+                //$a = explode(',',$v['evalue']);
+                $this->assign('checkbox_' . $v['emark'], $checkbox);
+            }
+        }
+        //exit;
+/*
+        echo '<br/>';
+
+        var_dump($data_filed);
+        print_r($data_filed);
+        exit;
+
+          $radios = array(
+          'true' => '已审核',
+          'false' => '未审核'
+          );
+          $checkbox = array(
+          '已审核' => '已审核',
+          '22' => '22',
+          '33' => '33',
+          '未审核' => '未审核'
+          );
+          $tag = array('33','已审核');
+          $this->assign('radios', $radios);
+          $this->assign('checkbox', $checkbox);
+         *
+         */
         $this->assign('tagss', $tag);
         //$this->assign('id', $id);
         $this->assign('data', $data);
-        $this->assign('filed',$data_filed);
+        $this->assign('filed', $data_filed);
         $this->display();
     }
 
@@ -143,7 +180,7 @@ class NewsAction extends AdminAction {
         $mf = M('ModelField');
         //$id = intval($_POST['id']);
         $id = 1;
-        $data_filed = $mf->where('sort_id ='.$id)->order('myorder asc,id asc')->select();
+        $data_filed = $mf->where('sort_id =' . $id)->order('myorder asc,id asc')->select();
         echo '<pre>';
         print_r($data_filed);
         exit;
@@ -153,7 +190,7 @@ class NewsAction extends AdminAction {
         ///$data = '4564564566455666';
         //echo json_encode($id);
         $this->assign('id', time());
-        $this->assign('filed',$data_filed);
+        $this->assign('filed', $data_filed);
         $this->display();
     }
 
