@@ -113,36 +113,23 @@ class NewsAction extends AdminAction {
 //        exit;
         //echo '<pre>';
         foreach ($data_filed as $k => $v) {
-            //$mm['etype']=$v['etype'].'======='.$v['etype'].'<br/>';
-            //echo $mm['etype'];
+            $exp = explode(',',$v['evalue']);
             if ($v['etype'] == 'radio') {
-                $radios = array(
-                    'true' => '已审核',
-                    'false' => '未审核'
-                );
-                //$a = explode(',',$v['evalue']);
-                foreach (explode(',',$v['evalue']) as $m=>$n){
-                $msn[$n] =$n;
-                }
-                //print_r($msn);
-                //echo $v['emark'];
-                $this->assign($v['emark'], $msn);
+                $data_filed[$k]['opts'] = $exp;
+                //$this->assign($v['emark'], explode(',',$v['evalue']));
             } elseif ($v['etype'] == 'checkbox') {
-                $checkbox = array(
-                    '已审核' => '已审核',
-                    '22' => '22',
-                    '33' => '33',
-                    '未审核' => '未审核'
-                );
-                //$a = explode(',',$v['evalue']);
-                $this->assign('checkbox_' . $v['emark'], $checkbox);
+                $data_filed[$k]['opts'] = $exp;
+                //$this->assign('checkbox_' . $v['emark'], $checkbox);
+            } elseif ($v['etype'] == 'select') {
+                $data_filed[$k]['opts'] = $exp;
+                //$this->assign('checkbox_' . $v['emark'], $checkbox);
             }
         }
         //exit;
 /*
         echo '<br/>';
 
-        var_dump($data_filed);
+        //var_dump($data_filed);
         print_r($data_filed);
         exit;
 
@@ -161,7 +148,8 @@ class NewsAction extends AdminAction {
           $this->assign('checkbox', $checkbox);
          *
          */
-        $this->assign('tagss', $tag);
+        
+        //$this->assign('tagss', $tag);
         //$this->assign('id', $id);
         $this->assign('data', $data);
         $this->assign('filed', $data_filed);
@@ -181,9 +169,22 @@ class NewsAction extends AdminAction {
         //$id = intval($_POST['id']);
         $id = 1;
         $data_filed = $mf->where('sort_id =' . $id)->order('myorder asc,id asc')->select();
-        echo '<pre>';
-        print_r($data_filed);
-        exit;
+        foreach ($data_filed as $k => $v) {
+            $exp = explode(',',$v['evalue']);
+            if ($v['etype'] == 'radio') {
+                $data_filed[$k]['opts'] = $exp;
+                //$this->assign($v['emark'], explode(',',$v['evalue']));
+            } elseif ($v['etype'] == 'checkbox') {
+                $data_filed[$k]['opts'] = $exp;
+                //$this->assign('checkbox_' . $v['emark'], $checkbox);
+            } elseif ($v['etype'] == 'select') {
+                $data_filed[$k]['opts'] = $exp;
+                //$this->assign('checkbox_' . $v['emark'], $checkbox);
+            }
+        }
+//        echo '<pre>';
+//        print_r($data_filed);
+//        exit;
         //$id = time();
         //$m = M('Title');
         //$id = intval($_GET['id']);
