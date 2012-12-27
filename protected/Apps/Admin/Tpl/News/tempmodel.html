@@ -1,29 +1,11 @@
 <div class="tempmodel">
-<!--
-    array('name' => 'varchar', 'text' => '单行文本(varchar)'),
-    array('name' => 'textarea', 'text' => '多行文本'),
-    array('name' => 'htmltext', 'text' => 'HTML文本'),
-    array('name' => 'int', 'text' => '整数类型'),
-    array('name' => 'double', 'text' => '小数类型'),
-    array('name' => 'datetime', 'text' => '时间类型'),
-    array('name' => 'images', 'text' => '图片'),
-    array('name' => 'media', 'text' => '多媒体文件'),
-    array('name' => 'addon', 'text' => '附件类型'),
-
-
-    array('name' => 'select', 'text' => '使用option下拉框'),
-    array('name' => 'radio', 'text' => '使用radio选项卡'),
-    array('name' => 'checkbox', 'text' => 'Checkbox多选框'),
-
-    array('name' => 'stepselect', 'text' => '联动类型')
--->
 <foreach name="filed" item="vo">
     <li>
         <label>{$vo.ename}：</label><p>
     <if condition="$vo.etype eq 'varchar'">
-        <input type="text" name="filed['{$vo.emark}']" value="{$data.emark}{$id}" />
+        <input type="text" name="filed[{$vo.emark}]" value="{$data.emark}{$id}" />
         <elseif condition="$vo.etype eq 'text'"/>
-        <textarea name="filed['{$vo.emark}']" rows="3" cols="30">{$data.emark}</textarea>
+        <textarea name="filed[{$vo.emark}]" rows="3" cols="30">{$data.emark}</textarea>
         <elseif condition="$vo.etype eq 'htmltext'"/>
         <script>
             $(function() {
@@ -32,13 +14,13 @@
                 });
             });
         </script>
-        <textarea id="content_{$vo.emark}" name="filed['{$vo.emark}']" style="width:720px;height:400px;visibility:hidden;">{$data.emark}{$id}</textarea>
+        <textarea id="content_{$vo.emark}" name="filed[{$vo.emark}]" style="width:720px;height:400px;visibility:hidden;">{$data.emark}{$id}</textarea>
         <elseif condition="$vo.etype eq 'int'"/>
-        <input type="text" name="filed['{$vo.emark}']" value="{$data.emark}" />
+        <input type="text" name="filed[{$vo.emark}]" value="{$data.emark}" />
         <elseif condition="$vo.etype eq 'double'"/>
-        <input type="text" name="filed['{$vo.emark}']" value="{$data.emark}" />
+        <input type="text" name="filed[{$vo.emark}]" value="{$data.emark}" />
         <elseif condition="$vo.etype eq 'datetime'"/>
-        <input type="text" class="easyui-datetimebox" data-options="required:true,showSeconds:false" name="filed['{$vo.emark}']" value="{$data.emark|date='Y-m-d H:i:s',###}" />
+        <input type="text" class="easyui-datetimebox" data-options="required:true,showSeconds:false" name="filed[{$vo.emark}]" value="{$data.emark|date='Y-m-d H:i:s',###}" />
         <elseif condition="$vo.etype eq 'images'"/>
         <script>
             $(function() {
@@ -58,7 +40,7 @@
                 });
             });
         </script>
-        <input type="text" id="url_{$vo.emark}" name="filed['{$vo.emark}']" value="{$data.emark}" readonly="readonly"/>
+        <input type="text" id="url_{$vo.emark}" name="filed[{$vo.emark}]" value="{$data.emark}" readonly="readonly"/>
         <input type="button" id="image_{$vo.emark}" value="选择图片" />
         <elseif condition="($vo.etype eq 'addon') OR ($vo.etype eq 'media')"/>
         <script>
@@ -79,7 +61,7 @@
                 });
             });
         </script>
-        <input type="text" id="url_{$vo.emark}" name="filed['{$vo.emark}']" value="{$data.emark}" readonly="readonly"/>
+        <input type="text" id="url_{$vo.emark}" name="filed[{$vo.emark}]" value="{$data.emark}" readonly="readonly"/>
         <input type="button" id="insertfile_{$vo.emark}" value="选择文件" />
         <elseif condition="$vo.etype eq 'select'"/>
         <select name="{$vo.emark}">
@@ -94,9 +76,9 @@
         <elseif condition="$vo.etype eq 'radio'"/>
         <volist name="vo.opts" id="opts" key="k">
             <if condition="$data.emark eq $opts">
-                <input name="filed['{$vo.emark}']" type="radio" value="{$opts}" checked="checked"/>{$opts}
+                <input name="filed[{$vo.emark}]" type="radio" value="{$opts}" checked="checked"/>{$opts}
                 <else/>
-                <input name="filed['{$vo.emark}']" type="radio" value="{$opts}"/>{$opts}
+                <input name="filed[{$vo.emark}]" type="radio" value="{$opts}"/>{$opts}
             </if>
         </volist>
         <elseif condition="$vo.etype eq 'checkbox'"/>
@@ -111,13 +93,12 @@
             </php>
         </volist>
         <elseif condition="$vo.etype eq 'stepselect'"/>
-        <input name="filed['{$vo.emark}']" value="{$data.emark}" class="easyui-combotree combotree"
+        <input name="filed[{$vo.emark}]" value="{$data.emark}" class="easyui-combotree combotree"
                data-options="url:'__APP__/LinkPage/jsonTreeId?id={$vo.elink}'" style="width:200px;"/>
     </if>
 </p>
 </li>
 </foreach>
-
 <script>
     $(function(){
         $.parser.parse($('.tempmodel'));

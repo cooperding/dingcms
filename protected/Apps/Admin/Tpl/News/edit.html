@@ -115,7 +115,9 @@
                 themeType : 'simple'
             });
             var editor = KindEditor.editor({
-                allowFileManager : true
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/upload',
+                fileManagerJson :'__APP__/Upload/fileManagerJson'
             });
             KindEditor('#image1').click(function() {
                 editor.loadPlugin('image', function() {
