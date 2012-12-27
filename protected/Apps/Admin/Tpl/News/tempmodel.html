@@ -25,7 +25,9 @@
         <script>
             $(function() {
                 var editor = KindEditor.editor({
-                    allowFileManager : true
+                    allowFileManager : true,
+                    uploadJson:'__APP__/Upload/upload',
+                    fileManagerJson :'__APP__/Upload/fileManagerJson'
                 });
                 KindEditor('#image_{$vo.emark}').click(function() {
                     editor.loadPlugin('image', function() {
@@ -46,7 +48,9 @@
         <script>
             $(function() {
                 var editorfile = KindEditor.editor({
-                    allowFileManager : true
+                    allowFileManager : true,
+                    uploadJson:'__APP__/Upload/upload',
+                    fileManagerJson :'__APP__/Upload/fileManagerJson'
                 });
                 KindEditor('#insertfile_{$vo.emark}').click(function() {
                     editorfile.loadPlugin('insertfile', function() {

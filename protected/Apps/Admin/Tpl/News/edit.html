@@ -112,7 +112,10 @@
                 }
             });
             KindEditor.create('#content', {
-                themeType : 'simple'
+                themeType : 'simple',
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/upload',
+                fileManagerJson :'__APP__/Upload/fileManagerJson'
             });
             var editor = KindEditor.editor({
                 allowFileManager : true,

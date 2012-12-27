@@ -21,7 +21,8 @@ class UploadAction extends AdminAction {
      */
     public function upload()
     {
-        
+        echo json_encode(array('error' => 1, 'message' => 'dddddddddddd'));
+	exit;
     }
 
     /**
@@ -33,7 +34,8 @@ class UploadAction extends AdminAction {
      */
     public function fileManagerJson()
     {
-
+        echo json_encode(array('error' => 1, 'message' => 'file1234567'));
+	exit;
     }
 
 }
