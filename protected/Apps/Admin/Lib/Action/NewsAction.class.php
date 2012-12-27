@@ -107,50 +107,16 @@ class NewsAction extends AdminAction {
         $data_ms = $am->where('title_id=' . $id)->find();
         $mf = M('ModelField');
         $data_filed = $mf->where('sort_id =' . $data['msid'])->order('myorder asc,id asc')->select();
-        //echo $mf->getLastSql();
-//        echo '<pre>';
-//        print_r($data_filed);
-//        exit;
-        //echo '<pre>';
         foreach ($data_filed as $k => $v) {
             $exp = explode(',',$v['evalue']);
             if ($v['etype'] == 'radio') {
                 $data_filed[$k]['opts'] = $exp;
-                //$this->assign($v['emark'], explode(',',$v['evalue']));
             } elseif ($v['etype'] == 'checkbox') {
                 $data_filed[$k]['opts'] = $exp;
-                //$this->assign('checkbox_' . $v['emark'], $checkbox);
             } elseif ($v['etype'] == 'select') {
                 $data_filed[$k]['opts'] = $exp;
-                //$this->assign('checkbox_' . $v['emark'], $checkbox);
             }
         }
-        //exit;
-/*
-        echo '<br/>';
-
-        //var_dump($data_filed);
-        print_r($data_filed);
-        exit;
-
-          $radios = array(
-          'true' => '已审核',
-          'false' => '未审核'
-          );
-          $checkbox = array(
-          '已审核' => '已审核',
-          '22' => '22',
-          '33' => '33',
-          '未审核' => '未审核'
-          );
-          $tag = array('33','已审核');
-          $this->assign('radios', $radios);
-          $this->assign('checkbox', $checkbox);
-         *
-         */
-        
-        //$this->assign('tagss', $tag);
-        //$this->assign('id', $id);
         $this->assign('data', $data);
         $this->assign('filed', $data_filed);
         $this->display();
@@ -182,14 +148,6 @@ class NewsAction extends AdminAction {
                 //$this->assign('checkbox_' . $v['emark'], $checkbox);
             }
         }
-//        echo '<pre>';
-//        print_r($data_filed);
-//        exit;
-        //$id = time();
-        //$m = M('Title');
-        //$id = intval($_GET['id']);
-        ///$data = '4564564566455666';
-        //echo json_encode($id);
         $this->assign('id', time());
         $this->assign('filed', $data_filed);
         $this->display();

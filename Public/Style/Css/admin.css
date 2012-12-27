@@ -19,9 +19,9 @@ img,input,li{ vertical-align:middle;}
 /*login*/
 body#login{ background-color:#F5F6F8;}
 .login{ height:auto; overflow:hidden;}
-.logintop{height:160px;}
-.loginlogo{ width:245px;height:75px; margin:0 auto;}
-.loginlogo img{ width:245px;height:70px;}
+.logintop{height:auto;}
+.loginlogo{ width:245px;height:60px; margin:0 auto;}
+.loginlogo img{ width:245px;height:50px;}
 
 
 
