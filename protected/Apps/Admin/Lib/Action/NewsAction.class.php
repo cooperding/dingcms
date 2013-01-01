@@ -178,13 +178,22 @@ class NewsAction extends AdminAction {
      */
     public function update()
     {
-        $filed = $_POST['filed'];
-        $this->dmsg('1', $filed['radio'], false, true);
+        $t = M('Title');
+        $c = M('Content');
+        //$m = M('NewsSort');
+        $data['id'] = intval($_POST['id']);
+        //$filed = $_POST['filed'];
+        //$this->dmsg('1', $_POST['content'], false, true);
         //exit;
         //$m = M('Title');
-        $id = intval($_POST['id']);
-
-        $rs = $m->save($_POST);
+        
+        /*echo '<pre>';
+        print_r($_POST);
+        exit;
+*/
+        $cdata['title_id'] = intval($_POST['id']);
+        $rs8 = $t->where($data)->save($_POST);
+        $rs = $c->where($cdata)->save($_POST);
         if ($rs == 1) {
             $this->dmsg('2', '更新成功！', true);
         } elseif ($rs == 0) {

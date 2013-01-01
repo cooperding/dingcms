@@ -73,7 +73,7 @@
                 <label>文档内容：</label><p></p>
             </li>
             <li>
-                <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content}</textarea>
+                <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content|stripslashes}</textarea>
             </li>
 <div id="conModel" style="border-top: 1px solid #0000ff;margin: 10px 0;"><include file="News:tempmodel" /></div>
         </ul>
@@ -115,12 +115,18 @@
                 themeType : 'simple',
                 allowFileManager : true,
                 uploadJson:'__APP__/Upload/uploadImg',
-                fileManagerJson :'__APP__/Upload/fileManagerJson'
+                fileManagerJson :'__APP__/Upload/fileManagerJson',
+                afterBlur : function() {
+                    this.sync();
+                }
             });
             var editor = KindEditor.editor({
                 allowFileManager : true,
                 uploadJson:'__APP__/Upload/uploadImg',
-                fileManagerJson :'__APP__/Upload/fileManagerJson'
+                fileManagerJson :'__APP__/Upload/fileManagerJson',
+                afterBlur : function() {
+                    this.sync();
+                }
             });
             KindEditor('#image1').click(function() {
                 editor.loadPlugin('image', function() {
