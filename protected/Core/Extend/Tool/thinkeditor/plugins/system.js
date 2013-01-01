@@ -93,7 +93,7 @@ $.TE.plugin( "link", {
 			'		<div class="links Lovh">'+
 			'			<a href="###" class="cstyle">创建链接</a>'+
 			'		</div>'+
-			'		<div class="bdb"> </div>'+
+			'		<div class="bdb">&nbsp;</div>'+
 			'	</div>'+
 			'	<div class="centbox">'+
 			'		<div class="item Lovh">'+
@@ -168,7 +168,7 @@ $.TE.plugin( 'print', {
 $.TE.plugin( 'pagebreak', {
 	exec: function() {
 		var _self = this;
-		_self.editor.pasteHTML('<div style="page-break-after: always;zoom:1; height:0px; clear:both; display:block; overflow:hidden; border-top:2px dotted #CCC;"> </div><p>&nbsp;</p>');
+		_self.editor.pasteHTML('<div style="page-break-after: always;zoom:1; height:0px; clear:both; display:block; overflow:hidden; border-top:2px dotted #CCC;">&nbsp;</div><p>&nbsp;</p>');
 	}
 } );
 
@@ -187,7 +187,7 @@ $.TE.plugin( 'pastetext', {
 				'		<div class="links Lovh">'+
 				'			<a href="###" class="cstyle">贴粘文本</a>'+
 				'		</div>'+
-				'		<div class="bdb"> </div>'+
+				'		<div class="bdb">&nbsp;</div>'+
 				'	</div>'+
 				'	<div class="centbox">'+
 				'		<div class="pasteText">'+
@@ -223,7 +223,7 @@ $.TE.plugin( 'table', {
 			'		<div class="links Lovh">'+
 			'			<a href="###" class="cstyle">插入表格</a>'+
 			'		</div>'+
-			'		<div class="bdb"> </div>'+
+			'		<div class="bdb">&nbsp;</div>'+
 			'	</div>'+
 			'	<div class="centbox">'+
 			'		<div class="insertTable">'+
@@ -369,7 +369,7 @@ $.TE.plugin( 'image', {
 						'		<div class="links Lovh">'+
 						'			<a href="#" class="cstyle">插入图片</a>'+
 						'		</div>'+
-						'		<div class="bdb"> </div>'+
+						'		<div class="bdb">&nbsp;</div>'+
 						'	</div>'+
 						'	<div class="centbox">'+
 						'		<div class="insertimage Lmt20 Lpb10">'+
@@ -474,7 +474,7 @@ $.TE.plugin( 'flash', {
 					'		<div class="links Lovh">'+
 					'			<a href="###" class="cstyle">插入flash动画</a>'+
 					'		</div>'+
-					'		<div class="bdb"> </div>'+
+					'		<div class="bdb">&nbsp;</div>'+
 					'	</div>'+
 					'		<div class="insertflash Lmt20 Lpb10">'+
 					'			<div class="item Lovh">'+
@@ -508,7 +508,7 @@ $.TE.plugin( 'flash', {
 					'				</div>'+
 					'			</div>'+
 					'			<div class="item Lovh">'+
-					'				<span class="ltext Lfll"> </span>'+
+					'				<span class="ltext Lfll">&nbsp;</span>'+
 					'				<div class="Lfll">'+
 					'					<input id="te_flash_wmode" name="" type="checkbox" class="input3" />'+
 					'					<label for="te_flash_wmode" class="labeltext">开启背景透明</label>'+
@@ -589,115 +589,115 @@ $.TE.plugin( 'face', {
 				'		<div class="links Lovh">'+
 				'			<a href="###" class="cstyle">插入表情</a>'+
 				'		</div>'+
-				'		<div class="bdb"> </div>'+
+				'		<div class="bdb">&nbsp;</div>'+
 				'	</div>'+
 				'	<div class="centbox">'+
 				'		<div class="insertFace" style="background-image:url('+$.TE.basePath()+'skins/'+_fp[1]+'/'+_fp[0]+'.gif'+');">'+
-							'<span face_num="0"> </span>'+
-							'<span face_num="1"> </span>'+
-							'<span face_num="2"> </span>'+
-							'<span face_num="3"> </span>'+
-							'<span face_num="4"> </span>'+
-							'<span face_num="5"> </span>'+
-							'<span face_num="6"> </span>'+
-							'<span face_num="7"> </span>'+
-							'<span face_num="8"> </span>'+
-							'<span face_num="9"> </span>'+
-							'<span face_num="10"> </span>'+
-							'<span face_num="11"> </span>'+
-							'<span face_num="12"> </span>'+
-							'<span face_num="13"> </span>'+
-							'<span face_num="14"> </span>'+
-							'<span face_num="15"> </span>'+
-							'<span face_num="16"> </span>'+
-							'<span face_num="17"> </span>'+
-							'<span face_num="18"> </span>'+
-							'<span face_num="19"> </span>'+
-							'<span face_num="20"> </span>'+
-							'<span face_num="21"> </span>'+
-							'<span face_num="22"> </span>'+
-							'<span face_num="23"> </span>'+
-							'<span face_num="24"> </span>'+
-							'<span face_num="25"> </span>'+
-							'<span face_num="26"> </span>'+
-							'<span face_num="27"> </span>'+
-							'<span face_num="28"> </span>'+
-							'<span face_num="29"> </span>'+
-							'<span face_num="30"> </span>'+
-							'<span face_num="31"> </span>'+
-							'<span face_num="32"> </span>'+
-							'<span face_num="33"> </span>'+
-							'<span face_num="34"> </span>'+
-							'<span face_num="35"> </span>'+
-							'<span face_num="36"> </span>'+
-							'<span face_num="37"> </span>'+
-							'<span face_num="38"> </span>'+
-							'<span face_num="39"> </span>'+
-							'<span face_num="40"> </span>'+
-							'<span face_num="41"> </span>'+
-							'<span face_num="42"> </span>'+
-							'<span face_num="43"> </span>'+
-							'<span face_num="44"> </span>'+
-							'<span face_num="45"> </span>'+
-							'<span face_num="46"> </span>'+
-							'<span face_num="47"> </span>'+
-							'<span face_num="48"> </span>'+
-							'<span face_num="49"> </span>'+
-							'<span face_num="50"> </span>'+
-							'<span face_num="51"> </span>'+
-							'<span face_num="52"> </span>'+
-							'<span face_num="53"> </span>'+
-							'<span face_num="54"> </span>'+
-							'<span face_num="55"> </span>'+
-							'<span face_num="56"> </span>'+
-							'<span face_num="57"> </span>'+
-							'<span face_num="58"> </span>'+
-							'<span face_num="59"> </span>'+
-							'<span face_num="60"> </span>'+
-							'<span face_num="61"> </span>'+
-							'<span face_num="62"> </span>'+
-							'<span face_num="63"> </span>'+
-							'<span face_num="64"> </span>'+
-							'<span face_num="65"> </span>'+
-							'<span face_num="66"> </span>'+
-							'<span face_num="67"> </span>'+
-							'<span face_num="68"> </span>'+
-							'<span face_num="69"> </span>'+
-							'<span face_num="70"> </span>'+
-							'<span face_num="71"> </span>'+
-							'<span face_num="72"> </span>'+
-							'<span face_num="73"> </span>'+
-							'<span face_num="74"> </span>'+
-							'<span face_num="75"> </span>'+
-							'<span face_num="76"> </span>'+
-							'<span face_num="77"> </span>'+
-							'<span face_num="78"> </span>'+
-							'<span face_num="79"> </span>'+
-							'<span face_num="80"> </span>'+
-							'<span face_num="81"> </span>'+
-							'<span face_num="82"> </span>'+
-							'<span face_num="83"> </span>'+
-							'<span face_num="84"> </span>'+
-							'<span face_num="85"> </span>'+
-							'<span face_num="86"> </span>'+
-							'<span face_num="87"> </span>'+
-							'<span face_num="88"> </span>'+
-							'<span face_num="89"> </span>'+
-							'<span face_num="90"> </span>'+
-							'<span face_num="91"> </span>'+
-							'<span face_num="92"> </span>'+
-							'<span face_num="93"> </span>'+
-							'<span face_num="94"> </span>'+
-							'<span face_num="95"> </span>'+
-							'<span face_num="96"> </span>'+
-							'<span face_num="97"> </span>'+
-							'<span face_num="98"> </span>'+
-							'<span face_num="99"> </span>'+
-							'<span face_num="100"> </span>'+
-							'<span face_num="101"> </span>'+
-							'<span face_num="102"> </span>'+
-							'<span face_num="103"> </span>'+
-							'<span face_num="104"> </span>'+
+							'<span face_num="0">&nbsp;</span>'+
+							'<span face_num="1">&nbsp;</span>'+
+							'<span face_num="2">&nbsp;</span>'+
+							'<span face_num="3">&nbsp;</span>'+
+							'<span face_num="4">&nbsp;</span>'+
+							'<span face_num="5">&nbsp;</span>'+
+							'<span face_num="6">&nbsp;</span>'+
+							'<span face_num="7">&nbsp;</span>'+
+							'<span face_num="8">&nbsp;</span>'+
+							'<span face_num="9">&nbsp;</span>'+
+							'<span face_num="10">&nbsp;</span>'+
+							'<span face_num="11">&nbsp;</span>'+
+							'<span face_num="12">&nbsp;</span>'+
+							'<span face_num="13">&nbsp;</span>'+
+							'<span face_num="14">&nbsp;</span>'+
+							'<span face_num="15">&nbsp;</span>'+
+							'<span face_num="16">&nbsp;</span>'+
+							'<span face_num="17">&nbsp;</span>'+
+							'<span face_num="18">&nbsp;</span>'+
+							'<span face_num="19">&nbsp;</span>'+
+							'<span face_num="20">&nbsp;</span>'+
+							'<span face_num="21">&nbsp;</span>'+
+							'<span face_num="22">&nbsp;</span>'+
+							'<span face_num="23">&nbsp;</span>'+
+							'<span face_num="24">&nbsp;</span>'+
+							'<span face_num="25">&nbsp;</span>'+
+							'<span face_num="26">&nbsp;</span>'+
+							'<span face_num="27">&nbsp;</span>'+
+							'<span face_num="28">&nbsp;</span>'+
+							'<span face_num="29">&nbsp;</span>'+
+							'<span face_num="30">&nbsp;</span>'+
+							'<span face_num="31">&nbsp;</span>'+
+							'<span face_num="32">&nbsp;</span>'+
+							'<span face_num="33">&nbsp;</span>'+
+							'<span face_num="34">&nbsp;</span>'+
+							'<span face_num="35">&nbsp;</span>'+
+							'<span face_num="36">&nbsp;</span>'+
+							'<span face_num="37">&nbsp;</span>'+
+							'<span face_num="38">&nbsp;</span>'+
+							'<span face_num="39">&nbsp;</span>'+
+							'<span face_num="40">&nbsp;</span>'+
+							'<span face_num="41">&nbsp;</span>'+
+							'<span face_num="42">&nbsp;</span>'+
+							'<span face_num="43">&nbsp;</span>'+
+							'<span face_num="44">&nbsp;</span>'+
+							'<span face_num="45">&nbsp;</span>'+
+							'<span face_num="46">&nbsp;</span>'+
+							'<span face_num="47">&nbsp;</span>'+
+							'<span face_num="48">&nbsp;</span>'+
+							'<span face_num="49">&nbsp;</span>'+
+							'<span face_num="50">&nbsp;</span>'+
+							'<span face_num="51">&nbsp;</span>'+
+							'<span face_num="52">&nbsp;</span>'+
+							'<span face_num="53">&nbsp;</span>'+
+							'<span face_num="54">&nbsp;</span>'+
+							'<span face_num="55">&nbsp;</span>'+
+							'<span face_num="56">&nbsp;</span>'+
+							'<span face_num="57">&nbsp;</span>'+
+							'<span face_num="58">&nbsp;</span>'+
+							'<span face_num="59">&nbsp;</span>'+
+							'<span face_num="60">&nbsp;</span>'+
+							'<span face_num="61">&nbsp;</span>'+
+							'<span face_num="62">&nbsp;</span>'+
+							'<span face_num="63">&nbsp;</span>'+
+							'<span face_num="64">&nbsp;</span>'+
+							'<span face_num="65">&nbsp;</span>'+
+							'<span face_num="66">&nbsp;</span>'+
+							'<span face_num="67">&nbsp;</span>'+
+							'<span face_num="68">&nbsp;</span>'+
+							'<span face_num="69">&nbsp;</span>'+
+							'<span face_num="70">&nbsp;</span>'+
+							'<span face_num="71">&nbsp;</span>'+
+							'<span face_num="72">&nbsp;</span>'+
+							'<span face_num="73">&nbsp;</span>'+
+							'<span face_num="74">&nbsp;</span>'+
+							'<span face_num="75">&nbsp;</span>'+
+							'<span face_num="76">&nbsp;</span>'+
+							'<span face_num="77">&nbsp;</span>'+
+							'<span face_num="78">&nbsp;</span>'+
+							'<span face_num="79">&nbsp;</span>'+
+							'<span face_num="80">&nbsp;</span>'+
+							'<span face_num="81">&nbsp;</span>'+
+							'<span face_num="82">&nbsp;</span>'+
+							'<span face_num="83">&nbsp;</span>'+
+							'<span face_num="84">&nbsp;</span>'+
+							'<span face_num="85">&nbsp;</span>'+
+							'<span face_num="86">&nbsp;</span>'+
+							'<span face_num="87">&nbsp;</span>'+
+							'<span face_num="88">&nbsp;</span>'+
+							'<span face_num="89">&nbsp;</span>'+
+							'<span face_num="90">&nbsp;</span>'+
+							'<span face_num="91">&nbsp;</span>'+
+							'<span face_num="92">&nbsp;</span>'+
+							'<span face_num="93">&nbsp;</span>'+
+							'<span face_num="94">&nbsp;</span>'+
+							'<span face_num="95">&nbsp;</span>'+
+							'<span face_num="96">&nbsp;</span>'+
+							'<span face_num="97">&nbsp;</span>'+
+							'<span face_num="98">&nbsp;</span>'+
+							'<span face_num="99">&nbsp;</span>'+
+							'<span face_num="100">&nbsp;</span>'+
+							'<span face_num="101">&nbsp;</span>'+
+							'<span face_num="102">&nbsp;</span>'+
+							'<span face_num="103">&nbsp;</span>'+
+							'<span face_num="104">&nbsp;</span>'+
 						'</div>'+
 				'	</div>'+
 				'	<div class="btnarea">'+
@@ -731,7 +731,7 @@ $.TE.plugin( 'code', {
 				'		<div class="links Lovh">'+
 				'			<a href="###" class="cstyle">插入代码</a>'+
 				'		</div>'+
-				'		<div class="bdb"> </div>'+
+				'		<div class="bdb">&nbsp;</div>'+
 				'	</div>'+
 				'	<div class="centbox">'+
 				'		<div class="Lmt10 Lml10">'+
@@ -766,7 +766,7 @@ $.TE.plugin( 'code', {
 					_html = '';
 
 				_code = _code.replace( /</g, '&lt;' );
-				_code = _code.replace( />/g, '>' );
+				_code = _code.replace( />/g, '&gt;' );
 				_code = _code.split('\n');
 				_html += '<pre style="overflow-x:auto; padding:10px; color:blue; border:1px dotted #2BC1FF; background-color:#EEFAFF;" _syntax="'+_type+'">'
 				_html += '语言类型：'+_type;
@@ -907,83 +907,83 @@ $.TE.plugin( 'fontcolor', {
 				'<div class="te_dialog_fontcolor Lovh">'+
 				'	<div class="colorsel">'+
 				'		<!--第一列-->'+
-				'		<a href="###" style="background-color:#FF0000"> </a>'+
-				'		<a href="###" style="background-color:#FFA900"> </a>'+
-				'		<a href="###" style="background-color:#FFFF00"> </a>'+
-				'		<a href="###" style="background-color:#99E600"> </a>'+
-				'		<a href="###" style="background-color:#99E600"> </a>'+
-				'		<a href="###" style="background-color:#00FFFF"> </a>'+
-				'		<a href="###" style="background-color:#00AAFF"> </a>'+
-				'		<a href="###" style="background-color:#0055FF"> </a>'+
-				'		<a href="###" style="background-color:#5500FF"> </a>'+
-				'		<a href="###" style="background-color:#AA00FF"> </a>'+
-				'		<a href="###" style="background-color:#FF007F"> </a>'+
-				'		<a href="###" style="background-color:#FFFFFF"> </a>'+
+				'		<a href="###" style="background-color:#FF0000">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFA900">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFF00">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99E600">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99E600">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#00FFFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#00AAFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#0055FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#5500FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#AA00FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FF007F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFFFF">&nbsp;</a>'+
 				'		<!--第二列-->'+
-				'		<a href="###" style="background-color:#FFE5E5"> </a>'+
-				'		<a href="###" style="background-color:#FFF2D9"> </a>'+
-				'		<a href="###" style="background-color:#FFFFCC"> </a>'+
-				'		<a href="###" style="background-color:#EEFFCC"> </a>'+
-				'		<a href="###" style="background-color:#D9FFE0"> </a>'+
-				'		<a href="###" style="background-color:#D9FFFF"> </a>'+
-				'		<a href="###" style="background-color:#D9F2FF"> </a>'+
-				'		<a href="###" style="background-color:#D9E6FF"> </a>'+
-				'		<a href="###" style="background-color:#E6D9FF"> </a>'+
-				'		<a href="###" style="background-color:#F2D9FF"> </a>'+
-				'		<a href="###" style="background-color:#FFD9ED"> </a>'+
-				'		<a href="###" style="background-color:#D9D9D9"> </a>'+
+				'		<a href="###" style="background-color:#FFE5E5">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFF2D9">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFFCC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#EEFFCC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9FFE0">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9FFFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9F2FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9E6FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#E6D9FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#F2D9FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFD9ED">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9D9D9">&nbsp;</a>'+
 				'		<!--第三列-->'+
-				'		<a href="###" style="background-color:#E68A8A"> </a>'+
-				'		<a href="###" style="background-color:#E6C78A"> </a>'+
-				'		<a href="###" style="background-color:#FFFF99"> </a>'+
-				'		<a href="###" style="background-color:#BFE673"> </a>'+
-				'		<a href="###" style="background-color:#99EEA0"> </a>'+
-				'		<a href="###" style="background-color:#A1E6E6"> </a>'+
-				'		<a href="###" style="background-color:#99DDFF"> </a>'+
-				'		<a href="###" style="background-color:#8AA8E6"> </a>'+
-				'		<a href="###" style="background-color:#998AE6"> </a>'+
-				'		<a href="###" style="background-color:#C78AE6"> </a>'+
-				'		<a href="###" style="background-color:#E68AB9"> </a>'+
-				'		<a href="###" style="background-color:#B3B3B3"> </a>'+
+				'		<a href="###" style="background-color:#E68A8A">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#E6C78A">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFF99">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#BFE673">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99EEA0">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#A1E6E6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99DDFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#8AA8E6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#998AE6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#C78AE6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#E68AB9">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#B3B3B3">&nbsp;</a>'+
 				'		<!--第四列-->'+
-				'		<a href="###" style="background-color:#CC5252"> </a>'+
-				'		<a href="###" style="background-color:#CCA352"> </a>'+
-				'		<a href="###" style="background-color:#D9D957"> </a>'+
-				'		<a href="###" style="background-color:#A7CC39"> </a>'+
-				'		<a href="###" style="background-color:#57CE6D"> </a>'+
-				'		<a href="###" style="background-color:#52CCCC"> </a>'+
-				'		<a href="###" style="background-color:#52A3CC"> </a>'+
-				'		<a href="###" style="background-color:#527ACC"> </a>'+
-				'		<a href="###" style="background-color:#6652CC"> </a>'+
-				'		<a href="###" style="background-color:#A352CC"> </a>'+
-				'		<a href="###" style="background-color:#CC5291"> </a>'+
-				'		<a href="###" style="background-color:#B3B3B3"> </a>'+
+				'		<a href="###" style="background-color:#CC5252">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#CCA352">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9D957">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#A7CC39">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#57CE6D">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#52CCCC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#52A3CC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#527ACC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#6652CC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#A352CC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#CC5291">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#B3B3B3">&nbsp;</a>'+
 				'		<!--第五列-->'+
-				'		<a href="###" style="background-color:#991F1F"> </a>'+
-				'		<a href="###" style="background-color:#99701F"> </a>'+
-				'		<a href="###" style="background-color:#99991F"> </a>'+
-				'		<a href="###" style="background-color:#59800D"> </a>'+
-				'		<a href="###" style="background-color:#0F9932"> </a>'+
-				'		<a href="###" style="background-color:#1F9999"> </a>'+
-				'		<a href="###" style="background-color:#1F7099"> </a>'+
-				'		<a href="###" style="background-color:#1F4799"> </a>'+
-				'		<a href="###" style="background-color:#471F99"> </a>'+
-				'		<a href="###" style="background-color:#701F99"> </a>'+
-				'		<a href="###" style="background-color:#991F5E"> </a>'+
-				'		<a href="###" style="background-color:#404040"> </a>'+
+				'		<a href="###" style="background-color:#991F1F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99701F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99991F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#59800D">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#0F9932">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#1F9999">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#1F7099">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#1F4799">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#471F99">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#701F99">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#991F5E">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#404040">&nbsp;</a>'+
 				'		<!--第六列-->'+
-				'		<a href="###" style="background-color:#660000"> </a>'+
-				'		<a href="###" style="background-color:#664B14"> </a>'+
-				'		<a href="###" style="background-color:#666600"> </a>'+
-				'		<a href="###" style="background-color:#3B5900"> </a>'+
-				'		<a href="###" style="background-color:#005916"> </a>'+
-				'		<a href="###" style="background-color:#146666"> </a>'+
-				'		<a href="###" style="background-color:#144B66"> </a>'+
-				'		<a href="###" style="background-color:#143066"> </a>'+
-				'		<a href="###" style="background-color:#220066"> </a>'+
-				'		<a href="###" style="background-color:#301466"> </a>'+
-				'		<a href="###" style="background-color:#66143F"> </a>'+
-				'		<a href="###" style="background-color:#000000"> </a>'+
+				'		<a href="###" style="background-color:#660000">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#664B14">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#666600">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#3B5900">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#005916">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#146666">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#144B66">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#143066">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#220066">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#301466">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#66143F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#000000">&nbsp;</a>'+
 				'	</div>'+
 				'</div>'
 			),
@@ -1008,83 +1008,83 @@ $.TE.plugin( 'backcolor', {
 				'<div class="te_dialog_fontcolor Lovh">'+
 				'	<div class="colorsel">'+
 				'		<!--第一列-->'+
-				'		<a href="###" style="background-color:#FF0000"> </a>'+
-				'		<a href="###" style="background-color:#FFA900"> </a>'+
-				'		<a href="###" style="background-color:#FFFF00"> </a>'+
-				'		<a href="###" style="background-color:#99E600"> </a>'+
-				'		<a href="###" style="background-color:#99E600"> </a>'+
-				'		<a href="###" style="background-color:#00FFFF"> </a>'+
-				'		<a href="###" style="background-color:#00AAFF"> </a>'+
-				'		<a href="###" style="background-color:#0055FF"> </a>'+
-				'		<a href="###" style="background-color:#5500FF"> </a>'+
-				'		<a href="###" style="background-color:#AA00FF"> </a>'+
-				'		<a href="###" style="background-color:#FF007F"> </a>'+
-				'		<a href="###" style="background-color:#FFFFFF"> </a>'+
+				'		<a href="###" style="background-color:#FF0000">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFA900">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFF00">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99E600">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99E600">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#00FFFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#00AAFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#0055FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#5500FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#AA00FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FF007F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFFFF">&nbsp;</a>'+
 				'		<!--第二列-->'+
-				'		<a href="###" style="background-color:#FFE5E5"> </a>'+
-				'		<a href="###" style="background-color:#FFF2D9"> </a>'+
-				'		<a href="###" style="background-color:#FFFFCC"> </a>'+
-				'		<a href="###" style="background-color:#EEFFCC"> </a>'+
-				'		<a href="###" style="background-color:#D9FFE0"> </a>'+
-				'		<a href="###" style="background-color:#D9FFFF"> </a>'+
-				'		<a href="###" style="background-color:#D9F2FF"> </a>'+
-				'		<a href="###" style="background-color:#D9E6FF"> </a>'+
-				'		<a href="###" style="background-color:#E6D9FF"> </a>'+
-				'		<a href="###" style="background-color:#F2D9FF"> </a>'+
-				'		<a href="###" style="background-color:#FFD9ED"> </a>'+
-				'		<a href="###" style="background-color:#D9D9D9"> </a>'+
+				'		<a href="###" style="background-color:#FFE5E5">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFF2D9">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFFCC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#EEFFCC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9FFE0">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9FFFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9F2FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9E6FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#E6D9FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#F2D9FF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFD9ED">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9D9D9">&nbsp;</a>'+
 				'		<!--第三列-->'+
-				'		<a href="###" style="background-color:#E68A8A"> </a>'+
-				'		<a href="###" style="background-color:#E6C78A"> </a>'+
-				'		<a href="###" style="background-color:#FFFF99"> </a>'+
-				'		<a href="###" style="background-color:#BFE673"> </a>'+
-				'		<a href="###" style="background-color:#99EEA0"> </a>'+
-				'		<a href="###" style="background-color:#A1E6E6"> </a>'+
-				'		<a href="###" style="background-color:#99DDFF"> </a>'+
-				'		<a href="###" style="background-color:#8AA8E6"> </a>'+
-				'		<a href="###" style="background-color:#998AE6"> </a>'+
-				'		<a href="###" style="background-color:#C78AE6"> </a>'+
-				'		<a href="###" style="background-color:#E68AB9"> </a>'+
-				'		<a href="###" style="background-color:#B3B3B3"> </a>'+
+				'		<a href="###" style="background-color:#E68A8A">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#E6C78A">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#FFFF99">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#BFE673">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99EEA0">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#A1E6E6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99DDFF">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#8AA8E6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#998AE6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#C78AE6">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#E68AB9">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#B3B3B3">&nbsp;</a>'+
 				'		<!--第四列-->'+
-				'		<a href="###" style="background-color:#CC5252"> </a>'+
-				'		<a href="###" style="background-color:#CCA352"> </a>'+
-				'		<a href="###" style="background-color:#D9D957"> </a>'+
-				'		<a href="###" style="background-color:#A7CC39"> </a>'+
-				'		<a href="###" style="background-color:#57CE6D"> </a>'+
-				'		<a href="###" style="background-color:#52CCCC"> </a>'+
-				'		<a href="###" style="background-color:#52A3CC"> </a>'+
-				'		<a href="###" style="background-color:#527ACC"> </a>'+
-				'		<a href="###" style="background-color:#6652CC"> </a>'+
-				'		<a href="###" style="background-color:#A352CC"> </a>'+
-				'		<a href="###" style="background-color:#CC5291"> </a>'+
-				'		<a href="###" style="background-color:#B3B3B3"> </a>'+
+				'		<a href="###" style="background-color:#CC5252">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#CCA352">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#D9D957">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#A7CC39">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#57CE6D">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#52CCCC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#52A3CC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#527ACC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#6652CC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#A352CC">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#CC5291">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#B3B3B3">&nbsp;</a>'+
 				'		<!--第五列-->'+
-				'		<a href="###" style="background-color:#991F1F"> </a>'+
-				'		<a href="###" style="background-color:#99701F"> </a>'+
-				'		<a href="###" style="background-color:#99991F"> </a>'+
-				'		<a href="###" style="background-color:#59800D"> </a>'+
-				'		<a href="###" style="background-color:#0F9932"> </a>'+
-				'		<a href="###" style="background-color:#1F9999"> </a>'+
-				'		<a href="###" style="background-color:#1F7099"> </a>'+
-				'		<a href="###" style="background-color:#1F4799"> </a>'+
-				'		<a href="###" style="background-color:#471F99"> </a>'+
-				'		<a href="###" style="background-color:#701F99"> </a>'+
-				'		<a href="###" style="background-color:#991F5E"> </a>'+
-				'		<a href="###" style="background-color:#404040"> </a>'+
+				'		<a href="###" style="background-color:#991F1F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99701F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#99991F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#59800D">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#0F9932">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#1F9999">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#1F7099">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#1F4799">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#471F99">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#701F99">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#991F5E">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#404040">&nbsp;</a>'+
 				'		<!--第六列-->'+
-				'		<a href="###" style="background-color:#660000"> </a>'+
-				'		<a href="###" style="background-color:#664B14"> </a>'+
-				'		<a href="###" style="background-color:#666600"> </a>'+
-				'		<a href="###" style="background-color:#3B5900"> </a>'+
-				'		<a href="###" style="background-color:#005916"> </a>'+
-				'		<a href="###" style="background-color:#146666"> </a>'+
-				'		<a href="###" style="background-color:#144B66"> </a>'+
-				'		<a href="###" style="background-color:#143066"> </a>'+
-				'		<a href="###" style="background-color:#220066"> </a>'+
-				'		<a href="###" style="background-color:#301466"> </a>'+
-				'		<a href="###" style="background-color:#66143F"> </a>'+
-				'		<a href="###" style="background-color:#000000"> </a>'+
+				'		<a href="###" style="background-color:#660000">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#664B14">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#666600">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#3B5900">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#005916">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#146666">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#144B66">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#143066">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#220066">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#301466">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#66143F">&nbsp;</a>'+
+				'		<a href="###" style="background-color:#000000">&nbsp;</a>'+
 				'	</div>'+
 				'</div>'
 			),
@@ -1111,7 +1111,7 @@ $.TE.plugin( 'about', {
 				'		<div class="links Lovh">'+
 				'			<a href="###" class="cstyle">关于ThinkEditor</a>'+
 				'		</div>'+
-				'		<div class="bdb"> </div>'+
+				'		<div class="bdb">&nbsp;</div>'+
 				'	</div>'+
 				'	<div class="centbox">'+
 				'		<div class="aboutcontent">'+
@@ -1143,7 +1143,7 @@ $.TE.plugin( 'about', {
 //            '		<div class="links Lovh">'+
 //            '			<a href="###" class="cstyle">关于ThinkEditor</a>'+
 //            '		</div>'+
-//            '		<div class="bdb"> </div>'+
+//            '		<div class="bdb">&nbsp;</div>'+
 //            '	</div>'+
 //            '	<div class="centbox">'+
 //            '		<div class="eqcontent">'+
