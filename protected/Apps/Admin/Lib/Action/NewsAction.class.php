@@ -103,8 +103,11 @@ class NewsAction extends AdminAction {
                         //->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . 'msemaerk af ON af.title_id=t.id')
                         ->where('t.id=' . $id)->find();
         //echo $data['msemaerk'];
-        $am = M(C('DB_ADD_PREFIX') . $data['msemaerk']);
+        $am = M(ucfirst(C('DB_ADD_PREFIX')) . $data['msemaerk']);
         $data_ms = $am->where('title_id=' . $id)->find();
+        //$sql = $m->getLastSql();
+        //echo $sql;
+        //exit;
         $mf = M('ModelField');
         $data_filed = $mf->where('sort_id =' . $data['msid'])->order('myorder asc,id asc')->select();
         foreach ($data_filed as $k => $v) {
@@ -119,6 +122,7 @@ class NewsAction extends AdminAction {
         }
         $this->assign('data', $data);
         $this->assign('filed', $data_filed);
+        $this->assign('datafiled', $data_ms);
         $this->display();
     }
 
@@ -178,29 +182,54 @@ class NewsAction extends AdminAction {
      */
     public function update()
     {
+        //$this->dmsg('1', 'gggg', false, true);
         $t = M('Title');
         $c = M('Content');
-        //$m = M('NewsSort');
+        $ns = M('NewsSort');
         $data['id'] = intval($_POST['id']);
-        //$filed = $_POST['filed'];
-        //$this->dmsg('1', $_POST['content'], false, true);
-        //exit;
-        //$m = M('Title');
-        
-        /*echo '<pre>';
-        print_r($_POST);
-        exit;
-*/
         $cdata['title_id'] = intval($_POST['id']);
-        $rs8 = $t->where($data)->save($_POST);
-        $rs = $c->where($cdata)->save($_POST);
-        if ($rs == 1) {
-            $this->dmsg('2', '更新成功！', true);
-        } elseif ($rs == 0) {
-            $this->dmsg('1', '更新失败！', false, true);
-        } else {
-            $this->dmsg('2', '未有操作！', true);
+        $filed['title_id'] = intval($_POST['id']);
+        //$filed = $_POST['filed'];
+        $filed = array();
+        foreach($_POST['filed'] as $k=>$v){
+            $filed[$k] = $v;
         }
+        foreach($_POST['filedtime'] as $k=>$v){
+            $filed[$k] = strtotime($v);
+        }
+        foreach($_POST['filedcheckbox'] as $k=>$v){
+            $filed[$k] = implode(',',$v);
+        }
+        //$this->dmsg('1', $filed['checkbox'], false, true);
+        //exit;
+        //print_r($filed);
+        //exit;
+        //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
+        $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
+                ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
+                        //->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . 'msemaerk af ON af.title_id=t.id')
+                        ->where('ns.model_id=' . intval($_POST['sort_id']))->find();
+        //$sql = $s->getLastSql();
+        $m = M(ucfirst(C('DB_ADD_PREFIX')).$model_rs['emark']);
+        //$this->dmsg('1', $sql, false, true);
+        //exit;
+        $rs = $t->where($data)->save($_POST);
+        $rsc = $c->where($cdata)->save($_POST);
+        $rsm = $m->where($cdata)->save($filed);
+        //$sql = $m->getLastSql();
+        $this->dmsg('1', $rs.'=='.$rsc.'==='.$rsm, false, true);
+        if ($rs == true||$rsc == true||$rsm == true) {
+            $this->dmsg('2', '更新成功！', true);
+        } else {
+            $this->dmsg('1', '更新失败！', false, true);
+        }
+//        if ($rs == true||$rsc == true||$rsm == true) {
+//            $this->dmsg('2', '更新成功！', true);
+//        } elseif ($rs == 0||$rsc == 0||$rsm == 0) {
+//            $this->dmsg('1', '更新失败！', false, true);
+//        } else {
+//            $this->dmsg('2', '未有操作！', true);
+//        }
     }
 
     /**

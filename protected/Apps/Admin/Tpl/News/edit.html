@@ -29,7 +29,7 @@
             <li>
                 <label>文档标题图：</label>
                 <p>
-                    <input type="text" id="url1" name="sys_name" value="{$data.titlepic}" />
+                    <input type="text" id="url1" name="titlepic" value="{$data.titlepic}" />
                     <input type="button" id="image1" value="选择图片" />
                 </p>
             </li>
@@ -123,10 +123,7 @@
             var editor = KindEditor.editor({
                 allowFileManager : true,
                 uploadJson:'__APP__/Upload/uploadImg',
-                fileManagerJson :'__APP__/Upload/fileManagerJson',
-                afterBlur : function() {
-                    this.sync();
-                }
+                fileManagerJson :'__APP__/Upload/fileManagerJson'
             });
             KindEditor('#image1').click(function() {
                 editor.loadPlugin('image', function() {
