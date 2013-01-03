@@ -120,9 +120,14 @@ class NewsAction extends AdminAction {
                 $data_filed[$k]['opts'] = $exp;
             }
         }
+        $flag = array(
+            'h'=> '调试',
+            'h2'=> '调试2',
+        );
         $this->assign('data', $data);
         $this->assign('filed', $data_filed);
         $this->assign('datafiled', $data_ms);
+        $this->assign('flag', $flag);
         $this->display();
     }
 
@@ -166,30 +171,23 @@ class NewsAction extends AdminAction {
      */
     public function insert()
     {
-        $m = M('Title');
-        $id = intval($_GET['id']);
-
-        $this->assign('id', $id);
-        $this->display();
-    }
-
-    /**
-     * update
-     * 更新信息
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function update()
-    {
         //$this->dmsg('1', 'gggg', false, true);
         $t = M('Title');
         $c = M('Content');
         $ns = M('NewsSort');
         $data['id'] = intval($_POST['id']);
         $cdata['title_id'] = intval($_POST['id']);
-        $filed['title_id'] = intval($_POST['id']);
+        $title = trim($_POST['title']);
+        $sort_id = $_POST['sort_id'];
+        if(empty($title)){
+            $this->dmsg('1', '文章标题不能为空！', false, true);
+        }
+        if($sort_id==0){
+            $this->dmsg('1', '请选择文档分类！', false, true);
+        }
+        //$filed['title_id'] = intval($_POST['id']);
         //$filed = $_POST['filed'];
+        $_POST['flag'] = implode(',',$_POST['flag']);
         $filed = array();
         foreach($_POST['filed'] as $k=>$v){
             $filed[$k] = $v;
@@ -207,9 +205,9 @@ class NewsAction extends AdminAction {
         //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
         $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
                 ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
-                        //->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . 'msemaerk af ON af.title_id=t.id')
-                        ->where('ns.model_id=' . intval($_POST['sort_id']))->find();
-        //$sql = $s->getLastSql();
+                ->where('ns.id=' . intval($_POST['sort_id']))->find();
+        //$sql = $ns->getLastSql();
+        //$this->dmsg('1', $sql, false, true);
         $m = M(ucfirst(C('DB_ADD_PREFIX')).$model_rs['emark']);
         //$this->dmsg('1', $sql, false, true);
         //exit;
@@ -217,11 +215,73 @@ class NewsAction extends AdminAction {
         $rsc = $c->where($cdata)->save($_POST);
         $rsm = $m->where($cdata)->save($filed);
         //$sql = $m->getLastSql();
-        $this->dmsg('1', $rs.'=='.$rsc.'==='.$rsm, false, true);
+        //$this->dmsg('1', $sql.$rs.'=='.$rsc.'==='.$rsm, false, true);
         if ($rs == true||$rsc == true||$rsm == true) {
             $this->dmsg('2', '更新成功！', true);
         } else {
             $this->dmsg('1', '更新失败！', false, true);
+        }
+
+    }
+
+    /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update()
+    {
+        //$this->dmsg('1', 'gggg', false, true);
+        $t = M('Title');
+        $c = M('Content');
+        $ns = M('NewsSort');
+        $data['id'] = intval($_POST['id']);
+        $cdata['title_id'] = intval($_POST['id']);
+        $title = trim($_POST['title']);
+        $sort_id = $_POST['sort_id'];
+        if(empty($title)){
+            $this->dmsg('1', '文章标题不能为空！', false, true);
+        }
+        if($sort_id==0){
+            $this->dmsg('1', '请选择文档分类！', false, true);
+        }
+        //$filed['title_id'] = intval($_POST['id']);
+        //$filed = $_POST['filed'];
+        $_POST['flag'] = implode(',',$_POST['flag']);
+        $filed = array();
+        foreach($_POST['filed'] as $k=>$v){
+            $filed[$k] = $v;
+        }
+        foreach($_POST['filedtime'] as $k=>$v){
+            $filed[$k] = strtotime($v);
+        }
+        foreach($_POST['filedcheckbox'] as $k=>$v){
+            $filed[$k] = implode(',',$v);
+        }
+        //$this->dmsg('1', $filed['checkbox'], false, true);
+        //exit;
+        //print_r($filed);
+        //exit;
+        //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
+        $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
+                ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
+                ->where('ns.id=' . intval($_POST['sort_id']))->find();
+        //$sql = $ns->getLastSql();
+        //$this->dmsg('1', $sql, false, true);
+        $m = M(ucfirst(C('DB_ADD_PREFIX')).$model_rs['emark']);
+        //$this->dmsg('1', $sql, false, true);
+        //exit;
+        $rs = $t->where($data)->save($_POST);
+        $rsc = $c->where($cdata)->save($_POST);
+        $rsm = $m->where($cdata)->save($filed);
+        //$sql = $m->getLastSql();
+        //$this->dmsg('1', $sql.$rs.'=='.$rsc.'==='.$rsm, false, true);
+        if ($rs == true||$rsc == true||$rsm == true) {
+            $this->dmsg('2', '更新成功！', true);
+        } else {
+            $this->dmsg('1', '更新失败,或者未有更新！', false, true);
         }
 //        if ($rs == true||$rsc == true||$rsm == true) {
 //            $this->dmsg('2', '更新成功！', true);

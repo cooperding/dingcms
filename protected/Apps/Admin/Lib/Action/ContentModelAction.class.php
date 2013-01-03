@@ -135,7 +135,7 @@ class ContentModelAction extends AdminAction {
             D('ModelSort')->edittable($data['emark'], $_POST['emark']);
         }
         $rs = $m->save($_POST);
-        if ($rs == 1) {
+        if ($rs == true) {
             $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
             echo json_encode($json);
         } else {
