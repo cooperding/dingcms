@@ -20,7 +20,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sort() {
+    public function sort()
+    {
         $this->display();
     }
 
@@ -31,7 +32,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortadd() {
+    public function sortadd()
+    {
         $radios = array(
             'true' => '启用',
             'false' => '禁用'
@@ -47,7 +49,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortedit() {
+    public function sortedit()
+    {
         $m = M('LinkpageSort');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -67,35 +70,28 @@ class LinkPageAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function sortinsert() {
+    public function sortinsert()
+    {
         $m = M('LinkpageSort');
         $id = intval($_POST['id']);
         $condition['ename'] = trim($_POST['ename']);
         $condition['egroup'] = trim($_POST['egroup']);
         $condition['_logic'] = 'OR';
         if (empty($condition['ename']) || empty($condition['egroup'])) {
-            $json = array('status' => '1', 'info' => '请将信息输入完整。');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '请将信息输入完整！', false, true);
         }
         if ($m->field('id')->where($condition)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['egroup'] . '已经存在！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '您输入的名称或者标识' . $condition['ename'] . $condition['egroup'] . '已经存在！', false, true);
         }
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
-                echo json_encode($json);
+                $this->dmsg('2', '分类添加成功！', true);
             } else {
-                $json = array('status' => '2', 'info' => '分类添加失败！');
-                echo json_encode($json);
+                $this->dmsg('1', '分类添加失败！', false, true);
             }
         } else {
-            $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }//if
     }
 
@@ -106,7 +102,8 @@ class LinkPageAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function sortupdate() {
+    public function sortupdate()
+    {
         $m = M('LinkpageSort');
         $id = intval($_POST['id']);
         $_POST['ename'] = trim($_POST['ename']);
@@ -117,22 +114,16 @@ class LinkPageAction extends AdminAction {
         $condition['_complex'] = $where;
         $condition['id'] = array('neq', $id);
         if (empty($_POST['ename']) || empty($_POST['egroup'])) {
-            $json = array('status' => '1', 'info' => '请将信息输入完整。');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '请将信息输入完整！', false, true);
         }
         if ($m->field('id')->where($condition)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！', false, true);
         }
         $rs = $m->save($_POST);
-        if ($rs == 1) {
-            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-            echo json_encode($json);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '2', 'info' => '未有操作！');
-            echo json_encode($json);
+            $this->dmsg('1', '未有操作或者操作失败！', false, true);
         }//if
     }
 
@@ -143,23 +134,19 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortdelete() {
+    public function sortdelete()
+    {
         $id = intval($_GET['id']);
         $m = M('LinkpageSort');
         $list = M('LinkpageList');
         if ($list->field('id')->where('linkpage_id=' . $id)->find()) {
-            $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '列表中存在该分类元素不能删除！', false, true);
         }
         $del = $m->where('id=' . $id)->delete();
-        if ($del == 1) {
-            $json = array('status' => '2', 'info' => '删除成功！');
-            echo json_encode($json);
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '1', 'info' => '删除失败！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
 
@@ -170,11 +157,10 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortlist() {
+    public function sortlist()
+    {
         $m = M('LinkpageSort');
         $sort = $m->field('id,ename')->select();
-
-
         $this->assign('sort', $sort);
         $this->display();
     }
@@ -186,7 +172,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortlistsort() {//点击左侧信息打开右侧
+    public function sortlistsort()
+    {//点击左侧信息打开右侧
         $id = intval($_GET['id']);
         //echo $id;
         $this->assign('id', $id);
@@ -200,7 +187,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortlistadd() {
+    public function sortlistadd()
+    {
 
         $id = intval($_GET['id']);
         $this->assign('linkpage_id', $id);
@@ -214,7 +202,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortlistedit() {
+    public function sortlistedit()
+    {
         $id = intval($_GET['id']);
         $list = M('LinkpageList');
         $data = $list->where('id=' . $id)->find();
@@ -229,28 +218,23 @@ class LinkPageAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function sortlistdelete() {
+    public function sortlistdelete()
+    {
         $m = M('LinkpageList');
         $id = intval($_POST['id']);
         if (empty($id)) {
-            $json = array('status' => '1', 'info' => '未有id值，无法删除！');
-            echo json_encode($json);
+            $this->dmsg('1', '未有id值，无法删除！', false, true);
+        }
+        $data = $m->field('id')->where('path like \'%,' . $id . ',%\'')->select();
+        if (is_array($data)) {
+            $this->dmsg('1', '该分类下还有子级分类，无法删除！', false, true);
+        }
+        $del = $m->where('id=' . $id)->delete();
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $data = $m->field('id')->where('path like \'%,' . $id . ',%\'')->select();
-            if (is_array($data)) {
-                $json = array('status' => '1', 'info' => '该分类下还有子级分类，无法删除！');
-                echo json_encode($json);
-            } else {
-                $del = $m->where('id=' . $id)->delete();
-                if ($del == 1) {
-                    $json = array('status' => '2', 'info' => '删除成功！');
-                    echo json_encode($json);
-                } else {
-                    $json = array('status' => '1', 'info' => '删除失败！');
-                    echo json_encode($json);
-                }//if
-            }
-        }//if id
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
     }
 
     /**
@@ -260,14 +244,13 @@ class LinkPageAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function sortlistinsert() {
+    public function sortlistinsert()
+    {
         $m = M('LinkpageList');
         $parent_id = intval($_POST['parent_id']);
         $_POST['sort_name'] = trim($_POST['sort_name']);
         if (empty($_POST['sort_name'])) {
-            $json = array('status' => '1', 'info' => '分类名不能为空！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '分类名不能为空！', false, true);
         }
         if ($parent_id != 0) {
             $data = $m->where('id=' . $parent_id)->find();
@@ -276,11 +259,9 @@ class LinkPageAction extends AdminAction {
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
-                echo json_encode($json);
+                $this->dmsg('2', '操作成功！', true);
             } else {
-                $json = array('status' => '2', 'info' => '分类添加失败！');
-                echo json_encode($json);
+                $this->dmsg('1', '操作失败！', false, true);
             }
         }
     }
@@ -292,46 +273,36 @@ class LinkPageAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function sortlistupdate() {
+    public function sortlistupdate()
+    {
         $m = M('LinkpageList');
-        $id = intval($_POST['id']);
+        $d = D('NewsSort');
+        $tbname = 'LinkpageList';
         $linkpage_id = intval($_POST['linkpage_id']);
+        $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        $data = $m->where('id=' . $id . ' and `linkpage_id` = ' . $linkpage_id)->find();
-        if ($parent_id != $data['parent_id']) {//判断parent_id是否修改
-            if ($parent_id != 0) {//判断当改变分类时，父类是否选择了子类做为其的父类
-                $cun = $m->where('`linkpage_id` = ' . $linkpage_id . ' AND `id`=' . $parent_id . ' and  `path` like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
-                if ($cun) {
-                    $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
-                    echo json_encode($json);
-                    exit;
-                }
-                $fdata = $m->where('id=' . $parent_id . ' and `linkpage_id` = ' . $linkpage_id)->find();
-                $fpath = $fdata['path'] . $parent_id . ','; //替换
-            } else {
-                $fdata = $m->where('id=' . $parent_id . ' and `linkpage_id` = ' . $linkpage_id)->find();
-                if (empty($fdata['path'])) {
-                    $fpath = ',' . $parent_id . ','; //替换
-                } else {
-                    $fpath = $fdata['path'] . $parent_id . ','; //替换
-                }
+        if ($parent_id != 0) {//不为0时判断是否为子分类
+            $cun = $m->field('linkpage_id')->where('`linkpage_id` = ' . $linkpage_id . ' AND `id`=' . $parent_id . ' and  `path` like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            if ($cun) {
+                $this->dmsg('1', '不能选择当前分类的子类为父级分类！', false, true);
             }
-            $_POST['path'] = $fpath;
-            $spath = $data['path']; //搜索
-            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
-                $sfid = $sdata['parent_id'];
-                $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%' and `linkpage_id`=$linkpage_id ";
-                $m->query($sql);
+            $data = $m->field('path')->where('id=' . $parent_id)->find();
+            $sort_path = $data['path'] . $parent_id . ','; //取得不为0时的path
+            $_POST['path'] = $data['path'] . $parent_id . ',';
+            $d->updatePath($id, $sort_path, $tbname);
+        } else {//为0，path为,
+            $data = $m->field('parent_id')->where('id=' . $id)->find();
+            if ($data['parent_id'] != $parent_id) {//相同不改变
+                $sort_path = ','; //取得不为0时的path
+                $d->updatePath($id, $sort_path, $tbname);
             }
-        }//if
-
+            $_POST['path'] = ','; //应该是这个
+        }
         $rs = $m->save($_POST);
-        if ($rs == 1) {
-            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-            echo json_encode($json);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '2', 'info' => '未有操作！');
-            echo json_encode($json);
+            $this->dmsg('1', '操作失败！', false, true);
         }
     }
 
@@ -342,7 +313,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortJson() {
+    public function sortJson()
+    {
         $m = M('LinkpageSort');
         $list = $m->select();
         $count = $m->count("id");
@@ -363,7 +335,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function sortModelJson() {
+    public function sortModelJson()
+    {
         $m = M('LinkpageSort');
         $list = $m->field('id,ename')->select();
         $array = array();
@@ -380,7 +353,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonTreeId() {
+    public function jsonTreeId()
+    {
         Load('extend');
         $m = M('LinkpageList');
         $id = intval($_GET['id']);
@@ -397,7 +371,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonTreeListId() {
+    public function jsonTreeListId()
+    {
         Load('extend');
         $m = M('LinkpageList');
         $id = intval($_GET['id']);
@@ -414,7 +389,8 @@ class LinkPageAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonSortTree() {
+    public function jsonSortTree()
+    {
         Load('extend');
         $m = M('LinkpageSort');
         $tree = $m->field('id,ename as text')->select();

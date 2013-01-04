@@ -75,30 +75,22 @@ class ContentModelAction extends AdminAction {
         $condition['emark'] = trim($_POST['emark']);
         $condition['_logic'] = 'OR';
         if (empty($condition['ename']) || empty($condition['emark'])) {
-            $json = array('status' => '1', 'info' => '请将信息输入完整。');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '请将信息输入完整！', false, true);
         }
         if ($m->field('id')->where($condition)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！', false, true);
         }
         $d->addtable($condition['emark']); //创建数据表
 
         if ($m->create()) {
             $rs = $m->add($_POST);
             if ($rs) {//存在值
-                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
-                echo json_encode($json);
+                $this->dmsg('2', '操作成功！', true);
             } else {
-                $json = array('status' => '2', 'info' => '分类添加失败！');
-                echo json_encode($json);
+                $this->dmsg('1', '操作失败！', false, true);
             }
         } else {
-            $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }
     }
 
@@ -121,14 +113,10 @@ class ContentModelAction extends AdminAction {
         $condition['id'] = array('neq', $id);
 
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
-            $json = array('status' => '1', 'info' => '请将信息输入完整。');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '请将信息输入完整！', false, true);
         }
         if ($m->field('id')->where($condition)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '您输入的名称或者标识' . $condition['ename'] . $condition['emark'] . '已经存在！', false, true);
         }
         $data = $m->field('emark')->where('id=' . $id)->find();
         if ($data['emark'] != $_POST['emark']) {
@@ -136,11 +124,9 @@ class ContentModelAction extends AdminAction {
         }
         $rs = $m->save($_POST);
         if ($rs == true) {
-            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-            echo json_encode($json);
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '2', 'info' => '未有操作！');
-            echo json_encode($json);
+            $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
 
@@ -157,20 +143,15 @@ class ContentModelAction extends AdminAction {
         $m = M('ModelSort');
         $list = M('ModelField');
         if ($list->field('sort_id')->where('sort_id=' . $id)->find()) {
-            $json = array('status' => '1', 'info' => '列表中存在该分类元素不能删除！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '列表中存在该分类元素不能删除！', false, true);
         }
         $rs = $m->field('emark')->where('id=' . $id)->find();
         $d->droptable($rs['emark']);
         $del = $m->where('id=' . $id)->delete();
-        if ($del == 1) {
-            $json = array('status' => '2', 'info' => '删除成功！');
-            echo json_encode($json);
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '1', 'info' => '删除失败！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
 
@@ -226,7 +207,6 @@ class ContentModelAction extends AdminAction {
         $id = intval($_GET['id']);
         $list = M('ModelField');
         $data = $list->where('id=' . $id)->find();
-        //$this->assign('id', $id);
         $this->assign('data', $data);
         $this->display();
     }
@@ -246,14 +226,10 @@ class ContentModelAction extends AdminAction {
         $condition['emark'] = $_POST['emark'];
         $condition['sort_id'] = array('eq', $_POST['sort_id']);
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
-            $json = array('status' => '1', 'info' => '名称和标识不能为空！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '名称和标识不能为空！', false, true);
         }
         if ($m->field('id')->where($condition)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['emark'] . '已经存在！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '您输入的名称或者标识' . $_POST['emark'] . '已经存在！', false, true);
         }
         $ms = M('ModelSort');
         $data = $ms->field('emark')->where('id=' . $_POST['sort_id'])->find();
@@ -267,11 +243,9 @@ class ContentModelAction extends AdminAction {
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
-                echo json_encode($json);
+                $this->dmsg('2', '操作成功！', true);
             } else {
-                $json = array('status' => '2', 'info' => '分类添加失败！');
-                echo json_encode($json);
+                $this->dmsg('1', '操作失败！', false, true);
             }
         }//if
     }
@@ -292,14 +266,10 @@ class ContentModelAction extends AdminAction {
         $condition['emark'] = $_POST['emark'];
         $condition['sort_id'] = array('eq', $_POST['sort_id']);
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
-            $json = array('status' => '1', 'info' => '名称和标识不能为空！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '名称和标识不能为空！', false, true);
         }
         if ($m->field('id')->where($condition)->find()) {
-            $json = array('status' => '1', 'info' => '您输入的名称或者标识' . $_POST['emark'] . '已经存在！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '您输入的名称或者标识' . $_POST['emark'] . '已经存在！', false, true);
         }
         $ms = M('ModelSort');
         $data = $ms->field('emark')->where('id=' . $_POST['sort_id'])->find();
@@ -313,12 +283,10 @@ class ContentModelAction extends AdminAction {
         $length = trim($_POST['maxlength']);
         $d->editfield($tablename, $newfield, $oldfield, $type, $length);
         $rs = $m->save($_POST);
-        if ($rs == 1) {
-            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-            echo json_encode($json);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '2', 'info' => '未有操作！');
-            echo json_encode($json);
+            $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
 
@@ -338,19 +306,14 @@ class ContentModelAction extends AdminAction {
         $tablename = $data['tbname'];
         $field = $data['tbfield'];
         if (empty($tablename) || empty($field)) {
-            $json = array('status' => '1', 'info' => '字段信息为空不能执行删除！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '操作失败！', false, true);
         }
         $d->detelefield($tablename, $field);
         $del = $m->where('id=' . $id)->delete();
-        if ($del == 1) {
-            $json = array('status' => '2', 'info' => '删除成功！');
-            echo json_encode($json);
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '1', 'info' => '删除失败！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
 
@@ -385,7 +348,6 @@ class ContentModelAction extends AdminAction {
     public function sortSortJson() {
         $m = M('ModelSort');
         $list = $m->field('id,ename as text')->order('myorder desc,id asc')->select();
-        //$list = array_merge(array(array('id' => 0, 'text' => '--请选择相应的内容模型--')), $list);
         echo json_encode($list);
     }
 

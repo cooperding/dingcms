@@ -83,7 +83,15 @@ class NewsAction extends AdminAction {
     {
         $id = intval($_GET['id']);
 
+        $flag = array(
+            'h'=> ' 头条【h】',
+            'r'=> ' 推荐【r】',
+            's'=> ' 特荐【s】',
+            't'=> ' 置顶【t】',
+            'j' => ' 跳转【j】'
+        );
         $this->assign('id', $id);
+        $this->assign('flag', $flag);
         $this->display();
     }
 
@@ -121,8 +129,11 @@ class NewsAction extends AdminAction {
             }
         }
         $flag = array(
-            'h'=> '调试',
-            'h2'=> '调试2',
+            'h'=> ' 头条【h】',
+            'r'=> ' 推荐【r】',
+            's'=> ' 特荐【s】',
+            't'=> ' 置顶【t】',
+            'j' => ' 跳转【j】'
         );
         $this->assign('data', $data);
         $this->assign('filed', $data_filed);

@@ -60,14 +60,12 @@ class NewsSortAction extends AdminAction {
      */
     public function insert()
     {
-        //添加功能还需要验证数据不能为空的字段
+//添加功能还需要验证数据不能为空的字段
         $m = M('NewsSort');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
-            $json = array('status' => '1', 'info' => '分类名不能为空！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '分类名不能为空！', false, true);
         }
         $en_name = trim($_POST['en_name']);
         if (empty($en_name)) {
@@ -82,11 +80,9 @@ class NewsSortAction extends AdminAction {
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
-                echo json_encode($json);
+                $this->dmsg('2', '操作成功！', true);
             } else {
-                $json = array('status' => '2', 'info' => '分类添加失败！');
-                echo json_encode($json);
+                $this->dmsg('1', '操作失败！', false, true);
             }
         }//if
     }
@@ -100,100 +96,39 @@ class NewsSortAction extends AdminAction {
      */
     public function update()
     {
-        //流程：当选择的父级分类是现有分类的子级元素修改失败，当修改父级元素时，path同时也要修改
-        //判断：
         $m = M('NewsSort');
         $d = D('NewsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-
-        //$data = $m->where('id=' . $parent_id)->find();
-        //$sort_path = $data['path'].$parent_id.','; //取得不为0时的path
-       // $tbname = 'NewsSort';
-       // $sort_path = $data['path'].$parent_id.',';
-       // $d->updatePath($id, $sort_path, $tbname);
-
-
-
+        $tbname = 'NewsSort';
         if ($parent_id != 0) {//不为0时判断是否为子分类
             $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {
-                $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
-                echo json_encode($json);
-                exit;
+                $this->dmsg('1', '不能选择当前分类的子类为父级分类！', false, true);
             }
             $data = $m->field('path')->where('id=' . $parent_id)->find();
-            $sort_path = $data['path'].$parent_id.','; //取得不为0时的path
-            $_POST['path'] = $data['path'].$parent_id.',';
-            $tbname = 'NewsSort';
+            $sort_path = $data['path'] . $parent_id . ','; //取得不为0时的path
+            $_POST['path'] = $data['path'] . $parent_id . ',';
             $d->updatePath($id, $sort_path, $tbname);
-
         } else {//为0，path为,
             $data = $m->field('parent_id')->where('id=' . $id)->find();
             if ($data['parent_id'] != $parent_id) {//相同不改变
                 $sort_path = ','; //取得不为0时的path
-                $tbname = 'NewsSort';
                 $d->updatePath($id, $sort_path, $tbname);
             }
             $_POST['path'] = ','; //应该是这个
         }
-//        $data = $m->where('id=' . $id)->find();
-//        $sort_path = $data['path'];
-        //$_POST['path'] = $fpath;
         $en_name = trim($_POST['en_name']);
         if (empty($en_name)) {
             import("ORG.Util.Pinyin");
             $pinyin = new Pinyin();
             $_POST['en_name'] = $pinyin->output(trim($_POST['text']));
         }
-
-
-//        $data = $m->where('id=' . $id)->find();
-//        $sort_path = $data['path']; //取得不为0时的path
-//                $tbname = 'NewsSort';
-//                $d->updatePath($id, $sort_path, $tbname);
-//
-//        $json = array('status' => '1', 'info' => '不能222！',);
-//        echo json_encode($json);
-//        exit;
-        /*
-
-          if ($parent_id != 0) {
-          $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
-          if ($cun) {
-          $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
-          echo json_encode($json);
-          exit;
-          }
-          $en_name = trim($_POST['en_name']);
-          if (empty($en_name)) {
-          import("ORG.Util.Pinyin");
-          $pinyin = new Pinyin();
-          $_POST['en_name'] = $pinyin->output(trim($_POST['text']));
-          }
-          $fdata = $m->where('id=' . $parent_id)->find();
-          $fpath = $fdata['path'] . $parent_id . ','; //替换
-          $sdata = $m->where('id=' . $id)->find();
-          $spath = $sdata['path']; //搜索
-          if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
-          $sfid = $sdata['parent_id'];
-          $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
-          $m->query($sql);
-          }
-          $_POST['path'] = $fpath;
-          }
-         */
-
         $rs = $m->save($_POST);
-        if ($rs == 1) {
-            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-            echo json_encode($json);
-        } elseif ($rs == 0) {
-            $json = array('status' => '1', 'info' => '更新失败！');
-            echo json_encode($json);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '2', 'info' => '未有操作！');
-            echo json_encode($json);
+            $this->dmsg('1', '未有操作或操作失败！', false, true);
         }
     }
 
@@ -206,7 +141,26 @@ class NewsSortAction extends AdminAction {
      */
     public function delete()
     {
-
+        $m = M('NewsSort');
+        $id = intval($_POST['id']);
+        if (empty($id)) {
+            $this->dmsg('1', '未有id值，无法删除！', false, true);
+        }
+        $data = $m->field('path')->where('path like \'%,' . $id . ',%\'')->select();
+        if (is_array($data)) {
+            $this->dmsg('1', '该分类下还有子级分类，无法删除！', false, true);
+        }
+        $t = M('Title');
+        $t_data = $t->field('sort_id')->where('sort_id=' . $id)->find();
+        if (is_array($t_data)) {
+            $this->dmsg('1', '该分类下还有文档信息，无法删除！', false, true);
+        }
+        $del = $m->where('id=' . $id)->delete();
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
     }
 
     /**
@@ -219,7 +173,7 @@ class NewsSortAction extends AdminAction {
     public function json()
     {
         $m = M('NewsSort');
-        $list = $m->select();
+        $list = $m->field('id,parent_id,text')->select();
         $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {

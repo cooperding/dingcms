@@ -65,9 +65,7 @@ class NavHeadAction extends AdminAction {
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
-            $json = array('status' => '1', 'info' => '分类名不能为空！');
-            echo json_encode($json);
-            exit;
+            $this->dmsg('1', '分类名不能为空！', false, true);
         }
         if ($parent_id != 0) {
             $data = $m->field('path')->where('id=' . $parent_id)->find();
@@ -76,16 +74,12 @@ class NavHeadAction extends AdminAction {
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $json = array('status' => '2', 'info' => '分类添加成功！', 'isclose' => 'ok');
-                echo json_encode($json);
+                $this->dmsg('2', '操作成功！', true);
             } else {
-                $json = array('status' => '2', 'info' => '分类添加失败！');
-                echo json_encode($json);
+                $this->dmsg('1', '分类添加失败！', false, true);
             }
-        }else{
-            $json = array('status' => '1', 'info' => '根据表单提交的POST数据创建数据对象失败！');
-            echo json_encode($json);
-            exit;
+        } else {
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }
     }
 
@@ -98,46 +92,33 @@ class NavHeadAction extends AdminAction {
      */
     public function update()
     {
-        //流程：当选择的父级分类是现有分类的子级元素修改失败，当修改父级元素时，path同时也要修改
-        //判断：
         $m = M('NavHead');
+        $d = D('NewsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-
-        $data = $m->where('id=' . $id)->find();
-        if ($parent_id != $data['parent_id']) {//判断parent_id是否修改
-            if ($parent_id != 0) {//判断当改变分类时，父类是否选择了子类做为其的父类
-                $cun = $m->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
-                if ($cun) {
-                    $json = array('status' => '1', 'info' => '不能选择当前分类的子类为父级分类！',);
-                    echo json_encode($json);
-                    exit;
-                }
-                $fdata = $m->where('id=' . $parent_id)->find();
-                $fpath = $fdata['path'] . $parent_id . ','; //替换
-            } else {
-                $fdata = $m->where('id=' . $parent_id)->find();
-                if (empty($fdata['path'])) {
-                    $fpath = ',' . $parent_id . ','; //替换
-                } else {
-                    $fpath = $fdata['path'] . $parent_id . ','; //替换
-                }
-            }//if
-            $_POST['path'] = $fpath;
-            $spath = $data['path']; //搜索
-            if ($fpath != $spath) {//当二者相同时不必更新，不相同时说明选择父级有变化。执行sql语句
-                $sfid = $sdata['parent_id'];
-                $sql = "update __TABLE__ set `path` = REPLACE(`path`,'$spath','$fpath') WHERE INSTR(`path`,'$spath')>0 and `path` like '%,$id,%'";
-                $m->query($sql);
+        $tbname = 'NavHead';
+        if ($parent_id != 0) {//不为0时判断是否为子分类
+            $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            if ($cun) {
+                $this->dmsg('1', '不能选择当前分类的子类为父级分类！', false, true);
             }
+            $data = $m->field('path')->where('id=' . $parent_id)->find();
+            $sort_path = $data['path'] . $parent_id . ','; //取得不为0时的path
+            $_POST['path'] = $data['path'] . $parent_id . ',';
+            $d->updatePath($id, $sort_path, $tbname);
+        } else {//为0，path为,
+            $data = $m->field('parent_id')->where('id=' . $id)->find();
+            if ($data['parent_id'] != $parent_id) {//相同不改变
+                $sort_path = ','; //取得不为0时的path
+                $d->updatePath($id, $sort_path, $tbname);
+            }
+            $_POST['path'] = ','; //应该是这个
         }
         $rs = $m->save($_POST);
-        if ($rs == 1) {
-            $json = array('status' => '2', 'info' => '更新成功！', 'isclose' => 'ok');
-            echo json_encode($json);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $json = array('status' => '2', 'info' => '未有操作！');
-            echo json_encode($json);
+            $this->dmsg('1', '未有操作或操作失败！', false, true);
         }
     }
 
@@ -153,24 +134,18 @@ class NavHeadAction extends AdminAction {
         $m = M('NavHead');
         $id = intval($_POST['id']);
         if (empty($id)) {
-            $json = array('status' => '1', 'info' => '未有id值，无法删除！');
-            echo json_encode($json);
+            $this->dmsg('1', '未有id值，操作失败！', false, true);
+        }
+        $data = $m->field('id')->where('path like \'%,' . $id . ',%\'')->select();
+        if (is_array($data)) {
+            $this->dmsg('1', '该分类下还有子级分类，操作失败！', false, true);
+        }
+        $del = $m->where('id=' . $id)->delete();
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
         } else {
-            $data = $m->where('path like \'%,' . $id . ',%\'')->select();
-            if (is_array($data)) {
-                $json = array('status' => '1', 'info' => '该分类下还有子级分类，无法删除！');
-                echo json_encode($json);
-            } else {
-                $del = $m->where('id=' . $id)->delete();
-                if ($del == 1) {
-                    $json = array('status' => '2', 'info' => '删除成功！');
-                    echo json_encode($json);
-                } else {
-                    $json = array('status' => '1', 'info' => '删除失败！');
-                    echo json_encode($json);
-                }//if
-            }
-        }//if id
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
     }
 
     /**
@@ -183,7 +158,7 @@ class NavHeadAction extends AdminAction {
     public function json()
     {
         $m = M('NavHead');
-        $list = $m->select();
+        $list = $m->field('id,parent_id,text')->select();
         $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {
