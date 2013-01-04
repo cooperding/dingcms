@@ -23,38 +23,6 @@ class NewsAction extends AdminAction {
     {
         $m = M('Title');
         $id = intval($_GET['id']);
-        /* $id = 2;
-          $s = M('NewsSort');
-          $condition_sort['id'] = $id;
-          $condition_sort['path'] = array('like','%,'.$id.',%');
-          $condition_sort['_logic'] = 'OR';
-          $data_sort = $s->field('id')->where($condition_sort)->select();
-
-          $a = '';
-          foreach($data_sort as $v){
-          $a .= $v['id'].',';
-          }
-          $a = rtrim($a, ',');
-          $condition['sort_id'] = array('in',$a);
-          $condition['is_recycle'] = 'false';
-          $data = $m->where($condition)->select();
-          echo $m->getLastSql();
-          //$data = $m->field('t.id,t.title,t.updatetime,t.editor,t.status')->join(' join '.C('DB_PREFIX').'title as t')->join(C('DB_PREFIX') . 'news_sort ns ON ns.id = t.sort_id ')
-          //->where('ns.id='.$id.' or ns.path like \'%,'.$id.',%\' and t.is_recycle=false')->select();
-
-          $condition['sort_id'] = $id;
-          $data = $m->where($condition)->select();
-          $array = array();
-          $array['total'] = 50;
-          $array['rows'] = $data;
-
-          echo '<pre>';
-          //        echo json_encode($array);
-          //        echo '<br/>';
-          echo time();
-          echo '<br/>';
-          print_r($data);
-          exit; */
         $this->display();
     }
 
@@ -201,7 +169,6 @@ class NewsAction extends AdminAction {
      */
     public function update()
     {
-        //$this->dmsg('1', 'gggg', false, true);
         $t = M('Title');
         $c = M('Content');
         $ns = M('NewsSort');
@@ -215,8 +182,6 @@ class NewsAction extends AdminAction {
         if ($sort_id == 0) {
             $this->dmsg('1', '请选择文档分类！', false, true);
         }
-        //$filed['title_id'] = intval($_POST['id']);
-        //$filed = $_POST['filed'];
         $_POST['flag'] = implode(',', $_POST['flag']);
         $filed = array();
         foreach ($_POST['filed'] as $k => $v) {
@@ -228,24 +193,14 @@ class NewsAction extends AdminAction {
         foreach ($_POST['filedcheckbox'] as $k => $v) {
             $filed[$k] = implode(',', $v);
         }
-        //$this->dmsg('1', $filed['checkbox'], false, true);
-        //exit;
-        //print_r($filed);
-        //exit;
         //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
         $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
                         ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
                         ->where('ns.id=' . intval($_POST['sort_id']))->find();
-        //$sql = $ns->getLastSql();
-        //$this->dmsg('1', $sql, false, true);
         $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
-        //$this->dmsg('1', $sql, false, true);
-        //exit;
         $rs = $t->where($data)->save($_POST);
         $rsc = $c->where($cdata)->save($_POST);
         $rsm = $m->where($cdata)->save($filed);
-        //$sql = $m->getLastSql();
-        //$this->dmsg('1', $sql.$rs.'=='.$rsc.'==='.$rsm, false, true);
         if ($rs == true || $rsc == true || $rsm == true) {
             $this->dmsg('2', '更新成功！', true);
         } else {
@@ -262,8 +217,8 @@ class NewsAction extends AdminAction {
     public function delete()
     {
         $t = M('Title');
-        $data['id'] = intval($_POST['id']);
-        if (empty($id)) {
+        $data['id'] = array('in',$_POST['id']);
+        if (empty($data['id'])) {
             $this->dmsg('1', '未有id值，操作失败！', false, true);
         }
         $rs = $t->where($data)->setField('is_recycle','true');
@@ -334,9 +289,6 @@ class NewsAction extends AdminAction {
         $page = new Page($count, $pageRows);
         $firstRow = ($pageNumber - 1) * $pageRows;
         $data = $m->where($condition)->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
-        //$list = $User->where('status=1')->order('create_time')->limit($page->firstRow.','.$Page->listRows)->select();
-        // $data = $m->where($condition)->limit('1,5')->select();
-        //$data = $m->select();
         $array = array();
         $array['total'] = $count;
         $array['rows'] = $data;

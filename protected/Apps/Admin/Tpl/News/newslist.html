@@ -19,9 +19,6 @@
         var hrefedit = '__APP__/News/edit';
         var hrefcancel = '__APP__/News/delete';
         var urljson = '__APP__/News/listJsonId?id={$id}';
-        //$('.layout_'+classId).css('height',height-200);
-
-
         //openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
         $('#datagrid_'+classId).datagrid({
             url:urljson,
@@ -65,8 +62,6 @@
                         }
                         var href = hrefedit+'?id='+ids;
                         var title = '编辑信息';
-                        //alert(href);
-                        //return false;
                         openDialog(classId,href,title);
                     }
                 },'-',{
@@ -74,24 +69,23 @@
                     text:'删除',
                     iconCls:'icon-cancel',
                     handler:function(){
-                        var selected = $('#datagrid_'+classId).datagrid('getSelected');
-                        if(!selected){
-                            $.messager.alert('信息提示', '1请选择要操作的项', 'error');
+                        var ids = [];
+                        var rows = $('#datagrid_'+classId).datagrid('getSelections');
+                        for(var i=0;i<rows.length;i++){
+                            ids.push(rows[i].id);
+                        }
+                        if(ids==''){
+                            $.messager.alert('信息提示', '请选择要操作的项', 'error');
                             return false;
                         }
-                        var id = selected.id;
                         var href = hrefcancel;
                         var title = '删除信息';
-                        //                        alert(id);
-                        //                        return false;
                         $.messager.confirm(title,href, function(){
-                            //                    alert(id);
-                            //                    return false;
                             $.ajax({
                                 url:href,
                                 type:'post',
                                 data:{
-                                    id:id
+                                    id:ids
                                 },
                                 dataType:'json',
                                 success:function(data){
@@ -112,13 +106,6 @@
             beforePageText: '第',//页数文本框前显示的汉字
             afterPageText: '页    共 {pages} 页',
             displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
-            /*
-            onBeforeRefresh:function(pageNumber, pageSize){
-            $(this).pagination('loading');
-            alert('pageNumber:'+pageNumber+',pageSize:'+pageSize);
-            $(this).pagination('loaded');
-            }
-*/
         })
     })
 </script>
