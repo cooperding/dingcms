@@ -19,8 +19,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index()
-    {
+    public function index() {
         $m = M('Title');
         $id = intval($_GET['id']);
         $this->display();
@@ -33,8 +32,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function newslist()
-    {
+    public function newslist() {
         $id = intval($_GET['id']);
         $this->assign('id', $id);
         $this->display('newslist');
@@ -47,8 +45,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function add()
-    {
+    public function add() {
         $id = intval($_GET['id']);
         $flag = array(
             'h' => ' 头条[h] ',
@@ -69,8 +66,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function edit()
-    {
+    public function edit() {
         $m = M('Title');
         $id = intval($_GET['id']);
         $data = $m->field('t.*,c.content,ms.id as msid,ms.emark as msemaerk')->join(' join ' . C('DB_PREFIX') . 'title as t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
@@ -111,8 +107,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function insert()
-    {
+    public function insert() {
         $t = M('Title');
         $c = M('Content');
         $ns = M('NewsSort');
@@ -167,8 +162,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function update()
-    {
+    public function update() {
         $t = M('Title');
         $c = M('Content');
         $ns = M('NewsSort');
@@ -215,8 +209,7 @@ class NewsAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function delete()
-    {
+    public function delete() {
         $t = M('Title');
         $data['id'] = array('in', $_POST['id']);
         if (empty($data['id'])) {
@@ -237,8 +230,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function tempmodel()
-    {
+    public function tempmodel() {
         $mf = M('ModelField');
         $id = intval($_POST['id']);
         $data_filed = $mf->where('sort_id =' . $id)->order('myorder asc,id asc')->select();
@@ -264,10 +256,63 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function recycle()
-    {
+    public function recycle() {
         $t = M('Title');
         $this->display();
+    }
+
+    /**
+     * recycleRevert
+     * 回收站还原信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function recycleRevert() {
+        $t = M('Title');
+        $data['id'] = array('in', $_POST['id']);
+        if (empty($data['id'])) {
+            $this->dmsg('1', '未有id值，操作失败！', false, true);
+        }
+        $rs = $t->where($data)->setField('is_recycle', 'false');
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
+    }
+
+    /**
+     * deleteRec
+     * 从回收站彻底删除信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function deleteRec() {
+        $t = M('Title');
+        $c = M('Content');
+        $data['id'] = array('in', $_POST['id']);
+        $cdata['title_id'] = array('in', $_POST['id']);
+        //id是唯一的值，要取得所有模型的表名，才能删除模型内的信息
+        foreach ($_POST['id'] as $k => $v) {
+            //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
+            $model_rs = $t->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
+                            ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
+                            ->join(C('DB_PREFIX') . 'title t ON t.sort_id = ns.id ')
+                            ->where('t.id=' . $v)->find();
+            //$sql = $t->getLastSql();
+            //$this->dmsg('1', $sql, false, true);
+            $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
+            $m->where('title_id='.$v)->delete(); 
+        }
+        $rst = $t->where($data)->delete(); 
+        $rsc = $c->where($cdata)->delete(); 
+        if ($rst == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
     }
 
     /**
@@ -277,8 +322,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function listJsonId()
-    {
+    public function listJsonId() {
         $m = M('Title');
         $s = M('NewsSort');
         import('ORG.Util.Page'); // 导入分页类
@@ -300,7 +344,7 @@ class NewsAction extends AdminAction {
         $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
         $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
 
-        $condition['is_recycle'] = isset($_GET['is_recycle'])?'true':'false';
+        $condition['is_recycle'] = isset($_GET['is_recycle']) ? 'true' : 'false';
         $count = $m->where($condition)->count();
         $page = new Page($count, $pageRows);
         $firstRow = ($pageNumber - 1) * $pageRows;
@@ -342,8 +386,7 @@ class NewsAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonSortTree()
-    {
+    public function jsonSortTree() {
         Load('extend');
         $m = M('NewsSort');
         $tree = $m->field('id,parent_id,text')->select();

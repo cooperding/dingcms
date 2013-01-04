@@ -15,7 +15,7 @@
     $(function(){
         var height = $('.indexcenter').height();
         var classId = 'newsrecycle';
-        var hrefrevert = '__APP__/News/addRevert';
+        var hrefrevert = '__APP__/News/recycleRevert';
         var hrefedit = '__APP__/News/edit';
         var hrefcancel = '__APP__/News/deleteRec';
         var urljson = '__APP__/News/listJsonId?id={$id}&is_recycle=true';
@@ -27,7 +27,7 @@
             rownumbers:true,
             fitColumns:true,
             checkbox:true,
-            height:height-110,
+            height:height-50,
             //singleSelect:true,
             frozenColumns:[[
                     {
