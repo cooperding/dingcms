@@ -207,7 +207,8 @@ class NewsAction extends AdminAction {
             $this->dmsg('1', '更新失败,或者未有更新！', false, true);
         }
     }
-/**
+
+    /**
      * delete
      * 删除文档到回收站
      * @access public
@@ -217,17 +218,18 @@ class NewsAction extends AdminAction {
     public function delete()
     {
         $t = M('Title');
-        $data['id'] = array('in',$_POST['id']);
+        $data['id'] = array('in', $_POST['id']);
         if (empty($data['id'])) {
             $this->dmsg('1', '未有id值，操作失败！', false, true);
         }
-        $rs = $t->where($data)->setField('is_recycle','true');
+        $rs = $t->where($data)->setField('is_recycle', 'true');
         if ($rs == true) {
             $this->dmsg('2', '操作成功！', true);
         } else {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * tempmodel
      * 写入信息
@@ -252,6 +254,19 @@ class NewsAction extends AdminAction {
         }
         $this->assign('id', time());
         $this->assign('filed', $data_filed);
+        $this->display();
+    }
+
+    /**
+     * recycle
+     * 回收站信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function recycle()
+    {
+        $t = M('Title');
         $this->display();
     }
 
@@ -284,7 +299,8 @@ class NewsAction extends AdminAction {
         $pageRows = intval($_POST['rows']);
         $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
         $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
-        $condition['is_recycle'] = 'false';
+
+        $condition['is_recycle'] = isset($_GET['is_recycle'])?'true':'false';
         $count = $m->where($condition)->count();
         $page = new Page($count, $pageRows);
         $firstRow = ($pageNumber - 1) * $pageRows;
