@@ -148,9 +148,16 @@ class Dispatcher {
             // 加载分组配置文件
             if(is_file($config_path.'config.php'))
                 C(include $config_path.'config.php');
+            // 加载分组别名定义
+            if(is_file($config_path.'alias.php'))
+                alias_import(include $config_path.'alias.php');
+            // 加载分组tags文件定义
+            if(is_file($config_path.'tags.php'))
+                C('tags', include $config_path.'tags.php');
             // 加载分组函数文件
             if(is_file($common_path.'function.php'))
-                include $common_path.'function.php';  
+                include $common_path.'function.php';
+
         }        
         define('MODULE_NAME',self::getModule(C('VAR_MODULE')));
         define('ACTION_NAME',self::getAction(C('VAR_ACTION')));

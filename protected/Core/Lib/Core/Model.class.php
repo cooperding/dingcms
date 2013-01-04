@@ -1379,7 +1379,8 @@ class Model {
      * @return Model
      */
     public function cache($key=true,$expire=null,$type=''){
-        $this->options['cache']  =  array('key'=>$key,'expire'=>$expire,'type'=>$type);
+        if(false !== $key)
+            $this->options['cache']  =  array('key'=>$key,'expire'=>$expire,'type'=>$type);
         return $this;
     }
 
@@ -1458,16 +1459,17 @@ class Model {
         }elseif(is_object($where)){
             $where  =   get_object_vars($where);
         }
-        if(is_string($where)){
+        if(is_string($where) && '' != $where){
             $map    =   array();
             $map['_string']   =   $where;
             $where  =   $map;
-        }
+        }        
         if(isset($this->options['where'])){
             $this->options['where'] =   array_merge($this->options['where'],$where);
         }else{
             $this->options['where'] =   $where;
         }
+        
         return $this;
     }
 
