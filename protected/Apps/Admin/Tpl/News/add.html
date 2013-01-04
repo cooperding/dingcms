@@ -1,27 +1,185 @@
 <div class="pageform">
-<form action="__APP__/Setting/insert" id="form_settingtab{$id}" method="post" enctype="multipart/form-data">
-<ul>
-<li>
-<label>变量名：</label>
-<p><input type="text" name="sys_name" value="" data-options="required:true" class="easyui-validatebox"/><span class="red">*请以 cfg_ 开头</span></p>
-</li>
-<li>
-<label>所属分组：</label>
-<p><html:select selected="" options="select" name="sys_gid" first="请选择所属分组" /></p
-</li>
-<li>
-<label>变量类型：</label>
-<p><html:radio name="sys_type" checked="text" radios="radios" /></p>
-</li>
-<li>
-<label>参数值：</label><p><textarea name="sys_value" rows="3" cols="30"></textarea><span class="red">*选择布尔值输入否：1/是：2</span></p>
-</li>
-<li>
-<label>参数说明;</label><p><input type="text" name="sys_info" value="" /></p>
-</li>
-<li>
-<label>排序：</label><p><input type="text" name="myorder" value="" /></p>
-</li>
-</ul>
-</form>
+    <form action="__APP__/News/insert" id="form_newstab{$id}" method="post" enctype="multipart/form-data">
+        <script charset="utf-8" src="__PUBLIC__/Kindeditor/kindeditor-min.js"></script>
+        <ul>
+            <li>
+                <label>文档标题：</label>
+                <p><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+            </li>
+            <li>
+                <label>标题颜色：</label>
+                <p>
+                    <input type="text" id="color" name="sys_name" value="{$data.sys_name}"/>
+                    <input type="button" id="colorpicker" value="打开取色器" />
+                </p>
+            </li>
+            <li>
+                <label>文档副标题：</label>
+                <p><input type="text" name="subtitle" value="{$data.subtitle}" /></p>
+            </li>
+            <li>
+                <label>文档属性：</label>
+                <p>
+            <php>
+                $arr = explode(',',$data['flag']);
+                foreach($flag as $k=>$v){
+                    if(in_array($k,$arr)){
+                        echo '<input name="flag[]" type="checkbox" value="'.$k.'" checked="checked"/>'.$v;
+                    }else{
+                        echo '<input name="flag[]" type="checkbox" value="'.$k.'"/>'.$v;
+                    }
+                }
+            </php>
+            <html:checkbox name="flag" checkboxes="" checked="" /></p>
+            </li>
+            <li>
+                <label>文档分类：</label>
+                <p><input name="sort_id" id="sort_combotree" value="{$data.sort_id}"  style="width:200px;" /><span class="red">*请先选择文档分类</span></p>
+            </li>
+            <li>
+                <label>文档标题图：</label>
+                <p>
+                    <input type="text" id="url1" name="titlepic" value="{$data.titlepic}" />
+                    <input type="button" id="image1" value="选择图片" />
+                </p>
+            </li>
+            <li>
+                <label>编辑：</label>
+                <p><input type="text" name="editor" value="{$data.editor}" /></p>
+            </li>
+            <li>
+                <label>作者：</label>
+                <p><input type="text" name="author" value="{$data.author}" /></p>
+            </li>
+            <li>
+                <label>来源：</label>
+                <p><input type="text" name="source" value="{$data.source}" /></p>
+            </li>
+            <li>
+                <label>来源网址：</label>
+                <p><input type="text" name="sourceurl" value="{$data.sourceurl}" /></p>
+            </li>
+            <li>
+                <label>关键词：</label>
+                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
+            </li>
+            <li>
+                <label>描述简介：</label>
+                <p><textarea name="description" rows="3" cols="30">{$data.description}</textarea></p>
+            </li>
+            <li>
+                <label>发布时间：</label>
+                <p>{$data.addtime|date="Y-m-d H:i:s",###}</p>
+            </li>
+            <li>
+                <label>更新时间：</label>
+                <p>{$data.updatetime|date="Y-m-d H:i:s",###}</p>
+            </li>
+            <li>
+                <label>审核状态：</label>
+                <p><html:radio name="status" radios="radios" checked="true"/></p>
+            </li>
+            <li>
+                <label>文档内容：</label><p></p>
+            </li>
+            <li>
+                <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content|stripslashes}</textarea>
+            </li>
+            <div id="conModel" style="border-top: 1px solid #0000ff;margin: 10px 0;"><include file="News:tempmodel" /></div>
+        </ul>
+    </form>
+    <script>
+        $(function() {
+            $('#sort_combotree').combotree({
+                url:'__APP__/NewsSort/jsonTree',
+                required:true,
+                onChange:function(){
+                    var nid = $(this).combotree('getValue');
+                    //取得id之后，判断是否修改内容模型
+                    //ajax方法取得相关信息
+                    //var nid = node.id;
+                    /*
+                    $.messager.confirm('确认信息', '确认是否修改?', function(r){
+                        if (r){
+                            alert('confirmed:'+r);
+                            location.href = 'http://www.google.com';
+                        }
+                    });
+                     */
+                    var href = '__APP__/News/tempmodel';
+                    $.ajax({
+                        url:href,
+                        type:'post',
+                        data:{
+                            id:nid
+                        },
+                        dataType:'html',
+                        success:function(data){
+                            //alert(data);
+                            $('#conModel').html(data);
+                        }
+                    });//ajax
+                }
+            });
+            KindEditor.create('#content', {
+                themeType : 'simple',
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson',
+                afterBlur : function() {
+                    this.sync();
+                }
+            });
+            var editor = KindEditor.editor({
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson'
+            });
+            KindEditor('#image1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : KindEditor('#url1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            KindEditor('#url1').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+            /*
+            var colorpicker;
+            KindEditor('#colorpicker').bind('click', function(e) {
+                e.stopPropagation();
+                if (colorpicker) {
+                    colorpicker.remove();
+                    colorpicker = null;
+                    return;
+                }
+                var colorpickerPos = KindEditor('#colorpicker').pos();
+                colorpicker = KindEditor.colorpicker({
+                    x : colorpickerPos.x,
+                    y : colorpickerPos.y + KindEditor('#colorpicker').height(),
+                    z : 19811214,
+                    selectedColor : 'default',
+                    noColor : '无颜色',
+                    click : function(color) {
+                        KindEditor('#color').val(color);
+                        colorpicker.remove();
+                        colorpicker = null;
+                    }
+                });
+            });
+            KindEditor.click(function() {
+                if (colorpicker) {
+                    colorpicker.remove();
+                    colorpicker = null;
+                }
+            });
+
+             */
+
+        });
+    </script>
+
 </div>

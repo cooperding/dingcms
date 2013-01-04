@@ -82,13 +82,12 @@ class NewsAction extends AdminAction {
     public function add()
     {
         $id = intval($_GET['id']);
-
         $flag = array(
-            'h'=> ' 头条【h】',
-            'r'=> ' 推荐【r】',
-            's'=> ' 特荐【s】',
-            't'=> ' 置顶【t】',
-            'j' => ' 跳转【j】'
+            'h' => ' 头条[h] ',
+            'r' => ' 推荐[r] ',
+            's' => ' 特荐[s] ',
+            't' => ' 置顶[t] ',
+            'j' => ' 跳转[j] '
         );
         $this->assign('id', $id);
         $this->assign('flag', $flag);
@@ -108,18 +107,13 @@ class NewsAction extends AdminAction {
         $id = intval($_GET['id']);
         $data = $m->field('t.*,c.content,ms.id as msid,ms.emark as msemaerk')->join(' join ' . C('DB_PREFIX') . 'title as t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
                         ->join(C('DB_PREFIX') . 'news_sort ns ON ns.id=t.sort_id')->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
-                        //->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . 'msemaerk af ON af.title_id=t.id')
                         ->where('t.id=' . $id)->find();
-        //echo $data['msemaerk'];
         $am = M(ucfirst(C('DB_ADD_PREFIX')) . $data['msemaerk']);
         $data_ms = $am->where('title_id=' . $id)->find();
-        //$sql = $m->getLastSql();
-        //echo $sql;
-        //exit;
         $mf = M('ModelField');
         $data_filed = $mf->where('sort_id =' . $data['msid'])->order('myorder asc,id asc')->select();
         foreach ($data_filed as $k => $v) {
-            $exp = explode(',',$v['evalue']);
+            $exp = explode(',', $v['evalue']);
             if ($v['etype'] == 'radio') {
                 $data_filed[$k]['opts'] = $exp;
             } elseif ($v['etype'] == 'checkbox') {
@@ -129,47 +123,16 @@ class NewsAction extends AdminAction {
             }
         }
         $flag = array(
-            'h'=> ' 头条【h】',
-            'r'=> ' 推荐【r】',
-            's'=> ' 特荐【s】',
-            't'=> ' 置顶【t】',
-            'j' => ' 跳转【j】'
+            'h' => ' 头条[h] ',
+            'r' => ' 推荐[r] ',
+            's' => ' 特荐[s] ',
+            't' => ' 置顶[t] ',
+            'j' => ' 跳转[j] '
         );
         $this->assign('data', $data);
         $this->assign('filed', $data_filed);
         $this->assign('datafiled', $data_ms);
         $this->assign('flag', $flag);
-        $this->display();
-    }
-
-    /**
-     * tempmodel
-     * 写入信息
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function tempmodel()
-    {
-        $mf = M('ModelField');
-        //$id = intval($_POST['id']);
-        $id = 1;
-        $data_filed = $mf->where('sort_id =' . $id)->order('myorder asc,id asc')->select();
-        foreach ($data_filed as $k => $v) {
-            $exp = explode(',',$v['evalue']);
-            if ($v['etype'] == 'radio') {
-                $data_filed[$k]['opts'] = $exp;
-                //$this->assign($v['emark'], explode(',',$v['evalue']));
-            } elseif ($v['etype'] == 'checkbox') {
-                $data_filed[$k]['opts'] = $exp;
-                //$this->assign('checkbox_' . $v['emark'], $checkbox);
-            } elseif ($v['etype'] == 'select') {
-                $data_filed[$k]['opts'] = $exp;
-                //$this->assign('checkbox_' . $v['emark'], $checkbox);
-            }
-        }
-        $this->assign('id', time());
-        $this->assign('filed', $data_filed);
         $this->display();
     }
 
@@ -182,57 +145,51 @@ class NewsAction extends AdminAction {
      */
     public function insert()
     {
-        //$this->dmsg('1', 'gggg', false, true);
         $t = M('Title');
         $c = M('Content');
         $ns = M('NewsSort');
-        $data['id'] = intval($_POST['id']);
-        $cdata['title_id'] = intval($_POST['id']);
         $title = trim($_POST['title']);
         $sort_id = $_POST['sort_id'];
-        if(empty($title)){
+        if (empty($title)) {
             $this->dmsg('1', '文章标题不能为空！', false, true);
         }
-        if($sort_id==0){
+        if ($sort_id == 0) {
             $this->dmsg('1', '请选择文档分类！', false, true);
         }
-        //$filed['title_id'] = intval($_POST['id']);
-        //$filed = $_POST['filed'];
-        $_POST['flag'] = implode(',',$_POST['flag']);
+        $_POST['flag'] = implode(',', $_POST['flag']);
         $filed = array();
-        foreach($_POST['filed'] as $k=>$v){
+        foreach ($_POST['filed'] as $k => $v) {
             $filed[$k] = $v;
         }
-        foreach($_POST['filedtime'] as $k=>$v){
+        foreach ($_POST['filedtime'] as $k => $v) {
             $filed[$k] = strtotime($v);
         }
-        foreach($_POST['filedcheckbox'] as $k=>$v){
-            $filed[$k] = implode(',',$v);
+        foreach ($_POST['filedcheckbox'] as $k => $v) {
+            $filed[$k] = implode(',', $v);
         }
-        //$this->dmsg('1', $filed['checkbox'], false, true);
-        //exit;
-        //print_r($filed);
-        //exit;
         //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
         $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
-                ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
-                ->where('ns.id=' . intval($_POST['sort_id']))->find();
-        //$sql = $ns->getLastSql();
-        //$this->dmsg('1', $sql, false, true);
-        $m = M(ucfirst(C('DB_ADD_PREFIX')).$model_rs['emark']);
-        //$this->dmsg('1', $sql, false, true);
-        //exit;
-        $rs = $t->where($data)->save($_POST);
-        $rsc = $c->where($cdata)->save($_POST);
-        $rsm = $m->where($cdata)->save($filed);
-        //$sql = $m->getLastSql();
-        //$this->dmsg('1', $sql.$rs.'=='.$rsc.'==='.$rsm, false, true);
-        if ($rs == true||$rsc == true||$rsm == true) {
-            $this->dmsg('2', '更新成功！', true);
+                        ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
+                        ->where('ns.id=' . intval($_POST['sort_id']))->find();
+        $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
+        //开始写入信息
+        if ($t->create($_POST)) {
+            $rs = $t->add($_POST);
+            $last_id = $t->getLastInsID();
+            if ($rs == true) {
+                $_POST['title_id'] = intval($last_id);
+                $filed['title_id'] = intval($last_id);
+                $rsc = $c->data($_POST)->add();
+                $rsm = $m->data($filed)->add();
+                if ($rs == true || $rsc == true || $rsm == true) {
+                    $this->dmsg('2', ' 操作成功！', true);
+                }
+            } else {
+                $this->dmsg('1', '操作失败！', false, true);
+            }
         } else {
-            $this->dmsg('1', '更新失败！', false, true);
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }
-
     }
 
     /**
@@ -252,24 +209,24 @@ class NewsAction extends AdminAction {
         $cdata['title_id'] = intval($_POST['id']);
         $title = trim($_POST['title']);
         $sort_id = $_POST['sort_id'];
-        if(empty($title)){
+        if (empty($title)) {
             $this->dmsg('1', '文章标题不能为空！', false, true);
         }
-        if($sort_id==0){
+        if ($sort_id == 0) {
             $this->dmsg('1', '请选择文档分类！', false, true);
         }
         //$filed['title_id'] = intval($_POST['id']);
         //$filed = $_POST['filed'];
-        $_POST['flag'] = implode(',',$_POST['flag']);
+        $_POST['flag'] = implode(',', $_POST['flag']);
         $filed = array();
-        foreach($_POST['filed'] as $k=>$v){
+        foreach ($_POST['filed'] as $k => $v) {
             $filed[$k] = $v;
         }
-        foreach($_POST['filedtime'] as $k=>$v){
+        foreach ($_POST['filedtime'] as $k => $v) {
             $filed[$k] = strtotime($v);
         }
-        foreach($_POST['filedcheckbox'] as $k=>$v){
-            $filed[$k] = implode(',',$v);
+        foreach ($_POST['filedcheckbox'] as $k => $v) {
+            $filed[$k] = implode(',', $v);
         }
         //$this->dmsg('1', $filed['checkbox'], false, true);
         //exit;
@@ -277,11 +234,11 @@ class NewsAction extends AdminAction {
         //exit;
         //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
         $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
-                ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
-                ->where('ns.id=' . intval($_POST['sort_id']))->find();
+                        ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
+                        ->where('ns.id=' . intval($_POST['sort_id']))->find();
         //$sql = $ns->getLastSql();
         //$this->dmsg('1', $sql, false, true);
-        $m = M(ucfirst(C('DB_ADD_PREFIX')).$model_rs['emark']);
+        $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
         //$this->dmsg('1', $sql, false, true);
         //exit;
         $rs = $t->where($data)->save($_POST);
@@ -289,18 +246,58 @@ class NewsAction extends AdminAction {
         $rsm = $m->where($cdata)->save($filed);
         //$sql = $m->getLastSql();
         //$this->dmsg('1', $sql.$rs.'=='.$rsc.'==='.$rsm, false, true);
-        if ($rs == true||$rsc == true||$rsm == true) {
+        if ($rs == true || $rsc == true || $rsm == true) {
             $this->dmsg('2', '更新成功！', true);
         } else {
             $this->dmsg('1', '更新失败,或者未有更新！', false, true);
         }
-//        if ($rs == true||$rsc == true||$rsm == true) {
-//            $this->dmsg('2', '更新成功！', true);
-//        } elseif ($rs == 0||$rsc == 0||$rsm == 0) {
-//            $this->dmsg('1', '更新失败！', false, true);
-//        } else {
-//            $this->dmsg('2', '未有操作！', true);
-//        }
+    }
+/**
+     * delete
+     * 删除文档到回收站
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function delete()
+    {
+        $t = M('Title');
+        $data['id'] = intval($_POST['id']);
+        if (empty($id)) {
+            $this->dmsg('1', '未有id值，操作失败！', false, true);
+        }
+        $rs = $t->where($data)->setField('is_recycle','true');
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
+    }
+    /**
+     * tempmodel
+     * 写入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function tempmodel()
+    {
+        $mf = M('ModelField');
+        $id = intval($_POST['id']);
+        $data_filed = $mf->where('sort_id =' . $id)->order('myorder asc,id asc')->select();
+        foreach ($data_filed as $k => $v) {
+            $exp = explode(',', $v['evalue']);
+            if ($v['etype'] == 'radio') {
+                $data_filed[$k]['opts'] = $exp;
+            } elseif ($v['etype'] == 'checkbox') {
+                $data_filed[$k]['opts'] = $exp;
+            } elseif ($v['etype'] == 'select') {
+                $data_filed[$k]['opts'] = $exp;
+            }
+        }
+        $this->assign('id', time());
+        $this->assign('filed', $data_filed);
+        $this->display();
     }
 
     /**
