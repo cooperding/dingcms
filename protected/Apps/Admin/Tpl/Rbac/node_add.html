@@ -1,0 +1,25 @@
+<div class="pageform">
+    <form action="__APP__/NewsSort/insert" id="form_nodesort" method="post">
+        <ul>
+            <li>
+                <label>节点项目名：</label>
+                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*项目模块控制器名</span></p>
+            </li>
+            <li>
+                <label>节点显示名：</label>
+                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*中文名</span></p>
+            </li>
+            <li>
+                <label>上级分组名：</label>
+                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="0"  style="width:200px;"></p
+            </li>
+            <li>
+                <label>状态：</label>
+                <p><input type="text" name="text" value="{$data.text}" /></p>
+            </li>
+            <li>
+                <label>描 述：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
+            </li>
+        </ul>
+    </form>
+</div>

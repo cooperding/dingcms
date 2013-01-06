@@ -20,7 +20,6 @@ class NewsAction extends AdminAction {
      * @version dogocms 1.0
      */
     public function index() {
-        $m = M('Title');
         $id = intval($_GET['id']);
         $this->display();
     }
@@ -304,10 +303,10 @@ class NewsAction extends AdminAction {
             //$sql = $t->getLastSql();
             //$this->dmsg('1', $sql, false, true);
             $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
-            $m->where('title_id='.$v)->delete(); 
+            $m->where('title_id='.$v)->delete();
         }
-        $rst = $t->where($data)->delete(); 
-        $rsc = $c->where($cdata)->delete(); 
+        $rst = $t->where($data)->delete();
+        $rsc = $c->where($cdata)->delete();
         if ($rst == true) {
             $this->dmsg('2', '操作成功！', true);
         } else {

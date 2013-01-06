@@ -1,0 +1,26 @@
+<div class="pagecontent">
+
+    <table title="权限节点管理" id="treegrid_nodesort">
+
+    </table>
+
+    <script>
+        $(function(){
+            var classId = 'nodesort';
+            var urljson = '__APP__/NewsSort/json';
+            var hrefadd = '__APP__/Node/add';
+            var hrefedit = '__APP__/Node/edit';
+            var hrefcancel = '__APP__/Node/delete';
+            openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+            $('#treegrid_'+classId).treegrid({
+                columns:[[
+                        {field:'id',title:'id',width:50},
+                        {field:'text',title:'text',width:200},
+                        {field:'parent_id',title:'parent_id',width:200},
+                        {field:'myorder',title:'myorder',width:80}
+                    ]]
+            })
+        })
+    </script>
+
+</div><!--pagecontent-->

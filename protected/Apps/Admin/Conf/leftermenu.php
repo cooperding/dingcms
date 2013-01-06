@@ -51,8 +51,8 @@ $array = array(
                     array('label' => L('menu_member_frontlist'), 'type' => 'member_frontlist', 'link' => 'www.baidu.com')
             )),
             array('label' => L('menu_backcom_name'), 'type' => 'backcom_name', 'items' => array(
-                    array('label' => L('menu_backcom_cat'), 'type' => 'backcom_cat', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_backcom_list'), 'type' => 'backcom_list', 'link' => 'www.baidu.com')
+                    array('label' => L('menu_node_name'), 'type' => 'member_adminlist', 'link' => __APP__ . '/Node/index'),
+                    array('label' => L('menu_role_name'), 'type' => 'member_adminlist', 'link' => __APP__ . '/Role/index')
             )),
             array('label' => L('menu_frontcom_name'), 'type' => 'frontcom_name', 'items' => array(
                     array('label' => L('menu_frontcom_cat'), 'type' => 'frontcom_cat', 'link' => 'www.baidu.com'),
