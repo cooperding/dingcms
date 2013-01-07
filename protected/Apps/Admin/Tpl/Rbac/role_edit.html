@@ -1,0 +1,22 @@
+<div class="pageform">
+    <form action="__APP__/Role/update" id="form_rolesort" method="post">
+        <input type="hidden" name="id" value="{$data.id}" />
+        <ul>
+            <li>
+                <label>角色名：</label>
+                <p><input type="text" name="name" value="{$data.name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*项目模块控制器名</span></p>
+            </li>
+            <li>
+                <label>上级分组名：</label>
+                <p><input name="pid" class="easyui-combotree combotree" data-options="url:'__APP__/Role/jsonTree',required:true"  value="{$data.pid}"  style="width:200px;"></p
+            </li>
+            <li>
+                <label>状态：</label>
+                <p><html:radio name="status" radios="radios"  checked="1"/></p>
+            </li>
+            <li>
+                <label>描 述：</label><p><textarea name="remark" rows="3" cols="30">{$data.remark}</textarea><span class="red"></span></p>
+            </li>
+        </ul>
+    </form>
+</div>

@@ -7,7 +7,7 @@
     <script>
         $(function(){
             var classId = 'nodesort';
-            var urljson = '__APP__/NewsSort/json';
+            var urljson = '__APP__/Node/json';
             var hrefadd = '__APP__/Node/add';
             var hrefedit = '__APP__/Node/edit';
             var hrefcancel = '__APP__/Node/delete';
@@ -16,8 +16,8 @@
                 columns:[[
                         {field:'id',title:'id',width:50},
                         {field:'text',title:'text',width:200},
-                        {field:'parent_id',title:'parent_id',width:200},
-                        {field:'myorder',title:'myorder',width:80}
+                        {field:'pid',title:'pid',width:200},
+                        {field:'sort',title:'sort',width:80}
                     ]]
             })
         })

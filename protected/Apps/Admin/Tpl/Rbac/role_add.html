@@ -1,36 +1,20 @@
 <div class="pageform">
-    <form action="__APP__/NewsSort/insert" id="form_rolesort" method="post">
+    <form action="__APP__/Role/insert" id="form_rolesort" method="post">
         <ul>
             <li>
-                <label>分类3名称：</label>
-                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <label>角色名：</label>
+                <p><input type="text" name="name" value="{$data.name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*项目模块控制器名</span></p>
             </li>
             <li>
                 <label>上级分组名：</label>
-                <p><input name="parent_id" class="easyui-combotree combotree" data-options="url:'__APP__/NewsSort/jsonTree',required:true"  value="0"  style="width:200px;"></p
+                <p><input name="pid" class="easyui-combotree combotree" data-options="url:'__APP__/Role/jsonTree',required:true"  value="0"  style="width:200px;"></p
             </li>
             <li>
-                <label>选择内容模型：</label>
-                <p><input name="model_id" class="easyui-combotree combotree" data-options="url:'__APP__/ContentModel/sortSortJson',required:true"  value="0"  style="width:200px;"></p
+                <label>状态：</label>
+                <p><html:radio name="status" radios="radios"  checked="1"/></p>
             </li>
             <li>
-                <label>封面模板：</label><p><input type="text" name="tpl_index" value="{$data.tpl_index}" /></p>
-            </li>
-            <li>
-                <label>列表模板：</label><p><input type="text" name="tpl_list" value="{$data.tpl_list}" /></p>
-            </li>
-            <li>
-                <label>文章模板：</label><p><input type="text" name="tpl_views" value="{$data.tpl_views}" /></p>
-            </li>
-            <li>
-                <label>{:L("keywords")}：</label>
-                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
-            </li>
-            <li>
-                <label>{:L("description")}：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
-            </li>
-            <li>
-                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
+                <label>描 述：</label><p><textarea name="remark" rows="3" cols="30">{$data.remark}</textarea><span class="red"></span></p>
             </li>
         </ul>
     </form>

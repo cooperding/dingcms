@@ -19,8 +19,7 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index()
-    {
+    public function index() {
         $this->display('rbac:role');
     }
 
@@ -31,8 +30,12 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function add()
-    {
+    public function add() {
+        $radios = array(
+            '1' => '启用',
+            '0' => '禁用'
+        );
+        $this->assign('radios', $radios);
         $this->display('rbac:role_add');
     }
 
@@ -43,12 +46,132 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function edit()
-    {
-        $m = M('NewsSort');
+    public function edit() {
+        $m = M('Role');
         $data = $m->where('id=' . intval($_GET['id']))->find();
+        $radios = array(
+            '1' => '启用',
+            '0' => '禁用'
+        );
         $this->assign('data', $data);
+        $this->assign('radios', $radios);
         $this->display('rbac:role_edit');
+    }
+
+    /**
+     * setRbac
+     * 设置权限
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function setRbac() {
+        $m = M('Role');
+        $data = $m->where('id=' . intval($_GET['id']))->find();
+        $radios = array(
+            '1' => '启用',
+            '0' => '禁用'
+        );
+        $this->assign('data', $data);
+        $this->assign('radios', $radios);
+        $this->display('rbac:set_rbac');
+    }
+
+    /**
+     * insert
+     * 分类插入数据
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function insert() {
+        $m = M('Role');
+        $name = trim($_POST['name']);
+        $_POST['status'] = $_POST['status'][0];
+        //$this->dmsg('1', $_POST['status'], false, true);
+        if (empty($name)) {
+            $this->dmsg('1', '角色名不能为空！', false, true);
+        }
+        if ($m->create()) {
+            $rs = $m->add($_POST);
+            if ($rs) {
+                $this->dmsg('2', '操作成功！', true);
+            } else {
+                $this->dmsg('1', '操作失败！', false, true);
+            }
+        }//if
+    }
+
+    /**
+     * insert
+     * 分类插入数据
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function update() {
+        $m = M('Role');
+        $data['id'] = intval($_POST['id']);
+        $_POST['status'] = $_POST['status'][0];
+        $name = trim($_POST['name']);
+        if (empty($name)) {
+            $this->dmsg('1', '节点项目名或者提示中文名不能为空！', false, true);
+        }
+        $rs = $m->where($data)->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '未有操作或操作失败！', false, true);
+        }
+    }
+
+    /**
+     * delete
+     * 分类信息删除操作
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function delete() {
+        $this->dmsg('1', '暂不支持删除功能！', false, true);
+    }
+
+    /**
+     * json
+     * 分类信息json数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function json() {
+        $m = M('Role');
+        $list = $m->field('id,pid,name as text')->select();
+        $navcatCount = $m->count("id");
+        $a = array();
+        foreach ($list as $k => $v) {
+            $a[$k] = $v;
+            $a[$k]['_parentId'] = intval($v['pid']); //_parentId为easyui中标识父id
+        }
+        $array = array();
+        $array['total'] = $navcatCount;
+        $array['rows'] = $a;
+        echo json_encode($array);
+    }
+
+    /**
+     * jsonTree
+     * 分类json树结构数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTree() {
+        Load('extend');
+        $m = M('Role');
+        $tree = $m->field('id,pid,name as text')->select();
+        $tree = list_to_tree($tree, 'id', 'pid', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
+        echo json_encode($tree);
     }
 
 }
