@@ -6,7 +6,7 @@
  * 后台核心文件，用于后台登录操作验证
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
- * @license http://www.apache.org/licenses/LICENSE-2.0 
+ * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:20
  * @package  Controller
  */
@@ -55,6 +55,7 @@ class LoginAction extends Action
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
                 if ($password == $rs['password']) {//判断密码是否匹配
                     session('LOGIN_STATUS', 'TRUE');
+                    session('authId', $rs['id'].$rs['username']);
                     session('LOGIN_NAME', $rs['username']);
                     session('LOGIN_UID', $rs['id']);
                     session('LOGIN_CTIME', $rs['creat_time']);
@@ -95,7 +96,7 @@ class LoginAction extends Action
         import("ORG.Util.Image");
         $length = 2; //验证码的长度
         $mode = 1; //0 字母 1 数字 2 大写字母 3 小写字母 4中文 5混合
-        $type = 'png'; //验证码的图片类型，默认为png 
+        $type = 'png'; //验证码的图片类型，默认为png
         $width = 70; //验证码的宽度
         $height = 25; //验证码的高度
         $verifyName = 'verify'; //验证码的SESSION记录名称
