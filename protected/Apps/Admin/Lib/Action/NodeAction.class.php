@@ -93,14 +93,33 @@ class NodeAction extends AdminAction {
      */
     public function update() {
         $m = M('Node');
-        $data['id'] = intval($_POST['id']);
+        $id = intval($_POST['id']);
+        $parent_id = intval($_POST['pid']);
         $name = trim($_POST['name']);
         $title = trim($_POST['title']);
         $_POST['status'] = $_POST['status'][0];
         if (empty($name) || empty($title)) {
             $this->dmsg('1', '节点项目名或者提示中文名不能为空！', false, true);
         }
-        $rs = $m->where($data)->save($_POST);
+        $tbname = 'Node';
+        if ($parent_id != 0) {//不为0时判断是否为子分类
+            $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            if ($cun) {
+                $this->dmsg('1', '不能选择当前分类的子类为父级分类！', false, true);
+            }
+            $data = $m->field('path')->where('id=' . $parent_id)->find();
+            $sort_path = $data['path'] . $parent_id . ','; //取得不为0时的path
+            $_POST['path'] = $data['path'] . $parent_id . ',';
+            $d->updateRolePath($id, $sort_path, $tbname);
+        } else {//为0，path为,
+            $data = $m->field('pid')->where('id=' . $id)->find();
+            if ($data['pid'] != $parent_id) {//相同不改变
+                $sort_path = ','; //取得不为0时的path
+                $d->updateRolePath($id, $sort_path, $tbname);
+            }
+            $_POST['path'] = ','; //应该是这个
+        }
+        $rs = $m->save($_POST);
         if ($rs == true) {
             $this->dmsg('2', '操作成功！', true);
         } else {

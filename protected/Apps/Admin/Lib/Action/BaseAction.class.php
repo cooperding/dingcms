@@ -16,11 +16,21 @@ class BaseAction extends Action {
     //初始化
     function _initialize()
     {
+        //检测是否登录
+        if (!$_SESSION [C('USER_AUTH_KEY')]) {
+            //跳转到认证网关
+            redirect(PHP_FILE . C('USER_AUTH_GATEWAY'));
+            //exit;
+        }
+        if (C('USER_AUTH_ON') && !in_array(MODULE_NAME, explode(',', C('NOT_AUTH_MODULE')))) {//是否验证权限及不需要验证的模块
+            import('ORG.Util.RBAC');
+        }
+
         if (C('USER_AUTH_ON') && !in_array(MODULE_NAME, explode(',', C('NOT_AUTH_MODULE')))) {//是否验证权限及不需要验证的模块
             import('ORG.Util.RBAC');
             if (!RBAC::AccessDecision()) {
                 //检查认证识别号
-                if (!$_SESSION [C('USER_AUTH_KEY')]) {
+                if (!$_SESSION [C('USER_AUTH_KEY')]) {//检测是否登录
                     //跳转到认证网关
                     redirect(PHP_FILE . C('USER_AUTH_GATEWAY'));
                 }
@@ -40,4 +50,5 @@ class BaseAction extends Action {
     }
 
 }
+
 ?>

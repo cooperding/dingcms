@@ -55,7 +55,7 @@ class LoginAction extends Action
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
                 if ($password == $rs['password']) {//判断密码是否匹配
                     session('LOGIN_STATUS', 'TRUE');
-                    session('authId', $rs['id'].$rs['username']);
+                    session('authId', $rs['id']);
                     session('LOGIN_NAME', $rs['username']);
                     session('LOGIN_UID', $rs['id']);
                     session('LOGIN_CTIME', $rs['creat_time']);
