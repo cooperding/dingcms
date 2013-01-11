@@ -188,5 +188,31 @@ class NodeAction extends AdminAction {
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);
     }
+    /**
+     * jsonSetRbacTree
+     * 节点json树结构数据（设置权限）
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonSetRbacTree()
+    {
+        Load('extend');
+        $m = M('Node');
+        $a = M('Access');
+        $condition['role_id'] = $_GET['id'];
+        $data = $a->field('node_id')->where($condition)->select();
+        $tree = $m->field('id,pid,title as text')->select();
+        foreach($data as $k=>$v){
+            $node_id[] = $v['node_id'];
+        }
+        foreach($tree as $k=>$v){
+            if(in_array($v['id'], $node_id)){
+                $tree[$k]['checked'] = true;
+            }
+        }
+        $tree = list_to_tree($tree, 'id', 'pid', 'children');
+        echo json_encode($tree);
+    }
 
 }

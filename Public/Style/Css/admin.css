@@ -72,7 +72,7 @@ body#login{ background-color:#F5F6F8;}
 .pagebar li{padding: 5px 10px;margin: 5px;border: 1px solid #D2E0F2;float: left;display: block;cursor:pointer}
 .pagebar{}
 
-.pageform{margin: 5px 10px;}
+.pageform{margin: 0px 0px;}
 .pageinput{}
 .pageemail{}
 .pagebutton{}
@@ -83,7 +83,7 @@ body#login{ background-color:#F5F6F8;}
 .pageform ul li label{width:100px;float:left;}
 .pageform ul li p{float:left;}
 
-.pageform ul li select{margin: 0 5px;}
+.pageform ul li select{margin: 0 0px;}
 
 /*
 .login input[type="text"]:hover,

@@ -20,7 +20,6 @@ class NewsAction extends AdminAction {
      * @version dogocms 1.0
      */
     public function index() {
-        $id = intval($_GET['id']);
         $this->display();
     }
 
@@ -348,6 +347,9 @@ class NewsAction extends AdminAction {
         $page = new Page($count, $pageRows);
         $firstRow = ($pageNumber - 1) * $pageRows;
         $data = $m->where($condition)->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
+        foreach ($data as $k => $v) {
+            $data[$k]['addtime'] = date('Y-m-d H:i:s', $v['addtime']);
+        }
         $array = array();
         $array['total'] = $count;
         $array['rows'] = $data;

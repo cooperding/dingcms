@@ -47,8 +47,8 @@ $array = array(
     array('label' => L('menu_user_name'), 'type' => 'user_name', 'items' => array(
             array('label' => L('menu_member_name'), 'type' => 'member_name', 'items' => array(
                     array('label' => L('menu_member_perinfo'), 'type' => 'member_perinfo', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_member_adminlist'), 'type' => 'member_adminlist', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_member_frontlist'), 'type' => 'member_frontlist', 'link' => 'www.baidu.com')
+                    array('label' => L('menu_member_adminlist'), 'type' => 'member_adminlist', 'link' =>  __APP__ . '/Operators/index'),
+                    array('label' => L('menu_member_frontlist'), 'type' => 'member_frontlist', 'link' =>  __APP__ . '/Members/index')
             )),
             array('label' => L('menu_backcom_name'), 'type' => 'backcom_name', 'items' => array(
                     array('label' => L('menu_node_name'), 'type' => 'member_adminlist', 'link' => __APP__ . '/Node/index'),

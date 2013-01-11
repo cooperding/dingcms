@@ -92,7 +92,7 @@
                             var id = selected.id;
                             var href = hrefsetrbac+'?id='+id;
                             var title = '编辑信息';
-                            openDialog(classId,href,title);
+                            openSetRbacDialog(classId,href,title);
                         }
                     },'-',{
                         id:'btnuser'+classId,
@@ -116,6 +116,69 @@
                     ]]
             })
         })
-    </script>
 
+
+        /*
+         *openDialog 弹出框
+         *href 传递控制器的url地址
+         *title 弹出窗口的标题
+         */
+        function openSetRbacDialog(classId,href,title){
+
+            $('#dialog_cms').dialog({
+                href:href,
+                width:800,
+                height:500,
+                resizable:true,
+                title:title,
+                modal:true,
+                resizable:true,
+                collapsible:true,
+                maximizable:true,
+                cache: false,
+                onClose:function(){
+                    dialogOnClose(classId);
+                },
+                buttons:[{
+                        text:'保存',
+                        iconCls:'icon-ok',
+                        handler:function(){
+                            var role_id = $('.setrbac_input').val();
+                            var accesshref = '__APP__/Role/updateRbac';
+                            var nodes = $('#setrbac').tree('getChecked');
+                            var id = '';
+                            for(var i=0; i<nodes.length; i++){
+                                if (id != '') id += ',';
+                                //s += nodes[i].text;
+                                id += nodes[i].id;
+                            }
+                            //alert(role_id);
+                            //return false;
+                            //submitForm(classId);
+                            //formAjax();
+                            $.ajax({
+                                url:accesshref,
+                                type:'post',
+                                data:{
+                                    id:id,
+                                    role_id:role_id
+                                },
+                                dataType:'json',
+                                success:function(data){
+                                    formAjax(data,classId);
+                                }
+                            });
+                        }
+                    },{
+                        text:'取消',
+                        iconCls:'icon-cancel',
+                        handler:function(){
+                            dialogOnClose(classId);
+                        }
+                    }
+                ]
+            });
+            //$('#dialog'+classId).dialog('refresh', href);
+        }
+    </script>
 </div><!--pagecontent-->

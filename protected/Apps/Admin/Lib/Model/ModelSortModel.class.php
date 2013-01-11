@@ -97,15 +97,15 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case textarea:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case htmltext:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case int:
                 $type = 'int';
@@ -140,7 +140,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case media:
                 $type = 'varchar';
@@ -150,7 +150,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case addon:
                 $type = 'varchar';
@@ -160,7 +160,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case select:
                 $type = 'varchar';
@@ -170,7 +170,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case radio:
                 $type = 'varchar';
@@ -180,7 +180,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case checkbox:
                 $type = 'varchar';
@@ -190,7 +190,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` ADD `' . $field . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case stepselect:
                 $type = 'mediumint';
@@ -230,15 +230,15 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' .$oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' .$oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case textarea:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case htmltext:
                 $type = 'text';
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . ' CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case int:
                 $type = 'int';
@@ -273,7 +273,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case media:
                 $type = 'varchar';
@@ -283,7 +283,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case addon:
                 $type = 'varchar';
@@ -293,7 +293,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case select:
                 $type = 'varchar';
@@ -303,7 +303,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case radio:
                 $type = 'varchar';
@@ -313,7 +313,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case checkbox:
                 $type = 'varchar';
@@ -323,7 +323,7 @@ class ModelSortModel extends Model {
                     exit;
                 }
                 $length = ($length > 255) ? 255 : $length;
-                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL';
+                $sql = 'ALTER TABLE `' . $tablename . '` CHANGE `' . $oldfield.'` `'.$newfield . '` ' . $type . '(' . $length . ') CHARACTER SET utf8 COLLATE utf8_general_ci NULL';
                 break;
             case stepselect:
                 $type = 'mediumint';

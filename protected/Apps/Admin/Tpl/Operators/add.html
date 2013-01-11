@@ -1,0 +1,25 @@
+<div class="pageform">
+    <form action="__APP__/Operators/insert" id="form_operators" method="post">
+        <ul>
+            <li>
+                <label>用户名：</label>
+                <p><input type="text" name="username" value="{$data.username}" data-options="required:true" class="easyui-validatebox"/><span class="red">*用户名</span></p>
+            </li>
+            <li>
+                <label>密码：</label>
+                <p><input type="text" name="password" value=""/><span class="red">*密码为空不修改无变化</span></p>
+            </li>
+            <li>
+                <label>权限级别：</label>
+                <p><input name="pid" class="easyui-combotree combotree" data-options="url:'__APP__/Role/jsonTree',required:true"  value="0"  style="width:200px;"><span class="red">*没有授权操作受限</span></p
+            </li>
+            <li>
+                <label>状态：</label>
+                <p><html:radio name="status" radios="radios"  checked="1"/></p>
+            </li>
+            <li>
+                <label>备注：</label><p><textarea name="remark" rows="3" cols="30">{$data.remark}</textarea><span class="red"></span></p>
+            </li>
+        </ul>
+    </form>
+</div>

@@ -70,14 +70,8 @@ class RoleAction extends AdminAction {
      */
     public function setRbac()
     {
-        $m = M('Role');
-        $data = $m->where('id=' . intval($_GET['id']))->find();
-        $radios = array(
-            '1' => '启用',
-            '0' => '禁用'
-        );
-        $this->assign('data', $data);
-        $this->assign('radios', $radios);
+        $id = intval($_GET['id']);
+        $this->assign('id', $id); //传递角色id
         $this->display('rbac:set_rbac');
     }
 
@@ -113,8 +107,8 @@ class RoleAction extends AdminAction {
     }
 
     /**
-     * insert
-     * 分类插入数据
+     * update
+     * 更新数据
      * @access public
      * @return boolean
      * @version dogocms 1.0
@@ -150,6 +144,39 @@ class RoleAction extends AdminAction {
         }
 
         $rs = $m->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '未有操作或操作失败！', false, true);
+        }
+    }
+
+    /**
+     * updateRbac
+     * 设置权限
+     * @access public
+     * @return boolean
+     * @version dogocms 1.0
+     */
+    public function updateRbac()
+    {
+        $m = M('Node');
+        $a = M('Access');
+        $data['role_id'] = intval($_POST['role_id']);
+        $node_id = $_POST['id'];
+        if(empty($node_id)){
+            $a->where($data)->delete();
+            $this->dmsg('2', '操作成功！', true);
+            exit;
+        }
+        $a->where($data)->delete();
+        $node_id = explode(',',$node_id);
+        foreach($node_id as $v){
+            $rsm = $m->where('id='.$v)->field('level')->find();
+            $data['node_id'] = $v;
+            $data['level'] = $rsm['level'];
+            $rs = $a->data($data)->add();
+        }
         if ($rs == true) {
             $this->dmsg('2', '操作成功！', true);
         } else {
