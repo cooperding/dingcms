@@ -19,7 +19,8 @@ class NodeAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index() {
+    public function index()
+    {
 
         $this->display('Rbac:node');
     }
@@ -31,7 +32,8 @@ class NodeAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function add() {
+    public function add()
+    {
         $radios = array(
             '1' => '启用',
             '0' => '禁用'
@@ -47,7 +49,8 @@ class NodeAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function edit() {
+    public function edit()
+    {
         $m = M('Node');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -66,17 +69,23 @@ class NodeAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function insert() {
+    public function insert()
+    {
         $m = M('Node');
         $name = trim($_POST['name']);
         $title = trim($_POST['title']);
+        $parent_id = intval($_POST['pid']);
         $_POST['status'] = $_POST['status'][0];
         if (empty($name) || empty($title)) {
             $this->dmsg('1', '节点项目名或者提示中文名不能为空！', false, true);
         }
+        if ($parent_id != 0) {
+            $data = $m->where('id=' . $parent_id)->find();
+            $_POST['path'] = $data['path'] . $parent_id . ',';
+        }
         if ($m->create()) {
             $rs = $m->add($_POST);
-            if ($rs) {
+            if ($rs == true) {
                 $this->dmsg('2', '操作成功！', true);
             } else {
                 $this->dmsg('1', '操作失败！', false, true);
@@ -91,8 +100,10 @@ class NodeAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function update() {
+    public function update()
+    {
         $m = M('Node');
+        $d = D('NewsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['pid']);
         $name = trim($_POST['name']);
@@ -145,14 +156,15 @@ class NodeAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function json() {
+    public function json()
+    {
         $m = M('Node');
-        $list = $m->field('id,pid,name as text')->select();
+        $list = $m->field('id,pid,name as text,title,level')->select();
         $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {
             $a[$k] = $v;
-            $a[$k]['_parentId'] = intval($v['pid']);//_parentId为easyui中标识父id
+            $a[$k]['_parentId'] = intval($v['pid']); //_parentId为easyui中标识父id
         }
         $array = array();
         $array['total'] = $navcatCount;
@@ -167,7 +179,8 @@ class NodeAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonTree() {
+    public function jsonTree()
+    {
         Load('extend');
         $m = M('Node');
         $tree = $m->field('id,pid,title as text')->select();

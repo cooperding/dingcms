@@ -19,7 +19,8 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function index() {
+    public function index()
+    {
         $this->display('rbac:role');
     }
 
@@ -30,7 +31,8 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function add() {
+    public function add()
+    {
         $radios = array(
             '1' => '启用',
             '0' => '禁用'
@@ -46,7 +48,8 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function edit() {
+    public function edit()
+    {
         $m = M('Role');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -65,7 +68,8 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function setRbac() {
+    public function setRbac()
+    {
         $m = M('Role');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $radios = array(
@@ -84,7 +88,8 @@ class RoleAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function insert() {
+    public function insert()
+    {
         $m = M('Role');
         $name = trim($_POST['name']);
         $_POST['status'] = $_POST['status'][0];
@@ -92,9 +97,14 @@ class RoleAction extends AdminAction {
         if (empty($name)) {
             $this->dmsg('1', '角色名不能为空！', false, true);
         }
+        $parent_id = intval($_POST['pid']);
+        if ($parent_id != 0) {
+            $data = $m->where('id=' . $parent_id)->find();
+            $_POST['path'] = $data['path'] . $parent_id . ',';
+        }
         if ($m->create()) {
             $rs = $m->add($_POST);
-            if ($rs) {
+            if ($rs == true) {
                 $this->dmsg('2', '操作成功！', true);
             } else {
                 $this->dmsg('1', '操作失败！', false, true);
@@ -109,8 +119,10 @@ class RoleAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function update() {
+    public function update()
+    {
         $m = M('Role');
+        $d = D('NewsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['pid']);
         $_POST['status'] = $_POST['status'][0];
@@ -152,7 +164,8 @@ class RoleAction extends AdminAction {
      * @return boolean
      * @version dogocms 1.0
      */
-    public function delete() {
+    public function delete()
+    {
         $this->dmsg('1', '暂不支持删除功能！', false, true);
     }
 
@@ -163,7 +176,8 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function json() {
+    public function json()
+    {
         $m = M('Role');
         $list = $m->field('id,pid,name as text')->select();
         $navcatCount = $m->count("id");
@@ -185,7 +199,8 @@ class RoleAction extends AdminAction {
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonTree() {
+    public function jsonTree()
+    {
         Load('extend');
         $m = M('Role');
         $tree = $m->field('id,pid,name as text')->select();

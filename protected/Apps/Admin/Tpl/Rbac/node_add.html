@@ -10,6 +10,10 @@
                 <p><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*中文名</span></p>
             </li>
             <li>
+                <label>级别：</label>
+                <p><input type="text" name="level" value="{$data.level}" /><span class="red">*为方便操作手动输入(level=1项目；level=2模块；level=3操作)</span></p>
+            </li>
+            <li>
                 <label>上级分组名：</label>
                 <p><input name="pid" class="easyui-combotree combotree" data-options="url:'__APP__/Node/jsonTree',required:true"  value="0"  style="width:200px;"></p
             </li>
