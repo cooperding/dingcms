@@ -221,13 +221,14 @@ class ContentModelAction extends BaseAction {
     public function sortlistinsert() {
         $m = M('ModelField');
         $_POST['sort_id'] = intval($_POST['sort_id']);
-        $_POST['ename'] = trim($_POST['ename']);
-        $_POST['emark'] = trim($_POST['emark']);
-        $condition['emark'] = $_POST['emark'];
-        $condition['sort_id'] = array('eq', $_POST['sort_id']);
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $this->dmsg('1', '名称和标识不能为空！', false, true);
         }
+        $_POST['ename'] = trim($_POST['ename']);
+        $_POST['emark'] = 'd'.trim($_POST['emark']);//增加字段标识开头
+        $condition['emark'] = $_POST['emark'];
+        $condition['sort_id'] = array('eq', $_POST['sort_id']);
+
         if ($m->field('id')->where($condition)->find()) {
             $this->dmsg('1', '您输入的名称或者标识' . $_POST['emark'] . '已经存在！', false, true);
         }
@@ -260,14 +261,15 @@ class ContentModelAction extends BaseAction {
     public function sortlistupdate() {
         $m = M('ModelField');
         $_POST['sort_id'] = intval($_POST['sort_id']);
-        $_POST['ename'] = trim($_POST['ename']);
-        $_POST['emark'] = trim($_POST['emark']);
-        $condition['id'] = array('neq', $_POST['id']);
-        $condition['emark'] = $_POST['emark'];
-        $condition['sort_id'] = array('eq', $_POST['sort_id']);
         if (empty($_POST['ename']) || empty($_POST['emark'])) {
             $this->dmsg('1', '名称和标识不能为空！', false, true);
         }
+        $_POST['ename'] = trim($_POST['ename']);
+        $_POST['emark'] = 'd'.trim($_POST['emark']);//增加字段标识开头
+        $condition['id'] = array('neq', $_POST['id']);
+        $condition['emark'] = $_POST['emark'];
+        $condition['sort_id'] = array('eq', $_POST['sort_id']);
+
         if ($m->field('id')->where($condition)->find()) {
             $this->dmsg('1', '您输入的名称或者标识' . $_POST['emark'] . '已经存在！', false, true);
         }
