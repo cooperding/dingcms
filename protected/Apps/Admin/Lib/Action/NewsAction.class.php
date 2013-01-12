@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 信息各项操作
  */
-class NewsAction extends AdminAction {
+class NewsAction extends BaseAction {
 
     /**
      * index

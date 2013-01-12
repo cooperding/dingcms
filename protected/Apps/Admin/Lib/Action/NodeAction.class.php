@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 信息各项操作
  */
-class NodeAction extends AdminAction {
+class NodeAction extends BaseAction {
 
     /**
      * index

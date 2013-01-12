@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 信息各项操作
  */
-class OperatorsAction extends AdminAction {
+class OperatorsAction extends BaseAction {
 
     /**
      * index

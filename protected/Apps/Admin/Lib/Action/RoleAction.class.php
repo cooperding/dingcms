@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 信息各项操作
  */
-class RoleAction extends AdminAction {
+class RoleAction extends BaseAction {
 
     /**
      * index

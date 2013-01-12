@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 上传权限及各种安全过滤
  */
-class UploadAction extends AdminAction {
+class UploadAction extends BaseAction {
 
     /**
      * upload

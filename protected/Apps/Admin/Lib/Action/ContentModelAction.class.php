@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 内容模型各项操作
  */
-class ContentModelAction extends AdminAction {
+class ContentModelAction extends BaseAction {
 
     /**
      * sort

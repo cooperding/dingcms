@@ -12,7 +12,7 @@ $miniConfig = array (
     'DEFAULT_LANG'              =>  'zh-cn',
     'LANG_AUTO_DETECT'          =>  false,
     //权限部分
-    'USER_AUTH_ON'              =>  true,//是否开启权限true,false
+    'USER_AUTH_ON'              =>  false,//是否开启权限true,false
     'USER_AUTH_TYPE'            =>  2,		// 默认认证类型 1 登录认证 2 实时认证
     'USER_AUTH_KEY'             =>  'authId',	// 用户认证SESSION标记
     'ADMIN_AUTH_KEY'		=>  'administrator',

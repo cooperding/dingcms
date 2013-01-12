@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 内容模型各项操作
  */
-class NavHeadAction extends AdminAction {
+class NavHeadAction extends BaseAction {
 
     /**
      * index

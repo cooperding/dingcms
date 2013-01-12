@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo 视图重新写
  */
-class SettingAction extends AdminAction {
+class SettingAction extends BaseAction {
 
     /**
      * index
@@ -238,7 +238,7 @@ class SettingAction extends AdminAction {
             array('id' => 6, 'text' => '其它设置')
         );
         echo json_encode($name);
-        
+
     }
 
 }
