@@ -5,23 +5,34 @@
 class TagLibDogocms extends TagLib {   //定义blog标签
 
     protected $tags = array(
-        'test' => array("attr" => "attr1,attr2", level => 3),
-        'article' => array('attr' => 'name,field,limit,order,where,sql,key,mod', 'level' => 3),
-        'nav'=>array("attr"=>"attr1,attr2",level=>3),
-        'sort'=>array("attr"=>"attr1,attr2",level=>3),
-        'article'=>array("attr"=>"attr1,attr2",level=>3),
-        'message'=>array("attr"=>"attr1,attr2",level=>3),
-        'comment'=>array("attr"=>"attr1,attr2",level=>3),
-        'list'=>array("attr"=>"attr1,attr2",level=>3),
-        'pagelist'=>array("attr"=>"attr1,attr2",level=>3),
-        'ad'=>array("attr"=>"attr1,attr2",level=>3),
-        'page'=>array("attr"=>"attr1,attr2",level=>3),
-        'block'=>array("attr"=>"attr1,attr2",level=>3),
+        // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
+        // 'test' => array("attr" => "attr1,attr2", level => 3),
+        'article' => array('attr' => 'name,field,limit,order,where,sql,key,mod', 'level' => 3),//文章内容
+        'nav'=>array("attr"=>"row,type,orderby,name",level=>3),//网站导航
+        'sort'=>array("attr"=>"attr1,attr2",level=>3),//栏目分类
+        'message'=>array("attr"=>"attr1,attr2",level=>3),//咨询留言
+        'comment'=>array("attr"=>"attr1,attr2",level=>3),//评论
+        'list'=>array("attr"=>"attr1,attr2",level=>3),//列表页内容
+        'pagelist'=>array("attr"=>"attr1,attr2",level=>3),//分页
+        'ad'=>array("attr"=>"attr1,attr2",level=>3),//广告（包含幻灯）
+        'page'=>array("attr"=>"attr1,attr2",level=>3),//广告（包含幻灯）
+        'block'=>array("attr"=>"attr1,attr2",level=>3),//碎片
+        'member'=>array("attr"=>"attr1,attr2",level=>3),//会员信息(个人)
     );
 
-    public function _test($attr, $content) {
-        $tag = $this->parseXmlAttr($attr, 'test');
-        return $tag["attr1"] . "," . $tag["attr2"];
+    public function _nav($attr, $content) {
+        $tag = $this->parseXmlAttr($attr, 'nav');
+        $name = $tag['name'];
+        $row = $tag['row'];
+        $orderby = $tag['orderby'];
+        $type = $tag['type'];
+        $tag['name'] = ucfirst($tag['name']);
+        $sql = "M('Nav{$tag['name']}')->";
+        $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
+        $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
+        
+        $parsestr = $sql. "," . $tag["name"];
+        return $parsestr;
     }
 
     public function _article($attr, $content) {

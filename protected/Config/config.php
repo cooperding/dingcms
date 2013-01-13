@@ -27,7 +27,8 @@ $connection =array(
     // 是否开启调试模式 (开启AllInOne模式时该配置无效, 将自动置为false)
 	//'APP_DEBUG'			=> false,
         'DB_ADD_PREFIX'  => 'add',
-        'TAGLIB_BUILD_IN' => 'cx,html,dogocms',
+        'TAGLIB_BUILD_IN' => 'cx,html',
+        'TAGLIB_PRE_LOAD' => 'dogocms'//扩展标签
        // 'APP_AUTOLOAD_PATH'=>'@.TagLib,COM.TagLib'
 );
 return $connection;

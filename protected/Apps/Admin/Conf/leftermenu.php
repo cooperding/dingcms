@@ -6,7 +6,7 @@ $array = array(
     array('label' => L('menu_sys_name'), 'type' => 'sys_name', 'items' => array(
             array('label' => L('menu_nav_name'), 'type' => 'nav_name', 'items' => array(
                     array('label' => L('menu_nav_head'), 'type' => 'nav_head', 'link' => __APP__ . '/NavHead/index'),
-                    array('label' => L('menu_nav_foot'), 'type' => 'nav_foot', 'link' => __APP__ . '/Login/add')
+                    array('label' => L('menu_nav_foot'), 'type' => 'nav_foot', 'link' => __APP__ . '/NavFoot/index')
             )),
             array('label' => L('menu_data_name'), 'type' => 'data_name', 'items' => array(
                     array('label' => L('menu_data_recover'), 'type' => 'data_recover', 'link' => __APP__ . '/Setting/index'),
