@@ -1,14 +1,11 @@
 <?php
-
-//import("TagLib");  //引入TagLib 类
-
-class TagLibDogocms extends TagLib {   //定义blog标签
-
+//自定义标签
+class TagLibDogocms extends TagLib {
     protected $tags = array(
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
         // 'test' => array("attr" => "attr1,attr2", level => 3),
         'article' => array('attr' => 'name,field,limit,order,where,sql,key,mod', 'level' => 3),//文章内容
-        'nav'=>array("attr"=>"row,type,orderby,name",level=>3),//网站导航
+        'nav'=>array("attr"=>"limit,type,order,name",level=>3),//网站导航 type:top,son,all;name:head,foot
         'sort'=>array("attr"=>"attr1,attr2",level=>3),//栏目分类
         'message'=>array("attr"=>"attr1,attr2",level=>3),//咨询留言
         'comment'=>array("attr"=>"attr1,attr2",level=>3),//评论
@@ -19,19 +16,21 @@ class TagLibDogocms extends TagLib {   //定义blog标签
         'block'=>array("attr"=>"attr1,attr2",level=>3),//碎片
         'member'=>array("attr"=>"attr1,attr2",level=>3),//会员信息(个人)
     );
-
+//$m->table()->alias()->page()->group()->having()->join()->union()->field()->where()->order()->limit()->select();
     public function _nav($attr, $content) {
         $tag = $this->parseXmlAttr($attr, 'nav');
         $name = $tag['name'];
-        $row = $tag['row'];
-        $orderby = $tag['orderby'];
+        $limit = $tag['limit'];
+        $order = $tag['order'];
         $type = $tag['type'];
         $tag['name'] = ucfirst($tag['name']);
         $sql = "M('Nav{$tag['name']}')->";
         $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
         $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
-        
-        $parsestr = $sql. "," . $tag["name"];
+        $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
+        $sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
+        $sql .= "select()";
+        $parsestr = $sql;
         return $parsestr;
     }
 
