@@ -16,16 +16,19 @@ class BaseAction extends Action {
     //初始化
     function _initialize()
     {
-        C('DEFAULT_THEME','default');
+       // C('DEFAULT_THEME','default');
     }
+    /*
     //重新装载$this->display()方法
     function display($name){
         if(empty($name)){
             //ACTION_NAME = $name;
             $name = ACTION_NAME;
         }
-        parent::display(__ROOT__.'Themes/default/'.$name.'.html');
+        //echo __ROOT__;
+        //exit;
+        parent::display('./Themes/'.C('DEFAULT_THEME').'/'.$name.'.html');
     }
-
+*/
 }
 ?>

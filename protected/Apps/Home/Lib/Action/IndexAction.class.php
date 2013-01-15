@@ -19,9 +19,9 @@ class IndexAction extends BaseAction {
         //echo C('DEFAULT_THEME');
         //exit;
         //define('DEFAULT_THEME', 'default');
-        $this->assign('url','default');
-        $this->assign('url2','./Tp/default/header.html');
-        $this->display('index');
+        //$this->assign('url','default');
+        //$this->assign('url2','./Tp/default/header.html');
+        $this->display(':index');
         //$this->display();
     }
 
