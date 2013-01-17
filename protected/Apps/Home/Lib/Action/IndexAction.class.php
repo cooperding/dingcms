@@ -15,10 +15,12 @@ class IndexAction extends BaseAction {
 
     public function index()
     {
-        //C('DEFAULT_THEME','default');
-        //echo C('DEFAULT_THEME');
-        //exit;
-        //define('DEFAULT_THEME', 'default');
+        $m = M('Title');
+        $condition['id'] = '56';
+        $condition['title'] = 'dedede';
+        $m->where('id=56')->where('title=dedede')->select();
+        echo $m->getLastSql();
+        exit;
         $this->assign('title',time());
         //$this->assign('url2','./Tp/default/header.html');
         $this->display(':index');
