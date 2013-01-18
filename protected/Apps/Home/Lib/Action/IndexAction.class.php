@@ -18,9 +18,9 @@ class IndexAction extends BaseAction {
         $m = M('Title');
         $condition['id'] = '56';
         $condition['title'] = 'dedede';
-        $m->where('id=56')->where('title=dedede')->select();
-        echo $m->getLastSql();
-        exit;
+        //$m->where('id=56')->where('title=dedede')->select();
+//        echo $m->getLastSql();
+//        exit;
         $this->assign('title',time());
         //$this->assign('url2','./Tp/default/header.html');
         $this->display(':index');

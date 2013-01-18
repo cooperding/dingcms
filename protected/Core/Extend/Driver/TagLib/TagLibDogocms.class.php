@@ -54,7 +54,7 @@ class TagLibDogocms extends TagLib {
             }
         }
         if($tid){
-            $condition['id'] = $tid;
+            $condition['id'] = array('in',$tid);
         }
 
 
@@ -64,14 +64,18 @@ class TagLibDogocms extends TagLib {
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
         if ($tag['name']) {
-            $sql = "M('{$tag['name']}')->";
-            $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
+            //$sql = "M('{$tag['name']}')->";
+            $sql = ($tag['field']) ? "field({$tag['field']})->" : '';
             $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
             $sql .= ($condition) ? "where(\"{$condition}\")->": '';   //被重新处理过了
-            $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
-            $sql .= "select()";
+            $sql .= ($tag['limit']) ? "limit({$tag['limit']})" : 'limit("0,2")';
+            //$sql .= "select()";
         }
         echo $sql;
+        $m = M('Title');
+        //$rs = $m->$sql->select();
+
+        print_r($rs);
         exit;
         //下面拼接输出语句
         $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
