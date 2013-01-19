@@ -43,7 +43,7 @@ class TagLibDogocms extends TagLib {
 //'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,orderby,keyword', 'level' => 3),//文章内容
         $tag = $this->parseXmlAttr($attr, 'article');
         $typeid = $tag['typeid']; //分类id
-        $type = $tag['type']; //分类类型type:all
+        $type = strtoupper($tag['type']); //分类类型type:all
         $tid = $tag['tid']; //指定文档id
         $modeid = $tag['modeid']; //模型id
         $limit = $tag['limit']; //显示信息数 默认10
@@ -51,18 +51,32 @@ class TagLibDogocms extends TagLib {
         $order = $tag['order']; //信息排序
         $keyword = $tag['keyword']; //包含关键词
         if ($typeid) {
-            if ($type) {//分类类型存在时，分类id一定存在，此处根据type获取所有子类id
-                $condition['sort_id'] = $typeid;
+            if ($type=='ALL') {//分类类型存在时，分类id一定存在，此处根据type获取所有子类id
+                $ns = M('NewsSort');
+                $typeid_arr = array();
+                foreach(explode(',',$typeid) as $k=>$vid){
+                    $path .= ' (path like \'%,'.$vid.',%\') or';
+                    $path .= ' (id = '.$vid.') or';
+                }
+                $path = rtrim($path,'or ');
+                $rs = $ns->field('id')->where($path)->select();
+                foreach ($rs as $v){
+                    $sort_id .= $v['id'].',';
+                }
+                $sort_id = rtrim($sort_id,', ');
+                $tag['where'] = ' (sort_id in('.$sort_id.'))';
             } else {
-                $condition['sort_id'] = $typeid;
+                $tag['where'] = ' (sort_id in('.$typeid.'))';
             }
-        }
+        }//if
         if ($tid) {
-            //$condition['id'] = array('in',$tid);
-        }
-
-        $tag['where'] = ' id in('.$tid.') ';
-        $tag['where'] .= ' and sort_id in('.$typeid.')';
+            if($tag['where']){
+                $tag['where'] .= ' and (id in('.$tid.')) ';
+            }else{
+                $tag['where'] = ' (id in('.$tid.')) ';
+            }
+        }//if
+        
 
         $typeid = !empty($typeid);
         $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
