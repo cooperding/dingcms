@@ -7,7 +7,7 @@ class TagLibDogocms extends TagLib {
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
         // 'test' => array("attr" => "attr1,attr2", level => 3),
         'nav' => array("attr" => "limit,type,order,name", level => 3), //网站导航 type:top,son,all;name:head,foot
-        'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,orderby,keyword,sql', 'level' => 3), //文章内容
+        'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,order,keywords,sql', 'level' => 3), //文章内容
         'sort' => array("attr" => "attr1,attr2", level => 3), //栏目分类
         'message' => array("attr" => "attr1,attr2", level => 3), //咨询留言
         'comment' => array("attr" => "attr1,attr2", level => 3), //评论
@@ -20,8 +20,7 @@ class TagLibDogocms extends TagLib {
     );
 
 //$m->table()->alias()->page()->group()->having()->join()->union()->field()->where()->order()->limit()->select();
-    public function _nav($attr, $content)
-    {
+    public function _nav($attr, $content) {
         $tag = $this->parseXmlAttr($attr, 'nav');
         $name = $tag['name'];
         $limit = $tag['limit'];
@@ -38,46 +37,104 @@ class TagLibDogocms extends TagLib {
         return $parsestr;
     }
 
-    public function _article($attr, $content)
-    {
+    public function _article($attr, $content) {
 //'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,orderby,keyword', 'level' => 3),//文章内容
         $tag = $this->parseXmlAttr($attr, 'article');
-        $typeid = $tag['typeid']; //分类id
+        $typeid = trim($tag['typeid']); //分类id
         $type = strtoupper($tag['type']); //分类类型type:all
         $tid = $tag['tid']; //指定文档id
-        $modeid = $tag['modeid']; //模型id
+        $modeid = trim($tag['modeid']); //模型id
         $limit = $tag['limit']; //显示信息数 默认10
         $flag = $tag['flag']; //信息属性
         $order = $tag['order']; //信息排序
-        $keyword = $tag['keyword']; //包含关键词
-        if ($typeid) {
-            if ($type=='ALL') {//分类类型存在时，分类id一定存在，此处根据type获取所有子类id
-                $ns = M('NewsSort');
-                $typeid_arr = array();
-                foreach(explode(',',$typeid) as $k=>$vid){
-                    $path .= ' (path like \'%,'.$vid.',%\') or';
-                    $path .= ' (id = '.$vid.') or';
+        $keywords = $tag['keywords']; //包含关键词
+        if (!$modeid) {
+            if ($typeid) {
+                if ($type == 'ALL') {//分类类型存在时，分类id一定存在，此处根据type获取所有子类id
+                    $ns = M('NewsSort');
+                    $typeid_arr = array();
+                    foreach (explode(',', $typeid) as $k => $vid) {
+                        $path .= ' (path `like` \'%,' . $vid . ',%\') or';
+                        $path .= ' (`id` = ' . $vid . ') or';
+                    }
+                    $path = rtrim($path, 'or ');
+                    $rs = $ns->field('id')->where($path)->select();
+                    foreach ($rs as $v) {
+                        $sort_id .= $v['id'] . ',';
+                    }
+                    $sort_id = rtrim($sort_id, ', ');
+                    $tag['where'] = ' (`sort_id` in(' . $sort_id . '))';
+                } else {
+                    $tag['where'] = ' (`sort_id` in(' . $typeid . '))';
                 }
-                $path = rtrim($path,'or ');
+            }//if
+        } else {
+            $ns = M('NewsSort');
+            if ($typeid) {
+                if ($type == 'ALL') {//分类类型存在时，分类id一定存在，此处根据type获取所有子类id
+                    $typeid_arr = array();
+                    foreach (explode(',', $typeid) as $k => $vid) {
+                        $path .= ' (`path` like \'%,' . $vid . ',%\') or';
+                        $path .= ' (`id` = ' . $vid . ') or';
+                    }
+                    $path = rtrim($path, 'or ');
+                    $path .= ' and (`model_id` in(' . $modeid . ')) ';
+                    $rs = $ns->field('id')->where($path)->select();
+                    foreach ($rs as $v) {
+                        $sort_id .= $v['id'] . ',';
+                    }
+                    $sort_id = rtrim($sort_id, ', ');
+                    $tag['where'] = ' (`sort_id` in(' . $sort_id . '))';
+                } else {
+                    $path .= ' (`model_id` in(' . $modeid . ')) ';
+                    $rs = $ns->field('id')->where($path)->select();
+                    foreach($rs as $k=>$v){
+                        $modeid_arr[] = $v['id'];
+                     }
+                     $he_arr = array_intersect($modeid_arr,explode(',', $typeid));
+                    //此处应该是两个数组取交集
+                    $tag['where'] = ' (`sort_id` in(' . implode(',', $he_arr) . '))';
+                }
+            } else {//查出所有sort_id再组装语句
+                $path .= ' (`model_id` in(' . $modeid . ')) ';
                 $rs = $ns->field('id')->where($path)->select();
-                foreach ($rs as $v){
-                    $sort_id .= $v['id'].',';
+                foreach ($rs as $v) {
+                    $sort_id .= $v['id'] . ',';
                 }
-                $sort_id = rtrim($sort_id,', ');
-                $tag['where'] = ' (sort_id in('.$sort_id.'))';
-            } else {
-                $tag['where'] = ' (sort_id in('.$typeid.'))';
-            }
-        }//if
+                $sort_id = rtrim($sort_id, ', ');
+                $tag['where'] = ' (`sort_id` in(' . $typeid . '))';
+            }//if
+        }
         if ($tid) {
-            if($tag['where']){
-                $tag['where'] .= ' and (id in('.$tid.')) ';
-            }else{
-                $tag['where'] = ' (id in('.$tid.')) ';
+            if ($tag['where']) {
+                $tag['where'] .= ' and (`id` in(' . $tid . ')) ';
+            } else {
+                $tag['where'] = ' (`id` in(' . $tid . ')) ';
             }
         }//if
-        
-
+        if($flag){
+            foreach(explode(',', $flag) as $k=>$v){
+                $flag_like .= ' (`flag` like \'%' . $v . '%\') or ';
+            }
+            $flag_like = rtrim($flag_like, 'or ');
+            if($tag['where']){
+                $tag['where'] .= ' and ('.$flag_like.') ';
+            }else{
+                $tag['where'] = ' ('.$flag_like.') ';
+            }
+        }//if
+        if($keywords){
+            if($tag['where']){
+                $tag['where'] .= ' and (`keywords` like \'%' . $keywords . '%\') ';
+            }else{
+                $tag['where'] = ' (`keywords` like \'%' . $keywords . '%\') ';
+            }
+        }//if
+        /*
+         * 此处考虑join方式查询扩展的内容模型表信息
+         * 当开启的时候组装join语句，联合查询
+         * 
+         */
         $typeid = !empty($typeid);
         $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
@@ -102,4 +159,5 @@ class TagLibDogocms extends TagLib {
     }
 
 }
+
 ?>
