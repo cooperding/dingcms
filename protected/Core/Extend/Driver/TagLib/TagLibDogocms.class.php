@@ -7,7 +7,7 @@ class TagLibDogocms extends TagLib {
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
         // 'test' => array("attr" => "attr1,attr2", level => 3),
         'nav' => array("attr" => "limit,type,order,name", level => 3), //网站导航 type:top,son,all;name:head,foot
-        'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,order,keywords,sql', 'level' => 3), //文章内容
+        'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,order,keywords,model_name', 'level' => 3), //文章内容
         'sort' => array("attr" => "attr1,attr2", level => 3), //栏目分类
         'message' => array("attr" => "attr1,attr2", level => 3), //咨询留言
         'comment' => array("attr" => "attr1,attr2", level => 3), //评论
@@ -44,6 +44,7 @@ class TagLibDogocms extends TagLib {
         $type = strtoupper($tag['type']); //分类类型type:all
         $tid = $tag['tid']; //指定文档id
         $modeid = trim($tag['modeid']); //模型id
+        $model_name = trim($tag['model_name']); //模型名称
         $limit = $tag['limit']; //显示信息数 默认10
         $flag = $tag['flag']; //信息属性
         $order = $tag['order']; //信息排序
@@ -130,6 +131,16 @@ class TagLibDogocms extends TagLib {
                 $tag['where'] = ' (`keywords` like \'%' . $keywords . '%\') ';
             }
         }//if
+        if($model_name){//写出模型名称（此处以后完善）
+            $join .= 'join(\' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$model_name.' on '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$model_name.'.title_id = id \')->';
+            /*
+            foreach(explode(',', $model_name) as $k=>$v){
+                $join .= 'join(\' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$v.' on '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$v.'.title_id = id \')->';
+            }
+             *
+             */
+            //$join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
+        }
         /*
          * 此处考虑join方式查询扩展的内容模型表信息
          * 当开启的时候组装join语句，联合查询
@@ -139,17 +150,15 @@ class TagLibDogocms extends TagLib {
         $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-        $join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
         if ($tag['name']) {
             $sql = "M('{$tag['name']}')->";
-            $sql .= ($join) ? "join(\"{$join}\")->" : '';
+            $sql .= ($model_name) ? $join : '';
             $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
             $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
             $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
             $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
             $sql .= "select()";
         }
-echo $sql;
         //下面拼接输出语句
         $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
