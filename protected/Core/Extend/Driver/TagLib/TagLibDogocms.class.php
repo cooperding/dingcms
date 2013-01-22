@@ -25,17 +25,30 @@ class TagLibDogocms extends TagLib {
         $tag = $this->parseXmlAttr($attr, 'nav');
         $name = $tag['name'];
         $limit = $tag['limit'];
-        $order = $tag['order'];
+        $order = '\''.$tag['order'].'\'';//字符串加引号
         $type = $tag['type'];
+
         $tag['name'] = ucfirst($tag['name']);
         $sql = "M('Nav{$tag['name']}')->";
         $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
-        $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
+        $sql .= ($order) ? "order({$order})->" : '';
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
-        $sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
+        //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
+        $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
         $sql .= "select()";
-        $parsestr = $sql;
-        //return $parsestr;
+        $result = !empty($tag['result']) ? $tag['result'] : 'nav'; //定义数据查询的结果存放变量
+        $key = !empty($tag['key']) ? $tag['key'] : 'i';
+        $mod = isset($tag['mod']) ? $tag['mod'] : '2';
+
+
+        //下面拼接输出语句
+        $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
+        $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
+        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
+        $parsestr .= $content; //解析在article标签中的内容
+        $parsestr .= '<?php endforeach; endif;?>';
+        return $parsestr;
+
     }
 
     public function _article($attr, $content)
@@ -143,12 +156,7 @@ class TagLibDogocms extends TagLib {
              */
             //$join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
         }
-        /*
-         * 此处考虑join方式查询扩展的内容模型表信息
-         * 当开启的时候组装join语句，联合查询
-         *
-         */
-        $typeid = !empty($typeid);
+
         $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
