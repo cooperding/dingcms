@@ -29,9 +29,9 @@ class ModelSortModel extends Model {
         }
         $tablename = C('DB_PREFIX') . C('DB_ADD_PREFIX') . $tablename;
         $sql = 'CREATE TABLE IF NOT EXISTS `' . $tablename . '` (
-  `id` int(20) NOT NULL auto_increment,
+  `did` int(20) NOT NULL auto_increment,
   `title_id` int(20) unsigned NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`did`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ';
         $Model->query($sql);
     }

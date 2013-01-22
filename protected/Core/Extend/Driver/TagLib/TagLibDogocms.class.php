@@ -34,7 +34,7 @@ class TagLibDogocms extends TagLib {
         $sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
         $sql .= "select()";
         $parsestr = $sql;
-        return $parsestr;
+        //return $parsestr;
     }
 
     public function _article($attr, $content) {
@@ -133,22 +133,23 @@ class TagLibDogocms extends TagLib {
         /*
          * 此处考虑join方式查询扩展的内容模型表信息
          * 当开启的时候组装join语句，联合查询
-         * 
+         *
          */
         $typeid = !empty($typeid);
         $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-
+        $join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
         if ($tag['name']) {
             $sql = "M('{$tag['name']}')->";
+            $sql .= ($join) ? "join(\"{$join}\")->" : '';
             $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
             $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
             $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
             $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
             $sql .= "select()";
         }
-
+echo $sql;
         //下面拼接输出语句
         $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
