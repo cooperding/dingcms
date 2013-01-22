@@ -20,7 +20,8 @@ class TagLibDogocms extends TagLib {
     );
 
 //$m->table()->alias()->page()->group()->having()->join()->union()->field()->where()->order()->limit()->select();
-    public function _nav($attr, $content) {
+    public function _nav($attr, $content)
+    {
         $tag = $this->parseXmlAttr($attr, 'nav');
         $name = $tag['name'];
         $limit = $tag['limit'];
@@ -37,7 +38,8 @@ class TagLibDogocms extends TagLib {
         //return $parsestr;
     }
 
-    public function _article($attr, $content) {
+    public function _article($attr, $content)
+    {
 //'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,orderby,keyword', 'level' => 3),//文章内容
         $tag = $this->parseXmlAttr($attr, 'article');
         $typeid = trim($tag['typeid']); //分类id
@@ -89,10 +91,10 @@ class TagLibDogocms extends TagLib {
                 } else {
                     $path .= ' (`model_id` in(' . $modeid . ')) ';
                     $rs = $ns->field('id')->where($path)->select();
-                    foreach($rs as $k=>$v){
+                    foreach ($rs as $k => $v) {
                         $modeid_arr[] = $v['id'];
-                     }
-                     $he_arr = array_intersect($modeid_arr,explode(',', $typeid));
+                    }
+                    $he_arr = array_intersect($modeid_arr, explode(',', $typeid));
                     //此处应该是两个数组取交集
                     $tag['where'] = ' (`sort_id` in(' . implode(',', $he_arr) . '))';
                 }
@@ -113,29 +115,29 @@ class TagLibDogocms extends TagLib {
                 $tag['where'] = ' (`id` in(' . $tid . ')) ';
             }
         }//if
-        if($flag){
-            foreach(explode(',', $flag) as $k=>$v){
+        if ($flag) {
+            foreach (explode(',', $flag) as $k => $v) {
                 $flag_like .= ' (`flag` like \'%' . $v . '%\') or ';
             }
             $flag_like = rtrim($flag_like, 'or ');
-            if($tag['where']){
-                $tag['where'] .= ' and ('.$flag_like.') ';
-            }else{
-                $tag['where'] = ' ('.$flag_like.') ';
+            if ($tag['where']) {
+                $tag['where'] .= ' and (' . $flag_like . ') ';
+            } else {
+                $tag['where'] = ' (' . $flag_like . ') ';
             }
         }//if
-        if($keywords){
-            if($tag['where']){
+        if ($keywords) {
+            if ($tag['where']) {
                 $tag['where'] .= ' and (`keywords` like \'%' . $keywords . '%\') ';
-            }else{
+            } else {
                 $tag['where'] = ' (`keywords` like \'%' . $keywords . '%\') ';
             }
         }//if
-        if($model_name){//写出模型名称（此处以后完善）
-            $join .= 'join(\' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$model_name.' on '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$model_name.'.title_id = id \')->';
+        if ($model_name) {//写出模型名称（此处以后完善）
+            $join = 'join(\' right join ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $model_name . ' on ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $model_name . '.title_id = id \')->';
             /*
-            foreach(explode(',', $model_name) as $k=>$v){
-                $join .= 'join(\' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$v.' on '.C('DB_PREFIX') . C('DB_ADD_PREFIX').$v.'.title_id = id \')->';
+            foreach (explode(',', $model_name) as $k => $v) {
+                $join .= 'join(\' right join ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $v . ' on ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $v . '.title_id = id \')->';
             }
              *
              */
@@ -150,15 +152,18 @@ class TagLibDogocms extends TagLib {
         $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-        if ($tag['name']) {
-            $sql = "M('{$tag['name']}')->";
-            $sql .= ($model_name) ? $join : '';
-            $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
-            $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
-            $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
-            $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
-            $sql .= "select()";
-        }
+
+
+        $sql = "M('Title')->";
+        $sql .= ($model_name) ? $join : '';
+        $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
+        $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
+        $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
+        $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
+        $sql .= "select()";
+
+
+
         //下面拼接输出语句
         $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
