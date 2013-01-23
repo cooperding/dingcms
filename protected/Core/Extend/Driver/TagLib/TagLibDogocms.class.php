@@ -6,7 +6,7 @@ class TagLibDogocms extends TagLib {
     protected $tags = array(
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
         // 'test' => array("attr" => "attr1,attr2", level => 3),
-        'nav' => array("attr" => "limit,type,order,name", level => 3), //网站导航 type:top,son,all;name:head,foot
+        'nav' => array("attr" => "limit,type,order,name,key,mod", level => 3), //网站导航 type:top,son,all;name:head,foot
         'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,order,keywords,model_name', 'level' => 3), //文章内容
         'sort' => array("attr" => "attr1,attr2", level => 3), //栏目分类
         'message' => array("attr" => "attr1,attr2", level => 3), //咨询留言
@@ -25,13 +25,13 @@ class TagLibDogocms extends TagLib {
         $tag = $this->parseXmlAttr($attr, 'nav');
         $name = $tag['name'];
         $limit = $tag['limit'];
-        $order = '\''.$tag['order'].'\'';//字符串加引号
+        $order = $tag['order'];//字符串加引号
         $type = $tag['type'];
 
         $tag['name'] = ucfirst($tag['name']);
         $sql = "M('Nav{$tag['name']}')->";
         $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
-        $sql .= ($order) ? "order({$order})->" : '';
+        $sql .= ($order) ? "order(\"{$order}\")->" : '';
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
         //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
         $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
@@ -42,11 +42,12 @@ class TagLibDogocms extends TagLib {
 
 
         //下面拼接输出语句
-        $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
+        $parsestr = '<?php $_result=' . $sql . ';';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
-        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
+        $parsestr .= '?>';
         $parsestr .= $content; //解析在article标签中的内容
-        $parsestr .= '<?php endforeach; endif;?>';
+        $parsestr .= '<?php endforeach; ?>';
+
         return $parsestr;
 
     }
@@ -179,6 +180,17 @@ class TagLibDogocms extends TagLib {
         $parsestr .= $content; //解析在article标签中的内容
         $parsestr .= '<?php endforeach; endif;?>';
         return $parsestr;
+        /*
+         * 备份这段代码
+        //下面拼接输出语句
+        $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
+        $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
+        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
+        $parsestr .= $content; //解析在article标签中的内容
+        $parsestr .= '<?php endforeach; endif;?>';
+        return $parsestr;
+         *
+         */
     }
 
 }
