@@ -8,25 +8,14 @@
         <script type="text/javascript" src="__PUBLIC__/Style/Js/jquery-1.8.0.min.js"></script>
     </head>
     <body>
-<?php
-$_result = M('NavHead')->order('id desc')->limit(0, 50)->select();
-if ($_result):
-    $i = 0;
-    foreach ($_result as $key => $nav):
-        ++$i;
-        $mod = ($i % 2 );
-?>
-{$nav.id}=3333={$nav.text}<br/>
-<?php
-endforeach;
-endif;
-?>
-
-
+        
 <dogocms:nav name="head" order="id desc" type="son" limit="0,50">
 {$nav.id}=2222={$nav.text}
 <br/>
 </dogocms:nav>
+
+
+
         <dogocms:article name="Title" limit="0,10" tid="1,2,3,4,5,6,7,8,9,10,11,12,13"  model_name="article" >
  <br/>
  {$article.id}=={$article.dnewtitle}

@@ -42,12 +42,14 @@ class TagLibDogocms extends TagLib {
 
 
         //下面拼接输出语句
-        $parsestr = '<?php $_result=' . $sql . ';';
+        $parsestr = '<?php Load("extend"); ';
+        $parsestr .= '$_result=list_to_tree('.$sql.',"id", "parent_id", "children"); if ($_result): $' . $key . '=0;';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
-        $parsestr .= '?>';
+        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
         $parsestr .= $content; //解析在article标签中的内容
-        $parsestr .= '<?php endforeach; ?>';
-
+        $parsestr .= '<?php endforeach; endif;?>';
+        echo $parsestr;
+        
         return $parsestr;
 
     }
