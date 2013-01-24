@@ -6,8 +6,8 @@ class TagLibDogocms extends TagLib {
     protected $tags = array(
         // 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
         // 'test' => array("attr" => "attr1,attr2", level => 3),
-        'nav' => array("attr" => "limit,type,order,name,key,mod", level => 3), //网站导航 type:top,son,all;name:head,foot
-        'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,order,keywords,model_name', 'level' => 3), //文章内容
+        'nav' => array("attr" => "id,limit,type,order,name,key,mod", level => 3), //网站导航 type:top,son,all;name:head,foot
+        'article' => array('attr' => 'id,typeid,type,tid,modeid,limit,flag,order,keywords,model_name', 'level' => 3), //文章内容
         'sort' => array("attr" => "attr1,attr2", level => 3), //栏目分类
         'message' => array("attr" => "attr1,attr2", level => 3), //咨询留言
         'comment' => array("attr" => "attr1,attr2", level => 3), //评论
@@ -27,7 +27,7 @@ class TagLibDogocms extends TagLib {
         $limit = $tag['limit'];
         $order = $tag['order'];//字符串加引号
         $type = $tag['type'];
-
+        $id   = $tag['id'];
         $tag['name'] = ucfirst($tag['name']);
         $sql = "M('Nav{$tag['name']}')->";
         $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
@@ -36,7 +36,7 @@ class TagLibDogocms extends TagLib {
         //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
         $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
         $sql .= "select()";
-        $result = !empty($tag['result']) ? $tag['result'] : 'nav'; //定义数据查询的结果存放变量
+        $result = !empty($id) ? $id : 'nav'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
 
@@ -48,8 +48,8 @@ class TagLibDogocms extends TagLib {
         $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
         $parsestr .= $content; //解析在article标签中的内容
         $parsestr .= '<?php endforeach; endif;?>';
-        echo $parsestr;
-        
+       // echo $parsestr;
+
         return $parsestr;
 
     }
@@ -61,6 +61,7 @@ class TagLibDogocms extends TagLib {
         $typeid = trim($tag['typeid']); //分类id
         $type = strtoupper($tag['type']); //分类类型type:all
         $tid = $tag['tid']; //指定文档id
+        $id   = $tag['id'];
         $modeid = trim($tag['modeid']); //模型id
         $model_name = trim($tag['model_name']); //模型名称
         $limit = $tag['limit']; //显示信息数 默认10
@@ -160,7 +161,7 @@ class TagLibDogocms extends TagLib {
             //$join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
         }
 
-        $result = !empty($tag['result']) ? $tag['result'] : 'article'; //定义数据查询的结果存放变量
+        $result = !empty($id) ? $id : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
 
