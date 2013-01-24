@@ -8,7 +8,7 @@ class TagLibDogocms extends TagLib {
         // 'test' => array("attr" => "attr1,attr2", level => 3),
         'nav' => array("attr" => "id,limit,type,order,name,key,mod", level => 3), //网站导航 type:top,son,all;name:head,foot
         'article' => array('attr' => 'id,typeid,type,tid,modeid,limit,flag,order,keywords,model_name', 'level' => 3), //文章内容
-        'sort' => array("attr" => "attr1,attr2", level => 3), //栏目分类
+        'sort' => array("attr" => "id,limit,type,order,name,key,mod", level => 3), //栏目分类
         'message' => array("attr" => "attr1,attr2", level => 3), //咨询留言
         'comment' => array("attr" => "attr1,attr2", level => 3), //评论
         'list' => array("attr" => "attr1,attr2", level => 3), //列表页内容
@@ -19,7 +19,7 @@ class TagLibDogocms extends TagLib {
         'member' => array("attr" => "attr1,attr2", level => 3), //会员信息(个人)
     );
 
-//$m->table()->alias()->page()->group()->having()->join()->union()->field()->where()->order()->limit()->select();
+//  头部和底部导航
     public function _nav($attr, $content)
     {
         $tag = $this->parseXmlAttr($attr, 'nav');
@@ -194,6 +194,39 @@ class TagLibDogocms extends TagLib {
         return $parsestr;
          *
          */
+    }
+    //文档分类
+     public function _sort($attr, $content)
+    {
+        $tag = $this->parseXmlAttr($attr, 'sort');
+        $limit = $tag['limit'];
+        $order = $tag['order'];//字符串加引号
+        $type = $tag['type'];
+        $id   = $tag['id'];
+        $tag['name'] = ucfirst($tag['name']);
+        $sql = "M('NewsSort')->";
+        $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
+        $sql .= ($order) ? "order(\"{$order}\")->" : '';
+        $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
+        //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
+        $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
+        $sql .= "select()";
+        $result = !empty($id) ? $id : 'sort'; //定义数据查询的结果存放变量
+        $key = !empty($tag['key']) ? $tag['key'] : 'i';
+        $mod = isset($tag['mod']) ? $tag['mod'] : '2';
+
+
+        //下面拼接输出语句
+        $parsestr = '<?php Load("extend"); ';
+        $parsestr .= '$_result=list_to_tree('.$sql.',"id", "parent_id", "children"); if ($_result): $' . $key . '=0;';
+        $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
+        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
+        $parsestr .= $content; //解析在article标签中的内容
+        $parsestr .= '<?php endforeach; endif;?>';
+       // echo $parsestr;
+
+        return $parsestr;
+
     }
 
 }
