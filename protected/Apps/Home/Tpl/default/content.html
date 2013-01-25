@@ -87,7 +87,7 @@
         <div class="title"><h1>{$dogocms.title}</h1></div>
         <div class="info">{$dogocms.addtime|date="Y-m-d H:i:s",###} 来源:{$dogocms.source} 作者:{$dogocms.author} 浏览:：{$dogocms.views}次 评论:条</div>
 		<div class="content">
-                    {$dogocms.content}
+                    {$dogocms.content|stripslashes}
         </div><!--content-->
         </div><!--common_cont-->
     </div><!--common-->

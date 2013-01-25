@@ -32,12 +32,14 @@ class ListAction extends BaseAction {
         }
         $sort_id = rtrim($sort_id, ', ');
         $title['sort_id'] = array('in',$sort_id);
+        $title['status'] = array('eq','true');
+        $title['is_recycle'] = array('eq','false');
         //$data = $t->where($title)->select();
         $count = $t->where($title)->count();
         $Page  = new Page($count,5);// 实例化分页类 传入总记录数和每页显示的记录数
         $show  = $Page->show();// 分页显示输出
         // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
-        $list = $t->where($title)->order('id')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $list = $t->where($title)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
         foreach($list as $k=>$v){
             $list_sort = $ns->field('ns.text,ns.en_name,ms.ename,ms.emark,ms.id as mid')
                 ->join(' join ' . C('DB_PREFIX') . 'news_sort  ns')

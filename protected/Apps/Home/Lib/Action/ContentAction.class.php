@@ -30,16 +30,20 @@ class ContentAction extends BaseAction {
                     ->join(' join ' . C('DB_PREFIX') . 'title as t')
                     ->join(C('DB_PREFIX') . 'news_sort ns ON ns.id=t.sort_id')
                     ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
-                    ->where('t.id=' . $id)->find();
+                    ->where('t.id=' . $id.' and t.status=\'true\' and t.is_recycle=\'false\'')->find();
         //取得内容
-        $data = $t->field('t.*,m.*,c.*')
+        if($emark){
+             $data = $t->field('t.*,m.*,c.*')
                     ->join(' join ' . C('DB_PREFIX') . 'title  t')
                     ->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . $emark['emark'] . ' m ON m.title_id=t.id')
                     ->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
-                    ->where('t.id=' . $id)
+                    ->where('t.id=' . $id.' and t.status=\'true\' and t.is_recycle=\'false\'')
                     ->find();
-        //浏览量赋值+1
-        $t->where('id=' . $id)->setInc('views',1);
+            //浏览量赋值+1
+            $t->where('id=' . $id)->setInc('views',1);
+        }else{
+            echo '错误提示！';//跳转到错误页面
+        }
         //评论信息计数
         $this->assign('dogocms', $data);
         $this->display(':content');

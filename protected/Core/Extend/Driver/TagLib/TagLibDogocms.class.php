@@ -159,7 +159,11 @@ class TagLibDogocms extends TagLib {
              */
             //$join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
         }
-
+        if($tag['where']){
+            $tag['where'] .= ' and (status=\'true\') and (is_recycle=\'false\') ';
+        }else{
+            $tag['where'] = ' (status=\'true\') and (is_recycle=\'false\') ';
+        }
         $result = !empty($id) ? $id : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
