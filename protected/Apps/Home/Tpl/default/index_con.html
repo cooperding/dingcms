@@ -324,32 +324,15 @@ zTree 是开源免费的软件（MIT 许可证）。如果您对 zTree 感兴趣
     	<div class="common_top commontopbd">
         	<div class="ctop_l f_left">物联网技术</div>
         	<div class="ctop_m f_left"></div>
-        	<div class="ctop_r f_right"><a href="/index.php/news_category?id=16">更多»</a></div>
+        	<div class="ctop_r f_right"><a href="__APP__/List/?id=27" target="_blank">更多»</a></div>
 <div class="clear"></div>
         </div><!--common_top-->
     	<div class="common_cont text">
         <ul>
-
-       	<li><a href="/index.php/news_views?id=59">物联网冰箱</a></li>
-
-       	<li><a href="/index.php/news_views?id=58">浅析公共安全监测物联网技术</a></li>
-
-       	<li><a href="/index.php/news_views?id=57">ZigBee技术在物联网系统中的应用研究</a></li>
-
-       	<li><a href="/index.php/news_views?id=56">红外线感应器</a></li>
-
-       	<li><a href="/index.php/news_views?id=55">DTCC大会报道：物联网环境下数据库设计</a></li>
-
-       	<li><a href="/index.php/news_views?id=54">全网通址 物联网时代手机是什么</a></li>
-
-       	<li><a href="/index.php/news_views?id=53">解析M2M：物联网的四大支撑技术之一</a></li>
-
-       	<li><a href="/index.php/news_views?id=52">朱志祥讲物联网（一）</a></li>
-
-       	<li><a href="/index.php/news_views?id=51">实时数据库和关系数据库的设计特点</a></li>
-
-       	<li><a href="/index.php/news_views?id=21">M2M简介</a></li>
-		        </ul>
+<dogocms:article limit="0,10" typeid="27" order="id desc">
+    <li><a href="__APP__/Content/?id={$article.id}" title="{$article.title}" target="_blank">{$article.title}</a></li>
+</dogocms:article>
+       </ul>
         </div><!--common_cont-->
 
     </div><!--common-->
@@ -782,4 +765,3 @@ zTree 是开源免费的软件（MIT 许可证）。如果您对 zTree 感兴趣
     </div><!--common-->
     </div><!--box-->
 </div>
-{$url}

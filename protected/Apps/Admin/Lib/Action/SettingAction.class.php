@@ -114,20 +114,19 @@ class SettingAction extends BaseAction {
         $m = M('Setting');
         $condition['sys_name'] = trim($_POST['sys_name']);
         if (empty($_POST['sys_gid']) || empty($condition['sys_name'])) {//不为空说明存在，存在就不能添加
-            $this->dmsg('1', '变量名或者所属分组不能为空！');
+            $this->dmsg('1', '变量名或者所属分组不能为空！', false, true);
         }
         $rs = $m->where($condition)->find();
         if (!empty($rs)) {//不为空说明存在，存在就不能添加
-            $this->dmsg('1', '变量名"' . $condition['sys_name'] . '"已经存在');
+            $this->dmsg('1', '变量名"' . $condition['sys_name'] . '"已经存在', false, true);
         }
-        $sys_type = trim($_POST['sys_type']);
-        $_POST['sys_type'] = $sys_type[0];
+        $_POST['sys_type'] = $_POST['sys_type'][0];
         if ($m->create($_POST)) {
-            $rs = $m->add($_POST);
+            $rs = $m->add();
             if ($rs) {
                 $this->dmsg('2', '添加成功！', true);
             } else {
-                $this->dmsg('1', '添加失败！');
+                $this->dmsg('1', '操作失败！', false, true);
             }
         }
     }
@@ -144,17 +143,18 @@ class SettingAction extends BaseAction {
         $condition['sys_name'] = trim($_POST['sys_name']);
         $condition['id'] = array('neq', $_POST['id']);
         if (empty($_POST['sys_gid']) || empty($condition['sys_name'])) {//不为空说明存在，存在就不能添加
-            $this->dmsg('1', '变量名或者所属分组不能为空！');
+            $this->dmsg('1', '变量名或者所属分组不能为空！', false, true);
         }
         $rs = $m->where($condition)->find();
         if (!empty($rs)) {//不为空说明存在，存在就不能添加
-            $this->dmsg('1', '变量名"' . $condition['sys_name'] . '"已经存在');
+            $this->dmsg('1', '变量名"' . $condition['sys_name'] . '"已经存在', false, true);
         }
+        $_POST['sys_type'] = $_POST['sys_type'][0];
         $rs = $m->save($_POST);
         if ($rs == true) {
             $this->dmsg('2', '修改成功！', true);
         } else {
-            $this->dmsg('1', '未有操作或操作失败！');
+            $this->dmsg('1', '操作失败！', false, true);
         }
     }
 

@@ -134,6 +134,8 @@ class NewsAction extends BaseAction {
                         ->where('ns.id=' . intval($_POST['sort_id']))->find();
         $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
         //开始写入信息
+        $_POST['addtime'] = time();
+        $_POST['updatetime'] = time();
         if ($t->create($_POST)) {
             $rs = $t->add($_POST);
             $last_id = $t->getLastInsID();

@@ -8,28 +8,6 @@
         <script type="text/javascript" src="__PUBLIC__/Style/Js/jquery-1.8.0.min.js"></script>
     </head>
     <body>
-
-<dogocms:nav name="head" order="id desc" type="son" limit="0,50">
-{$nav.id}=2222={$nav.text}
-<br/>
-<volist name="nav.children" id="vo">
-    {$vo.id}====={$vo.text}<br/>
-</volist>
-
-<br/>
-</dogocms:nav>
-
-
-
-        <dogocms:article limit="0,10" tid="1,2,3,4,5,6,7,8,9,10,11,12,13"  model_name="article" >
- <br/>
- {$article.id}=={$article.dnewtitle}
-
- <br/>
- </dogocms:article>
-
-
-
         <div class="top wpall">
             <div class="box wp">
                 <div class="top_l f_left">
@@ -67,7 +45,10 @@
         <div class="box menu wpall">
             <div class="nav wp">
                 <ul>
-                    <li><a href="/index.php/" target="_self">首页</a></li><li><a href="/index.php/news_category?id=5" target="_self">视频教程</a></li><li><a href="/index.php/news_category?id=17" target="_self">开源项目</a></li><li><a href="/index.php/news_category?id=14" target="_self">物联网</a></li><li><a href="/index.php/news_category?id=13" target="_self">推荐书籍</a></li><li><a href="/index.php/news_category?id=10" target="_self">网站建设</a></li><li><a href="/index.php/news_category?id=8" target="_self">web开发</a></li><li><a href="/index.php/news_category?id=6" target="_self">图形图像</a></li><li><a href="/index.php/news_category?id=1" target="_self">网络资讯</a></li><li><a href="/index.php/news_category?id=30" target="_self">休闲一刻</a></li><li><a href="/index.php/news_category?id=31" target="_self">电商学院</a></li><li><a href="/index.php/news_category?id=28" target="_self">励志一生</a></li><div class="clear"></div>
+                    <dogocms:nav name="head" order="id asc" type="son" limit="0,50">
+                        <li><a href="{$nav.url}" target="_self">{$nav.text}</a></li>
+                    </dogocms:nav>
+                    <div class="clear"></div>
                 </ul>
             </div><!--nav-->
         </div>

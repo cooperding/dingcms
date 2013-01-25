@@ -56,7 +56,6 @@ class TagLibDogocms extends TagLib {
 
     public function _article($attr, $content)
     {
-//'article' => array('attr' => 'typeid,type,tid,modeid,limit,flag,orderby,keyword', 'level' => 3),//文章内容
         $tag = $this->parseXmlAttr($attr, 'article');
         $typeid = trim($tag['typeid']); //分类id
         $type = strtoupper($tag['type']); //分类类型type:all
@@ -169,7 +168,7 @@ class TagLibDogocms extends TagLib {
         $sql = "M('Title')->";
         $sql .= ($model_name) ? $join : '';
         $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
-        $sql .= ($tag['order']) ? "order({$tag['order']})->" : '';
+        $sql .= ($order) ? "order(\"{$order}\")->" : 'order(\'id desc\')->';
         $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
         $sql .= "select()";
