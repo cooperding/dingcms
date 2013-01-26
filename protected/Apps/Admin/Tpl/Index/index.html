@@ -9,6 +9,15 @@
                 var classId = 'index';
                 var subtitle = $(this).text();
                 var url = $(this).attr('cmshref');
+                var rel = $(this).attr('rel');
+                if(rel=='dialog'){
+                    var type = $(this).attr('type');
+                    //alert(type);
+                    openDialog(type,url,subtitle);
+                    return false;
+                }
+                //alert(classId);
+
                 if(!$('#tabs_'+classId).tabs('exists',subtitle)){
                     $('#tabs_'+classId).tabs('add',{
                         title:subtitle,
