@@ -17,8 +17,23 @@ class TagLibDogocms extends TagLib {
         'page' => array("attr" => "attr1,attr2", level => 3), //广告（包含幻灯）
         'block' => array("attr" => "attr1,attr2", level => 3), //碎片
         'member' => array("attr" => "attr1,attr2", level => 3), //会员信息(个人)
+        'cfg' => array("attr" => "name,attr2", level => 3,'close'=>0), //会员信息(个人)
     );
-
+    //取得配置信息
+    //之后存入缓存文件
+    public function _cfg($attr, $content)
+    {
+        $tag        = $this->parseXmlAttr($attr,'cfg');
+        $name       = $tag['name'];
+        $m = M('Setting');
+        $condition['sys_name'] = $name;
+        $data = $m->where($condition)->find();
+        $parseStr   = '';
+        if($data){
+            $parseStr   = stripslashes($data['sys_value']);
+        }
+        return $parseStr;
+    }
 //  头部和底部导航
     public function _nav($attr, $content)
     {
