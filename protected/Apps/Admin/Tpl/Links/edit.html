@@ -3,23 +3,28 @@
         <input type="hidden" name="id" value="{$data.id}" />
         <ul>
             <li>
-                <label>分类名称：</label>
-                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <label>友情链接名称：</label>
+                <p><input type="text" name="webname" value="{$data.webname}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
                 <label>上级分组名：</label>
-                <p><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true," value="{$data.parent_id}"  style="width:200px;"></p
+                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Links/jsonTree',required:true"  value="0"  style="width:200px;"></p>
             </li>
             <li>
                 <label>链接地址：</label>
-                <p><input type="text" name="url" value="{$data.url}" /></p>
+                <p><input type="text" name="weburl" value="{$data.weburl}" /></p>
             </li>
             <li>
-                <label>{:L("keywords")}：</label>
-                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
+                <label>状态：</label>
+                <p><html:radio name="status" radios="radios" checked="status" /></p>
             </li>
             <li>
-                <label>{:L("description")}：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
+                <label>友情链接图片：</label>
+                <p><input type="text" name="webpic" value="{$data.webpic}" /></p>
+            </li>
+            <li>
+                <label>文字简介：</label>
+                <p><input type="text" name="emark" value="{$data.emark}" /></p>
             </li>
             <li>
                 <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>

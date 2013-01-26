@@ -8,7 +8,7 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:08
  * @package  Controller
- * @todo
+ * @todo 上传图片的操作
  */
 class LinksAction extends BaseAction {
 
@@ -33,6 +33,11 @@ class LinksAction extends BaseAction {
      */
     public function add()
     {
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
         $this->display();
     }
 
@@ -45,9 +50,84 @@ class LinksAction extends BaseAction {
      */
     public function edit()
     {
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
         $this->display();
     }
 
+    /**
+     * insert
+     * 插入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function insert()
+    {
+        $m = M('Links');
+        $webname = $_POST['webname'];
+        $sort_id = $_POST['sort_id'];
+        if (empty($webname)) {
+            $this->dmsg('1', '网站名不能为空！', false, true);
+        }
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['addtime'] = time();
+        $_POST['updatetime'] = time();
+        if ($t->create($_POST)) {
+            $rs = $t->add();
+            if ($rs == true) {
+                $this->dmsg('2', ' 操作成功！', true);
+            } else {
+                $this->dmsg('1', '操作失败！', false, true);
+            }
+        } else {
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
+        }
+    }
+
+    /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update()
+    {
+        $m = M('Links');
+        $webname = $_POST['webname'];
+        $sort_id = $_POST['sort_id'];
+        $data['id'] = intval($_POST['id']);
+        if (empty($webname)) {
+            $this->dmsg('1', '网站名不能为空！', false, true);
+        }
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['updatetime'] = time();
+        $rs = $t->where($data)->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', ' 操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }
+    }
+/**
+     * delete
+     * 删除友情链接
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function delete()
+    {
+
+    }
     /**
      * sort
      * 友情链接分类
@@ -125,7 +205,8 @@ class LinksAction extends BaseAction {
             $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }
     }
-/**
+
+    /**
      * sortupdate
      * 更新友情链接分类
      * @access public
@@ -152,6 +233,7 @@ class LinksAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * sortdelete
      * 删除友情链接分类
@@ -175,6 +257,7 @@ class LinksAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * sortJson
      * 返回sortjson模型分类数据
@@ -195,6 +278,23 @@ class LinksAction extends BaseAction {
         $array['total'] = $count;
         $array['rows'] = $a;
         echo json_encode($array);
+    }
+
+    /**
+     * jsonTree
+     * 头部导航返回树形json数据
+     * @access add edit
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTree()
+    {
+        Load('extend');
+        $m = M('LinksSort');
+        $tree = $m->field('id,ename as text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
+        echo json_encode($tree);
     }
 
 }
