@@ -1,33 +1,50 @@
 <div class="pageform">
-    <form action="__APP__/Links/insert" id="form_links" method="post">
+    <form action="__APP__/News/update" id="form_newstab{$data.sort_id}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$data.id}" />
         <ul>
+            
             <li>
-                <label>友情链接名称：</label>
-                <p><input type="text" name="webname" value="{$data.webname}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <label>文档标题图：</label>
+                <p>
+                    <input type="text" id="url1" name="titlepic" value="{$data.titlepic}" />
+                    <input type="button" id="image1" value="选择图片" />
+                </p>
             </li>
-            <li>
-                <label>上级分组名：</label>
-                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Links/jsonTree',required:true"  value="0"  style="width:200px;"></p>
-            </li>
-            <li>
-                <label>链接地址：</label>
-                <p><input type="text" name="weburl" value="{$data.weburl}" /></p>
-            </li>
-            <li>
-                <label>状态：</label>
-                <p><html:radio name="status" radios="radios" checked="status" /></p>
-            </li>
-            <li>
-                <label>友情链接图片：</label>
-                <p><input type="text" name="webpic" value="{$data.webpic}" /></p>
-            </li>
-            <li>
-                <label>文字简介：</label>
-                <p><input type="text" name="emark" value="{$data.emark}" /></p>
-            </li>
-            <li>
-                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
-            </li>
+            
+            
         </ul>
     </form>
+    <script>
+        $(function() {
+            
+            KindEditor.create('#content', {
+                themeType : 'simple',
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson',
+                afterBlur : function() {
+                    this.sync();
+                }
+            });
+            var editor = KindEditor.editor({
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson'
+            });
+            KindEditor('#image1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : KindEditor('#url1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            KindEditor('#url1').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+        });
+    </script>
+
 </div>
