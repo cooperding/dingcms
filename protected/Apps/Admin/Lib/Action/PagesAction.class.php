@@ -11,7 +11,120 @@
  * @package  Controller
  * @todo 联动模型其他操作
  */
-class LinkPageAction extends BaseAction {
+class PagesAction extends BaseAction {
+
+    /**
+     * index
+     * 广告列表页
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function index()
+    {
+        $this->display();
+    }
+
+    /**
+     * add
+     * 添加信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function add()
+    {
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
+        $this->display();
+    }
+
+    /**
+     * edit
+     * 编辑信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function edit()
+    {
+        $m = M('Pages');
+        $id = intval($_GET['id']);
+        $data = $m->where('id=' . $id)->find();
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
+        $this->assign('data', $data);
+        $this->assign('status', $data['status']);
+        $this->display();
+    }
+
+    /**
+     * insert
+     * 插入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function insert()
+    {
+        $m = M('Pages');
+        $ename = $_POST['ename'];
+        $sort_id = $_POST['sort_id'];
+        if (empty($ename)) {
+            $this->dmsg('1', '网站名不能为空！', false, true);
+        }
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['addtime'] = time();
+        $_POST['updatetime'] = time();
+        $_POST['status'] = $_POST['status']['0'];
+        if ($m->create($_POST)) {
+            $rs = $m->add();
+            if ($rs == true) {
+                $this->dmsg('2', ' 操作成功！', true);
+            } else {
+                $this->dmsg('1', '操作失败！', false, true);
+            }
+        } else {
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
+        }
+    }
+
+    /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update()
+    {
+        $m = M('Pages');
+        $ename = $_POST['ename'];
+        $sort_id = $_POST['sort_id'];
+        $data['id'] = array('eq', intval($_POST['id']));
+        if (empty($ename)) {
+            $this->dmsg('1', '网站名不能为空！', false, true);
+        }
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['updatetime'] = time();
+        $_POST['status'] = $_POST['status']['0'];
+        $rs = $m->where($data)->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', ' 操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }
+    }
 
     /**
      * sort
@@ -73,25 +186,28 @@ class LinkPageAction extends BaseAction {
     public function sortinsert()
     {
         $m = M('PagesSort');
-        $id = intval($_POST['id']);
-        $condition['ename'] = trim($_POST['ename']);
-        $condition['egroup'] = trim($_POST['egroup']);
-        $condition['_logic'] = 'OR';
-        if (empty($condition['ename']) || empty($condition['egroup'])) {
-            $this->dmsg('1', '请将信息输入完整！', false, true);
+        $parent_id = intval($_POST['parent_id']);
+        $ename = trim($_POST['ename']);
+        if (empty($ename)) {
+            $this->dmsg('1', '分类名不能为空！', false, true);
         }
-        if ($m->field('id')->where($condition)->find()) {
-            $this->dmsg('1', '您输入的名称或者标识' . $condition['ename'] . $condition['egroup'] . '已经存在！', false, true);
+        $en_name = trim($_POST['en_name']);
+        if (empty($en_name)) {
+            import("ORG.Util.Pinyin");
+            $pinyin = new Pinyin();
+            $_POST['en_name'] = $pinyin->output(trim($_POST['ename']));
+        }
+        if ($parent_id != 0) {
+            $data = $m->where('id=' . $parent_id)->find();
+            $_POST['path'] = $data['path'] . $parent_id . ',';
         }
         if ($m->create($_POST)) {
             $rs = $m->add($_POST);
             if ($rs) {
-                $this->dmsg('2', '分类添加成功！', true);
+                $this->dmsg('2', '操作成功！', true);
             } else {
-                $this->dmsg('1', '分类添加失败！', false, true);
+                $this->dmsg('1', '操作失败！', false, true);
             }
-        } else {
-            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }//if
     }
 
@@ -105,26 +221,39 @@ class LinkPageAction extends BaseAction {
     public function sortupdate()
     {
         $m = M('PagesSort');
+        $d = D('NewsSort');
         $id = intval($_POST['id']);
-        $_POST['ename'] = trim($_POST['ename']);
-        $_POST['egroup'] = trim($_POST['egroup']);
-        $where['ename'] = $_POST['ename'];
-        $where['egroup'] = $_POST['egroup'];
-        $where['_logic'] = 'or';
-        $condition['_complex'] = $where;
-        $condition['id'] = array('neq', $id);
-        if (empty($_POST['ename']) || empty($_POST['egroup'])) {
-            $this->dmsg('1', '请将信息输入完整！', false, true);
+        $parent_id = intval($_POST['parent_id']);
+        $tbname = 'PagesSort';
+        if ($parent_id != 0) {//不为0时判断是否为子分类
+            $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
+            if ($cun) {
+                $this->dmsg('1', '不能选择当前分类的子类为父级分类！', false, true);
+            }
+            $data = $m->field('path')->where('id=' . $parent_id)->find();
+            $sort_path = $data['path'] . $parent_id . ','; //取得不为0时的path
+            $_POST['path'] = $data['path'] . $parent_id . ',';
+            $d->updatePath($id, $sort_path, $tbname);
+        } else {//为0，path为,
+            $data = $m->field('parent_id')->where('id=' . $id)->find();
+            if ($data['parent_id'] != $parent_id) {//相同不改变
+                $sort_path = ','; //取得不为0时的path
+                $d->updatePath($id, $sort_path, $tbname);
+            }
+            $_POST['path'] = ','; //应该是这个
         }
-        if ($m->field('id')->where($condition)->find()) {
-            $this->dmsg('1', '您输入的名称或者标识' . $_POST['ename'] . $_POST['egroup'] . '已经存在！', false, true);
+        $en_name = trim($_POST['en_name']);
+        if (empty($en_name)) {
+            import("ORG.Util.Pinyin");
+            $pinyin = new Pinyin();
+            $_POST['en_name'] = $pinyin->output(trim($_POST['ename']));
         }
         $rs = $m->save($_POST);
         if ($rs == true) {
             $this->dmsg('2', '操作成功！', true);
         } else {
-            $this->dmsg('1', '未有操作或者操作失败！', false, true);
-        }//if
+            $this->dmsg('1', '未有操作或操作失败！', false, true);
+        }
     }
 
     /**
@@ -150,100 +279,72 @@ class LinkPageAction extends BaseAction {
         }//if
     }
 
-    
-
     /**
-     * sortJson
-     * 返回sortJson联动分类数据
+     * jsonTree
+     * 分类json树结构数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function sortJson()
+    public function jsonSortList()
     {
         $m = M('PagesSort');
-        $list = $m->select();
-        $count = $m->count("id");
+        $list = $m->field('id,parent_id,ename as text')->select();
+        $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {
             $a[$k] = $v;
+            $a[$k]['_parentId'] = intval($v['parent_id']); //_parentId为easyui中标识父id
         }
         $array = array();
-        $array['total'] = $count;
+        $array['total'] = $navcatCount;
         $array['rows'] = $a;
         echo json_encode($array);
     }
 
     /**
-     * sortModelJson
-     * 返回sortModelJsonn联动分类数据,模型列表处使用
+     * jsonTree
+     * 分类json树结构数据
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function sortModelJson()
+    public function jsonTree()
     {
+        Load('extend');
         $m = M('PagesSort');
-        $list = $m->field('id,ename')->select();
-        $array = array();
-        foreach ($list as $k => $v) {
-            $array[$k] = $v;
-        }
-        echo json_encode($array);
-    }
-
-    /**
-     * jsonTreeId
-     * 通过id返回jsonTree数据
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function jsonTreeId()
-    {
-        Load('extend');
-        $m = M('Pages');
-        $id = intval($_GET['id']);
-        $tree = $m->field('id,parent_id,sort_name as text')->where('linkpage_id=' . $id)->select();
-        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
-        //$tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
-        echo json_encode($tree);
-    }
-
-    /**
-     * jsonTreeListId
-     * 通过id返回jsonTreeList数据
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function jsonTreeListId()
-    {
-        Load('extend');
-        $m = M('Pages');
-        $id = intval($_GET['id']);
-        $tree = $m->field('id,parent_id,sort_name as text')->where('linkpage_id=' . $id)->select();
+        $tree = $m->field('id,parent_id,ename as text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);
     }
-
-    /**
-     * jsonSortTree
-     * 分类树信息json数据
+ /**
+     * jsonList
+     * 取得列表信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function jsonSortTree()
+    public function jsonList()
     {
-        Load('extend');
-        $m = M('PagesSort');
-        $tree = $m->field('id,ename as text')->select();
-        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
-        echo json_encode($tree);
+        $m = M('Pages');
+        import('ORG.Util.Page'); // 导入分页类
+        $pageNumber = intval($_POST['page']);
+        $pageRows = intval($_POST['rows']);
+        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
+        $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
+        $count = $m->count();
+        $page = new Page($count, $pageRows);
+        $firstRow = ($pageNumber - 1) * $pageRows;
+        $data = $m->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
+        foreach ($data as $k => $v) {
+            $data[$k]['addtime'] = date('Y-m-d H:i:s', $v['addtime']);
+        }
+        $array = array();
+        $array['total'] = $count;
+        $array['rows'] = $data;
+        echo json_encode($array);
     }
-
 }
 ?>
 

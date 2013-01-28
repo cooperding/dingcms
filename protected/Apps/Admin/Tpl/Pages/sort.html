@@ -1,0 +1,23 @@
+<table id="treegrid_pages_sort" class="pages_sort">
+
+</table>
+<script>
+    $(function(){
+        var height = $('.indexcenter').height();
+        var classId = 'pages_sort';
+        var hrefadd = '__APP__/Pages/sortadd';
+        var hrefedit = '__APP__/Pages/sortedit';
+        var hrefcancel = '__APP__/Pages/sortdelete';
+        var urljson = '__APP__/Pages/jsonSortList';
+        $('.layout_'+classId).css('height',height-50);
+        openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+        $('#treegrid_'+classId).treegrid({
+                columns:[[
+                        {field:'id',title:'id',width:50},
+                        {field:'text',title:'ename',width:200},
+                        {field:'parent_id',title:'parent_id',width:200},
+                        {field:'myorder',title:'myorder',width:80}
+                    ]]
+            })
+    })
+</script>

@@ -1,15 +1,15 @@
 <div class="pagecontent">
 
-    <table id="datagrid_flash">
+    <table id="datagrid_pages">
 
     </table>
     <script>
         $(function(){
-            var classId = 'flash';
-            var urljson = '__APP__/Flash/jsonList';
-            var hrefadd = '__APP__/Flash/add';
-            var hrefedit = '__APP__/Flash/edit';
-            var hrefcancel = '__APP__/Flash/delete';
+            var classId = 'pages';
+            var urljson = '__APP__/Pages/jsonList';
+            var hrefadd = '__APP__/Pages/add';
+            var hrefedit = '__APP__/Pages/edit';
+            var hrefcancel = '__APP__/Pages/delete';
             openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
             $('#datagrid_'+classId).datagrid({
                 columns:[[

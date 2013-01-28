@@ -1,6 +1,6 @@
 <div class="pagecontent">
 
-    <table id="treegrid_links">
+    <table id="datagrid_links">
 
     </table>
     <script>
@@ -10,8 +10,8 @@
             var hrefadd = '__APP__/Links/add';
             var hrefedit = '__APP__/Links/edit';
             var hrefcancel = '__APP__/Links/delete';
-            openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
-            $('#treegrid_'+classId).treegrid({
+            openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+            $('#datagrid_'+classId).datagrid({
                 columns:[[
                         {field:'id',title:'id',width:50},
                         {field:'webname',title:'网站名称',width:200},
