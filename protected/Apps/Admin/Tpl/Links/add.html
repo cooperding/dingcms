@@ -2,7 +2,7 @@
     <form action="__APP__/News/update" id="form_newstab{$data.sort_id}" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{$data.id}" />
         <ul>
-            
+
             <li>
                 <label>文档标题图：</label>
                 <p>
@@ -10,13 +10,13 @@
                     <input type="button" id="image1" value="选择图片" />
                 </p>
             </li>
-            
-            
+
+
         </ul>
     </form>
     <script>
         $(function() {
-            
+
             KindEditor.create('#content', {
                 themeType : 'simple',
                 allowFileManager : true,
