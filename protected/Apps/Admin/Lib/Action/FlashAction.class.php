@@ -33,6 +33,11 @@ class FlashAction extends BaseAction {
      */
     public function add()
     {
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
         $this->display();
     }
 
@@ -45,7 +50,79 @@ class FlashAction extends BaseAction {
      */
     public function edit()
     {
+        $m = M('Flash');
+        $id = intval($_GET['id']);
+        $data = $m->where('id='.$id)->find();
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
+        $this->assign('data', $data);
+        $this->assign('status', $data['status']);
         $this->display();
+    }
+
+    /**
+     * insert
+     * 插入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function insert()
+    {
+        $m = M('Flash');
+        $ename = $_POST['ename'];
+        $sort_id = $_POST['sort_id'];
+        if (empty($ename)) {
+            $this->dmsg('1', '网站名不能为空！', false, true);
+        }
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['addtime'] = time();
+        $_POST['updatetime'] = time();
+        $_POST['status'] = $_POST['status']['0'];
+        if ($m->create($_POST)) {
+            $rs = $m->add();
+            if ($rs == true) {
+                $this->dmsg('2', ' 操作成功！', true);
+            } else {
+                $this->dmsg('1', '操作失败！', false, true);
+            }
+        } else {
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
+        }
+    }
+
+    /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update()
+    {
+        $m = M('Flash');
+        $ename = $_POST['ename'];
+        $sort_id = $_POST['sort_id'];
+        $data['id'] = array('eq', intval($_POST['id']));
+        if (empty($ename)) {
+            $this->dmsg('1', '网站名不能为空！', false, true);
+        }
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['updatetime'] = time();
+        $_POST['status'] = $_POST['status']['0'];
+        $rs = $m->where($data)->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', ' 操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }
     }
 
     /**
@@ -125,7 +202,8 @@ class FlashAction extends BaseAction {
             $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }
     }
-/**
+
+    /**
      * sortupdate
      * 更新幻灯分类
      * @access public
@@ -152,6 +230,7 @@ class FlashAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * sortdelete
      * 删除幻灯分类
@@ -175,6 +254,7 @@ class FlashAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * sortJson
      * 返回sortjson模型分类数据
@@ -194,6 +274,51 @@ class FlashAction extends BaseAction {
         $array = array();
         $array['total'] = $count;
         $array['rows'] = $a;
+        echo json_encode($array);
+    }
+
+    /**
+     * jsonTree
+     * 头部导航返回树形json数据
+     * @access add edit
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTree()
+    {
+        Load('extend');
+        $m = M('FlashSort');
+        $tree = $m->field('id,ename as text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
+        echo json_encode($tree);
+    }
+
+    /**
+     * jsonList
+     * 取得列表信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonList()
+    {
+        $m = M('Flash');
+        import('ORG.Util.Page'); // 导入分页类
+        $pageNumber = intval($_POST['page']);
+        $pageRows = intval($_POST['rows']);
+        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
+        $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
+        $count = $m->count();
+        $page = new Page($count, $pageRows);
+        $firstRow = ($pageNumber - 1) * $pageRows;
+        $data = $m->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
+        foreach ($data as $k => $v) {
+            $data[$k]['addtime'] = date('Y-m-d H:i:s', $v['addtime']);
+        }
+        $array = array();
+        $array['total'] = $count;
+        $array['rows'] = $data;
         echo json_encode($array);
     }
 

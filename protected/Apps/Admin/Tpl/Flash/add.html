@@ -1,26 +1,26 @@
 <div class="pageform">
-    <form action="__APP__/Links/update" id="form_links" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="{$data.id}" />
+    <form action="__APP__/Flash/insert" id="form_flash" method="post" enctype="multipart/form-data">
         <ul>
             <li>
-                <label>友情链接名称：</label>
-                <p><input type="text" name="webname" value="{$data.webname}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <label>广告名称：</label>
+                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
-                <label>上级分组名：</label>
-                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Links/jsonTree',required:true"  value="{$data.sort_id}"  style="width:200px;"></p>
+                <label>广告分组：</label>
+                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Flash/jsonTree',required:true" value="0" style="width:200px;"></p>
             </li>
             <li>
                 <label>链接地址：</label>
-                <p><input type="text" name="weburl" value="{$data.weburl}" /></p>
+                <p><input type="text" name="eurl" value="{$data.eurl}" /></p>
             </li>
             <li>
                 <label>状态：</label>
                 <p><html:radio name="status" radios="radios" checked="status" /></p>
             </li>
             <li>
-                <label>友情链接图片：</label>
-                <p><input type="text" id="url1" name="webpic" value="{$data.webpic}" />
+                <label>广告图：</label>
+                <p>
+                    <input type="text" id="url1" name="epic" value="" />
                     <input type="button" id="image1" value="选择图片" />
                 </p>
             </li>
@@ -33,8 +33,7 @@
             </li>
         </ul>
     </form>
-</div>
- <script>
+    <script>
         $(function() {
 
             KindEditor.create('#content', {
@@ -66,3 +65,5 @@
 
         });
     </script>
+
+</div>

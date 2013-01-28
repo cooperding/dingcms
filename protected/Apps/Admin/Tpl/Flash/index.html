@@ -1,0 +1,26 @@
+<div class="pagecontent">
+
+    <table id="treegrid_flash">
+
+    </table>
+    <script>
+        $(function(){
+            var classId = 'flash';
+            var urljson = '__APP__/Flash/jsonList';
+            var hrefadd = '__APP__/Flash/add';
+            var hrefedit = '__APP__/Flash/edit';
+            var hrefcancel = '__APP__/Flash/delete';
+            openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+            $('#treegrid_'+classId).treegrid({
+                columns:[[
+                        {field:'id',title:'id',width:50},
+                        {field:'ename',title:'网站名称',width:200},
+                        {field:'eurl',title:'网站域名',width:200},
+                        {field:'addtime',title:'添加时间',width:200},
+                        {field:'myorder',title:'myorder',width:80}
+                    ]]
+            })
+        })
+    </script>
+
+</div><!--pagecontent-->
