@@ -6,7 +6,7 @@
     <script>
         $(function(){
             var classId = 'links';
-            var urljson = '__APP__/Links/json';
+            var urljson = '__APP__/Links/jsonList';
             var hrefadd = '__APP__/Links/add';
             var hrefedit = '__APP__/Links/edit';
             var hrefcancel = '__APP__/Links/delete';
@@ -14,8 +14,9 @@
             $('#treegrid_'+classId).treegrid({
                 columns:[[
                         {field:'id',title:'id',width:50},
-                        {field:'text',title:'text',width:200},
-                        {field:'parent_id',title:'parent_id',width:200},
+                        {field:'webname',title:'网站名称',width:200},
+                        {field:'weburl',title:'网站域名',width:200},
+                        {field:'addtime',title:'添加时间',width:200},
                         {field:'myorder',title:'myorder',width:80}
                     ]]
             })

@@ -50,11 +50,16 @@ class LinksAction extends BaseAction {
      */
     public function edit()
     {
+        $m = M('Links');
+        $id = intval($_GET['id']);
+        $data = $m->where('id='.$id)->find();
         $radios = array(
             'true' => '可用',
             'false' => '禁用'
         );
         $this->assign('radios', $radios);
+        $this->assign('data', $data);
+        $this->assign('status', $data['status']);
         $this->display();
     }
 
@@ -78,8 +83,9 @@ class LinksAction extends BaseAction {
         }
         $_POST['addtime'] = time();
         $_POST['updatetime'] = time();
-        if ($t->create($_POST)) {
-            $rs = $t->add();
+        $_POST['status'] = $_POST['status']['0'];
+        if ($m->create($_POST)) {
+            $rs = $m->add();
             if ($rs == true) {
                 $this->dmsg('2', ' 操作成功！', true);
             } else {
@@ -102,7 +108,7 @@ class LinksAction extends BaseAction {
         $m = M('Links');
         $webname = $_POST['webname'];
         $sort_id = $_POST['sort_id'];
-        $data['id'] = intval($_POST['id']);
+        $data['id'] = array('eq',intval($_POST['id']));
         if (empty($webname)) {
             $this->dmsg('1', '网站名不能为空！', false, true);
         }
@@ -110,7 +116,8 @@ class LinksAction extends BaseAction {
             $this->dmsg('1', '请选择所属分类！', false, true);
         }
         $_POST['updatetime'] = time();
-        $rs = $t->where($data)->save($_POST);
+        $_POST['status'] = $_POST['status']['0'];
+        $rs = $m->where($data)->save($_POST);
         if ($rs == true) {
             $this->dmsg('2', ' 操作成功！', true);
         } else {
@@ -126,7 +133,15 @@ class LinksAction extends BaseAction {
      */
     public function delete()
     {
-
+        $m = M('Links');
+        $id = intval($_POST['id']);
+        $condition['id'] = array('eq', $id);
+        $del = $m->where('id=' . $id)->delete();
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
     }
     /**
      * sort
@@ -296,7 +311,32 @@ class LinksAction extends BaseAction {
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);
     }
-
+    /**
+     * jsonList
+     * 取得列表信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonList() {
+        $m = M('Links');
+        import('ORG.Util.Page'); // 导入分页类
+        $pageNumber = intval($_POST['page']);
+        $pageRows = intval($_POST['rows']);
+        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
+        $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
+        $count = $m->count();
+        $page = new Page($count, $pageRows);
+        $firstRow = ($pageNumber - 1) * $pageRows;
+        $data = $m->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
+        foreach ($data as $k => $v) {
+            $data[$k]['addtime'] = date('Y-m-d H:i:s', $v['addtime']);
+        }
+        $array = array();
+        $array['total'] = $count;
+        $array['rows'] = $data;
+        echo json_encode($array);
+    }
 }
 
 ?>

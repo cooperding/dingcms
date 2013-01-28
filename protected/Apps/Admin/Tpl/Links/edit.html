@@ -8,7 +8,7 @@
             </li>
             <li>
                 <label>上级分组名：</label>
-                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Links/jsonTree',required:true"  value="0"  style="width:200px;"></p>
+                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Links/jsonTree',required:true"  value="{$data.sort_id}"  style="width:200px;"></p>
             </li>
             <li>
                 <label>链接地址：</label>
@@ -20,7 +20,9 @@
             </li>
             <li>
                 <label>友情链接图片：</label>
-                <p><input type="text" name="webpic" value="{$data.webpic}" /></p>
+                <p><input type="text" id="url1" name="webpic" value="{$data.webpic}" />
+                    <input type="button" id="image1" value="选择图片" />
+                </p>
             </li>
             <li>
                 <label>文字简介：</label>
@@ -32,3 +34,35 @@
         </ul>
     </form>
 </div>
+ <script>
+        $(function() {
+
+            KindEditor.create('#content', {
+                themeType : 'simple',
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson',
+                afterBlur : function() {
+                    this.sync();
+                }
+            });
+            var editor = KindEditor.editor({
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson'
+            });
+            KindEditor('#image1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : KindEditor('#url1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            KindEditor('#url1').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+        });
+    </script>
