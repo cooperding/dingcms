@@ -77,7 +77,7 @@ class PagesAction extends BaseAction {
         $ename = $_POST['ename'];
         $sort_id = $_POST['sort_id'];
         if (empty($ename)) {
-            $this->dmsg('1', '网站名不能为空！', false, true);
+            $this->dmsg('1', '单页名不能为空！', false, true);
         }
         if ($sort_id == 0) {
             $this->dmsg('1', '请选择所属分类！', false, true);
@@ -111,7 +111,7 @@ class PagesAction extends BaseAction {
         $sort_id = $_POST['sort_id'];
         $data['id'] = array('eq', intval($_POST['id']));
         if (empty($ename)) {
-            $this->dmsg('1', '网站名不能为空！', false, true);
+            $this->dmsg('1', '单页名不能为空！', false, true);
         }
         if ($sort_id == 0) {
             $this->dmsg('1', '请选择所属分类！', false, true);
