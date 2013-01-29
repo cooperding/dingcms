@@ -243,7 +243,7 @@ class MessageAction extends BaseAction {
                         ->limit($firstRow . ',' . $pageRows)->order('m.id desc')->select();
         foreach ($data as $k => $v) {
             $data[$k]['addtime'] = date('Y-m-d H:i:s', $v['addtime']);
-            $data[$k]['replaytime'] = date('Y-m-d H:i:s', $v['replaytime']);
+            $data[$k]['replytime'] = date('Y-m-d H:i:s', $v['replytime']);
             if ($v['status'] = 'true') {
                 $data[$k]['status'] = '可用';
             } else {

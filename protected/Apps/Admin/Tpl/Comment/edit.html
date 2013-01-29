@@ -3,33 +3,22 @@
         <input type="hidden" name="id" value="{$data.id}" />
         <ul>
             <li>
-                <label>广告名称：</label>
-                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+                <label>评论人：</label>
+                <p><input type="text" name="post_name" value="{$data.post_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
             </li>
             <li>
-                <label>广告分组：</label>
-                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Comment/jsonTree',required:true" value="{$data.sort_id}"  style="width:200px;"></p>
-            </li>
-            <li>
-                <label>链接地址：</label>
-                <p><input type="text" name="eurl" value="{$data.eurl}" /></p>
+                <label>留言内容：</label>
+                <p><textarea name="msgcontent" rows="3" cols="30">{$data.msgcontent}</textarea></p>
             </li>
             <li>
                 <label>状态：</label>
                 <p><html:radio name="status" radios="radios" checked="status" /></p>
             </li>
             <li>
-                <label>友情链接图片：</label>
-                <p><input type="text" id="url1" name="epic" value="{$data.epic}" />
-                    <input type="button" id="image1" value="选择图片" />
-                </p>
+                <label>回复内容：</label><p></p>
             </li>
             <li>
-                <label>文字简介：</label>
-                <p><input type="text" name="emark" value="{$data.emark}" /></p>
-            </li>
-            <li>
-                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
+                <textarea id="content" name="replycontent" style="width:720px;height:400px;visibility:hidden;">{$data.replycontent|stripslashes}</textarea>
             </li>
 
         </ul>
@@ -47,22 +36,7 @@
                     this.sync();
                 }
             });
-            var editor = KindEditor.editor({
-                allowFileManager : true,
-                uploadJson:'__APP__/Upload/uploadImg',
-                fileManagerJson :'__APP__/Upload/fileManagerJson'
-            });
-            KindEditor('#image1').click(function() {
-                editor.loadPlugin('image', function() {
-                    editor.plugin.imageDialog({
-                        imageUrl : KindEditor('#url1').val(),
-                        clickFn : function(url, title, width, height, border, align) {
-                            KindEditor('#url1').val(url);
-                            editor.hideDialog();
-                        }
-                    });
-                });
-            });
+
 
 
         });
