@@ -29,12 +29,11 @@ $array = array(
                     array('label' => L('menu_sort_add'), 'type' => 'newssort', 'rel' => 'dialog', 'link' => __APP__ . '/NewsSort/add')
             )),
             array('label' => L('menu_message_name'), 'type' => 'message_name', 'items' => array(
-                    array('label' => L('menu_message_list'), 'type' => 'message_list', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_message_setting'), 'type' => 'message_setting', 'link' => 'www.baidu.com')
+                    array('label' => L('menu_message_list'), 'type' => 'message_list', 'link' => __APP__ . '/Message/index'),
+                    array('label' => L('menu_message_sort'), 'type' => 'message_setting', 'link' => __APP__ . '/Message/sort')
             )),
             array('label' => L('menu_comment_name'), 'type' => 'comment_name', 'items' => array(
-                    array('label' => L('menu_comment_list'), 'type' => 'comment_list', 'link' => 'www.baidu.com'),
-                    array('label' => L('menu_comment_setting'), 'type' => 'comment_setting', 'link' => 'www.baidu.com')
+                    array('label' => L('menu_comment_list'), 'type' => 'comment_list', 'link' => __APP__ . '/Comment/index')
             )),
             array('label' => L('menu_singlepage_name'), 'type' => 'singlepage_name', 'items' => array(
                     array('label' => L('menu_singlepage_list'), 'type' => 'singlepage_list', 'link' => __APP__ . '/Pages/index'),

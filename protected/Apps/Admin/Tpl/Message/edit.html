@@ -1,0 +1,47 @@
+<div class="pageform">
+    <form action="__APP__/Message/update" id="form_message" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$data.id}" />
+        <ul>
+            <li>
+                <label>留言者：</label>
+                <p><input type="text" name="post_name" value="{$data.post_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
+            </li>
+            <li>
+                <label>留言分类：</label>
+                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Message/jsonTree',required:true" value="{$data.sort_id}"  style="width:200px;"></p>
+            </li>
+            <li>
+                <label>留言内容：</label>
+                <p><textarea name="msgcontent" rows="3" cols="30">{$data.msgcontent}</textarea></p>
+            </li>
+            <li>
+                <label>状态：</label>
+                <p><html:radio name="status" radios="radios" checked="status" /></p>
+            </li>
+            <li>
+                <label>回复内容：</label><p></p>
+            </li>
+            <li>
+                <textarea id="content" name="replycontent" style="width:720px;height:400px;visibility:hidden;">{$data.replycontent|stripslashes}</textarea>
+            </li>
+
+        </ul>
+    </form>
+</div>
+ <script>
+        $(function() {
+
+            KindEditor.create('#content', {
+                themeType : 'simple',
+                allowFileManager : true,
+                uploadJson:'__APP__/Upload/uploadImg',
+                fileManagerJson :'__APP__/Upload/fileManagerJson',
+                afterBlur : function() {
+                    this.sync();
+                }
+            });
+
+
+
+        });
+    </script>

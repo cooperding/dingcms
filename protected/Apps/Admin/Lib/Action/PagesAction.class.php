@@ -265,7 +265,7 @@ class PagesAction extends BaseAction {
      */
     public function sortdelete()
     {
-        $id = intval($_GET['id']);
+        $id = intval($_POST['id']);
         $m = M('PagesSort');
         $list = M('Pages');
         if ($list->field('id')->where('linkpage_id=' . $id)->find()) {

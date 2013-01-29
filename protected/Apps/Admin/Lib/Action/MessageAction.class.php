@@ -1,8 +1,8 @@
 <?php
 
 /**
- * AdsAction.class.php
- * 广告信息
+ * MessageAction.class.php
+ * 留言信息
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
  * @license http://www.apache.org/licenses/LICENSE-2.0
@@ -10,7 +10,7 @@
  * @package  Controller
  * @todo
  */
-class AdsAction extends BaseAction {
+class MessageAction extends BaseAction {
 
     /**
      * index
@@ -25,18 +25,6 @@ class AdsAction extends BaseAction {
     }
 
     /**
-     * add
-     * 添加信息
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function add()
-    {
-        $this->display();
-    }
-
-    /**
      * edit
      * 编辑信息
      * @access public
@@ -45,7 +33,42 @@ class AdsAction extends BaseAction {
      */
     public function edit()
     {
+        $m = M('Message');
+        $id = intval($_GET['id']);
+        $data = $m->where('id=' . $id)->find();
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
+        $this->assign('data', $data);
+        $this->assign('status', $data['status']);
         $this->display();
+    }
+
+    /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update()
+    {
+        $m = M('Message');
+        $sort_id = $_POST['sort_id'];
+        $data['id'] = array('eq', intval($_POST['id']));
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['replaytime'] = time();
+        $_POST['status'] = $_POST['status']['0'];
+        $rs = $m->where($data)->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', ' 操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }
     }
 
     /**
@@ -58,7 +81,7 @@ class AdsAction extends BaseAction {
     public function delete()
     {
         $id = intval($_POST['id']);
-        $m = M('Ads');
+        $m = M('Message');
         $del = $m->where('id=' . $id)->delete();
         if ($del == true) {
             $this->dmsg('2', '操作成功！', true);
@@ -66,9 +89,10 @@ class AdsAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * sort
-     * 广告分类
+     * 留言分类
      * @access public
      * @return array
      * @version dogocms 1.0
@@ -80,7 +104,7 @@ class AdsAction extends BaseAction {
 
     /**
      * sortadd
-     * 添加广告分类
+     * 添加留言分类
      * @access public
      * @return array
      * @version dogocms 1.0
@@ -97,7 +121,7 @@ class AdsAction extends BaseAction {
 
     /**
      * sortedit
-     * 编辑广告分类
+     * 编辑留言分类
      * @access public
      * @return array
      * @version dogocms 1.0
@@ -105,7 +129,7 @@ class AdsAction extends BaseAction {
     public function sortedit()
     {
         $id = $_GET['id'];
-        $m = M('AdsSort');
+        $m = M('MessageSort');
         $data = $m->where('id=' . intval($id))->find();
         $radios = array(
             'true' => '启用',
@@ -119,14 +143,14 @@ class AdsAction extends BaseAction {
 
     /**
      * sortinsert
-     * 写入广告分类
+     * 写入留言分类
      * @access public
      * @return array
      * @version dogocms 1.0
      */
     public function sortinsert()
     {
-        $m = M('AdsSort');
+        $m = M('MessageSort');
         $condition['ename'] = trim($_POST['ename']);
         if (empty($condition['ename'])) {
             $this->dmsg('1', '请将信息输入完整！', false, true);
@@ -143,16 +167,17 @@ class AdsAction extends BaseAction {
             $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
         }
     }
-/**
+
+    /**
      * sortupdate
-     * 更新广告分类
+     * 更新留言分类
      * @access public
      * @return array
      * @version dogocms 1.0
      */
     public function sortupdate()
     {
-        $m = M('AdsSort');
+        $m = M('MessageSort');
         $id = intval($_POST['id']);
         $condition['ename'] = trim($_POST['ename']);
         $condition['id'] = array('neq', $id);
@@ -170,17 +195,18 @@ class AdsAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
     /**
      * sortdelete
-     * 删除广告分类
+     * 删除留言分类
      * @access public
      * @return array
      * @version dogocms 1.0
      */
     public function sortdelete()
     {
-        $m = M('AdsSort');
-        $l = M('Ads');
+        $m = M('MessageSort');
+        $l = M('Message');
         $id = intval($_POST['id']);
         $condition['sort_id'] = array('eq', $id);
         if ($l->field('id')->where($condition)->find()) {
@@ -193,6 +219,43 @@ class AdsAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+
+    /**
+     * jsonList
+     * 取得列表信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonList()
+    {
+        $m = M('Message');
+        import('ORG.Util.Page'); // 导入分页类
+        $pageNumber = intval($_POST['page']);
+        $pageRows = intval($_POST['rows']);
+        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
+        $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
+        $count = $m->count();
+        $page = new Page($count, $pageRows);
+        $firstRow = ($pageNumber - 1) * $pageRows;
+        $data = $m->join(' join ' . C('DB_PREFIX') . 'message m')
+                        ->join(C('DB_PREFIX') . 'message_sort ms ON ms.id=m.id')
+                        ->limit($firstRow . ',' . $pageRows)->order('m.id desc')->select();
+        foreach ($data as $k => $v) {
+            $data[$k]['addtime'] = date('Y-m-d H:i:s', $v['addtime']);
+            $data[$k]['replaytime'] = date('Y-m-d H:i:s', $v['replaytime']);
+            if ($v['status'] = 'true') {
+                $data[$k]['status'] = '可用';
+            } else {
+                $data[$k]['status'] = '禁用';
+            }
+        }
+        $array = array();
+        $array['total'] = $count;
+        $array['rows'] = $data;
+        echo json_encode($array);
+    }
+
     /**
      * sortJson
      * 返回sortjson模型分类数据
@@ -202,7 +265,7 @@ class AdsAction extends BaseAction {
      */
     public function sortJson()
     {
-        $m = M('AdsSort');
+        $m = M('MessageSort');
         $list = $m->select();
         $count = $m->count("id");
         $a = array();
@@ -213,6 +276,23 @@ class AdsAction extends BaseAction {
         $array['total'] = $count;
         $array['rows'] = $a;
         echo json_encode($array);
+    }
+
+    /**
+     * jsonTree
+     * 头部导航返回树形json数据
+     * @access add edit
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTree()
+    {
+        Load('extend');
+        $m = M('MessageSort');
+        $tree = $m->field('id,ename as text')->select();
+        $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
+        echo json_encode($tree);
     }
 
 }

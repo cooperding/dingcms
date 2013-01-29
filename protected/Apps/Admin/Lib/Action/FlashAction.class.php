@@ -52,7 +52,7 @@ class FlashAction extends BaseAction {
     {
         $m = M('Flash');
         $id = intval($_GET['id']);
-        $data = $m->where('id='.$id)->find();
+        $data = $m->where('id=' . $id)->find();
         $radios = array(
             'true' => '可用',
             'false' => '禁用'
@@ -123,6 +123,25 @@ class FlashAction extends BaseAction {
         } else {
             $this->dmsg('1', '操作失败！', false, true);
         }
+    }
+
+    /**
+     * Flash
+     * Flash删除
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function delete()
+    {
+        $id = intval($_POST['id']);
+        $m = M('Message');
+        $del = $m->where('id=' . $id)->delete();
+        if ($del == true) {
+            $this->dmsg('2', '操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }//if
     }
 
     /**

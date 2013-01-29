@@ -1,0 +1,96 @@
+<div class="pagecontent">
+
+    <table id="datagrid_message">
+
+    </table>
+    <script>
+        $(function(){
+            var classId = 'message';
+            var urljson = '__APP__/Message/jsonList';
+            var hrefedit = '__APP__/Message/edit';
+            var hrefcancel = '__APP__/Message/delete';
+            var height = $('.indexcenter').height();
+            $('#datagrid_'+classId).datagrid({
+                url:urljson,
+                idField:'id',
+                pagination:true,
+                rownumbers:true,
+                fitColumns:true,
+                checkbox:true,
+                height:height-50,
+                columns:[[
+                        {field:'id',title:'编号',width:30},
+                        {field:'post_name',title:'提问者',width:50},
+                        {field:'msgcontent',title:'提问内容',width:200},
+                        {field:'addtime',title:'添加时间',width:100},
+                        {field:'ename',title:'所属分类',width:100},
+                        {field:'replycontent',title:'回复内容',width:200},
+                        {field:'replaytime',title:'回复时间',width:100},
+                        {field:'status',title:'状态',width:50}
+                    ]],
+                frozenColumns:[[
+                        {
+                            field:'ck',
+                            checkbox:true
+                        }
+                    ]],
+                toolbar:[{
+                        id:'btnedit_'+classId,
+                        text:'回复留言',
+                        iconCls:'icon-edit',
+                        handler:function(){
+                            var ids = [];
+                            var rows = $('#datagrid_'+classId).datagrid('getSelections');
+                            for(var i=0;i<rows.length;i++){
+                                ids.push(rows[i].id);
+                            }
+                            if(ids==''){
+                                $.messager.alert('信息提示', '请选择要操作的项', 'error');
+                                return false;
+                            }else if(rows.length>1){
+                                $.messager.alert('信息提示', '请选择一个要操作的项', 'error');
+                                return false;
+                            }
+
+                            var href = hrefedit+'?id='+ids;
+                            var title = '编辑信息';
+                            openDialog(classId,href,title);
+                        }
+                    },'-',{
+                        id:'btncanel_'+classId,
+                        text:'删除',
+                        iconCls:'icon-cancel',
+                        handler:function(){
+                            var selected = $('#datagrid_'+classId).datagrid('getSelected');
+                            if(!selected){
+                                $.messager.alert('信息提示', '请选择要操作的项', 'error');
+                                return false;
+                            }
+                            var id = selected.id;
+                            var href = hrefcancel;
+                            var title = '删除信息';
+                            $.messager.confirm(title,href, function(){
+                                //                    alert(id);
+                                //                    return false;
+                                $.ajax({
+                                    url:href,
+                                    type:'post',
+                                    data:{
+                                        id:id
+                                    },
+                                    dataType:'json',
+                                    success:function(data){
+                                        formAjax(data,classId);
+                                    }
+                                });
+                            });//$
+
+
+                        }
+                    }//
+                ]//toolbar
+            });
+        })
+    </script>
+
+</div><!--pagecontent-->
