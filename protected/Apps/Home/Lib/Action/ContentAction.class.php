@@ -46,6 +46,9 @@ class ContentAction extends BaseAction {
         }
         //评论信息计数
         $this->assign('dogocms', $data);
+        $this->assign('title',$data['title']);
+        $this->assign('keywords',$data['keywords']);
+        $this->assign('description',$data['description']);
         $this->display(':content');
     }
 
