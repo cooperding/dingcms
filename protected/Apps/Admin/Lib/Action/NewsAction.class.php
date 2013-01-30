@@ -67,7 +67,7 @@ class NewsAction extends BaseAction {
     public function edit() {
         $m = M('Title');
         $id = intval($_GET['id']);
-        $data = $m->field('t.*,c.content,ms.id as msid,ms.emark as msemaerk')->join(' join ' . C('DB_PREFIX') . 'title as t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
+        $data = $m->field('t.*,c.content,ms.id as msid,ms.emark as msemaerk')->Table( C('DB_PREFIX') . 'title t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
                         ->join(C('DB_PREFIX') . 'news_sort ns ON ns.id=t.sort_id')->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
                         ->where('t.id=' . $id)->find();
         $am = M(ucfirst(C('DB_ADD_PREFIX')) . $data['msemaerk']);
@@ -129,7 +129,7 @@ class NewsAction extends BaseAction {
             $filed[$k] = implode(',', $v);
         }
         //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
-        $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
+        $model_rs = $ns->field('ms.emark')->Table(C('DB_PREFIX') . 'news_sort ns')
                         ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
                         ->where('ns.id=' . intval($_POST['sort_id']))->find();
         $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
@@ -188,7 +188,7 @@ class NewsAction extends BaseAction {
             $filed[$k] = implode(',', $v);
         }
         //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
-        $model_rs = $ns->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
+        $model_rs = $ns->field('ms.emark')->Table(C('DB_PREFIX') . 'news_sort ns')
                         ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
                         ->where('ns.id=' . intval($_POST['sort_id']))->find();
         $m = M(ucfirst(C('DB_ADD_PREFIX')) . $model_rs['emark']);
@@ -297,7 +297,7 @@ class NewsAction extends BaseAction {
         //id是唯一的值，要取得所有模型的表名，才能删除模型内的信息
         foreach ($_POST['id'] as $k => $v) {
             //通过取得的栏目id获得模型id，然后通过模型id获得模型的标识名（即表名），通过表名实例化相应的表信息
-            $model_rs = $t->field('ms.emark')->join(' join ' . C('DB_PREFIX') . 'news_sort as ns')
+            $model_rs = $t->field('ms.emark')->Table(C('DB_PREFIX') . 'news_sort ns')
                             ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id = ns.model_id ')
                             ->join(C('DB_PREFIX') . 'title t ON t.sort_id = ns.id ')
                             ->where('t.id=' . $v)->find();
@@ -358,29 +358,7 @@ class NewsAction extends BaseAction {
         echo json_encode($array);
     }
 
-    /**
-     * json
-     * 信息json数据
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-
-      public function json() {
-
-      $m = M('NavHead');
-      $list = $m->select();
-      $navcatCount = $m->count("id");
-      $a = array();
-      foreach ($list as $k => $v) {
-      $a[$k] = $v;
-      }
-      $array = array();
-      $array['total'] = $navcatCount;
-      $array['rows'] = $a;
-      echo json_encode($array);
-      //echo $json;
-      }
-     */
+    
 
     /**
      * jsonSortTree

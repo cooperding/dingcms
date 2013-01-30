@@ -21,25 +21,6 @@ class FlashAction extends BaseAction {
      */
     public function index()
     {
-        /*
-        $_result=M('Title')->Table('ding_title t')->join('ding_news_sort ns on ns.id=t.sort_id')
-                ->field( 't.*,ns.text as sortname' )->order("t.id desc")
-                ->where(" (t.`sort_id` in(27)) and (t.status='true') and (t.is_recycle='false') ")->limit(0,10)
-                ->select();
-         *
-         */
-        $_result=M('Title')->table('ding_title t')->join(' ding_news_sort ns on ns.id=t.sort_id ')->field( 't.*,ns.text as sortname' )->order("t.id desc")
-                ->where(" (t.`sort_id` in(27)) and (t.status='true') and (t.is_recycle='false') ")->limit(0,10)->select();
-        echo M('Title')->getLastSql();
-/*
-        $_result=M('Title')->join(' join ding_title  t ')->join(' join ding_news_sort ns on ns.id=t.sort_id ')
-                ->field( 't.*,ns.text as sortname' )->order("t.id desc")
-                ->where(" (t.`sort_id` in(27)) and (t.status='true') and (t.is_recycle='false') ")->limit(0,10)->select();
-*/
-        //echo M('Title')->getLastSql();
-        echo '<pre>';
-        print_r($_result);
-        exit;
         $this->display();
     }
 

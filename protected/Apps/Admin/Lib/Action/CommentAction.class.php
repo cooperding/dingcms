@@ -104,7 +104,7 @@ class CommentAction extends BaseAction {
         $count = $m->count();
         $page = new Page($count, $pageRows);
         $firstRow = ($pageNumber - 1) * $pageRows;
-        $data = $m->field('c.*,t.title')->join(' join ' . C('DB_PREFIX') . 'comment c')
+        $data = $m->field('c.*,t.title')->Table(C('DB_PREFIX') . 'comment c')
                         ->join(C('DB_PREFIX') . 'title t ON t.id=c.title_id')
                         ->limit($firstRow . ',' . $pageRows)->order('c.id desc')->select();
         foreach ($data as $k => $v) {

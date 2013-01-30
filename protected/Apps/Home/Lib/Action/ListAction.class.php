@@ -42,7 +42,7 @@ class ListAction extends BaseAction {
         $list = $t->where($title)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
         foreach($list as $k=>$v){
             $list_sort = $ns->field('ns.text,ns.en_name,ms.ename,ms.emark,ms.id as mid')
-                ->join(' join ' . C('DB_PREFIX') . 'news_sort  ns')
+                ->Table(C('DB_PREFIX') . 'news_sort  ns')
                 ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
                 ->where('ns.id='.$v['sort_id'])->find();
             $list[$k]['sortname'] = $list_sort['text'];
