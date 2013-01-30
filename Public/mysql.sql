@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2013-01-26 16:39:18
+Date: 2013-01-30 15:28:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -88,6 +88,30 @@ CREATE TABLE `ding_addvideo` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `ding_ads`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_ads`;
+CREATE TABLE `ding_ads` (
+  `id` mediumint(8) NOT NULL auto_increment,
+  `sort_id` smallint(3) NOT NULL,
+  `webname` varchar(20) NOT NULL,
+  `weburl` varchar(200) NOT NULL,
+  `webpic` varchar(255) NOT NULL,
+  `myorder` smallint(3) NOT NULL,
+  `status` enum('true','false') NOT NULL default 'true',
+  `emark` varchar(255) NOT NULL,
+  `addtime` int(10) NOT NULL,
+  `updatetime` int(10) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_ads
+-- ----------------------------
+INSERT INTO `ding_ads` VALUES ('2', '1', '站长先生', 'http://www.adminsir.net', '/Public/Uploads/Images/20130128/1359340690.jpg', '0', 'true', '的', '1359340987', '1359340987');
+INSERT INTO `ding_ads` VALUES ('3', '1', '齐鲁企业', 'http://www.qiluqiye.com', '/Public/Uploads/Images/20130128/1359340690.jpg', '0', 'false', 'de得的', '1359344022', '1359344022');
+
+-- ----------------------------
 -- Table structure for `ding_ads_sort`
 -- ----------------------------
 DROP TABLE IF EXISTS `ding_ads_sort`;
@@ -117,6 +141,30 @@ CREATE TABLE `ding_block_sort` (
 -- ----------------------------
 -- Records of ding_block_sort
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ding_comment`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_comment`;
+CREATE TABLE `ding_comment` (
+  `id` mediumint(8) NOT NULL auto_increment,
+  `title_id` mediumint(8) NOT NULL,
+  `post_id` mediumint(5) NOT NULL,
+  `post_name` varchar(20) NOT NULL,
+  `addtime` int(10) NOT NULL,
+  `ip` varchar(20) NOT NULL,
+  `replytime` int(10) NOT NULL,
+  `reply_id` mediumint(5) NOT NULL,
+  `msgcontent` text NOT NULL,
+  `replycontent` text NOT NULL,
+  `status` enum('false','true') NOT NULL default 'false',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_comment
+-- ----------------------------
+INSERT INTO `ding_comment` VALUES ('1', '15', '1', 'name', '1359434592', '', '1359434592', '2', 'dedede', 'dededede44444444444444444', 'true');
 
 -- ----------------------------
 -- Table structure for `ding_content`
@@ -155,6 +203,32 @@ INSERT INTO `ding_content` VALUES ('21', '21', '引言\r\n<p>\r\n	随着对物�
 INSERT INTO `ding_content` VALUES ('22', '22', '<div class=\\\"content\\\">\r\n	<h3 class=\\\"headline\\\" style=\\\"color:#333333;font-family:tahoma, 宋体;background-color:#FFFFFF;\\\">\r\n		<span class=\\\"headline\\\">世界首台物联网冰箱</span> \r\n	</h3>\r\n	<p style=\\\"color:#333333;font-family:tahoma, 宋体;font-size:14px;background-color:#FFFFFF;\\\">\r\n		所谓的物联网冰箱，就是用射频自动识别技术，使得冰箱和物体之间能够识别的冰箱。从使用上看，物联网冰箱与冰箱里的食品实现了自由对话，提高了人类对食品\r\n的管理与应用。从技术上看，它是各类传感器和现有的“互联网”相互衔接的一种新技术，是对“互联网”技术的延伸。现在，物联网已开始不断地改变着我们的生\r\n活方式和消费习惯。 \r\n　　世界上第一台物联网冰箱由海尔集团制造。“物联网冰箱”是世界冰箱史上一款里程碑式的革命性产品。其不仅可以储存食物，而且可以通过与网络连接，实现\r\n了冰箱与冰箱里的食品、与超市的食品、与人类之间自由沟通。同时，它还带有网络可视电话功能、浏览资讯、播放视频等多项生活与娱乐功能，让原本属于生活电\r\n器的冰箱成为一个娱乐中心。\r\n	</p>\r\n	<p style=\\\"color:#333333;font-family:tahoma, 宋体;font-size:14px;background-color:#FFFFFF;\\\">\r\n		<strong>世界首台物联网冰箱诞生的过程</strong> \r\n	</p>\r\n	<p style=\\\"color:#333333;font-family:tahoma, 宋体;font-size:14px;background-color:#FFFFFF;\\\">\r\n		      \r\n物联网被视为比互联网大30倍的产业。市场上有一个规律，每15年就会有新的技术驱动时代的变革，从计算机诞生到家用计算机、互联网分别走过了15年，物\r\n联网时代已经悄然而至，这是发达国家的一个重要表象。 \r\n　　通过物联网，所有的产品都将成为一个信息员，接收信息、发送信息，冰箱与食品对话，传送到超市，延伸到食物链，可以享受到食品的各种服务。洗衣机和衣\r\n服对话，智能识别衣服的质地和洁净度，自动洗净衣服。要做到与家电的对话，就需要有统一的接口，可以做到真正的互联互通，可以做到人与家电，家电与环境之\r\n间的交互。 \r\n　　在家里作为唯一24小时不停电的家电，冰箱无疑是最合适应用物联网技术的平台，用户的需求可以细分为三类：基本需求、衍生需求和差异化需求。具体到冰\r\n箱上来说，需求是冷冻、冷藏等基本需求，衍生需求是和人们健康、饮食相关的需求，差异化需求就是满足用户个性化的定制。 \r\n　　冰箱与食品连起来以后，通过各种网络，用户在办公室、在路上就可以提前了解冰箱里有什么食品。在家里，冰箱会自动提醒你，哪些东西该购买了，哪些东西\r\n保质期快到了，冰箱会自动提示大家来购买，只要你按一下手指，商家会自动为你送货上门。另一方面，专业人员也会通过物联网冰箱，统计用户的健康、饮食习\r\n惯，整合配套的服务。 \r\n　　物联网冰箱只是一个开端，未来会出现一系列的物联网家电，建立一个物联网家庭。如果用一句话概括未来的物联网生活，那就是“身在外，家就在身边；回到\r\n家，世界就在眼前”。\r\n	</p>\r\n	<p style=\\\"color:#333333;font-family:tahoma, 宋体;font-size:14px;background-color:#FFFFFF;\\\">\r\n		<strong>物联网冰箱的功能</strong> \r\n	</p>\r\n	<p style=\\\"color:#333333;font-family:tahoma, 宋体;font-size:14px;background-color:#FFFFFF;\\\">\r\n		      \r\n物联网冰箱的食品智能管理和预定功能。当我们把食品买回家，放到冰箱里，冰箱就会自动显示冰箱里储存了什么样的食品，你可以很详细的看到保质期、数量等各\r\n种信息，同样你可以了解到更详细的信息。包括食品的产地、营养成分等，这样我们就可以吃到安全、放心的食品。当我们冰箱里的食品吃完了的时候，冰箱就会自\r\n动提示我们进行购买，比如我们冰箱里的蛋糕吃完了，冰箱就会自动地提示我们进行购买，然后你就可以进入购买界面，在这里就可以选择对你来说最方便的超市进\r\n行采购，这里面会有推荐的信息，你可以选择你最喜欢的食物进行下单。这样订单完成后，你足不出户，就可以享受到商家自动为你配送到家的服务。 \r\n　　当然，物联网冰箱还有很多超值的功能。例如，当我们在外地旅游的时候，想第一时间和家人分享快乐，那么我们就可以通过手机给家里的冰箱发一张照片，冰\r\n箱就能接受图片并显示出来。 \r\n　　当然物联网冰箱很多除了这些功能以外的娱乐功能。比如做饭的时候，会感觉到非常枯燥和乏味，这个时候你可以通过物联网冰箱，在做饭的同时听听音乐，看\r\n一下天天美食，学怎么做一手好菜，可以为家人准备丰盛的晚餐。类似这样的功能还有很多。 \r\n	</p>\r\n</div>');
 
 -- ----------------------------
+-- Table structure for `ding_flash`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_flash`;
+CREATE TABLE `ding_flash` (
+  `id` mediumint(8) NOT NULL auto_increment,
+  `sort_id` smallint(3) NOT NULL,
+  `ename` varchar(20) NOT NULL,
+  `eurl` varchar(200) NOT NULL,
+  `epic` varchar(255) NOT NULL,
+  `myorder` smallint(3) NOT NULL,
+  `status` enum('true','false') NOT NULL default 'true',
+  `emark` varchar(255) NOT NULL,
+  `addtime` int(10) NOT NULL,
+  `updatetime` int(10) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_flash
+-- ----------------------------
+INSERT INTO `ding_flash` VALUES ('2', '2', '测试5222', 'http://www.adminsir.net', '/Public/Uploads/Images/20130128/1359340690.jpg', '0', 'true', '的', '1359340987', '1359358355');
+INSERT INTO `ding_flash` VALUES ('3', '1', '齐鲁企业', 'http://www.qiluqiye.com', '/Public/Uploads/Images/20130128/1359340690.jpg', '0', 'false', 'de得的', '1359344022', '1359344022');
+INSERT INTO `ding_flash` VALUES ('4', '1', 'ceshi信息', 'dededede', 'dedede', '0', 'false', 'de得的', '1359348562', '1359348739');
+INSERT INTO `ding_flash` VALUES ('5', '1', '测试5', 'dededede', 'dedede', '0', 'true', 'dedeceshi2', '1359348640', '1359348640');
+
+-- ----------------------------
 -- Table structure for `ding_flash_sort`
 -- ----------------------------
 DROP TABLE IF EXISTS `ding_flash_sort`;
@@ -162,13 +236,16 @@ CREATE TABLE `ding_flash_sort` (
   `id` smallint(3) NOT NULL auto_increment,
   `ename` varchar(20) NOT NULL,
   `status` enum('true','false') NOT NULL default 'true',
+  `width` varchar(12) default NULL,
+  `height` varchar(12) default NULL,
+  `emark` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ding_flash_sort
 -- ----------------------------
-INSERT INTO `ding_flash_sort` VALUES ('1', '首页3', 'false');
+INSERT INTO `ding_flash_sort` VALUES ('1', '首页3', 'true', '111', '222', '333');
 
 -- ----------------------------
 -- Table structure for `ding_linkpage_list`
@@ -230,11 +307,13 @@ CREATE TABLE `ding_links` (
   `addtime` int(10) NOT NULL,
   `updatetime` int(10) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ding_links
 -- ----------------------------
+INSERT INTO `ding_links` VALUES ('2', '1', '站长先生', 'http://www.adminsir.net', '/Public/Uploads/Images/20130128/1359340690.jpg', '0', 'true', '的', '1359340987', '1359340987');
+INSERT INTO `ding_links` VALUES ('3', '1', '齐鲁企业2', 'http://www.qiluqiye.com', '/Public/Uploads/Images/20130128/1359340690.jpg', '0', 'true', 'de得的', '1359344022', '1359516964');
 
 -- ----------------------------
 -- Table structure for `ding_links_sort`
@@ -270,6 +349,47 @@ CREATE TABLE `ding_members` (
 -- Records of ding_members
 -- ----------------------------
 INSERT INTO `ding_members` VALUES ('1', 'test', '', '0', 'false', 'false');
+
+-- ----------------------------
+-- Table structure for `ding_message`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_message`;
+CREATE TABLE `ding_message` (
+  `id` int(10) NOT NULL auto_increment,
+  `sort_id` mediumint(5) default NULL,
+  `post_id` smallint(5) NOT NULL,
+  `reply_id` int(5) NOT NULL,
+  `ip` varchar(20) NOT NULL,
+  `addtime` int(10) NOT NULL,
+  `replytime` int(10) NOT NULL,
+  `msgcontent` text NOT NULL,
+  `replycontent` text NOT NULL,
+  `post_name` varchar(20) NOT NULL,
+  `status` enum('false','true') default 'false',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_message
+-- ----------------------------
+INSERT INTO `ding_message` VALUES ('1', '1', '1', '1', '979569409', '1359434592', '1359436961', 'ddedede5656565', 'dedededeg459444444444444444444456546456459+678964964', '我的留言', 'false');
+
+-- ----------------------------
+-- Table structure for `ding_message_sort`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_message_sort`;
+CREATE TABLE `ding_message_sort` (
+  `id` smallint(3) NOT NULL auto_increment,
+  `ename` varchar(20) NOT NULL,
+  `status` enum('true','false') NOT NULL default 'true',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_message_sort
+-- ----------------------------
+INSERT INTO `ding_message_sort` VALUES ('1', '网站建议', 'true');
+INSERT INTO `ding_message_sort` VALUES ('2', '产品服务', 'true');
 
 -- ----------------------------
 -- Table structure for `ding_model_field`
@@ -393,7 +513,7 @@ INSERT INTO `ding_news_sort` VALUES ('23', '0', '网站建设', 'wangzhanjianshe
 INSERT INTO `ding_news_sort` VALUES ('24', '0', '推荐书籍', 'tuijianshuji', '1', '', '', '', '', '', ',', '0');
 INSERT INTO `ding_news_sort` VALUES ('25', '0', '物联网', 'wulianwang', '1', '', '', '', '', '', ',', '0');
 INSERT INTO `ding_news_sort` VALUES ('26', '25', '物联网资讯', 'wulianwangzixun', '1', '', '', '', '', '', ',25,', '0');
-INSERT INTO `ding_news_sort` VALUES ('27', '25', '物联网技术', 'wulianwangjishu', '1', '', '', '', '', '', ',25,', '0');
+INSERT INTO `ding_news_sort` VALUES ('27', '25', '物联网技术', 'wulianwangjishu', '1', '', '', '', '物联网技术', '物联网技术', ',25,', '0');
 INSERT INTO `ding_news_sort` VALUES ('28', '0', '开源项目', 'kaiyuanxiangmu', '1', '', '', '', '', '', ',', '0');
 INSERT INTO `ding_news_sort` VALUES ('29', '0', '励志一生', 'lizhiyisheng', '1', '', '', '', '', '', ',', '0');
 INSERT INTO `ding_news_sort` VALUES ('30', '23', '域名主机', 'yumingzhuji', '1', '', '', '', '', '', ',23,', '0');
@@ -461,20 +581,52 @@ CREATE TABLE `ding_operators` (
 INSERT INTO `ding_operators` VALUES ('1', 'admin', '0b32435664ddde8a5e3c973953aea16a', '1346390052', 'false', 'false');
 
 -- ----------------------------
+-- Table structure for `ding_pages`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_pages`;
+CREATE TABLE `ding_pages` (
+  `id` mediumint(5) NOT NULL auto_increment,
+  `sort_id` smallint(3) default NULL,
+  `ename` varchar(200) default NULL,
+  `keywords` varchar(255) default NULL,
+  `description` varchar(255) default NULL,
+  `content` text,
+  `addtime` int(10) default NULL,
+  `updatetime` int(10) default NULL,
+  `status` enum('false','true') default 'true',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_pages
+-- ----------------------------
+INSERT INTO `ding_pages` VALUES ('1', '1', '首页', '得的', '的的王菲范围', '的网裘德道', '1359356066', '1359356066', 'true');
+INSERT INTO `ding_pages` VALUES ('2', '2', '测试5得的', '得的22222222222', '得瑟vsefe22222222', '夫人富国天回家就斤斤计较斤斤计较1111111111111111111111111', '1359356290', '1359358457', 'true');
+
+-- ----------------------------
 -- Table structure for `ding_pages_sort`
 -- ----------------------------
 DROP TABLE IF EXISTS `ding_pages_sort`;
 CREATE TABLE `ding_pages_sort` (
-  `id` smallint(3) NOT NULL auto_increment,
+  `id` smallint(5) NOT NULL auto_increment,
+  `parent_id` smallint(5) default NULL,
   `ename` varchar(20) NOT NULL,
+  `en_name` varchar(35) default NULL,
+  `path` varchar(20) default ',',
   `status` enum('true','false') NOT NULL default 'true',
+  `keywords` varchar(255) default NULL,
+  `description` varchar(255) default NULL,
+  `sortcontent` text,
+  `myorder` smallint(3) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ding_pages_sort
 -- ----------------------------
-INSERT INTO `ding_pages_sort` VALUES ('1', '首页3', 'false');
+INSERT INTO `ding_pages_sort` VALUES ('1', '0', '得的', 'dede', ',', 'true', null, null, null, null);
+INSERT INTO `ding_pages_sort` VALUES ('2', '1', '首页', 'shouye', ',1,', 'true', '得的', '得的2', null, '0');
+INSERT INTO `ding_pages_sort` VALUES ('3', '1', 'shi信息', 'shixinxi', ',1,', 'true', '得的223', '232323', null, '0');
 
 -- ----------------------------
 -- Table structure for `ding_role`
@@ -572,24 +724,24 @@ CREATE TABLE `ding_title` (
 -- ----------------------------
 -- Records of ding_title
 -- ----------------------------
-INSERT INTO `ding_title` VALUES ('1', '1', '测试文章', '测试文章', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('2', '1', '测试文章2', '测试文章3', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('3', '1', '测试文章3', '测试文章3', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('1', '1', '测试文章', '测试文章', '', null, '', '', '', '', '测试文章', '测试文章', '0', '1355799013', '1355799013', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('2', '1', '测试文章2', '测试文章3', '', null, '', '', '', '', '测试文章', '测试文章', '0', '1355799013', '1355799013', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('3', '1', '测试文章3', '测试文章3', '', null, '', '', '', '', '测试文章', '测试文章', '0', '1355799013', '1355799013', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('4', '1', '测试文章4', '测试文章4', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('5', '1', '测试文章5', '测试文章5', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('7', '1', '测试文章7', '测试文章7', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('8', '1', '测试文章8', '测试文章8', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('9', '1', '测试文章9', '测试文章9', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('10', '1', '测试文章10222', '测试文章10', '', null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('9', '1', '测试文章9', '测试文章9', null, null, '', '', '', '', '', '', '1', '1355799013', '1355799013', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('10', '1', '测试文章10222', '测试文章10', '', null, '', '', '', '', '', '测试文章10222', '0', '1355799013', '1355799013', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('11', '2', '测试文章11', '测试文章11', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'true');
 INSERT INTO `ding_title` VALUES ('12', '2', '测试文章12', '测试文章12', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'true');
-INSERT INTO `ding_title` VALUES ('13', '1', '的的的2', '', '', null, '', '', '', '', '', '', '0', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('13', '1', '的的的2', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('14', '27', 'M2M简介', 'M2M简介', '', null, '', '', '', '', '', '', '0', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('15', '27', '实时数据库和关系数据库的设计特点', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('16', '27', '朱志祥讲物联网（一）', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('17', '27', '解析M2M：物联网的四大支撑技术之一', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('17', '27', '解析M2M：物联网的四大支撑技术之一', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('18', '27', '全网通址 物联网时代手机是什么', '', '', null, '', '', '', '', '', '', '0', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('19', '27', '红外线感应器', '', '', null, '', '', '', '', '', '', '0', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('20', '27', 'ZigBee技术在物联网系统中的应用研究', '', '', null, '', '', '', '', '', '', '21', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('21', '27', '浅析公共安全监测物联网技术', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('22', '27', '物联网冰箱', '', '', null, '', '', '', '', '', '', '3', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('19', '27', '红外线感应器', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('20', '27', 'ZigBee技术在物联网系统中的应用研究', '', '', null, '', '', '', '', '', '', '22', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('21', '27', '浅析公共安全监测物联网技术', '', '', null, '', '', '', '', '浅析公共安全监测物联网技术', '浅析公共安全监测物联网技术', '8', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('22', '27', '物联网冰箱', '', '', null, '', '', '', '', '', '', '7', '0', '0', 'true', 'false');
