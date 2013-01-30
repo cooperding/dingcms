@@ -17,7 +17,8 @@ class TagLibDogocms extends TagLib {
         'page' => array("attr" => "attr1,attr2", level => 3), //广告（包含幻灯）
         'block' => array("attr" => "attr1,attr2", level => 3), //碎片
         'member' => array("attr" => "attr1,attr2", level => 3), //会员信息(个人)
-        'cfg' => array("attr" => "name,attr2", level => 3,'close'=>0), //会员信息(个人)
+        'cfg' => array("attr" => "name", level => 3,'close'=>0), //系统参数
+        'links' => array("attr" => "typeid,limit,order", level => 3,'close'=>1), //友情链接
     );
     //取得配置信息
     //之后存入缓存文件
@@ -45,7 +46,6 @@ class TagLibDogocms extends TagLib {
         $id   = $tag['id'];
         $tag['name'] = ucfirst($tag['name']);
         $sql = "M('Nav{$tag['name']}')->";
-        $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
         $sql .= ($order) ? "order(\"{$order}\")->" : '';
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
         //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
@@ -92,14 +92,14 @@ class TagLibDogocms extends TagLib {
                         $path .= ' (`id` = ' . $vid . ') or';
                     }
                     $path = rtrim($path, 'or ');
-                    $rs = $ns->field('id')->where($path)->select();
+                    $rs = $ns->field('t.id')->where($path)->select();
                     foreach ($rs as $v) {
                         $sort_id .= $v['id'] . ',';
                     }
                     $sort_id = rtrim($sort_id, ', ');
-                    $tag['where'] = ' (`sort_id` in(' . $sort_id . '))';
+                    $tag['where'] = ' (t.`sort_id` in(' . $sort_id . '))';
                 } else {
-                    $tag['where'] = ' (`sort_id` in(' . $typeid . '))';
+                    $tag['where'] = ' (t.`sort_id` in(' . $typeid . '))';
                 }
             }//if
         } else {
@@ -118,7 +118,7 @@ class TagLibDogocms extends TagLib {
                         $sort_id .= $v['id'] . ',';
                     }
                     $sort_id = rtrim($sort_id, ', ');
-                    $tag['where'] = ' (`sort_id` in(' . $sort_id . '))';
+                    $tag['where'] = ' (t.`sort_id` in(' . $sort_id . '))';
                 } else {
                     $path .= ' (`model_id` in(' . $modeid . ')) ';
                     $rs = $ns->field('id')->where($path)->select();
@@ -127,7 +127,7 @@ class TagLibDogocms extends TagLib {
                     }
                     $he_arr = array_intersect($modeid_arr, explode(',', $typeid));
                     //此处应该是两个数组取交集
-                    $tag['where'] = ' (`sort_id` in(' . implode(',', $he_arr) . '))';
+                    $tag['where'] = ' (t.`sort_id` in(' . implode(',', $he_arr) . '))';
                 }
             } else {//查出所有sort_id再组装语句
                 $path .= ' (`model_id` in(' . $modeid . ')) ';
@@ -136,19 +136,19 @@ class TagLibDogocms extends TagLib {
                     $sort_id .= $v['id'] . ',';
                 }
                 $sort_id = rtrim($sort_id, ', ');
-                $tag['where'] = ' (`sort_id` in(' . $typeid . '))';
+                $tag['where'] = ' (t.`sort_id` in(' . $typeid . '))';
             }//if
         }
         if ($tid) {
             if ($tag['where']) {
-                $tag['where'] .= ' and (`id` in(' . $tid . ')) ';
+                $tag['where'] .= ' and (t.`id` in(' . $tid . ')) ';
             } else {
-                $tag['where'] = ' (`id` in(' . $tid . ')) ';
+                $tag['where'] = ' (t.`id` in(' . $tid . ')) ';
             }
         }//if
         if ($flag) {
             foreach (explode(',', $flag) as $k => $v) {
-                $flag_like .= ' (`flag` like \'%' . $v . '%\') or ';
+                $flag_like .= ' (t.`flag` like \'%' . $v . '%\') or ';
             }
             $flag_like = rtrim($flag_like, 'or ');
             if ($tag['where']) {
@@ -159,25 +159,22 @@ class TagLibDogocms extends TagLib {
         }//if
         if ($keywords) {
             if ($tag['where']) {
-                $tag['where'] .= ' and (`keywords` like \'%' . $keywords . '%\') ';
+                $tag['where'] .= ' and (t.`keywords` like \'%' . $keywords . '%\') ';
             } else {
-                $tag['where'] = ' (`keywords` like \'%' . $keywords . '%\') ';
+                $tag['where'] = ' (t.`keywords` like \'%' . $keywords . '%\') ';
             }
         }//if
-        if ($model_name) {//写出模型名称（此处以后完善）
-            $join = 'join(\' right join ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $model_name . ' on ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $model_name . '.title_id = id \')->';
-            /*
-            foreach (explode(',', $model_name) as $k => $v) {
-                $join .= 'join(\' right join ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $v . ' on ' . C('DB_PREFIX') . C('DB_ADD_PREFIX') . $v . '.title_id = id \')->';
-            }
-             *
-             */
-            //$join = ' right join '.C('DB_PREFIX') . C('DB_ADD_PREFIX').'article an on an.title_id = id';
+        $tag['field'] = ' \'t.*,ns.text as sortname\' ';
+        $table = '\''.C('DB_PREFIX').'title t\'';
+        $join = 'join(\' ' . C('DB_PREFIX') . 'news_sort ns on ns.id=t.sort_id \')->';
+        if ($model_name) {
+            $tag['field'] = ' \'t.*,ns.text as sortname,ms.*\' ';
+            $join .= 'join(\' ' . C('DB_PREFIX') . $model_name.' ms on ms.title_id=t.id \')->';
         }
         if($tag['where']){
-            $tag['where'] .= ' and (status=\'true\') and (is_recycle=\'false\') ';
+            $tag['where'] .= ' and (t.status=\'true\') and (t.is_recycle=\'false\') ';
         }else{
-            $tag['where'] = ' (status=\'true\') and (is_recycle=\'false\') ';
+            $tag['where'] = ' (t.status=\'true\') and (t.is_recycle=\'false\') ';
         }
         $result = !empty($id) ? $id : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
@@ -185,13 +182,13 @@ class TagLibDogocms extends TagLib {
 
 
         $sql = "M('Title')->";
-        $sql .= ($model_name) ? $join : '';
+        $sql .= "table({$table})->";
+        $sql .= $join;
         $sql .= ($tag['field']) ? "field({$tag['field']})->" : '';
-        $sql .= ($order) ? "order(\"{$order}\")->" : 'order(\'id desc\')->';
+        $sql .= ($order) ? "order(\"{$order}\")->" : 'order(\'t.id desc\')->';
         $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
         $sql .= "select()";
-
 
 
         //下面拼接输出语句
@@ -223,7 +220,6 @@ class TagLibDogocms extends TagLib {
         $id   = $tag['id'];
         $tag['name'] = ucfirst($tag['name']);
         $sql = "M('NewsSort')->";
-        $sql .= ($tag['row']) ? "field({$tag['row']})->" : '';
         $sql .= ($order) ? "order(\"{$order}\")->" : '';
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
         //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
@@ -246,7 +242,36 @@ class TagLibDogocms extends TagLib {
         return $parsestr;
 
     }
+//  头部和底部导航
+    public function _links($attr, $content)
+    {//typeid,limit,type,order
+        $tag = $this->parseXmlAttr($attr, 'links');
+        $typeid = $tag['typeid'];
+        $limit = $tag['limit'];
+        $order = $tag['order'];//字符串加引号
+        $tag['where'] = ' (`status`=\'true\') ';//限制显示条件
+        if($typeid){
+            $tag['where'] = ' and (`sort_id` in(' . $typeid . ')) ';
+        }
+        $sql = "M('Links')->";
+        $sql .= ($order) ? "order(\"{$order}\")->" : '';
+        $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
+        $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
+        $sql .= "select()";
+        $result = !empty($id) ? $id : 'links'; //定义数据查询的结果存放变量
+        $key = !empty($tag['key']) ? $tag['key'] : 'i';
+        $mod = isset($tag['mod']) ? $tag['mod'] : '2';
 
+        //下面拼接输出语句
+        $parsestr = '<?php Load("extend"); ';
+        $parsestr .= '$_result=list_to_tree('.$sql.',"id", "parent_id", "children"); if ($_result): $' . $key . '=0;';
+        $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
+        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
+        $parsestr .= $content; //解析在article标签中的内容
+        $parsestr .= '<?php endforeach; endif;?>';
+        return $parsestr;
+
+    }
 }
 
 ?>
