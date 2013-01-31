@@ -289,7 +289,7 @@ class MessageAction extends BaseAction {
     {
         Load('extend');
         $m = M('MessageSort');
-        $tree = $m->field('id,ename as text')->select();
+        $tree = $m->field(array('id','ename' => 'text'))->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);

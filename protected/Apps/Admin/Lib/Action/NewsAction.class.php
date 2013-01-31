@@ -67,7 +67,7 @@ class NewsAction extends BaseAction {
     public function edit() {
         $m = M('Title');
         $id = intval($_GET['id']);
-        $data = $m->field('t.*,c.content,ms.id as msid,ms.emark as msemaerk')->Table( C('DB_PREFIX') . 'title t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
+        $data = $m->field(array('t.*','c.content','ms.id' => 'msid','ms.emark' => 'msemaerk'))->Table( C('DB_PREFIX') . 'title t')->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
                         ->join(C('DB_PREFIX') . 'news_sort ns ON ns.id=t.sort_id')->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
                         ->where('t.id=' . $id)->find();
         $am = M(ucfirst(C('DB_ADD_PREFIX')) . $data['msemaerk']);
@@ -358,7 +358,7 @@ class NewsAction extends BaseAction {
         echo json_encode($array);
     }
 
-    
+
 
     /**
      * jsonSortTree

@@ -74,7 +74,6 @@ class OperatorsAction extends BaseAction {
         $this->dmsg('1', '该功能未开发不能操作！', false, true);
         $name = trim($_POST['name']);
         $_POST['status'] = $_POST['status'][0];
-        //$this->dmsg('1', $_POST['status'], false, true);
         if (empty($name)) {
             $this->dmsg('1', '角色名不能为空！', false, true);
         }

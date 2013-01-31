@@ -42,7 +42,7 @@ class ListAction extends BaseAction {
         // 进行分页数据查询 注意limit方法的参数要使用Page类的属性
         $list = $t->where($title)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
         foreach ($list as $k => $v) {
-            $list_sort = $ns->field('ns.text,ns.en_name,ms.ename,ms.emark,ms.id as mid')
+            $list_sort = $ns->field(array('ns.text','ns.en_name','ms.ename','ms.emark','ms.id' => 'mid'))
                             ->Table(C('DB_PREFIX') . 'news_sort  ns')
                             ->join(C('DB_PREFIX') . 'model_sort ms ON ms.id=ns.model_id')
                             ->where('ns.id=' . $v['sort_id'])->find();

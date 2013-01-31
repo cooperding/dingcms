@@ -304,7 +304,7 @@ class ContentModelAction extends BaseAction {
         $m = M('ModelField');
         $d = D('ModelSort');
         $data = $m->join(C('DB_PREFIX') . 'model_sort ms on ms.id=' . C('DB_PREFIX') . 'model_field.sort_id')->where(C('DB_PREFIX') . 'model_field.id=' . $id)
-                        ->field('ms.emark as tbname,' . C('DB_PREFIX') . 'model_field.emark as tbfield')->find();
+                        ->field(array('ms.emark'=>'tbname', C('DB_PREFIX') . 'model_field.emark' => 'tbfield'))->find();
         $tablename = $data['tbname'];
         $field = $data['tbfield'];
         if (empty($tablename) || empty($field)) {
@@ -349,7 +349,7 @@ class ContentModelAction extends BaseAction {
      */
     public function sortSortJson() {
         $m = M('ModelSort');
-        $list = $m->field('id,ename as text')->order('myorder desc,id asc')->select();
+        $list = $m->field(array('id','ename'=>'text'))->order('myorder desc,id asc')->select();
         echo json_encode($list);
     }
 
@@ -389,7 +389,7 @@ class ContentModelAction extends BaseAction {
     public function fieldJsonId() {
         $id = intval($_GET['id']);
         $m = M('ModelField');
-        $list = $m->field('id,ename,emark,etype,elink')->where('sort_id=' . $id)->select();
+        $list = $m->field(array('id','ename','emark','etype','elink'))->where('sort_id=' . $id)->select();
         $count = $m->where('sort_id=' . $id)->count("id");
         $a = array();
         foreach ($list as $k => $v) {
@@ -411,7 +411,7 @@ class ContentModelAction extends BaseAction {
     public function jsonSortTree() {
         Load('extend');
         $m = M('ModelSort');
-        $tree = $m->field('id,ename as text')->select();
+        $tree = $m->field(array('id','ename'=>'text'))->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         //$tree = array_merge(array(array('id' => 0, 'text' => '全部文档')), $tree);
         echo json_encode($tree);

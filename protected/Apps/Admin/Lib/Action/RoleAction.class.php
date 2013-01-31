@@ -206,7 +206,7 @@ class RoleAction extends BaseAction {
     public function json()
     {
         $m = M('Role');
-        $list = $m->field('id,pid,name as text')->select();
+        $list = $m->field(array('id','pid','name' => 'text'))->select();
         $navcatCount = $m->count("id");
         $a = array();
         foreach ($list as $k => $v) {
@@ -230,7 +230,7 @@ class RoleAction extends BaseAction {
     {
         Load('extend');
         $m = M('Role');
-        $tree = $m->field('id,pid,name as text')->select();
+        $tree = $m->field(array('id','pid','name' => 'text'))->select();
         $tree = list_to_tree($tree, 'id', 'pid', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);

@@ -33,7 +33,7 @@ class ContentAction extends BaseAction {
                     ->where('t.id=' . $id.' and t.status=\'true\' and t.is_recycle=\'false\'')->find();
         //取得内容
         if($emark){
-             $data = $t->field('t.*,m.*,c.*')
+             $data = $t->field(array('t.*','m.*','c.*'))
                     ->Table(C('DB_PREFIX') . 'title t')
                     ->join(C('DB_PREFIX') . C('DB_ADD_PREFIX') . $emark['emark'] . ' m ON m.title_id=t.id')
                     ->join(C('DB_PREFIX') . 'content c ON c.title_id = t.id ')
