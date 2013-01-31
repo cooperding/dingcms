@@ -15,16 +15,18 @@ class IndexAction extends BaseAction {
 
     public function index()
     {
-        $m = M('Title');
-        $condition['id'] = '56';
-        $condition['title'] = 'dedede';
-        //$m->where('id=56')->where('title=dedede')->select();
-//        echo $m->getLastSql();
-//        exit;
-        $this->assign('title',time());
-        //$this->assign('url2','./Tp/default/header.html');
+        $m = M('Setting');
+        $title['sys_name'] = array('eq','cfg_title');
+        $keywords['sys_name'] = array('eq','cfg_keywords');
+        $description['sys_name'] = array('eq','cfg_description');
+        $data_title = $m->where($title)->find();
+        $data_keywords = $m->where($keywords)->find();
+        $data_description = $m->where($description)->find();
+
+        $this->assign('title',$data_title['sys_value']);
+        $this->assign('keywords',$data_keywords['sys_value']);
+        $this->assign('description',$data_description['sys_value']);
         $this->display(':index');
-        //$this->display();
     }
 
 }
