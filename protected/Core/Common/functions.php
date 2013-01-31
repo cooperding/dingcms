@@ -109,8 +109,8 @@ function dump($var, $echo=true, $label=null, $strict=true) {
 }
 
 /**
- * 404处理 
- * 调试模式会抛异常 
+ * 404处理
+ * 调试模式会抛异常
  * 部署模式下面传入url参数可以指定跳转页面，否则发送404信息
  * @param string $msg 提示信息
  * @param string $url 跳转URL地址
@@ -164,7 +164,7 @@ function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false) {
         $anchor =   $info['fragment'];
         if(false !== strpos($anchor,'?')) { // 解析参数
             list($anchor,$info['query']) = explode('?',$anchor,2);
-        }        
+        }
         if(false !== strpos($anchor,'@')) { // 解析域名
             list($anchor,$host)    =   explode('@',$anchor, 2);
         }
@@ -199,7 +199,7 @@ function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false) {
         parse_str($info['query'],$params);
         $vars = array_merge($params,$vars);
     }
-    
+
     // URL组装
     $depr = C('URL_PATHINFO_DEPR');
     if($url) {
@@ -231,7 +231,7 @@ function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false) {
                 if($module = array_search(strtolower($var[C('VAR_MODULE')]),$maps)){
                     $var[C('VAR_MODULE')] = $module;
                 }
-            }            
+            }
             if(C('URL_CASE_INSENSITIVE')) {
                 $var[C('VAR_MODULE')]   =   parse_name($var[C('VAR_MODULE')]);
             }
@@ -266,7 +266,7 @@ function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false) {
         if(!empty($vars)) { // 添加参数
             foreach ($vars as $var => $val){
                 if('' !== trim($val))   $url .= $depr . $var . $depr . urlencode($val);
-            }                
+            }
         }
         if($suffix) {
             $suffix   =  $suffix===true?C('URL_HTML_SUFFIX'):$suffix;
@@ -294,7 +294,7 @@ function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false) {
  * 渲染输出Widget
  * @param string $name Widget名称
  * @param array $data 传人的参数
- * @param boolean $return 是否返回内容 
+ * @param boolean $return 是否返回内容
  * @return void
  */
 function W($name, $data=array(), $return=false) {
@@ -483,31 +483,47 @@ function to_guid_string($mix) {
 /**
  * XML编码
  * @param mixed $data 数据
- * @param string $encoding 数据编码
  * @param string $root 根节点名
+ * @param string $item 数字索引的子节点名
+ * @param string $attr 根节点属性
+ * @param string $id   数字索引子节点key转换的属性名
+ * @param string $encoding 数据编码
  * @return string
  */
-function xml_encode($data, $encoding='utf-8', $root='think') {
-    $xml    = '<?xml version="1.0" encoding="' . $encoding . '"?>';
-    $xml   .= '<' . $root . '>';
-    $xml   .= data_to_xml($data);
-    $xml   .= '</' . $root . '>';
+function xml_encode($data, $root='think', $item='item', $attr='', $id='id', $encoding='utf-8') {
+    if(is_array($attr)){
+        $_attr = array();
+        foreach ($attr as $key => $value) {
+            $_attr[] = "{$key}=\"{$value}\"";
+        }
+        $attr = implode(' ', $_attr);
+    }
+    $attr   = trim($attr);
+    $attr   = empty($attr) ? '' : " {$attr}";
+    $xml    = "<?xml version=\"1.0\" encoding=\"{$encoding}\"?>";
+    $xml   .= "<{$root}{$attr}>";
+    $xml   .= data_to_xml($data, $item, $id);
+    $xml   .= "</{$root}>";
     return $xml;
 }
 
 /**
  * 数据XML编码
- * @param mixed $data 数据
+ * @param mixed  $data 数据
+ * @param string $item 数字索引时的节点名称
+ * @param string $id   数字索引key转换为的属性名
  * @return string
  */
-function data_to_xml($data) {
-    $xml = '';
+function data_to_xml($data, $item='item', $id='id') {
+    $xml = $attr = '';
     foreach ($data as $key => $val) {
-        is_numeric($key) && $key = "item id=\"$key\"";
-        $xml    .=  "<$key>";
-        $xml    .=  ( is_array($val) || is_object($val)) ? data_to_xml($val) : $val;
-        list($key, ) = explode(' ', $key);
-        $xml    .=  "</$key>";
+        if(is_numeric($key)){
+            $id && $attr = " {$id}=\"{$key}\"";
+            $key  = $item;
+        }
+        $xml    .=  "<{$key}{$attr}>";
+        $xml    .=  (is_array($val) || is_object($val)) ? data_to_xml($val, $item, $id) : $val;
+        $xml    .=  "</{$key}>";
     }
     return $xml;
 }
@@ -550,7 +566,7 @@ function session($name,$value='') {
         }
         // 启动session
         if(C('SESSION_AUTO_START'))  session_start();
-    }elseif('' === $value){ 
+    }elseif('' === $value){
         if(0===strpos($name,'[')) { // session 操作
             if('[pause]'==$name){ // 暂停session
                 session_write_close();
