@@ -1,40 +1,94 @@
 <include file=":header" />
 <div class="blank"></div>
 <div class="content">
-<div class="blank"></div>
-<div class="block wp">
-	<div class="place placebd">
-<h3>当前位置：<a href="/">首页</a>&gt;&gt;</h3>
-	</div>
-</div><!--block-->
-<div class="blank"></div>
-<div class="block wp">
-	<div class="blockL f_right">
-<include file=":sider" />
+    <div class="blank"></div>
+    <div class="block wp">
+        <div class="place placebd">
+            <h3>当前位置：<a href="/">首页</a>&gt;&gt;</h3>
+        </div>
+    </div><!--block-->
+    <div class="blank"></div>
+    <div class="block wp">
+        <div class="blockL f_right">
+            <include file=":sider" />
 
 
-    </div><!--blockL-->
+        </div><!--blockL-->
 
-	<div class="blockLA f_left">
-    <div class="box">
-	<div class="common viewsbd views">
-    	<div class="common_cont viewsnews">
-        <div class="title"><h1>{$dogocms.title}</h1></div>
-        <div class="info">{$dogocms.addtime|date="Y-m-d H:i:s",###} 来源:{$dogocms.source} 作者:{$dogocms.author} 浏览:：{$dogocms.views}次 评论:条</div>
-		<div class="content">
-                    {$dogocms.content|stripslashes}
-        </div><!--content-->
-        </div><!--common_cont-->
-    </div><!--common-->
+        <div class="blockLA f_left">
+            <div class="box">
+                <div class="common viewsbd views">
+                    <div class="common_cont viewsnews">
+                        <div class="title"><h1>{$dogocms.title}</h1></div>
+                        <div class="info">{$dogocms.addtime|date="Y-m-d H:i:s",###} 来源:{$dogocms.source} 作者:{$dogocms.author} 浏览:：{$dogocms.views}次 评论:条</div>
+                        <div class="content">
+                            {$dogocms.content|stripslashes}
+                        </div><!--content-->
+                    </div><!--common_cont-->
+                </div><!--common-->
 
-    </div><!--box-->
-    </div><!--blockFL-->
-<div class="clear"></div>
-</div><!--block-->
+            </div><!--box-->
+            <div class="blank"></div>
+            <div class="box">
+                <div class="comment commentbd">
+                    <div class="comment_head">
+                        <div class="comment_tag f_left">最新评论</div>
+                        <div class="comment_ad f_right"><a href="">查看全部评论</a></div>
+                        <div class="clear"></div>
+                    </div><!--views_head-->
+                    <div id="showcomment">
 
 
 
-</div>
+                    </div><!--showcomment-->
+                </div><!--comment-->
+            </div><!--box-->
+            <div class="blank"></div>
+            <div class="box">
+                <div class="comment commentbd">
+                    <div class="comment_head">
+                        <div class="comment_tag f_left">添加评论</div>
+                        <div class="comment_ad f_right"></div>
+                        <div class="clear"></div>
+                    </div><!--views_head-->
+                    <div class="comment_insert">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#commentsub").click(function(){
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "__APP__/Comment/insert",
+                                        data: "comment_content="+$("#comment_content").val()+"&model=news&title_id="+$(".title_id").val()+"&yzm="+$(".yzm").val(),
+                                        success: function(html){
+                                            $("#showcomment").append(html);
+                                        }
+                                    });
+                                    //alert('okd');
+                                });
+                            });
+                        </script>
+                        <form method="post">
+
+                            <input type="hidden" name="title_id" class="title_id" value="6">
+                            <p><label>内　　容:</label><textarea name="fd" cols="70" rows="8" id="comment_content"></textarea></p>
+                            <p><label>验 证 码:</label><input type="text" name="yzm" class="yzm">
+                                <img src="__APP__/Comment/vercode" onclick="this.src='__APP__/Comment/vercode?tm='+Math.random()" style="cursor: pointer;" title="看不清？点击更换另一个验证码。">看不清楚？点击图片
+                            </p>
+                            <p><input type="button" id="commentsub" value="提交"></p>
+                        </form>
+                    </div><!--views_cont-->
+                </div><!--comment-->
+            </div><!--box-->
+            <div class="blank"></div>
+
+
+        </div><!--blockFL-->
+        <div class="clear"></div>
+    </div><!--block-->
+
+
+
+</div><!--content-->
 
 
 

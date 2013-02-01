@@ -28,6 +28,7 @@ body{}
 
 
 .commontopbd{ border-bottom:1px solid #D34848;}
+.commentbd {border: 1px solid hsl(210, 67%, 80%);}
 /*float*/
 
 .f_left{float:left; display:inline;}
@@ -53,8 +54,8 @@ body{}
 
 
 
-img{ 
-  max-width: 640px; 
-  height:auto; 
-  width:expression(this.width > 640 ? "640px" : this.width); 
+img{
+  max-width: 640px;
+  height:auto;
+  width:expression(this.width > 640 ? "640px" : this.width);
 }

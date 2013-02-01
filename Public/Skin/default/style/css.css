@@ -100,7 +100,24 @@
 .listpic .images img{ width:126px; height:110px;border:1px solid #bbb; padding:2px;}
 .listpic .images a:hover img{ width:126px; height:110px;border:1px solid #f00; padding:2px;}
 .listpic .title{ height:25px; line-height:25px; text-align:center;}
+/*comment*/
+.comment{}
+.comment .comment_head{height:30px;line-height: 30px;}
+.comment_head .comment_tag{width:230px;font-weight: bold;padding-left:25px;}
+.comment_head .comment_ad{width:440px;}
 
+
+.comment_insert{padding:5px 10px; height:200px;}
+.comment_insert p{ clear:left; }
+.comment_insert label{ width:80px; float:left;}
+.comment_cont{ padding:5px 10px;}
+
+.showcomment_head_pic{ width:60px; margin-bottom:5px;}
+.showcomment_head_pic img{ width:52px; height:52px; border:1px solid #FDDCB7; padding:3px; background:#fff; margin:10px 0 0 15px;}
+.showcomment_head_pic a:hover img{border:1px solid #ddd;}
+.showcomment_head_cont{ width:620px; padding-bottom:5px; line-height:20px;}
+
+.showcomment_foot{ height:30px; line-height:30px; border-bottom:1px dotted #FDDCB7; border-top:1px solid #ddd;}
 
 /*viewsnews*/
 .viewsnews{}
