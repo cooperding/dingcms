@@ -9,10 +9,10 @@ $array = array(
                     array('label' => L('menu_nav_foot'), 'type' => 'nav_foot', 'link' => __APP__ . '/NavFoot/index')
             )),
             array('label' => L('menu_data_name'), 'type' => 'data_name', 'items' => array(
-                    array('label' => L('menu_data_recover'), 'type' => 'data_recover', 'link' => __APP__ . '/Setting/index'),
-                    array('label' => L('menu_data_backup'), 'type' => 'data_backup', 'link' => __APP__ . '/Setting/index'),
-                    array('label' => L('menu_data_backup_del'), 'type' => 'data_backup_del', 'link' => __APP__ . '/Setting/index'),
-                    array('label' => L('menu_data_tool'), 'type' => 'data_tool', 'link' => __APP__ . '/Setting/index')
+                    array('label' => L('menu_data_recover'), 'type' => 'data_recover', 'link' => __APP__ . '/Data/recover'),
+                    array('label' => L('menu_data_backup'), 'type' => 'data_backup', 'link' => __APP__ . '/Data/backup'),
+                    array('label' => L('menu_data_backup_del'), 'type' => 'data_backup_del', 'link' => __APP__ . '/Data/index'),
+                    array('label' => L('menu_data_tool'), 'type' => 'data_tool', 'link' => __APP__ . '/Data/tool')
             )),
             array('label' => L('menu_setting_name'), 'type' => 'setting_name', 'items' => array(
                     array('label' => L('menu_setting_base'), 'type' => 'setting_base', 'link' => __APP__ . '/Setting/index')
