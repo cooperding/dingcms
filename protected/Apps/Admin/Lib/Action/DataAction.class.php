@@ -21,14 +21,11 @@ class DataAction extends BaseAction {
      */
     public function backup()
     {
-        $dbName = C('DB_NAME');
-        $result = M()->query("SHOW FULL TABLES FROM `{$dbName}` WHERE Table_Type = 'BASE TABLE'");
-        $tbArray = array();
-        foreach ($result as $v) {
-            $tbArray[] = $v['Tables_in_' . C('DB_NAME')];
-        }
+        $table = $this->getTables();
+        $struct = $this->bakStruct($table);
+        $record = $this->bakRecord($table);
         echo '<pre>';
-        print_r($tbArray);
+        print_r($record);
         exit;
         $this->display();
     }
@@ -49,198 +46,81 @@ class DataAction extends BaseAction {
     }
 
     /**
-     * add
-     * 添加信息
-     * @access public
-     * @return array
-     * @version dogocms 1.0
+     * 备份数据表结构
      */
-    public function add()
+    protected function bakStruct($array)
     {
-        $this->display();
-    }
-
-    /**
-     * edit
-     * 编辑信息
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function edit()
-    {
-        $this->display();
-    }
-
-    /**
-     * delete
-     * 留言删除
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function delete()
-    {
-        $id = intval($_POST['id']);
-        $m = M('Ads');
-        $del = $m->where('id=' . $id)->delete();
-        if ($del == true) {
-            $this->dmsg('2', '操作成功！', true);
-        } else {
-            $this->dmsg('1', '操作失败！', false, true);
-        }//if
-    }
-
-    /**
-     * sort
-     * 广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sort()
-    {
-        $this->display();
-    }
-
-    /**
-     * sortadd
-     * 添加广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortadd()
-    {
-        $radios = array(
-            'true' => '启用',
-            'false' => '禁用'
-        );
-        $this->assign('radios', $radios);
-        $this->display();
-    }
-
-    /**
-     * sortedit
-     * 编辑广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortedit()
-    {
-        $id = $_GET['id'];
-        $m = M('AdsSort');
-        $data = $m->where('id=' . intval($id))->find();
-        $radios = array(
-            'true' => '启用',
-            'false' => '禁用'
-        );
-        $this->assign('radios', $radios);
-        $this->assign('status', $data['status']);
-        $this->assign('data', $data);
-        $this->display();
-    }
-
-    /**
-     * sortinsert
-     * 写入广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortinsert()
-    {
-        $m = M('AdsSort');
-        $condition['ename'] = trim($_POST['ename']);
-        if (empty($condition['ename'])) {
-            $this->dmsg('1', '请将信息输入完整！', false, true);
-        }
-        $_POST['status'] = $_POST['status']['0'];
-        if ($m->create()) {
-            $rs = $m->add($_POST);
-            if ($rs) {//存在值
-                $this->dmsg('2', '操作成功！', true);
-            } else {
-                $this->dmsg('1', '操作失败！', false, true);
+        foreach ($array as $v) {
+            $tbName = $v;
+            $result = M()->query('show columns from ' . $tbName);
+            $sql.="-- ----------------------------\r";
+            $sql.="-- Records of  `$tbName`\r";
+            $sql.="-- ----------------------------\r";
+            $sql .= "DROP TABLE IF EXISTS `$tbName`;\r";
+            $sql.="create table `$tbName` (\r\n";
+            $rsCount = count($result);
+            foreach ($result as $k => $v) {
+                $field = $v['Field'];
+                $type = $v['Type'];
+                $default = $v['Default'];
+                $extra = $v['Extra'];
+                $null = $v['Null'];
+                if (!($default == '')) {
+                    $default = 'default \'' . $default.'\'';
+                }
+                if ($null == 'NO') {
+                    $null = 'NOT NULL';
+                } else {
+                    $null = "NULL";
+                }
+                if ($v['Key'] == 'PRI') {
+                    $key = 'PRIMARY KEY';
+                } else {
+                    $key = '';
+                }
+                if ($k < ($rsCount - 1)) {
+                    $sql.="`$field` $type $null $default $key $extra,\r";
+                } else {
+                    //最后一条不需要","号
+                    $sql.="`$field` $type $null $default $key $extra \r";
+                }
             }
-        } else {
-            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
+            $sql.=")ENGINE=MyISAM DEFAULT CHARSET=utf8\r";
         }
+        return str_replace(')', ')', $sql);
     }
 
     /**
-     * sortupdate
-     * 更新广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
+     * 备份数据表数据
      */
-    public function sortupdate()
+    protected function bakRecord($array)
     {
-        $m = M('AdsSort');
-        $id = intval($_POST['id']);
-        $condition['ename'] = trim($_POST['ename']);
-        $condition['id'] = array('neq', $id);
-        if (empty($condition['ename'])) {
-            $this->dmsg('1', '请将信息输入完整！', false, true);
+        foreach ($array as $v) {
+            $tbName = $v;
+            $rs = M()->query('select * from ' . $tbName);
+            if (count($rs) <= 0) {
+                continue;
+            }
+            $sql.="-- ----------------------------\r";
+            $sql.="-- Records of `$tbName`\r";
+            $sql.="-- ----------------------------\r";
+            foreach ($rs as $k => $v) {
+                $sql.="INSERT INTO `$tbName` VALUES (";
+                foreach ($v as $key => $value) {
+                    if ($value == '') {
+                        $value = 'null';
+                    }
+                    $type = gettype($value);
+                    if ($type == 'string') {
+                        $value = "'" . addslashes($value) . "'";
+                    }
+                    $sql.=$value.',';
+                }
+                $sql =rtrim($sql,', ');//删除最后一个逗号
+                $sql.=");\r";
+            }
         }
-        if ($m->field('id')->where($condition)->find()) {
-            $this->dmsg('1', '您输入的名称' . $condition['ename'] . '已经存在！', false, true);
-        }
-        $_POST['status'] = $_POST['status']['0'];
-        $rs = $m->save($_POST);
-        if ($rs == true) {
-            $this->dmsg('2', '操作成功！', true);
-        } else {
-            $this->dmsg('1', '操作失败！', false, true);
-        }//if
-    }
-
-    /**
-     * sortdelete
-     * 删除广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortdelete()
-    {
-        $m = M('AdsSort');
-        $l = M('Ads');
-        $id = intval($_POST['id']);
-        $condition['sort_id'] = array('eq', $id);
-        if ($l->field('id')->where($condition)->find()) {
-            $this->dmsg('1', '列表中含有该分类的信息，不能删除！', false, true);
-        }
-        $del = $m->where('id=' . $id)->delete();
-        if ($del == true) {
-            $this->dmsg('2', '操作成功！', true);
-        } else {
-            $this->dmsg('1', '操作失败！', false, true);
-        }//if
-    }
-
-    /**
-     * sortJson
-     * 返回sortjson模型分类数据
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortJson()
-    {
-        $m = M('AdsSort');
-        $list = $m->select();
-        $count = $m->count("id");
-        $a = array();
-        foreach ($list as $k => $v) {
-            $a[$k] = $v;
-        }
-        $array = array();
-        $array['total'] = $count;
-        $array['rows'] = $a;
-        echo json_encode($array);
+        return str_replace(')', ')', $sql);
     }
 
 }
