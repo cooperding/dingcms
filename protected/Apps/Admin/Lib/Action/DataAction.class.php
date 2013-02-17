@@ -11,7 +11,23 @@
  * @todo
  */
 class DataAction extends BaseAction {
-
+    /**
+     * recover
+     * 站点数据还原
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function recover()
+    {
+        $table = $this->getTables();
+        $struct = $this->bakStruct($table);
+        $record = $this->bakRecord($table);
+        echo '<pre>';
+        print_r($record);
+        exit;
+        $this->display();
+    }
     /**
      * backup
      * 站点数据备份
