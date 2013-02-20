@@ -19,6 +19,7 @@ class TagLibDogocms extends TagLib {
         'member' => array("attr" => "attr1,attr2", level => 3), //会员信息(个人)
         'cfg' => array("attr" => "name", level => 3,'close'=>0), //系统参数
         'links' => array("attr" => "typeid,limit,order", level => 3,'close'=>1), //友情链接
+        'flash' => array("attr" => "typeid,limit,order", level => 3), //碎片
     );
     //取得配置信息
     //之后存入缓存文件
@@ -48,14 +49,11 @@ class TagLibDogocms extends TagLib {
         $sql = "M('Nav{$tag['name']}')->";
         $sql .= ($order) ? "order(\"{$order}\")->" : '';
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
-        //$sql .= ($tag['type']) ? "order({$tag['type']})->" : '';
         $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
         $sql .= "select()";
         $result = !empty($id) ? $id : 'nav'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-
-
         //下面拼接输出语句
         $parsestr = '<?php Load("extend"); ';
         $parsestr .= '$_result=list_to_tree('.$sql.',"id", "parent_id", "children"); if ($_result): $' . $key . '=0;';
@@ -63,10 +61,7 @@ class TagLibDogocms extends TagLib {
         $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
         $parsestr .= $content; //解析在article标签中的内容
         $parsestr .= '<?php endforeach; endif;?>';
-       // echo $parsestr;
-
         return $parsestr;
-
     }
 
     public function _article($attr, $content)
@@ -179,8 +174,6 @@ class TagLibDogocms extends TagLib {
         $result = !empty($id) ? $id : 'article'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-
-
         $sql = "M('Title')->";
         $sql .= "table({$table})->";
         $sql .= $join;
@@ -189,8 +182,6 @@ class TagLibDogocms extends TagLib {
         $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
         $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
         $sql .= "select()";
-
-
         //下面拼接输出语句
         $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
@@ -228,8 +219,6 @@ class TagLibDogocms extends TagLib {
         $result = !empty($id) ? $id : 'sort'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-
-
         //下面拼接输出语句
         $parsestr = '<?php Load("extend"); ';
         $parsestr .= '$_result=list_to_tree('.$sql.',"id", "parent_id", "children"); if ($_result): $' . $key . '=0;';
@@ -237,10 +226,7 @@ class TagLibDogocms extends TagLib {
         $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
         $parsestr .= $content; //解析在article标签中的内容
         $parsestr .= '<?php endforeach; endif;?>';
-       // echo $parsestr;
-
         return $parsestr;
-
     }
 //  头部和底部导航
     public function _links($attr, $content)
@@ -261,10 +247,39 @@ class TagLibDogocms extends TagLib {
         $result = !empty($id) ? $id : 'links'; //定义数据查询的结果存放变量
         $key = !empty($tag['key']) ? $tag['key'] : 'i';
         $mod = isset($tag['mod']) ? $tag['mod'] : '2';
-
         //下面拼接输出语句
         $parsestr = '<?php Load("extend"); ';
         $parsestr .= '$_result=list_to_tree('.$sql.',"id", "parent_id", "children"); if ($_result): $' . $key . '=0;';
+        $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
+        $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
+        $parsestr .= $content; //解析在article标签中的内容
+        $parsestr .= '<?php endforeach; endif;?>';
+        return $parsestr;
+    }
+    //  flash幻灯标签 typeid,limit,order
+    public function _flash($attr, $content)
+    {
+        $tag = $this->parseXmlAttr($attr, 'nav');
+        $typeid = $tag['typeid'];
+        $limit = $tag['limit'];
+        $order = $tag['order'];//字符串加引号
+        if(empty($limit)){
+            $tag['limit'] = '0,4';
+        }
+        $tag['where'] = ' (`status`=\'true\') ';
+        if($typeid){
+            $tag['where'] = ' and (`sort_id` in(' . $typeid . ')) ';
+        }
+        $sql = "M('Flash')->";
+        $sql .= ($order) ? "order(\"{$order}\")->" : '';
+        $sql .= ($tag['limit']) ? "limit({$tag['limit']})->" : '';
+        $sql .= ($tag['where']) ? "where(\"{$tag['where']}\")->" : '';   //被重新处理过了
+        $sql .= "select()";
+        $result = !empty($id) ? $id : 'flash'; //定义数据查询的结果存放变量
+        $key = !empty($tag['key']) ? $tag['key'] : 'i';
+        $mod = isset($tag['mod']) ? $tag['mod'] : '2';
+        //下面拼接输出语句
+        $parsestr = '<?php $_result=' . $sql . '; if ($_result): $' . $key . '=0;';
         $parsestr .= 'foreach($_result as $key=>$' . $result . '):';
         $parsestr .= '++$' . $key . ';$mod = ($' . $key . ' % ' . $mod . ' );?>';
         $parsestr .= $content; //解析在article标签中的内容
