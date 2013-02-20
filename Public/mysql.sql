@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2013-01-30 15:28:30
+Date: 2013-02-20 16:45:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -435,6 +435,37 @@ INSERT INTO `ding_model_sort` VALUES ('2', '视频模型', 'video', 'true', '0')
 INSERT INTO `ding_model_sort` VALUES ('3', '首页', 'ceshi', 'true', '0');
 
 -- ----------------------------
+-- Table structure for `ding_nav_foot`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_nav_foot`;
+CREATE TABLE `ding_nav_foot` (
+  `id` mediumint(5) NOT NULL auto_increment,
+  `parent_id` mediumint(5) NOT NULL,
+  `text` varchar(40) NOT NULL,
+  `path` varchar(30) NOT NULL default ',',
+  `myorder` tinyint(3) NOT NULL,
+  `url` varchar(50) default NULL,
+  `status` enum('false','true') default 'true' COMMENT '是否显示',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_nav_foot
+-- ----------------------------
+INSERT INTO `ding_nav_foot` VALUES ('1', '0', '首页', ',', '0', null, 'true');
+INSERT INTO `ding_nav_foot` VALUES ('2', '0', '视频教程', ',', '0', 'List/?id=5', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('3', '0', '开源项目', ',', '0', 'List/?id=28', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('4', '0', '物联网', ',', '0', 'List/?id=25', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('5', '0', '推荐书籍', ',', '0', 'List/?id=24', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('6', '0', '网站建设', ',', '0', 'List/?id=23', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('7', '0', 'web开发', ',', '0', 'List/?id=14', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('8', '0', '图形图像', ',', '0', 'List/?id=12', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('9', '0', '网络资讯', ',', '0', 'List/?id=1', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('10', '0', '休闲一刻', ',', '0', 'List/?id=31', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('11', '0', '电商学院', ',', '0', 'List/?id=32', 'true');
+INSERT INTO `ding_nav_foot` VALUES ('12', '0', '励志一生', ',', '0', 'List/?id=29', 'true');
+
+-- ----------------------------
 -- Table structure for `ding_nav_head`
 -- ----------------------------
 DROP TABLE IF EXISTS `ding_nav_head`;
@@ -445,24 +476,25 @@ CREATE TABLE `ding_nav_head` (
   `path` varchar(30) NOT NULL default ',',
   `myorder` tinyint(3) NOT NULL,
   `url` varchar(50) default NULL,
+  `status` enum('false','true') default 'true' COMMENT '是否显示',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ding_nav_head
 -- ----------------------------
-INSERT INTO `ding_nav_head` VALUES ('1', '0', '首页', ',', '0', null);
-INSERT INTO `ding_nav_head` VALUES ('2', '0', '视频教程', ',', '0', 'List/?id=5');
-INSERT INTO `ding_nav_head` VALUES ('3', '0', '开源项目', ',', '0', 'List/?id=28');
-INSERT INTO `ding_nav_head` VALUES ('4', '0', '物联网', ',', '0', 'List/?id=25');
-INSERT INTO `ding_nav_head` VALUES ('5', '0', '推荐书籍', ',', '0', 'List/?id=24');
-INSERT INTO `ding_nav_head` VALUES ('6', '0', '网站建设', ',', '0', 'List/?id=23');
-INSERT INTO `ding_nav_head` VALUES ('7', '0', 'web开发', ',', '0', 'List/?id=14');
-INSERT INTO `ding_nav_head` VALUES ('8', '0', '图形图像', ',', '0', 'List/?id=12');
-INSERT INTO `ding_nav_head` VALUES ('9', '0', '网络资讯', ',', '0', 'List/?id=1');
-INSERT INTO `ding_nav_head` VALUES ('10', '0', '休闲一刻', ',', '0', 'List/?id=31');
-INSERT INTO `ding_nav_head` VALUES ('11', '0', '电商学院', ',', '0', 'List/?id=32');
-INSERT INTO `ding_nav_head` VALUES ('12', '0', '励志一生', ',', '0', 'List/?id=29');
+INSERT INTO `ding_nav_head` VALUES ('1', '0', '首页', ',', '0', null, 'true');
+INSERT INTO `ding_nav_head` VALUES ('2', '0', '视频教程', ',', '0', 'List/?id=5', 'true');
+INSERT INTO `ding_nav_head` VALUES ('3', '0', '开源项目', ',', '0', 'List/?id=28', 'true');
+INSERT INTO `ding_nav_head` VALUES ('4', '0', '物联网', ',', '0', 'List/?id=25', 'true');
+INSERT INTO `ding_nav_head` VALUES ('5', '0', '推荐书籍', ',', '0', 'List/?id=24', 'true');
+INSERT INTO `ding_nav_head` VALUES ('6', '0', '网站建设', ',', '0', 'List/?id=23', 'true');
+INSERT INTO `ding_nav_head` VALUES ('7', '0', 'web开发', ',', '0', 'List/?id=14', 'true');
+INSERT INTO `ding_nav_head` VALUES ('8', '0', '图形图像', ',', '0', 'List/?id=12', 'true');
+INSERT INTO `ding_nav_head` VALUES ('9', '0', '网络资讯', ',', '0', 'List/?id=1', 'true');
+INSERT INTO `ding_nav_head` VALUES ('10', '0', '休闲一刻', ',', '0', 'List/?id=31', 'true');
+INSERT INTO `ding_nav_head` VALUES ('11', '0', '电商学院', ',', '0', 'List/?id=32', 'true');
+INSERT INTO `ding_nav_head` VALUES ('12', '0', '励志一生', ',', '0', 'List/?id=29', 'true');
 
 -- ----------------------------
 -- Table structure for `ding_news_sort`
@@ -481,44 +513,45 @@ CREATE TABLE `ding_news_sort` (
   `description` varchar(255) default NULL,
   `path` varchar(30) NOT NULL default ',',
   `myorder` tinyint(3) NOT NULL,
+  `status` enum('false','true') default 'true',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ding_news_sort
 -- ----------------------------
-INSERT INTO `ding_news_sort` VALUES ('1', '0', '网络', 'wangluo', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('2', '1', '互联网', 'hulianwang', '1', '', '', '', '', '', ',1,', '0');
-INSERT INTO `ding_news_sort` VALUES ('3', '1', '通信', 'tongxin', '1', '', '', '', '', '', ',1,', '0');
-INSERT INTO `ding_news_sort` VALUES ('4', '1', 'IT业界', 'ITyejie', '1', '', '', '', '', '', ',1,', '0');
-INSERT INTO `ding_news_sort` VALUES ('5', '0', '视频教程', 'shipinjiaocheng', '2', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('6', '5', 'PHP视频', 'PHPshipin', '2', '', '', '', '', '', ',5,', '0');
-INSERT INTO `ding_news_sort` VALUES ('7', '5', 'jQuery/AJAX视频', 'jQuery/AJAXshipin', '2', '', '', '', '', '', ',5,', '0');
-INSERT INTO `ding_news_sort` VALUES ('8', '5', '办公软件教程', 'bangongruanjianjiaocheng', '2', '', '', '', '', '', ',5,', '0');
-INSERT INTO `ding_news_sort` VALUES ('9', '5', '平面设计', 'pingmiansheji', '2', '', '', '', '', '', ',5,', '0');
-INSERT INTO `ding_news_sort` VALUES ('10', '5', '网站制作', 'wangzhanzhizuo', '2', '', '', '', '', '', ',5,', '0');
-INSERT INTO `ding_news_sort` VALUES ('11', '5', 'Python视频教程', 'Pythonshipinjiaocheng', '2', '', '', '', '', '', ',5,', '0');
-INSERT INTO `ding_news_sort` VALUES ('12', '0', '图形图像', 'tuxingtuxiang', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('13', '12', 'Photoshop', 'Photoshop', '1', '', '', '', '', '', ',12,', '0');
-INSERT INTO `ding_news_sort` VALUES ('14', '0', 'web | 编程开发', 'web | bianchengkaifa', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('15', '14', 'php教程', 'phpjiaocheng', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('16', '14', 'MySQL', 'MySQL', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('17', '14', 'HTML/CSS', 'HTML/CSS', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('18', '14', 'JQuery教程', 'JQueryjiaocheng', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('19', '14', 'Ruby | Rails', 'Ruby | Rails', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('20', '14', 'Java | Jsp', 'Java | Jsp', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('21', '14', 'Python', 'Python', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('22', '14', '其它', 'qita', '1', '', '', '', '', '', ',14,', '0');
-INSERT INTO `ding_news_sort` VALUES ('23', '0', '网站建设', 'wangzhanjianshe', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('24', '0', '推荐书籍', 'tuijianshuji', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('25', '0', '物联网', 'wulianwang', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('26', '25', '物联网资讯', 'wulianwangzixun', '1', '', '', '', '', '', ',25,', '0');
-INSERT INTO `ding_news_sort` VALUES ('27', '25', '物联网技术', 'wulianwangjishu', '1', '', '', '', '物联网技术', '物联网技术', ',25,', '0');
-INSERT INTO `ding_news_sort` VALUES ('28', '0', '开源项目', 'kaiyuanxiangmu', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('29', '0', '励志一生', 'lizhiyisheng', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('30', '23', '域名主机', 'yumingzhuji', '1', '', '', '', '', '', ',23,', '0');
-INSERT INTO `ding_news_sort` VALUES ('31', '0', '休闲一刻', 'xiuxianyike', '1', '', '', '', '', '', ',', '0');
-INSERT INTO `ding_news_sort` VALUES ('32', '0', '电商学院', 'dianshangxueyuan', '1', '', '', '', '', '', ',', '0');
+INSERT INTO `ding_news_sort` VALUES ('1', '0', '网络', 'wangluo', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('2', '1', '互联网', 'hulianwang', '1', '', '', '', '', '', ',1,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('3', '1', '通信', 'tongxin', '1', '', '', '', '', '', ',1,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('4', '1', 'IT业界', 'ITyejie', '1', '', '', '', '', '', ',1,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('5', '0', '视频教程', 'shipinjiaocheng', '2', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('6', '5', 'PHP视频', 'PHPshipin', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('7', '5', 'jQuery/AJAX视频', 'jQuery/AJAXshipin', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('8', '5', '办公软件教程', 'bangongruanjianjiaocheng', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('9', '5', '平面设计', 'pingmiansheji', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('10', '5', '网站制作', 'wangzhanzhizuo', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('11', '5', 'Python视频教程', 'Pythonshipinjiaocheng', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('12', '0', '图形图像', 'tuxingtuxiang', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('13', '12', 'Photoshop', 'Photoshop', '1', '', '', '', '', '', ',12,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('14', '0', 'web | 编程开发', 'web | bianchengkaifa', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('15', '14', 'php教程', 'phpjiaocheng', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('16', '14', 'MySQL', 'MySQL', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('17', '14', 'HTML/CSS', 'HTML/CSS', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('18', '14', 'JQuery教程', 'JQueryjiaocheng', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('19', '14', 'Ruby | Rails', 'Ruby | Rails', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('20', '14', 'Java | Jsp', 'Java | Jsp', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('21', '14', 'Python', 'Python', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('22', '14', '其它', 'qita', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('23', '0', '网站建设', 'wangzhanjianshe', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('24', '0', '推荐书籍', 'tuijianshuji', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('25', '0', '物联网', 'wulianwang', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('26', '25', '物联网资讯', 'wulianwangzixun', '1', '', '', '', '', '', ',25,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('27', '25', '物联网技术', 'wulianwangjishu', '1', '', '', '', '物联网技术', '物联网技术', ',25,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('28', '0', '开源项目', 'kaiyuanxiangmu', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('29', '0', '励志一生', 'lizhiyisheng', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('30', '23', '域名主机', 'yumingzhuji', '1', '', '', '', '', '', ',23,', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('31', '0', '休闲一刻', 'xiuxianyike', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_news_sort` VALUES ('32', '0', '电商学院', 'dianshangxueyuan', '1', '', '', '', '', '', ',', '0', 'true');
 
 -- ----------------------------
 -- Table structure for `ding_node`
@@ -688,11 +721,11 @@ CREATE TABLE `ding_setting` (
 -- ----------------------------
 INSERT INTO `ding_setting` VALUES ('1', 'cfg_sitename', '站长管理', '网站名称', '1', 'text', '0');
 INSERT INTO `ding_setting` VALUES ('2', 'cfg_siteurl', '', '网站地址', '1', 'text', '0');
-INSERT INTO `ding_setting` VALUES ('3', 'cfg_keywords', '', '关键字', '1', 'text', '0');
-INSERT INTO `ding_setting` VALUES ('4', 'cfg_description', '', '网站描述', '1', 'text', '0');
+INSERT INTO `ding_setting` VALUES ('3', 'cfg_keywords', '站长先生,站长教程,网站教程,管理先生', '关键字', '1', 'text', '0');
+INSERT INTO `ding_setting` VALUES ('4', 'cfg_description', '记录成长的点点滴滴，只因喜欢！Hello world！我的电脑我管理，我的web我做主！', '网站描述', '1', 'text', '0');
 INSERT INTO `ding_setting` VALUES ('5', 'cfg_defaultpic', 'defaultpic.gif', '默认图片', '1', 'text', '0');
 INSERT INTO `ding_setting` VALUES ('6', 'cfg_copyright', '© （<a href=\\\"http://www.adminsir.net\\\">www.adminsir.net</a>）站长先生网--版权所有，并保留所有权利。<br />\r\nPowered by <a href=\\\"http://www.dingcms.com\\\" target=\\\"_blank\\\">www.dingcms.com</a><a href=\\\"http://webscan.360.cn/index/checkwebsite/url/www.adminsir.net\\\"></a>', '版权信息', '1', 'textarea', '0');
-INSERT INTO `ding_setting` VALUES ('7', '统计信息', '<script src=\"http://s84.cnzz.com/stat.php?id=3490277&web_id=3490277&show=pic\" language=\"JavaScript\"></script>', 'cfg_tongji', '1', 'text', '0');
+INSERT INTO `ding_setting` VALUES ('7', 'cfg_tongji', '<script src=\\\"http://s84.cnzz.com/stat.php?id=3490277&web_id=3490277&show=pic\\\" language=\\\"JavaScript\\\"></script>', '统计信息', '1', 'text', '0');
 INSERT INTO `ding_setting` VALUES ('8', 'cfg_title', 'Hello world！记录成长的点点滴滴，只因喜欢！', '首页标题', '1', 'text', '0');
 INSERT INTO `ding_setting` VALUES ('9', 'cfg_website_open', '2', '站点是否关闭', '1', 'radio', '0');
 
@@ -735,13 +768,13 @@ INSERT INTO `ding_title` VALUES ('9', '1', '测试文章9', '测试文章9', nul
 INSERT INTO `ding_title` VALUES ('10', '1', '测试文章10222', '测试文章10', '', null, '', '', '', '', '', '测试文章10222', '0', '1355799013', '1355799013', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('11', '2', '测试文章11', '测试文章11', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'true');
 INSERT INTO `ding_title` VALUES ('12', '2', '测试文章12', '测试文章12', null, null, '', '', '', '', '', '', '0', '1355799013', '1355799013', 'true', 'true');
-INSERT INTO `ding_title` VALUES ('13', '1', '的的的2', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('13', '1', '的的的2', '', '', null, '', '', '', '', '', '', '6', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('14', '27', 'M2M简介', 'M2M简介', '', null, '', '', '', '', '', '', '0', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('15', '27', '实时数据库和关系数据库的设计特点', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('16', '27', '朱志祥讲物联网（一）', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('16', '27', '朱志祥讲物联网（一）', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('17', '27', '解析M2M：物联网的四大支撑技术之一', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('18', '27', '全网通址 物联网时代手机是什么', '', '', null, '', '', '', '', '', '', '0', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('18', '27', '全网通址 物联网时代手机是什么', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('19', '27', '红外线感应器', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('20', '27', 'ZigBee技术在物联网系统中的应用研究', '', '', null, '', '', '', '', '', '', '22', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('21', '27', '浅析公共安全监测物联网技术', '', '', null, '', '', '', '', '浅析公共安全监测物联网技术', '浅析公共安全监测物联网技术', '8', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('22', '27', '物联网冰箱', '', '', null, '', '', '', '', '', '', '7', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('20', '27', 'ZigBee技术在物联网系统中的应用研究', '', '', null, '', '', '', '', '', '', '28', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('21', '27', '浅析公共安全监测物联网技术', '', '', null, '', '', '', '', '浅析公共安全监测物联网技术', '浅析公共安全监测物联网技术', '27', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('22', '27', '物联网冰箱', '', '/Public/Uploads/Images/20130131/1359606096.jpg', null, '', '', '', '', '', '', '9', '0', '0', 'true', 'false');
