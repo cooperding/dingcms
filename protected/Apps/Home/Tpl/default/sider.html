@@ -2,18 +2,19 @@
     <div class="flash">
         <!-- content S -->
         <div class="effect">
-            <div id="slideBox2" class="slideBox">
+            <div id="slideBox" class="slideBox">
                 <div class="hd">
                     <ul><li>1</li><li>2</li></ul>
                 </div>
                 <div class="bd">
                     <ul>
-                        <li><a href="#"><img src="http://js.test.com/images/ad1.jpg" /></a></li>
-                        <li><a href="#"><img src="http://js.test.com/images/ad2.jpg" /></a></li>
+                        <dogocms:flash typeid="" limit="0,6" order="id desc">
+                            <li><a href="{$flash.eurl}"><img src="{$flash.epic}" title="{$article.title}" /></a></li>
+                        </dogocms:flash>
                     </ul>
                 </div>
             </div>
-            
+
         </div>
         <!-- content E -->
     </div><!--flash-->
