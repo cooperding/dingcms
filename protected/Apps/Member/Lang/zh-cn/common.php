@@ -20,7 +20,7 @@ return array(
     'menu_setting_base' => '基本参数设置',
     //信息中心
     'menu_info_name' => '信息中心',
-    'menu_sort_name' => '文档分类',
+    'menu_sort_name' => '分类管理',
     'menu_sort_list' => '分类列表',
     'menu_sort_add' => '添加分类',
     'menu_news_name' => '文档管理',
