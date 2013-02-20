@@ -1,13 +1,5 @@
 <table  id="datagrid_newsrecycle" class="datagrid">
-    <thead>
-        <tr>
-            <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
-            <th data-options="field:'title'" width="200">标题</th>
-            <th data-options="field:'updatetime'" width="200">更新时间</th>
-            <th data-options="field:'editor'" width="200">发布人</th>
-            <th data-options="field:'status'" width="80">状态</th>
-        </tr>
-    </thead>
+
 </table>
 
 
@@ -28,6 +20,26 @@
             fitColumns:true,
             checkbox:true,
             height:height-50,
+            columns:[[
+                    {field:'id',title:'ID',width:50,align:'center'},
+                    {field:'title',title:'标题',width:200},
+                    {field:'addtime',title:'添加时间',width:200},
+                    {field:'sort_id',title:'所属分类',width:80},
+                    {field:'views',title:'浏览量',width:50,align:'center'},
+                    {field:'status',title:'状态',width:50},
+                    //{field:'parent_id',title:'parent_id',width:200},
+                    {
+                        field:'action2',
+                        title:'动作',
+                        width:50,
+                        formatter : function(value, row, index) {
+                            //alert(row.id);
+                            //return row.index;
+                            return '<img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="还原"/>&nbsp;\n\
+<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title="彻底删除"/>&nbsp;';
+                        }
+                    }
+                ]],
             //singleSelect:true,
             frozenColumns:[[
                     {

@@ -1,6 +1,4 @@
-<div class="pagecontent">
-
-    <table id="datagrid_comment">
+<table id="datagrid_comment">
 
     </table>
     <script>
@@ -25,7 +23,18 @@
                         {field:'addtime',title:'评论时间',width:100},
                         {field:'replycontent',title:'回复内容',width:200},
                         {field:'replytime',title:'回复时间',width:100},
-                        {field:'status',title:'状态',width:50}
+                        {field:'status',title:'状态',width:50},
+                        {
+                        field:'action',
+                        title:'动作',
+                        width:50,
+                        formatter : function(value, row, index) {
+                            //alert(row.id);
+                            //return row.index;
+                            return '<img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="回复"/>&nbsp;\n\
+<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
+                        }
+                    }
                     ]],
                 frozenColumns:[[
                         {
@@ -91,5 +100,3 @@
             });
         })
     </script>
-
-</div><!--pagecontent-->

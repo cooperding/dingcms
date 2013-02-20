@@ -1,13 +1,5 @@
 <table id="datagrid_contentmodel_sortlisttab{$id}" class="contentmodel_sortlisttab{$id}">
-    <thead>
-        <tr>
-            <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
-            <th data-options="field:'ename'" width="200">标题</th>
-            <th data-options="field:'emark'" width="200">emark</th>
-            <th data-options="field:'etype'" width="200">etype</th>
-            <th data-options="field:'elink'" width="80">elink</th>
-        </tr>
-    </thead>
+
 </table>
 <script>
     $(function(){
@@ -19,6 +11,25 @@
         var urljson = '__APP__/ContentModel/fieldJsonId?id={$id}';
         $('.layout_'+classId).css('height',height-50);
         openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
-
+        $('#datagrid_'+classId).datagrid({
+                columns:[[
+                        {field:'id',title:'ID',width:50,align:'center'},
+                        {field:'ename',title:'标题',width:200},
+                        {field:'emark',title:'标识',width:80},
+                        {field:'etype',title:'类型',width:200},
+                        {
+                        field:'action',
+                        title:'操作',
+                        width:50,
+                        formatter : function(value, row, index) {
+                            //alert(row.id);
+                            //return row.index;
+                            return '<img src="__PUBLIC__/Easyui/themes/icons/search.png" width="16" height="16" onclick="testclick(\''+row.id+'\')" title="预览"/>&nbsp;\n\
+                        <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
+<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
+                        }
+                    }
+                    ]]
+            })
     })
 </script>

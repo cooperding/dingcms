@@ -1,25 +1,33 @@
-<div class="pagecontent">
-
-    <table id="treegrid_navfood">
+    <table id="treegrid_navfoot">
 
     </table>
     <script>
         $(function(){
-            var classId = 'navfood';
-            var urljson = '__APP__/NavFood/json';
-            var hrefadd = '__APP__/NavFood/add';
-            var hrefedit = '__APP__/NavFood/edit';
-            var hrefcancel = '__APP__/NavFood/delete';
+            var classId = 'navfoot';
+            var urljson = '__APP__/NavFoot/json';
+            var hrefadd = '__APP__/NavFoot/add';
+            var hrefedit = '__APP__/NavFoot/edit';
+            var hrefcancel = '__APP__/NavFoot/delete';
             openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
             $('#treegrid_'+classId).treegrid({
-                columns:[[
-                        {field:'id',title:'id',width:50},
-                        {field:'text',title:'text',width:200},
-                        {field:'parent_id',title:'parent_id',width:200},
-                        {field:'myorder',title:'myorder',width:80}
-                    ]]
-            })
+            columns:[[
+                    {field:'id',title:'ID',width:50,align:'center'},
+                    {field:'text',title:'导航名称',width:200},
+                    {field:'status',title:'状态',width:50},
+                    //{field:'parent_id',title:'parent_id',width:200},
+                    {
+                        field:'action',
+                        title:'动作',
+                        width:50,
+                        formatter : function(value, row, index) {
+                            //alert(row.id);
+                            //return row.index;
+                            return '<img src="__PUBLIC__/Easyui/themes/icons/search.png" width="16" height="16" onclick="testclick(\''+row.id+'\')" title="预览"/>&nbsp;\n\
+                        <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
+<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
+                        }
+                    }
+                ]]
+        })
         })
     </script>
-
-</div><!--pagecontent-->

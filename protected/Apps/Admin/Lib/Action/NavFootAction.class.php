@@ -45,7 +45,7 @@ class NavFootAction extends BaseAction {
      */
     public function edit()
     {
-        $m = M('NavHead');
+        $m = M('NavFoot');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $this->assign('data', $data);
         $this->display();
@@ -61,7 +61,7 @@ class NavFootAction extends BaseAction {
     public function insert()
     {
         //添加功能还需要验证数据不能为空的字段
-        $m = M('NavHead');
+        $m = M('NavFoot');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
@@ -92,11 +92,11 @@ class NavFootAction extends BaseAction {
      */
     public function update()
     {
-        $m = M('NavHead');
+        $m = M('NavFoot');
         $d = D('NewsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        $tbname = 'NavHead';
+        $tbname = 'NavFoot';
         if ($parent_id != 0) {//不为0时判断是否为子分类
             $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {
@@ -131,7 +131,7 @@ class NavFootAction extends BaseAction {
      */
     public function delete()
     {
-        $m = M('NavHead');
+        $m = M('NavFoot');
         $id = intval($_POST['id']);
         if (empty($id)) {
             $this->dmsg('1', '未有id值，操作失败！', false, true);
@@ -157,7 +157,7 @@ class NavFootAction extends BaseAction {
      */
     public function json()
     {
-        $m = M('NavHead');
+        $m = M('NavFoot');
         $list = $m->field('id,parent_id,text')->select();
         $navcatCount = $m->count("id");
         $a = array();
@@ -181,7 +181,7 @@ class NavFootAction extends BaseAction {
     public function jsonTree()
     {
         Load('extend');
-        $m = M('NavHead');
+        $m = M('NavFoot');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);

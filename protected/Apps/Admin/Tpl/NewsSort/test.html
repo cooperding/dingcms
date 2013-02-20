@@ -41,7 +41,7 @@ $(function(){
                         {field:'id',title:'id',width:50},
                         {field:'text',title:'text',width:200},
 		{
-			field:'action',
+			field:'action2',
 			title:'动作',
 			width:50,
 			formatter : function(value, row, index) {
@@ -98,38 +98,7 @@ $(function(){
 		});//$
 
 	});
-        /*****news函数--------begin******/
-        function dedede(id){
-            alert(id);
-        }
-var admin_news_viewFun = function(id){
-		alert("打开前台页面");
-};
-var admin_news_editFun = function(id){
-		var classId = 'newstab0';
-		var hrefadd = 'news/add.html';
-		var title = '添加文档';
-		openDialog(classId,hrefadd,title);
-};
-var admin_news_cancelFun = function(id){
-		var hrefcancel = 'news/del.html';
-		var href = hrefcancel;
-		var title = '删除信息';
-		$.messager.confirm(title,href, function(){
-			$.ajax({
-				url:href,
-				type:'post',
-				data:{
-					id:id
-				},
-				dataType:'json',
-				success:function(data){
-					formAjax(data,classId);
-				}
-			});
-		});//$
-};
-/*****news函数--------end******/
+
 
 })
 </script>

@@ -1,5 +1,3 @@
-<div class="pagecontent">
-
     <table id="datagrid_message_sort" class="message_sort">
         <thead>
             <tr>
@@ -18,7 +16,27 @@
             var hrefcancel = '__APP__/Message/sortdelete';
             var urljson = '__APP__/Message/sortJson';
             openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+            $('#datagrid_'+classId).datagrid({
+                columns:[[
+                    {field:'id',title:'ID',width:50,align:'center'},
+                    {field:'ename',title:'标题',width:200},
+                    {field:'status',title:'状态',width:50},
+                    //{field:'parent_id',title:'parent_id',width:200},
+                    {
+                        field:'action',
+                        title:'动作',
+                        width:50,
+                        formatter : function(value, row, index) {
+                            //alert(row.id);
+                            //return row.index;
+                            return '<img src="__PUBLIC__/Easyui/themes/icons/search.png" width="16" height="16" onclick="testclick(\''+row.id+'\')" title="预览"/>&nbsp;\n\
+                        <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
+<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
+                        }
+                    }
+                ]]
+            })
+
+
         })
     </script>
-
-</div><!--pagecontent-->
