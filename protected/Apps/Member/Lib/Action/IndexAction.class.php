@@ -24,7 +24,7 @@ class IndexAction extends Action
      */
     public function index()
     {
-        //require_once(APP_PATH . '/Conf/menu.php'); //引入菜单
+        require_once(APP_PATH . '/Conf/leftmenu.php'); //引入菜单
         foreach ($array as $key => $val) {
             foreach ($val['items'] as $skey => $sval) {
 

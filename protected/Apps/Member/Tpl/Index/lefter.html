@@ -1,64 +1,16 @@
-
-            <div title="基础功能" data-options="iconCls:'icon-mini-add'" style="padding:10px;">
-        <ul class="easyui-tree" data-options="animate:false">
-            <li data-options="state:'open'">
-                    <span>新闻管理</span>
+<foreach name='menu' item='list' key='key'>
+    <div title="{$list.label}" data-options="iconCls:'icon-mini-add'" style="padding:10px;">
+        <ul class="easyui-tree" data-options="animate:true">
+            <foreach name='list.items' item='slist' key='skey'>
+                <li data-options="state:'closed'">
+                    <span>{$slist.label}</span>
                     <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/News/index" type="nav_head" rel="">新闻列表</a></li>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/NewsSort/test" type="nav_foot" rel="">新闻分类</a></li>                    </ul>
-                </li><li data-options="state:'open'">
-                    <span>图片信息管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/Setting/index" type="data_recover" rel="">图片信息列表</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Setting/index" type="data_backup" rel="">图片分类</a></li></ul>
+                        <foreach name='slist.items' item='sslist' key='sskey'>
+                            <li><a href="javascript:viod(0);" cmshref="{$sslist.link}" type="{$sslist.type}" rel="{$sslist.rel}">{$sslist.label}</a></li>
+                        </foreach>
+                    </ul>
                 </li>
-                <li data-options="state:'open'">
-                    	<a href="javascript:viod(0);" cmshref="/admin.php/Setting/index" type="setting_base" rel="">友情链接管理</a>
-                </li>
-                <li data-options="state:'open'">
-                    	<a href="javascript:viod(0);" cmshref="/admin.php/Setting/index" type="setting_base" rel="">单页信息管理</a>
-                </li>
+            </foreach>
         </ul>
     </div><!--waiceng-->
-    <div title="客服中心" data-options="iconCls:'icon-mini-add'" style="padding:10px;">
-        <ul class="easyui-tree" data-options="animate:true">
-            <li data-options="state:'closed'">
-                    <span>文档管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/News/index" type="news_list" rel="">文档列表</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/News/index" type="news_list_add" rel="">添加文档</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/News/recycle" type="news_recycle" rel="">文档回收站</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>分类管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/NewsSort/index" type="sort_list" rel="">分类列表</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/NewsSort/add" type="newssort" rel="dialog">添加分类</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>留言管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/Message/index" type="message_list" rel="">留言信息</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Message/sort" type="message_setting" rel="">留言分类</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>评论管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/Comment/index" type="comment_list" rel="">评论信息</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>单页管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/Pages/index" type="singlepage_list" rel="">单页文档</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Pages/sort" type="singlepage_sort" rel="">单页分类</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>碎片文档</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/Block/index" type="block_list" rel="">碎片列表</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Block/sort" type="block_cat" rel="">碎片分类</a></li>                    </ul>
-                </li>        </ul>
-    </div><!--waiceng--><div title="帐号中心" data-options="iconCls:'icon-mini-add'" style="padding:10px;">
-        <ul class="easyui-tree" data-options="animate:true">
-            <li data-options="state:'closed'">
-                    <span>会员管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="www.baidu.com" type="member_perinfo" rel="">个人资料</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Operators/index" type="member_adminlist" rel="">后台用户列表</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Members/index" type="member_frontlist" rel="">前台会员列表</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>后台权限管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="/admin.php/Node/index" type="member_adminlist" rel="">节点管理</a></li><li><a href="javascript:viod(0);" cmshref="/admin.php/Role/index" type="member_adminlist" rel="">角色管理</a></li>                    </ul>
-                </li><li data-options="state:'closed'">
-                    <span>前台权限管理</span>
-                    <ul>
-                        <li><a href="javascript:viod(0);" cmshref="www.baidu.com" type="frontcom_cat" rel="">前台权限分类</a></li><li><a href="javascript:viod(0);" cmshref="www.baidu.com" type="frontcom_list" rel="">前台权限列表</a></li>                    </ul>
-                </li>        </ul>
-    </div>           <!--//左侧菜单导航-->
+</foreach>
