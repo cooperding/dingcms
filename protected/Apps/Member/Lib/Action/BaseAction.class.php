@@ -16,11 +16,11 @@ class BaseAction extends Action {
     //初始化
     function _initialize()
     {
-        
+
         //检测是否登录
         if (!session('LOGIN_STATUS')&&!session('LOGIN_UID')) {
             //跳转到认证网关
-            redirect( __APP__ . '/Login');
+            redirect( __APP__ . '/Passport');
             //redirect(__APP__ . '/Login');
             //$this->error('请登录后操作', __APP__ . '/Login');
             exit;

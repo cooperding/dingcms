@@ -1,16 +1,16 @@
 <?php
 
 /**
- * LoginAction.class.php
- * 后台登录页面
- * 后台核心文件，用于后台登录操作验证
+ * PassportAction.class.php
+ * 会员登录页面
+ * 会员核心文件，用于后台登录操作验证
  * @author 正侠客 <lookcms@gmail.com>
  * @copyright 2012- http://www.dingcms.com http://www.dogocms.com All rights reserved.
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @version dogocms 1.0 2012-11-5 11:20
  * @package  Controller
  */
-class LoginAction extends Action
+class PassportAction extends Action
 {
 
     /**
@@ -40,6 +40,7 @@ class LoginAction extends Action
      */
     public function dologin()
     {
+        session('LOGIN_UID', '');//声明变量
         $ver_code = trim($_POST['vd_code']);
         $verify = session('verify');
         if (empty($ver_code) || md5($ver_code) != $verify) {
@@ -49,7 +50,7 @@ class LoginAction extends Action
         $condition['username'] = trim($_POST['user_name']);
         $password = trim($_POST['user_password']);
         if (!empty($condition['username']) && !empty($password)) {//依据用户名查询
-            $login = M('Operators');
+            $login = M('Members');
             $rs = $login->field('username,creat_time,id,password')->where($condition)->find();
             if ($rs) {//对查询出的结果进行判断
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
@@ -81,7 +82,7 @@ class LoginAction extends Action
     public function logout()
     {
         session('[destroy]');
-        $this->success('您已经成功退出管理系统！', __APP__ . '/Login');
+        $this->success('您已经成功退出管理系统！', __APP__ . '/Passport');
     }
 
     /**

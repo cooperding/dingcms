@@ -19,7 +19,7 @@ class BaseAction extends Action {
         //检测是否登录
         if (!$_SESSION [C('USER_AUTH_KEY')]) {
             //跳转到认证网关
-            redirect( __APP__ . '/Login');
+            redirect( __APP__ . '/Passport');
             //redirect(__APP__ . '/Login');
             //$this->error('请登录后操作', __APP__ . '/Login');
             exit;
