@@ -11,7 +11,7 @@
  * @package  Controller
  * @todo 权限验证
  */
-class IndexAction extends Action
+class IndexAction extends BaseAction
 {
 
     /**

@@ -40,6 +40,7 @@ class LoginAction extends Action
      */
     public function dologin()
     {
+        session('LOGIN_UID', '');//声明变量
         $ver_code = trim($_POST['vd_code']);
         $verify = session('verify');
         if (empty($ver_code) || md5($ver_code) != $verify) {
@@ -49,7 +50,7 @@ class LoginAction extends Action
         $condition['username'] = trim($_POST['user_name']);
         $password = trim($_POST['user_password']);
         if (!empty($condition['username']) && !empty($password)) {//依据用户名查询
-            $login = M('Operators');
+            $login = M('Members');
             $rs = $login->field('username,creat_time,id,password')->where($condition)->find();
             if ($rs) {//对查询出的结果进行判断
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
