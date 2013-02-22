@@ -1,34 +1,35 @@
-<div class="pageform">
-    <form action="__APP__/Pages/insert" id="form_pages" method="post" enctype="multipart/form-data">
-        <ul>
-            <li>
-                <label>单页名称：</label>
-                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>单页分组：</label>
-                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Pages/jsonTree',required:true" value="0" style="width:200px;"></p>
-            </li>
-            <li>
-                <label>状态：</label>
-                <p><html:radio name="status" radios="radios" checked="status" /></p>
-            </li>
-            <li>
-                <label>关键词：</label>
-                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
-            </li>
-            <li>
-                <label>描述简介：</label>
-                <p><textarea name="description" rows="3" cols="30">{$data.description}</textarea></p>
-            </li>
-            <li>
-                <label>文档内容：</label><p></p>
-            </li>
-            <li>
-                <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content|stripslashes}</textarea>
-            </li>
-        </ul>
-    </form>
+<form action="__APP__/Pages/insert" id="form_pages" method="post" enctype="multipart/form-data">
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>单页名称：</th>
+                    <td><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>单页分组：</th>
+                    <td><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Pages/jsonTree',required:true" value="0" style="width:200px;"></td>
+                </tr>
+                <tr>
+                    <th>状态：</th>
+                    <td><html:radio name="status" radios="radios" checked="status" /></td>
+            </tr>
+            <tr>
+                <th>关键词：</th>
+                <td><input type="text" name="keywords" value="{$data.keywords}" /></td>
+            </tr>
+            <tr>
+                <th>描述简介：</th>
+                <td><textarea name="description" rows="3" cols="30">{$data.description}</textarea></td>
+            </tr>
+            <tr>
+                <th>文档内容：</th><td></td>
+            </tr>
+            <tr>
+            <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content|stripslashes}</textarea>
+            </tr>
+            </tbody>
+        </table></div>
     <script>
         $(function() {
 

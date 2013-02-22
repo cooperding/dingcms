@@ -1,29 +1,30 @@
-<div class="pageform">
-    <form action="__APP__/NavHead/update" id="form_navhead" method="post">
-        <input type="hidden" name="id" value="{$data.id}" />
-        <ul>
-            <li>
-                <label>分类名称：</label>
-                <p><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>上级分组名：</label>
-                <p><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true," value="{$data.parent_id}"  style="width:200px;"/></p>
-            </li>
-            <li>
-                <label>链接地址：</label>
-                <p><input type="text" name="url" value="{$data.url}" /></p>
-            </li>
-            <li>
-                <label>{:L("keywords")}：</label>
-                <p><input type="text" name="keywords" value="{$data.keywords}" /></p>
-            </li>
-            <li>
-                <label>{:L("description")}：</label><p><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></p>
-            </li>
-            <li>
-                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
-            </li>
-        </ul>
-    </form>
-</div>
+<form action="__APP__/NavHead/update" id="form_navhead" method="post">
+    <input type="hidden" name="id" value="{$data.id}" />
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>分类名称：</th>
+                    <td><input type="text" name="text" value="{$data.text}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>上级分组名：</th>
+                    <td><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true," value="{$data.parent_id}"  style="width:200px;"/></td>
+                </tr>
+                <tr>
+                    <th>链接地址：</th>
+                    <td><input type="text" name="url" value="{$data.url}" /></td>
+                </tr>
+                <tr>
+                    <th>{:L("keywords")}：</th>
+                    <td><input type="text" name="keywords" value="{$data.keywords}" /></td>
+                </tr>
+                <tr>
+                    <th>{:L("description")}：</th><td><textarea name="description" rows="3" cols="30">{$data.description}</textarea><span class="red"></span></td>
+                </tr>
+                <tr>
+                    <th>{:L("orderby")}：</th><td><input type="text" name="myorder" value="{$data.myorder}" /></td>
+                </tr>
+            </tbody>
+        </table></div>
+</form>

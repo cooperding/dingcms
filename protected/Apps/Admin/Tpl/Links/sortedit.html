@@ -1,15 +1,16 @@
-<div class="pageform">
-    <form action="__APP__/Links/sortupdate" id="form_links_sort" method="post">
-        <input type="hidden" name="id" value="{$data.id}" />
-        <ul>
-            <li>
-                <label>名称：</label>
-                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>状态：</label>
-                <p><html:radio name="status" radios="radios" checked="status" /></p>
-            </li>
-        </ul>
-    </form>
-</div>
+<form action="__APP__/Links/sortupdate" id="form_links_sort" method="post">
+    <input type="hidden" name="id" value="{$data.id}" />
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>名称：</th>
+                    <td><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>状态：</th>
+                    <td><html:radio name="status" radios="radios" checked="status" /></td>
+            </tr>
+            </tbody>
+        </table></div>
+</form>

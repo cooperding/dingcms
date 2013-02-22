@@ -5,8 +5,8 @@ defined('THINK_PATH') or exit();
 $array = array(
     array('label' => '基础功能', 'type' => 'templet_name', 'items' => array(
             array('label' => '资料管理', 'type' => 'templet_', 'items' => array(
-                    array('label' => '个人资料', 'type' => 'ffg', 'link' => 'www.baidu.com'),
-                    array('label' => '修改密码', 'type' => 'setting', 'rel' => 'dialog', 'link' => 'www.baidu.com')
+                    array('label' => '个人资料', 'type' => 'perinfo', 'rel' => 'dialog','link' => __APP__ . '/Account/perinfo'),
+                    array('label' => '修改密码', 'type' => 'changepwd', 'rel' => 'dialog','link' => __APP__ . '/Account/changepwd')
             ))
     )),
     array('label' => '信息中心', 'type' => 'templet_name', 'items' => array(
@@ -37,7 +37,7 @@ $array = array(
                     array('label' => '广告列表', 'type' => 'advertising', 'link' => __APP__ . '/Ads/index'),
                     array('label' => '广告分类', 'type' => 'advertising', 'link' => __APP__ . '/Ads/sort')
             )),
-            
+
     )),
     array('label' => 'B2B信息', 'type' => 'templet_name', 'items' => array(
             array('label' => '资料管理', 'type' => 'templet_', 'items' => array(

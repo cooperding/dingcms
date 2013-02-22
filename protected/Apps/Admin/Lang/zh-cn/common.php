@@ -43,6 +43,7 @@ return array(
     'menu_user_name' => '用户管理',
     'menu_member_name' => '会员管理',
     'menu_member_perinfo' => '个人资料',
+    'menu_member_changepwd' => '修改密码',
     'menu_member_adminlist' => '后台用户列表',
     'menu_member_frontlist' => '前台会员列表',
     'menu_backcom_name' => '后台权限管理',

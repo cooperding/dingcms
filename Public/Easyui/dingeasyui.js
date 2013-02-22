@@ -37,8 +37,8 @@ function updateTab(classId,url,subtitle){
 function openDialog(classId,href,title){
     $('#dialog_cms').dialog({
         href:href,
-        width:800,
-        height:500,
+        width:1050,
+        height:600,
         resizable:true,
         title:title,
         modal:true,

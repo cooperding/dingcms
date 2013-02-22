@@ -1,22 +1,23 @@
-<div class="pageform">
-    <form action="__APP__/ContentModel/sortupdate" id="form_contentmodel_sort" method="post">
-        <input type="hidden" name="id" value="{$data.id}" />
-        <ul>
-            <li>
-                <label>名称：</label>
-                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>标识：</label>
-                <p><input type="text" name="emark" value="{$data.emark}" data-options="required:true" class="easyui-validatebox"/><span class="red">*可输入英文字母和数字结合，不要使用特殊符号</span></p>
-            </li>
-            <li>
-                <label>标识：</label>
-                <p><html:radio name="status" radios="radios" checked="status"/></p>
-            </li>
-            <li>
-                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
-            </li>
-        </ul>
-    </form>
-</div>
+<form action="__APP__/ContentModel/sortupdate" id="form_contentmodel_sort" method="post">
+    <input type="hidden" name="id" value="{$data.id}" />
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>名称：</th>
+                    <td><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>标识：</th>
+                    <td><input type="text" name="emark" value="{$data.emark}" data-options="required:true" class="easyui-validatebox"/><span class="red">*可输入英文字母和数字结合，不要使用特殊符号</span></td>
+                </tr>
+                <tr>
+                    <th>标识：</th>
+                    <td><html:radio name="status" radios="radios" checked="status"/></td>
+            </tr>
+            <tr>
+                <th>{:L("orderby")}：</th><td><input type="text" name="myorder" value="{$data.myorder}" /></td>
+            </tr>
+            </tbody>
+        </table></div>
+</form>

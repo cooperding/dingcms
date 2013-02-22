@@ -1,13 +1,5 @@
-<div class="pagecontent">
-
-    <table id="datagrid_block_sort" class="block_sort">
-        <thead>
-            <tr>
-                <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
-                <th data-options="field:'ename'" width="200">标题</th>
-                <th data-options="field:'status'" width="200">状态</th>
-            </tr>
-        </thead>
+<table id="datagrid_block_sort" class="block_sort">
+        
     </table>
 
     <script>
@@ -18,7 +10,24 @@
             var hrefcancel = '__APP__/Block/sortdelete';
             var urljson = '__APP__/Block/sortJson';
             openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+            $('#datagrid_'+classId).datagrid({
+                columns:[[
+                        {field:'id',title:'id',width:50},
+                        {field:'ename',title:'标题',width:150},
+                        {field:'status',title:'状态',width:200},
+                        {
+                        field:'action',
+                        title:'操作',
+                        width:50,
+                        formatter : function(value, row, index) {
+                            //alert(row.id);
+                            //return row.index;
+                            return '<img src="__PUBLIC__/Easyui/themes/icons/search.png" width="16" height="16" onclick="testclick(\''+row.id+'\')" title="预览"/>&nbsp;\n\
+                        <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
+<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
+                        }
+                    }
+                    ]]
+            })
         })
     </script>
-
-</div><!--pagecontent-->

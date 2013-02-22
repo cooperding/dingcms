@@ -1,26 +1,27 @@
-<div class="pageform">
-    <form action="__APP__/Flash/sortinsert" id="form_flash_sort" method="post">
-        <ul>
-            <li>
-                <label>名称：</label>
-                <p><input type="text" name="ename" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>状态：</label>
-                <p><html:radio name="status" radios="radios" checked="status" /></p>
-            </li>
-            <li>
-                <label>宽度：</label>
-                <p><input type="text" name="width" value="{$data.width}" /></p>
-            </li>
-            <li>
-                <label>高度：</label>
-               <p><input type="text" name="height" value="{$data.height}" /></p>
-            </li>
-            <li>
-                <label>文字简介：</label>
-                <p><input type="text" name="emark" value="{$data.emark}" /></p>
-            </li>
-        </ul>
-    </form>
-</div>
+<form action="__APP__/Flash/sortinsert" id="form_flash_sort" method="post">
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>名称：</th>
+                    <td><input type="text" name="ename" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>状态：</th>
+                    <td><html:radio name="status" radios="radios" checked="status" /></td>
+            </tr>
+            <tr>
+                <th>宽度：</th>
+                <td><input type="text" name="width" value="{$data.width}" /></td>
+            </tr>
+            <tr>
+                <th>高度：</th>
+                <td><input type="text" name="height" value="{$data.height}" /></td>
+            </tr>
+            <tr>
+                <th>文字简介：</th>
+                <td><input type="text" name="emark" value="{$data.emark}" /></td>
+            </tr>
+            </tbody>
+        </table></div>
+</form>

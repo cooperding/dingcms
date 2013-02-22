@@ -1,43 +1,44 @@
-<div class="pageform">
-    <form action="__APP__/Comment/update" id="form_comment" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="{$data.id}" />
-        <ul>
-            <li>
-                <label>评论人：</label>
-                <p><input type="text" name="post_name" value="{$data.post_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>留言内容：</label>
-                <p><textarea name="msgcontent" rows="3" cols="30">{$data.msgcontent}</textarea></p>
-            </li>
-            <li>
-                <label>状态：</label>
-                <p><html:radio name="status" radios="radios" checked="status" /></p>
-            </li>
-            <li>
-                <label>回复内容：</label><p></p>
-            </li>
-            <li>
-                <textarea id="content" name="replycontent" style="width:720px;height:400px;visibility:hidden;">{$data.replycontent|stripslashes}</textarea>
-            </li>
+<form action="__APP__/Comment/update" id="form_comment" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{$data.id}" />
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>评论人：</th>
+                    <td><input type="text" name="post_name" value="{$data.post_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>留言内容：</th>
+                    <td><textarea name="msgcontent" rows="3" cols="30">{$data.msgcontent}</textarea></td>
+                </tr>
+                <tr>
+                    <th>状态：</th>
+                    <td><html:radio name="status" radios="radios" checked="status" /></td>
+            </tr>
+            <tr>
+                <th>回复内容：</th><td></td>
+            </tr>
+            <tr>
+            <textarea id="content" name="replycontent" style="width:720px;height:400px;visibility:hidden;">{$data.replycontent|stripslashes}</textarea>
+            </tr>
 
-        </ul>
-    </form>
-</div>
- <script>
-        $(function() {
+            </tbody>
+        </table></div>
+</form>
+<script>
+    $(function() {
 
-            KindEditor.create('#content', {
-                themeType : 'simple',
-                allowFileManager : true,
-                uploadJson:'__APP__/Upload/uploadImg',
-                fileManagerJson :'__APP__/Upload/fileManagerJson',
-                afterBlur : function() {
-                    this.sync();
-                }
-            });
-
-
-
+        KindEditor.create('#content', {
+            themeType : 'simple',
+            allowFileManager : true,
+            uploadJson:'__APP__/Upload/uploadImg',
+            fileManagerJson :'__APP__/Upload/fileManagerJson',
+            afterBlur : function() {
+                this.sync();
+            }
         });
-    </script>
+
+
+
+    });
+</script>

@@ -61,9 +61,35 @@ body#login{ background-color:#F5F6F8;}
 .adminlogo{}
 .admincon{}
 .adminmember{}
+/*division*/
+.division{
+    border-collapse:collapse;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #CCCCCC #BEC6CE #BEC6CE #CCCCCC;
+    border-style: solid;
+    border-width: 1px 2px 2px 1px;
+    line-height: 150%;
+    margin: 10px;
+    padding: 5px;
+    white-space: normal;
+}
+.division caption{ text-align:left; font-size:14px;}
+.division td{border-right:#E2E8EB solid 1px;border-bottom:#E2E8EB solid 1px;border-top:#fff solid 1px;margin-top:1px;vertical-align: top; padding:5px;}
+.division th {
+    background: none repeat scroll 0 0 #E5E5E5;
+    border-right: 1px solid #CCCCCC;
+	border-top:1px solid #fff;
+    font-size: 14px;
+    text-align: right;
+    white-space: nowrap;
+    width: 140px;
+	font-weight:normal;
+}
+.division .shopping_setting th {
+    width: 150px;
+}
 
-
-/**/
+/*以下css代码未待删除的*/
 
 .pageheader{}
 .pagecontent{ padding:10px;}
@@ -85,13 +111,6 @@ body#login{ background-color:#F5F6F8;}
 
 .pageform ul li select{margin: 0 0px;}
 
-/*
-.login input[type="text"]:hover,
-.login input[type="password"]:hover,
-.login input[type="submit"]:hover{border: 1px solid #D2D2D2; -moz-box-shadow:3px 2px 4px #ccc;  -webkit-box-shadow:3px 2px 4px #ccc;box-shadow:3px 2px 4px #ccc;}
-
-.pageform ul li input{height:20px;margin: 0 5px;}
-*/
 
 
 

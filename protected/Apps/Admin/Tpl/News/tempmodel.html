@@ -1,7 +1,9 @@
-<div class="tempmodel">
+<div class="division">
+        <table>
+            <tbody>
     <foreach name="filed" item="vo">
-        <li>
-            <label>{$vo.ename}：</label><p>
+        <tr>
+            <th>{$vo.ename}：</th><td>
         <if condition="$vo.etype eq 'varchar'">
             <input type="text" name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}" />
             <elseif condition="$vo.etype eq 'textarea'"/>
@@ -106,12 +108,14 @@
             <input name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}" class="easyui-combotree combotree"
                    data-options="url:'__APP__/LinkPage/jsonTreeId?id={$vo.elink}'" style="width:200px;"/>
         </if>
-        </p>
-        </li>
+        </td>
+        </tr>
     </foreach>
     <script>
         $(function(){
             $.parser.parse($('.tempmodel'));
         })
     </script>
-</div>
+</tbody>
+        </table>
+    </div>

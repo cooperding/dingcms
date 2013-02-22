@@ -1,40 +1,42 @@
-<div class="pageform">
-    <form action="__APP__/Flash/update" id="form_flash" method="post" enctype="multipart/form-data">
+<form action="__APP__/Flash/update" id="form_flash" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{$data.id}" />
-        <ul>
-            <li>
-                <label>广告名称：</label>
-                <p><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></p>
-            </li>
-            <li>
-                <label>广告分组：</label>
-                <p><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Flash/jsonTree',required:true" value="{$data.sort_id}"  style="width:200px;"></p>
-            </li>
-            <li>
-                <label>链接地址：</label>
-                <p><input type="text" name="eurl" value="{$data.eurl}" /></p>
-            </li>
-            <li>
-                <label>状态：</label>
-                <p><html:radio name="status" radios="radios" checked="status" /></p>
-            </li>
-            <li>
-                <label>友情链接图片：</label>
-                <p><input type="text" id="url1" name="epic" value="{$data.epic}" />
+        <div class="division">
+            <table>
+                <tbody>
+            <tr>
+                <th>广告名称：</th>
+                <td><input type="text" name="ename" value="{$data.ename}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+            </tr>
+            <tr>
+                <th>广告分组：</th>
+                <td><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Flash/jsonTree',required:true" value="{$data.sort_id}"  style="width:200px;"></td>
+            </tr>
+            <tr>
+                <th>链接地址：</th>
+                <td><input type="text" name="eurl" value="{$data.eurl}" /></td>
+            </tr>
+            <tr>
+                <th>状态：</th>
+                <td><html:radio name="status" radios="radios" checked="status" /></td>
+            </tr>
+            <tr>
+                <th>友情链接图片：</th>
+                <td><input type="text" id="url1" name="epic" value="{$data.epic}" />
                     <input type="button" id="image1" value="选择图片" />
-                </p>
-            </li>
-            <li>
-                <label>文字简介：</label>
-                <p><input type="text" name="emark" value="{$data.emark}" /></p>
-            </li>
-            <li>
-                <label>{:L("orderby")}：</label><p><input type="text" name="myorder" value="{$data.myorder}" /></p>
-            </li>
+                </td>
+            </tr>
+            <tr>
+                <th>文字简介：</th>
+                <td><input type="text" name="emark" value="{$data.emark}" /></td>
+            </tr>
+            <tr>
+                <th>{:L("orderby")}：</th><td><input type="text" name="myorder" value="{$data.myorder}" /></td>
+            </tr>
 
-        </ul>
+        </tbody>
+        </table></div>
     </form>
-</div>
+
  <script>
         $(function() {
 

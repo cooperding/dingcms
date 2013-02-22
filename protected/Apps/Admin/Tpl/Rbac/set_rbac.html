@@ -1,38 +1,37 @@
-<div class="pagecontent">
-    <input class="setrbac_input" type="hidden" name="role_id" value="{$id}"/>
-    <div id="setrbac"></div>
-    <div id="mm" class="easyui-menu" style="width:120px;">
-        <div onclick="expand()">Expand</div>
-        <div onclick="collapse()">Collapse</div>
-    </div>
-    <script>
-        $(function(){
-            $('#setrbac').tree({
-                url:'__APP__/Node/jsonSetRbacTree?id={$id}',
-                checkbox:true,
-                cascadeCheck:false,
-                lines:true,
-                onClick: function(node){
-                    $(this).tree('toggle', node.target);
-                },
-                onContextMenu: function(e,node){
-                    e.preventDefault();
-                    $(this).tree('select',node.target);
-                    $('#mm').menu('show',{
-                        left: e.pageX,
-                        top: e.pageY
-                    })
-                }
-            });
-        });
-        function collapse(){
-            var node = $('#setrbac').tree('getSelected');
-            $('#setrbac').tree('collapse',node.target);
-        }
-        function expand(){
-            var node = $('#setrbac').tree('getSelected');
-            $('#setrbac').tree('expand',node.target);
-        }
-
-    </script>
+<input class="setrbac_input" type="hidden" name="role_id" value="{$id}"/>
+<div id="setrbac"></div>
+<div id="mm" class="easyui-menu" style="width:120px;">
+    <div onclick="expand()">Expand</div>
+    <div onclick="collapse()">Collapse</div>
 </div>
+<script>
+    $(function(){
+        $('#setrbac').tree({
+            url:'__APP__/Node/jsonSetRbacTree?id={$id}',
+            checkbox:true,
+            cascadeCheck:false,
+            lines:true,
+            onClick: function(node){
+                $(this).tree('toggle', node.target);
+            },
+            onContextMenu: function(e,node){
+                e.preventDefault();
+                $(this).tree('select',node.target);
+                $('#mm').menu('show',{
+                    left: e.pageX,
+                    top: e.pageY
+                })
+            }
+        });
+    });
+    function collapse(){
+        var node = $('#setrbac').tree('getSelected');
+        $('#setrbac').tree('collapse',node.target);
+    }
+    function expand(){
+        var node = $('#setrbac').tree('getSelected');
+        $('#setrbac').tree('expand',node.target);
+    }
+
+</script>
+</div
