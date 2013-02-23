@@ -18,7 +18,7 @@ class BaseAction extends Action {
     {
 
         //检测是否登录
-        if (!session('LOGIN_STATUS')&&!session('LOGIN_UID')) {
+        if (!session('M_STATUS')&&!session('M_UID')) {
             //跳转到认证网关
             redirect( __APP__ . '/Passport');
             //redirect(__APP__ . '/Login');

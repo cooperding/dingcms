@@ -24,7 +24,7 @@ class PassportAction extends Action
     public function index()
     {
         //此处判断是否已经登录，如果登录跳转到后台首页否则跳转到登录页面
-        if (session('LOGIN_STATUS') == 'TRUE') {
+        if (session('M_STATUS') == 'TRUE') {
             $this->redirect('../' . APP_NAME);
         } else {
             $this->display();
@@ -40,9 +40,9 @@ class PassportAction extends Action
      */
     public function dologin()
     {
-        session('LOGIN_UID', '');//声明变量
+        session('M_UID', '');//声明变量
         $ver_code = trim($_POST['vd_code']);
-        $verify = session('verify');
+        $verify = session('memverify');
         if (empty($ver_code) || md5($ver_code) != $verify) {
             $this->error('验证码为空或者输入错误！');
             exit;
@@ -55,11 +55,11 @@ class PassportAction extends Action
             if ($rs) {//对查询出的结果进行判断
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));
                 if ($password == $rs['password']) {//判断密码是否匹配
-                    session('LOGIN_STATUS', 'TRUE');
-                    session('authId', $rs['id']);
-                    session('LOGIN_NAME', $rs['username']);
-                    session('LOGIN_UID', $rs['id']);
-                    session('LOGIN_CTIME', $rs['creat_time']);
+                    session('M_STATUS', 'TRUE');
+                    session('MId', $rs['id']);
+                    session('M_NAME', $rs['username']);
+                    session('M_UID', $rs['id']);
+                    session('M_CTIME', $rs['creat_time']);
                     $this->success('登陆成功！', __APP__);
                 } else {
                     $this->error('您的输入密码错误！');
@@ -100,7 +100,7 @@ class PassportAction extends Action
         $type = 'png'; //验证码的图片类型，默认为png
         $width = 70; //验证码的宽度
         $height = 25; //验证码的高度
-        $verifyName = 'verify'; //验证码的SESSION记录名称
+        $verifyName = 'memverify'; //验证码的SESSION记录名称
         Image::buildImageVerify($length, $mode, $type, $width, $height, $verifyName);
     }
 
