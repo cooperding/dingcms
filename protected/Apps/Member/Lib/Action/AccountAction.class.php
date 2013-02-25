@@ -34,6 +34,11 @@ class AccountAction extends BaseAction
      */
     public function perinfo()
     {
+        $m = M('Members');
+        $uid = session('M_UID');
+        $condition['id'] = $uid;
+        $data = $m->field('password',true)->where($condition)->find();
+        $this->assign('data',$data);
         $this->display();
     }
      /**
@@ -42,11 +47,21 @@ class AccountAction extends BaseAction
      * @access public
      * @return array
      * @version dogocms 1.0
-     * @todo 权限验证
      */
     public function changepwd()
     {
         $this->display();
+    }
+    /**
+     * changepwd
+     * 更改密码
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function updatepwd()
+    {
+        $m = M('Members');
     }
 
 }
