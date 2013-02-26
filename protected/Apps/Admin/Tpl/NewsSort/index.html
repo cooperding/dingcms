@@ -1,17 +1,28 @@
-    <table id="treegrid_newssort">
+<table id="treegrid_newssort">
 
-    </table>
+</table>
 
-    <script>
-        $(function(){
-            var classId = 'newssort';
-            var urljson = '__APP__/NewsSort/json';
-            var hrefadd = '__APP__/NewsSort/add';
-            var hrefedit = '__APP__/NewsSort/edit';
-            var hrefcancel = '__APP__/NewsSort/delete';
-            openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
-            $('#treegrid_'+classId).treegrid({
-                columns:[[
+<script>
+    $(function(){
+        var classId = 'newssort';
+        var urljson = '__APP__/NewsSort/json';
+        var hrefadd = '__APP__/NewsSort/add';
+        var hrefedit = '__APP__/NewsSort/edit';
+        var hrefcancel = '__APP__/NewsSort/delete';
+        //openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel);
+        var height = $('.indexcenter').height();
+        $('#treegrid_'+classId).treegrid({
+            url:urljson,
+            idField:'id',
+            treeField:'text',
+            //pagination:true,
+            rownumbers:true,
+            fitColumns:true,
+            autoRowHeight:false,
+            showFooter:true,
+            height:height-50,
+            animate:true,
+            columns:[[
                     {field:'id',title:'ID',width:50,align:'center'},
                     {field:'text',title:'导航名称',width:200},
                     {field:'status',title:'状态',width:50},
@@ -24,11 +35,53 @@
                             //alert(row.id);
                             //return row.index;
                             return '<img src="__PUBLIC__/Easyui/themes/icons/search.png" width="16" height="16" onclick="testclick(\''+row.id+'\')" title="预览"/>&nbsp;\n\
-                        <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
+                    <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
 <img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
                         }
                     }
-                ]]
-            })
-        })
-    </script>
+                ]],
+            toolbar:[{
+                    id:'btnadd'+classId,
+                    text:'添加',
+                    iconCls:'icon-add',
+                    handler:function(){
+                        var title = '添加分类';
+                        openDialog(classId,hrefadd,title);
+                    }
+                },'-',{
+                    id:'btnexpand'+classId,
+                    text:'展开',
+                    iconCls:'icon-redo',
+                    handler: function() {
+                        var node = $('#treegrid_'+classId).treegrid('getSelected');
+                        if (node) {
+                            $('#treegrid_'+classId).treegrid('expandAll', node.id);
+                        } else {
+                            $('#treegrid_'+classId).treegrid('expandAll');
+                        }
+                    }
+                },'-',{
+                    id:'btncollapse'+classId,
+                    text:'折叠',
+                    iconCls:'icon-undo',
+                    handler: function() {
+                        var node = $('#treegrid_'+classId).treegrid('getSelected');
+                        if (node) {
+                            $('#treegrid_'+classId).treegrid('collapseAll', node.id);
+                        } else {
+                            $('#treegrid_'+classId).treegrid('collapseAll');
+                        }
+                    }
+                },'-',{
+                    id:'btnedit'+classId,
+                    text:'刷新',
+                    iconCls:'icon-reload',
+                    handler: function() {
+                        $('#treegrid_'+classId).treegrid('reload');
+                    }
+                }
+            ]
+        });
+
+    })
+</script>
