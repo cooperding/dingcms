@@ -11,11 +11,11 @@ $array = array(
     )),
     array('label' => '信息中心', 'type' => 'templet_name', 'items' => array(
             array('label' => '留言管理', 'type' => 'templet_', 'items' => array(
-                    array('label' => '我的留言', 'type' => 'ffg', 'link' => 'www.baidu.com'),
-                    array('label' => '添加留言', 'type' => 'setting', 'rel' => 'dialog', 'link' => 'www.baidu.com')
+                    array('label' => '我的留言', 'type' => 'message', 'link' => __APP__ . '/Message/index'),
+                    array('label' => '添加留言', 'type' => 'message', 'rel' => 'dialog', 'link' => __APP__ . '/Message/add')
             )),
-            array('label' => '评论管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '我的评论', 'type' => 'setting', 'link' => 'www.baidu.com')
+            array('label' => '评论管理', 'type' => 'comment', 'items' => array(
+                    array('label' => '我的评论', 'type' => 'comment', 'link' => __APP__ . '/Comment/index')
             )),
             array('label' => '友情链接', 'type' => 'setting', 'items' => array(
                     array('label' => '我的友情链接', 'type' => 'setting', 'link' => 'www.baidu.com'),
