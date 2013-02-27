@@ -47,6 +47,7 @@ class BaseAction extends Action {
           }
 
          */
+        //echo $_SERVER['REQUEST_URI'];
     }
 
 //endf

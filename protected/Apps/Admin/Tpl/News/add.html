@@ -81,14 +81,13 @@
                 <td><html:radio name="status" radios="radios" checked="true"/></td>
             </tr>
             <tr>
-                <th>文档内容：</th><td></td>
+                <th>文档内容：</th>
+                <td><textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content|stripslashes}</textarea></td>
             </tr>
-            <tr>
-            <textarea id="content" name="content" style="width:720px;height:400px;visibility:hidden;">{$data.content|stripslashes}</textarea>
-            </tr>
-            <div id="conModel" style="border-top: 1px solid #0000ff;margin: 10px 0;"><include file="News:tempmodel" /></div>
             </tbody>
         </table></div>
+            <div id="conModel" style="margin: 10px 0;"><include file="News:tempmodel" /></div>
+            
 </form>
 <script>
     $(function() {

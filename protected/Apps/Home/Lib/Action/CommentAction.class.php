@@ -40,7 +40,33 @@ class CommentAction extends BaseAction {
      */
     public function insert()
     {
-        
+        $content = trim($_POST['content']);
+        $yzm = trim($_POST['yzm']);
+        if(session('verifycomment')!=md5($yzm)){
+            $array = array('status'=>1,'msg'=>'验证码输入错误，或者输入为空');
+            echo json_encode($array);
+            exit;
+        }
+        if(empty($content)){
+            $array = array('status'=>1,'msg'=>'请输入评论内容！');
+            echo json_encode($array);
+            exit;
+        }
+        $m = M('Comment');
+        $data['title_id'] = intval($_POST['title_id']);
+        $data['msgcontent'] = $content;
+        $data['addtime'] = time();
+        $data['ip'] = get_client_ip();
+        $rs = $m->add($data);
+        if($rs==true){
+            $array = array('status'=>2,'msg'=>'dedeffgg===');
+            echo json_encode($array);
+            exit;
+        }else{
+            $array = array('status'=>1,'msg'=>'添加失败');
+            echo json_encode($array);
+            exit;
+        }
     }
 
     /**
@@ -53,11 +79,11 @@ class CommentAction extends BaseAction {
     public function vercode()
     {
         import("ORG.Util.Image");
-        $length = 5; //验证码的长度
+        $length = 4; //验证码的长度
         $mode = 1; //0 字母 1 数字 2 大写字母 3 小写字母 4中文 5混合
         $type = 'png'; //验证码的图片类型，默认为png
         $width = 70; //验证码的宽度
-        $height = 30; //验证码的高度
+        $height = 25; //验证码的高度
         $verifyName = 'verifycomment'; //验证码的SESSION记录名称
         Image::buildImageVerify($length, $mode, $type, $width, $height, $verifyName);
     }
