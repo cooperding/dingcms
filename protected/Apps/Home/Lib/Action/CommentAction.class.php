@@ -56,10 +56,12 @@ class CommentAction extends BaseAction {
         $data['title_id'] = intval($_POST['title_id']);
         $data['msgcontent'] = $content;
         $data['addtime'] = time();
+        $data['post_id'] = session('M_UID');
         $data['ip'] = get_client_ip();
         $rs = $m->add($data);
         if($rs==true){
-            $array = array('status'=>2,'msg'=>'dedeffgg===');
+            $html = array();
+            $array = array('status'=>2,'msg'=>$html);
             echo json_encode($array);
             exit;
         }else{
