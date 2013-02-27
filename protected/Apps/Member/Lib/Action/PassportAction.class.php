@@ -51,6 +51,8 @@ class PassportAction extends Action
         $password = trim($_POST['user_password']);
         if (!empty($condition['username']) && !empty($password)) {//依据用户名查询
             $login = M('Members');
+            $condition['is_recycle'] = array('eq','false');
+            $condition['status'] = array('eq','true');
             $rs = $login->field('username,creat_time,id,password')->where($condition)->find();
             if ($rs) {//对查询出的结果进行判断
                 $password = md5(md5($condition['username']) . sha1($password . $rs['creat_time']));

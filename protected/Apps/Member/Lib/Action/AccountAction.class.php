@@ -9,8 +9,7 @@
  * @version dogocms 1.0 2012-11-5 11:20
  * @package  Controller
  */
-class AccountAction extends BaseAction
-{
+class AccountAction extends BaseAction {
 
     /**
      * index
@@ -24,7 +23,8 @@ class AccountAction extends BaseAction
     {
 
     }
-     /**
+
+    /**
      * perinfo
      * 个人资料
      * @access public
@@ -37,11 +37,12 @@ class AccountAction extends BaseAction
         $m = M('Members');
         $uid = session('M_UID');
         $condition['id'] = $uid;
-        $data = $m->field('password',true)->where($condition)->find();
-        $this->assign('data',$data);
+        $data = $m->field('password', true)->where($condition)->find();
+        $this->assign('data', $data);
         $this->display();
     }
-     /**
+
+    /**
      * changepwd
      * 修改密码
      * @access public
@@ -52,6 +53,7 @@ class AccountAction extends BaseAction
     {
         $this->display();
     }
+
     /**
      * changepwd
      * 更改密码
@@ -62,6 +64,34 @@ class AccountAction extends BaseAction
     public function updatepwd()
     {
         $m = M('Members');
+        $oldpassword = trim($_POST['oldpassword']);
+        $newpassword = trim($_POST['newpassword']);
+        $new2password = trim($_POST['new2password']);
+        $uid = session('M_UID');
+        $uname = session('M_NAME');
+        if (empty($oldpassword) || empty($newpassword) || empty($new2password)) {
+            $this->dmsg('1', '请输入完整的信息！', false, true);
+        }
+        if ($newpassword !== $new2password) {
+            $this->dmsg('1', '新密码不一样，请重新输入！', false, true);
+        }
+        $condition['id'] = $uid;
+        $data = $m->field('password,creat_time')->where($condition)->find();
+        $oldpwd = md5(md5($uname) . sha1($oldpassword . $rs['creat_time']));
+        if ($oldpwd == $data['password']) {
+            $newpwd = md5(md5($uname) . sha1($newpassword . $rs['creat_time']));
+            $pwd['password'] = $newpwd;
+            $rs = $m->where($condition)->save($pwd);
+            if ($rs == true) {
+                $this->dmsg('2', '更新成功！', true);
+            } else {
+                $this->dmsg('1', '更新失败,或者未有更新！', false, true);
+            }
+        } else {
+            $this->dmsg('1', '原密码输入错误！', false, true);
+        }
+        //$this->dmsg('1', $uid . '====' . $oldpassword . $newpassword . $new2password, false, true);
+        //$this->dmsg('2', ' 操作成功！', true);
     }
 
 }
