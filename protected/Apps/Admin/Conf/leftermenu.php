@@ -39,6 +39,12 @@ $array = array(
                     array('label' => L('menu_singlepage_list'), 'type' => 'singlepage_list', 'link' => __APP__ . '/Pages/index'),
                     array('label' => L('menu_singlepage_sort'), 'type' => 'singlepage_sort', 'link' => __APP__ . '/Pages/sort'),
             )),
+            array('label' => L('menu_exam_name'), 'type' => 'exam_name', 'items' => array(
+                    array('label' => '题库管理', 'type' => 'singlepage_list', 'link' => __APP__ . '/Pages/index'),
+                    array('label' => '试卷管理', 'type' => 'singlepage_sort', 'link' => __APP__ . '/Pages/sort'),
+                    array('label' => '评阅试卷', 'type' => 'singlepage_sort', 'link' => __APP__ . '/Pages/sort'),
+                    array('label' => '成绩信息', 'type' => 'singlepage_sort', 'link' => __APP__ . '/Pages/sort'),
+            )),
             array('label' => L('menu_block_name'), 'type' => 'block_name', 'items' => array(
                     array('label' => L('menu_block_list'), 'type' => 'block_list', 'link' => __APP__ . '/Block/index'),
                     array('label' => L('menu_block_cat'), 'type' => 'block_cat', 'link' => __APP__ . '/Block/sort')

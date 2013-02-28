@@ -30,6 +30,18 @@ class PassportAction extends Action
             $this->display();
         }
     }
+    /**
+     * add
+     * 进入注册
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     * @todo 权限验证
+     */
+    public function add()
+    {
+        echo 'dedede';
+    }
 
     /**
      * dologin

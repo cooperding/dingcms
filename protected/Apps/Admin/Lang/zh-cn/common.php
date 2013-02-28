@@ -35,6 +35,7 @@ return array(
     'menu_singlepage_name' => '单页管理',
     'menu_singlepage_list' => '单页文档',
     'menu_singlepage_sort' => '单页分类',
+    'menu_exam_name' => '在线考试管理',
     'menu_block_name' => '碎片文档',
     'menu_block_list' => '碎片列表',
     'menu_block_cat' => '碎片分类',
