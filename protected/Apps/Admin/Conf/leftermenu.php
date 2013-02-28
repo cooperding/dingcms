@@ -9,9 +9,9 @@ $array = array(
                     array('label' => L('menu_nav_foot'), 'type' => 'nav_foot', 'link' => __APP__ . '/NavFoot/index')
             )),
             array('label' => L('menu_data_name'), 'type' => 'data_name', 'items' => array(
-                    array('label' => L('menu_data_recover'), 'type' => 'datarecover','rel' => 'dialog', 'link' => __APP__ . '/Data/recover'),
+                    array('label' => L('menu_data_recover'), 'type' => 'datarecover', 'rel' => 'dialog', 'link' => __APP__ . '/Data/recover'),
                     array('label' => L('menu_data_backup'), 'type' => 'databackup', 'rel' => 'dialog', 'link' => __APP__ . '/Data/backup'),
-                    array('label' => L('menu_data_backup_del'), 'type' => 'databackup_del','rel' => 'dialog', 'link' => __APP__ . '/Data/index'),
+                    array('label' => L('menu_data_backup_del'), 'type' => 'databackup_del', 'rel' => 'dialog', 'link' => __APP__ . '/Data/index'),
                     array('label' => L('menu_data_tool'), 'type' => 'data_tool', 'link' => __APP__ . '/Data/tool')
             )),
             array('label' => L('menu_setting_name'), 'type' => 'setting_name', 'items' => array(
@@ -21,7 +21,7 @@ $array = array(
     array('label' => L('menu_info_name'), 'type' => 'info_name', 'items' => array(
             array('label' => L('menu_news_name'), 'type' => 'news_name', 'items' => array(
                     array('label' => L('menu_news_list'), 'type' => 'news_list', 'link' => __APP__ . '/News/index'),
-                    array('label' => L('menu_news_list_add'), 'type' => 'news_list_add', 'rel' => 'dialog','link' => __APP__ . '/News/add'),
+                    array('label' => L('menu_news_list_add'), 'type' => 'news_list_add', 'rel' => 'dialog', 'link' => __APP__ . '/News/add'),
                     array('label' => L('menu_news_recycle'), 'type' => 'news_recycle', 'link' => __APP__ . '/News/recycle')
             )),
             array('label' => L('menu_sort_name'), 'type' => 'sort_name', 'items' => array(
@@ -52,8 +52,8 @@ $array = array(
     )),
     array('label' => L('menu_user_name'), 'type' => 'user_name', 'items' => array(
             array('label' => L('menu_member_name'), 'type' => 'member_name', 'items' => array(
-                    array('label' => L('menu_member_perinfo'), 'type' => 'perinfo','rel' => 'dialog', 'link' =>  __APP__ . '/Account/perinfo'),
-                    array('label' => L('menu_member_changepwd'), 'type' => 'changepwd','rel' => 'dialog', 'link' =>  __APP__ . '/Account/changepwd'),
+                    array('label' => L('menu_member_perinfo'), 'type' => 'perinfo', 'rel' => 'dialog', 'link' => __APP__ . '/Account/perinfo'),
+                    array('label' => L('menu_member_changepwd'), 'type' => 'changepwd', 'rel' => 'dialog', 'link' => __APP__ . '/Account/changepwd'),
                     array('label' => L('menu_member_adminlist'), 'type' => 'member_adminlist', 'link' => __APP__ . '/Operators/index'),
                     array('label' => L('menu_member_frontlist'), 'type' => 'member_frontlist', 'link' => __APP__ . '/Members/index')
             )),
@@ -64,6 +64,46 @@ $array = array(
             array('label' => L('menu_frontcom_name'), 'type' => 'frontcom_name', 'items' => array(
                     array('label' => L('menu_frontcom_cat'), 'type' => 'frontcom_cat', 'link' => 'www.baidu.com'),
                     array('label' => L('menu_frontcom_list'), 'type' => 'frontcom_list', 'link' => 'www.baidu.com')
+            )),
+    )),
+    array('label' => 'B2C商务中心', 'type' => 'update', 'items' => array(
+            array('label' => '商品管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '商品列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加商品', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '分类管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '分类列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加分类', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '商品类型管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '类型列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加类型', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '规格管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '规格列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加规格', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '虚拟分类管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '虚拟分类列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加虚拟分类', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '订单管理', 'type' => 'setting', 'items' => array(
+                    array('label' => 'B2C订单列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加B2C订单', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '品牌管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '品牌列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加品牌', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+            array('label' => '营销推广', 'type' => 'setting', 'items' => array(
+                    array('label' => '促销活动', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '优惠券活动', 'type' => 'setting', 'link' => 'www.baidu.com')
+            )),
+    )),
+    array('label' => 'B2B商务中心', 'type' => 'update', 'items' => array(
+            array('label' => '商品管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '商品列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '基础设置', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
     )),
     array('label' => '模板模块', 'type' => 'templet_name', 'items' => array(
@@ -102,42 +142,13 @@ $array = array(
                     array('label' => '添加友情链接', 'type' => 'links', 'rel' => 'dialog', 'link' => __APP__ . '/Links/add')
             )),
     )),
-    array('label' => '更新生成', 'type' => 'update', 'items' => array(
-            array('label' => '界面设置', 'type' => 'setting', 'items' => array(
-                    array('label' => '基础设置', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '基础设置', 'type' => 'setting', 'link' => 'www.baidu.com')
-            )),
-    )),
     array('label' => '采集管理', 'type' => 'collect', 'items' => array(
             array('label' => '界面设置', 'type' => 'setting', 'items' => array(
                     array('label' => '基础设置', 'type' => 'aweebc', 'link' => 'www.baidu.com'),
                     array('label' => '基础设置', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
-    )),
-    array('label' => '其它管理', 'type' => 'other', 'items' => array(
-            array('label' => '地区管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '添加地区', 'type' => 'abfrfrc', 'link' => 'www.baidu.com'),
-                    array('label' => '地区列表', 'type' => 'setting', 'link' => 'www.baidu.com')
-            )),
-    )),
-    array('label' => '开发工具', 'type' => 'develop', 'items' => array(
-            array('label' => '界面设置', 'type' => 'setting', 'items' => array(
-                    array('label' => '基础设置', 'type' => 'abdsfc', 'link' => 'www.baidu.com'),
-                    array('label' => '基础设置', 'type' => 'setting', 'link' => 'www.baidu.com')
-            )),
-    )),
+    ))
 );
 
-
-
-
-
-// unset($array);
-// foreach($menu as $k=>$v){
-// }
-// echo "<pre>";
-// header('content-type:text/html;charsert=utf-8');
-// print_r($menu);
-// exit;
 return $array;
 ?>

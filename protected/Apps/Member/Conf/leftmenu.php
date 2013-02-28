@@ -6,7 +6,8 @@ $array = array(
     array('label' => '基础功能', 'type' => 'templet_name', 'items' => array(
             array('label' => '资料管理', 'type' => 'templet_', 'items' => array(
                     array('label' => '个人资料', 'type' => 'perinfo', 'rel' => 'dialog','link' => __APP__ . '/Account/perinfo'),
-                    array('label' => '修改密码', 'type' => 'changepwd', 'rel' => 'dialog','link' => __APP__ . '/Account/changepwd')
+                    array('label' => '修改密码', 'type' => 'changepwd', 'rel' => 'dialog','link' => __APP__ . '/Account/changepwd'),
+                    array('label' => '收货地址', 'type' => 'address', 'link' => __APP__ . '/Address/index')
             ))
     )),
     array('label' => '信息中心', 'type' => 'templet_name', 'items' => array(
