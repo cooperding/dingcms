@@ -521,7 +521,7 @@ class Model {
 
     /**
      * 分析表达式
-     * @access proteced
+     * @access protected
      * @param array $options 表达式参数
      * @return array
      */
@@ -546,7 +546,7 @@ class Model {
         $options['model']       =   $this->name;
 
         // 字段类型验证
-        if(isset($options['where']) && is_array($options['where']) && !empty($fields)) {
+        if(isset($options['where']) && is_array($options['where']) && !empty($fields) && !isset($options['join'])) {
             // 对数组查询条件进行字段类型检查
             foreach ($options['where'] as $key=>$val){
                 $key            =   trim($key);
@@ -554,7 +554,7 @@ class Model {
                     if(is_scalar($val)) {
                         $this->_parseType($options['where'],$key);
                     }
-                }elseif('_' != substr($key,0,1) && false === strpos($key,'.') && false === strpos($key,'|') && false === strpos($key,'&')){
+                }elseif('_' != substr($key,0,1) && false === strpos($key,'.') && false === strpos($key,'(') && false === strpos($key,'|') && false === strpos($key,'&')){
                     unset($options['where'][$key]);
                 }
             }
@@ -610,10 +610,27 @@ class Model {
         }
         $this->data         =   $resultSet[0];
         $this->_after_find($this->data,$options);
-        return $this->data;
+        return $this->returnResult($this->data);
     }
     // 查询成功的回调方法
     protected function _after_find(&$result,$options) {}
+
+    protected function returnResult($data,$type=''){
+        $type = $type?$type:$this->options['result'];
+        if ($type){
+            if(is_array($type)){
+                $handler =  $type[1];
+                return $handler($data);
+            }
+            switch (strtolower($type)){
+                case 'json':
+                    return json_encode($data);
+                case 'xml':
+                    return xml_encode($data);
+            }
+        }
+        return $data;
+    }
 
     /**
      * 处理字段映射
@@ -1494,6 +1511,18 @@ class Model {
      */
     public function page($page,$listRows=null){
         $this->options['page'] =   is_null($listRows)?$page:$page.','.$listRows;
+        return $this;
+    }
+
+    /**
+     * 指定返回结果类型
+     * @access public
+     * @param string $result 类型
+     * @param string $handler 类型处理方法
+     * @return Model
+     */
+    public function result($result,$handler=null){
+        $this->options['result'] =   is_null($handler)?$result:array($result,$handler);
         return $this;
     }
 
