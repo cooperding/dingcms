@@ -77,15 +77,11 @@ $array = array(
             )),
             array('label' => '商品类型管理', 'type' => 'setting', 'items' => array(
                     array('label' => '类型列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加类型', 'type' => 'setting', 'link' => 'www.baidu.com')
+                    array('label' => '属性列表', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
-            array('label' => '规格管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '规格列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加规格', 'type' => 'setting', 'link' => 'www.baidu.com')
-            )),
-            array('label' => '虚拟分类管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '虚拟分类列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加虚拟分类', 'type' => 'setting', 'link' => 'www.baidu.com')
+            array('label' => '虚拟商品管理', 'type' => 'setting', 'items' => array(
+                    array('label' => '虚拟商品列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
+                    array('label' => '添加虚拟商品', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
             array('label' => '订单管理', 'type' => 'setting', 'items' => array(
                     array('label' => 'B2C订单列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
