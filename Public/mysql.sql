@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2013-02-20 16:45:16
+Date: 2013-03-02 08:17:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -341,14 +341,14 @@ CREATE TABLE `ding_members` (
   `password` varchar(60) NOT NULL,
   `creat_time` int(10) NOT NULL,
   `is_recycle` enum('false','true') default 'false',
-  `status` enum('false','true') default 'false',
+  `status` enum('false','true') default 'true',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ding_members
 -- ----------------------------
-INSERT INTO `ding_members` VALUES ('1', 'test', '', '0', 'false', 'false');
+INSERT INTO `ding_members` VALUES ('1', 'admin', '0b32435664ddde8a5e3c973953aea16a', '1346390052', 'false', 'true');
 
 -- ----------------------------
 -- Table structure for `ding_message`
@@ -773,8 +773,8 @@ INSERT INTO `ding_title` VALUES ('14', '27', 'M2M简介', 'M2M简介', '', null,
 INSERT INTO `ding_title` VALUES ('15', '27', '实时数据库和关系数据库的设计特点', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('16', '27', '朱志祥讲物联网（一）', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('17', '27', '解析M2M：物联网的四大支撑技术之一', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('18', '27', '全网通址 物联网时代手机是什么', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('18', '27', '全网通址 物联网时代手机是什么', '', '', null, '', '', '', '', '', '', '2', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('19', '27', '红外线感应器', '', '', null, '', '', '', '', '', '', '1', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('20', '27', 'ZigBee技术在物联网系统中的应用研究', '', '', null, '', '', '', '', '', '', '28', '0', '0', 'true', 'false');
 INSERT INTO `ding_title` VALUES ('21', '27', '浅析公共安全监测物联网技术', '', '', null, '', '', '', '', '浅析公共安全监测物联网技术', '浅析公共安全监测物联网技术', '27', '0', '0', 'true', 'false');
-INSERT INTO `ding_title` VALUES ('22', '27', '物联网冰箱', '', '/Public/Uploads/Images/20130131/1359606096.jpg', null, '', '', '', '', '', '', '9', '0', '0', 'true', 'false');
+INSERT INTO `ding_title` VALUES ('22', '27', '物联网冰箱', '', '/Public/Uploads/Images/20130131/1359606096.jpg', null, '', '', '', '', '', '', '11', '0', '0', 'true', 'false');
