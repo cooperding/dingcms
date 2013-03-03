@@ -68,28 +68,28 @@ $array = array(
     )),
     array('label' => 'B2C商务中心', 'type' => 'update', 'items' => array(
             array('label' => '商品管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '商品列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加商品', 'type' => 'setting', 'link' => 'www.baidu.com')
+                    array('label' => '商品列表', 'type' => 'abttc', 'link' => __APP__ . '/Goods/index'),
+                    array('label' => '添加商品', 'type' => 'setting', 'link' => __APP__ . '/Goods/add')
             )),
             array('label' => '分类管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '分类列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加分类', 'type' => 'setting', 'link' => 'www.baidu.com')
+                    array('label' => '分类列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsSort/index'),
+                    array('label' => '添加分类', 'type' => 'setting', 'link' => __APP__ . '/GoodsSort/add')
             )),
             array('label' => '商品类型管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '类型列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '属性列表', 'type' => 'setting', 'link' => 'www.baidu.com')
+                    array('label' => '类型列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsType/index'),
+                    array('label' => '属性列表', 'type' => 'setting', 'link' =>  __APP__ . '/Attribute/index')
             )),
             array('label' => '虚拟商品管理', 'type' => 'setting', 'items' => array(
                     array('label' => '虚拟商品列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
                     array('label' => '添加虚拟商品', 'type' => 'setting', 'link' => 'www.baidu.com')
             )),
             array('label' => '订单管理', 'type' => 'setting', 'items' => array(
-                    array('label' => 'B2C订单列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加B2C订单', 'type' => 'setting', 'link' => 'www.baidu.com')
+                    array('label' => 'B2C订单列表', 'type' => 'abttc', 'link' => __APP__ . '/Corders/index'),
+                    array('label' => '添加B2C订单', 'type' => 'setting', 'link' => __APP__ . '/Corders/add')
             )),
             array('label' => '品牌管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '品牌列表', 'type' => 'abttc', 'link' => 'www.baidu.com'),
-                    array('label' => '添加品牌', 'type' => 'setting', 'link' => 'www.baidu.com')
+                    array('label' => '品牌列表', 'type' => 'abttc', 'link' => __APP__ . '/Brand/index'),
+                    array('label' => '添加品牌', 'type' => 'setting', 'link' => __APP__ . '/Brand/add')
             )),
             array('label' => '营销推广', 'type' => 'setting', 'items' => array(
                     array('label' => '促销活动', 'type' => 'abttc', 'link' => 'www.baidu.com'),
