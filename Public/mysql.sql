@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2013-03-02 08:17:37
+Date: 2013-03-06 12:41:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -246,6 +246,88 @@ CREATE TABLE `ding_flash_sort` (
 -- Records of ding_flash_sort
 -- ----------------------------
 INSERT INTO `ding_flash_sort` VALUES ('1', '首页3', 'true', '111', '222', '333');
+
+-- ----------------------------
+-- Table structure for `ding_goods_sort`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_goods_sort`;
+CREATE TABLE `ding_goods_sort` (
+  `id` mediumint(5) NOT NULL auto_increment,
+  `parent_id` mediumint(5) NOT NULL,
+  `text` varchar(40) NOT NULL,
+  `en_name` varchar(50) NOT NULL,
+  `model_id` mediumint(5) unsigned NOT NULL,
+  `tpl_index` varchar(40) NOT NULL,
+  `tpl_list` varchar(40) NOT NULL,
+  `tpl_views` varchar(40) NOT NULL,
+  `keywords` varchar(255) default NULL,
+  `description` varchar(255) default NULL,
+  `path` varchar(30) NOT NULL default ',',
+  `myorder` tinyint(3) NOT NULL,
+  `status` enum('false','true') default 'true',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_goods_sort
+-- ----------------------------
+INSERT INTO `ding_goods_sort` VALUES ('1', '0', '网络1', 'wangluo', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('2', '1', '互联网', 'hulianwang', '1', '', '', '', '', '', ',1,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('3', '1', '通信', 'tongxin', '1', '', '', '', '', '', ',1,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('4', '1', 'IT业界', 'ITyejie', '1', '', '', '', '', '', ',1,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('5', '0', '视频教程', 'shipinjiaocheng', '2', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('6', '5', 'PHP视频', 'PHPshipin', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('7', '5', 'jQuery/AJAX视频', 'jQuery/AJAXshipin', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('8', '5', '办公软件教程', 'bangongruanjianjiaocheng', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('9', '5', '平面设计', 'pingmiansheji', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('10', '5', '网站制作', 'wangzhanzhizuo', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('11', '5', 'Python视频教程', 'Pythonshipinjiaocheng', '2', '', '', '', '', '', ',5,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('12', '0', '图形图像', 'tuxingtuxiang', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('13', '12', 'Photoshop', 'Photoshop', '1', '', '', '', '', '', ',12,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('14', '0', 'web | 编程开发', 'web | bianchengkaifa', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('15', '14', 'php教程', 'phpjiaocheng', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('16', '14', 'MySQL', 'MySQL', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('17', '14', 'HTML/CSS', 'HTML/CSS', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('18', '14', 'JQuery教程', 'JQueryjiaocheng', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('19', '14', 'Ruby | Rails', 'Ruby | Rails', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('20', '14', 'Java | Jsp', 'Java | Jsp', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('21', '14', 'Python', 'Python', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('22', '14', '其它', 'qita', '1', '', '', '', '', '', ',14,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('23', '0', '网站建设', 'wangzhanjianshe', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('24', '0', '推荐书籍', 'tuijianshuji', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('25', '0', '物联网', 'wulianwang', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('26', '25', '物联网资讯', 'wulianwangzixun', '1', '', '', '', '', '', ',25,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('27', '25', '物联网技术', 'wulianwangjishu', '1', '', '', '', '物联网技术', '物联网技术', ',25,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('28', '0', '开源项目', 'kaiyuanxiangmu', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('29', '0', '励志一生', 'lizhiyisheng', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('30', '23', '域名主机', 'yumingzhuji', '1', '', '', '', '', '', ',23,', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('31', '0', '休闲一刻', 'xiuxianyike', '1', '', '', '', '', '', ',', '0', 'true');
+INSERT INTO `ding_goods_sort` VALUES ('32', '0', '电商学院', 'dianshangxueyuan', '1', '', '', '', '', '', ',', '0', 'true');
+
+-- ----------------------------
+-- Table structure for `ding_goods_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `ding_goods_type`;
+CREATE TABLE `ding_goods_type` (
+  `cat_id` smallint(5) unsigned NOT NULL auto_increment,
+  `cat_name` varchar(60) NOT NULL default '',
+  `enabled` tinyint(1) unsigned NOT NULL default '1',
+  `attr_group` varchar(255) NOT NULL,
+  PRIMARY KEY  (`cat_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ding_goods_type
+-- ----------------------------
+INSERT INTO `ding_goods_type` VALUES ('1', '书', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('2', '音乐', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('3', '电影', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('4', '手机', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('5', '笔记本电脑', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('6', '数码相机', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('7', '数码摄像机', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('8', '化妆品', '1', '');
+INSERT INTO `ding_goods_type` VALUES ('9', '精品手机', '1', '');
 
 -- ----------------------------
 -- Table structure for `ding_linkpage_list`

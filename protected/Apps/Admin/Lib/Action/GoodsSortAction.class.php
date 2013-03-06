@@ -57,7 +57,7 @@ class GoodsSortAction extends BaseAction {
      */
     public function edit()
     {
-        $m = M('NewsSort');
+        $m = M('GoodsSort');
         $data = $m->where('id=' . intval($_GET['id']))->find();
         $this->assign('data', $data);
         $this->display();
@@ -73,7 +73,7 @@ class GoodsSortAction extends BaseAction {
     public function insert()
     {
 //添加功能还需要验证数据不能为空的字段
-        $m = M('NewsSort');
+        $m = M('GoodsSort');
         $parent_id = intval($_POST['parent_id']);
         $text = trim($_POST['text']);
         if (empty($text)) {
@@ -108,8 +108,8 @@ class GoodsSortAction extends BaseAction {
      */
     public function update()
     {
-        $m = M('NewsSort');
-        $d = D('NewsSort');
+        $m = M('GoodsSort');
+        $d = D('GoodsSort');
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
         $tbname = 'NewsSort';
@@ -153,7 +153,7 @@ class GoodsSortAction extends BaseAction {
      */
     public function delete()
     {
-        $m = M('NewsSort');
+        $m = M('GoodsSort');
         $id = intval($_POST['id']);
         if (empty($id)) {
             $this->dmsg('1', '未有id值，无法删除！', false, true);
@@ -184,7 +184,7 @@ class GoodsSortAction extends BaseAction {
      */
     public function json()
     {
-        $m = M('NewsSort');
+        $m = M('GoodsSort');
         $list = $m->field('id,parent_id,text')->select();
         $navcatCount = $m->count("id");
         $a = array();
@@ -208,7 +208,7 @@ class GoodsSortAction extends BaseAction {
     public function jsonTree()
     {
         Load('extend');
-        $m = M('NewsSort');
+        $m = M('GoodsSort');
         $tree = $m->field('id,parent_id,text')->select();
         $tree = list_to_tree($tree, 'id', 'parent_id', 'children');
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
