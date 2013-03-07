@@ -72,8 +72,8 @@ $array = array(
                     array('label' => '添加商品', 'type' => 'setting', 'link' => __APP__ . '/Goods/add')
             )),
             array('label' => '分类管理', 'type' => 'setting', 'items' => array(
-                    array('label' => '分类列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsSort/index'),
-                    array('label' => '添加分类', 'type' => 'setting', 'link' => __APP__ . '/GoodsSort/add')
+                    array('label' => 'b2c分类列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsSort/index'),
+                    array('label' => '添加b2c分类', 'type' => 'setting', 'link' => __APP__ . '/GoodsSort/add')
             )),
             array('label' => '商品类型管理', 'type' => 'setting', 'items' => array(
                     array('label' => '类型列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsType/index'),

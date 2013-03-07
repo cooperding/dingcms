@@ -109,10 +109,10 @@ class NewsSortAction extends BaseAction {
     public function update()
     {
         $m = M('NewsSort');
-        $d = D('NewsSort');
+        $d = D('NewsSort');//该调用不可修改
         $id = intval($_POST['id']);
         $parent_id = intval($_POST['parent_id']);
-        $tbname = 'NewsSort';
+        $tbname = 'NewsSort';//可修改为相应的表名
         if ($parent_id != 0) {//不为0时判断是否为子分类
             $cun = $m->field('id')->where('id=' . $parent_id . ' and  path like \'%,' . $id . ',%\'')->find(); //判断id选择是否为其的子类
             if ($cun) {

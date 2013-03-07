@@ -5,13 +5,15 @@
  */
 function submitForm(classId){
     var url = $('#form_'+classId).attr('action');
+    //    alert(url);
+    //        return false;
     $('#form_'+classId).form('submit',{
         url:url,
-        onSubmit:function(){
+        //onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
-        //alert(url);
+        
         //$('#dialog').dialog('close');
-        },
+        //},
         success:function(msg){
             var data = $.parseJSON(msg);
             //alert(data.msg+'=======dede====');
@@ -173,8 +175,8 @@ function openDatagrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                 var href = hrefcancel;
                 var title = '删除信息';
                 $.messager.confirm(title,href, function(){
-//                    alert(id);
-//                    return false;
+                    //                    alert(id);
+                    //                    return false;
                     $.ajax({
                         url:href,
                         type:'post',
@@ -277,9 +279,7 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
 }
 
 function formAjax(data,classId){
-    //alert(classId);
-    //return false;
-
+    
     if(data.status==1){
         $.messager.alert(data.info,data.info,'error');
     }else if(data.status==2){
@@ -290,6 +290,7 @@ function formAjax(data,classId){
             showType:'slide'
         });
         $('#treegrid_'+classId).treegrid('reload');
+        $('#datagrid_'+classId).treegrid('reload');
         if(data.isclose=='ok'){
             $('#dialog_'+classId).dialog('close');
             dialogOnClose(classId);
@@ -317,8 +318,32 @@ function changeTheme(themeName){
     });
 }
 
-
-
+function ding_views(href,classId){
+    //var title = '编辑信息';
+    //openDialog(classId,href,title);
+}
+function ding_edit(href,classId){
+    var title = '编辑信息';
+    openDialog(classId,href,title);
+}
+function ding_cancel(id,href,classId){
+    var title = '删除信息';
+    $.messager.confirm(title,href, function(){
+        //alert(href);
+        //return false;
+        $.ajax({
+            url:href,
+            type:'post',
+            data:{
+                id:id
+            },
+            dataType:'json',
+            success:function(data){
+                formAjax(data,classId);
+            }
+        });
+    });//$
+}
 
 
 

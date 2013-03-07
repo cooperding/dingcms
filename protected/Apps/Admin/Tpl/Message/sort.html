@@ -1,11 +1,5 @@
     <table id="datagrid_message_sort" class="message_sort">
-        <thead>
-            <tr>
-                <th data-options="field:'id',align:'center'" rowspan="2" width="50">ID</th>
-                <th data-options="field:'ename'" width="200">标题</th>
-                <th data-options="field:'status'" width="200">状态</th>
-            </tr>
-        </thead>
+        
     </table>
 
     <script>
@@ -27,11 +21,9 @@
                         title:'动作',
                         width:50,
                         formatter : function(value, row, index) {
-                            //alert(row.id);
-                            //return row.index;
-                            return '<img src="__PUBLIC__/Easyui/themes/icons/search.png" width="16" height="16" onclick="testclick(\''+row.id+'\')" title="预览"/>&nbsp;\n\
-                        <img src="__PUBLIC__/Easyui/themes/icons/pencil.png" width="16" height="16" onclick="admin_news_editFun(\''+row.id+'\')"  title="编辑"/>&nbsp;\n\
-<img src="__PUBLIC__/Easyui/themes/icons/cancel.png" width="16" height="16" onclick="admin_news_cancelFun(\''+row.id+'\')" title=" 删除"/>&nbsp;';
+                            return '<img class="btn_do" src="__PUBLIC__/Easyui/themes/icons/search.png" onclick="ding_views(\''+row.id+'\')" title="预览"/>&nbsp;\n\
+                    <img class="btn_do" src="__PUBLIC__/Easyui/themes/icons/pencil.png" onclick="ding_edit(\''+hrefedit+'?id='+row.id+'\',\''+classId+'\')"  title="编辑"/>&nbsp;\n\
+<img class="btn_do" src="__PUBLIC__/Easyui/themes/icons/cancel.png" onclick="ding_cancel(\''+row.id+'\',\''+hrefcancel+'\',\''+classId+'\')" title=" 删除"/>&nbsp;';
                         }
                     }
                 ]]
