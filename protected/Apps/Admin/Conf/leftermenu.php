@@ -73,7 +73,7 @@ $array = array(
             )),
             array('label' => '分类管理', 'type' => 'setting', 'items' => array(
                     array('label' => 'b2c分类列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsSort/index'),
-                    array('label' => '添加b2c分类', 'type' => 'setting', 'link' => __APP__ . '/GoodsSort/add')
+                    array('label' => '添加b2c分类', 'type' => 'goodssort', 'rel' => 'dialog','link' => __APP__ . '/GoodsSort/add')
             )),
             array('label' => '商品类型管理', 'type' => 'setting', 'items' => array(
                     array('label' => '类型列表', 'type' => 'abttc', 'link' => __APP__ . '/GoodsType/index'),
@@ -89,7 +89,7 @@ $array = array(
             )),
             array('label' => '品牌管理', 'type' => 'setting', 'items' => array(
                     array('label' => '品牌列表', 'type' => 'abttc', 'link' => __APP__ . '/Brand/index'),
-                    array('label' => '添加品牌', 'type' => 'setting', 'link' => __APP__ . '/Brand/add')
+                    array('label' => '添加品牌', 'type' => 'brand', 'rel' => 'dialog','link' => __APP__ . '/Brand/add')
             )),
             array('label' => '营销推广', 'type' => 'setting', 'items' => array(
                     array('label' => '促销活动', 'type' => 'abttc', 'link' => 'www.baidu.com'),
