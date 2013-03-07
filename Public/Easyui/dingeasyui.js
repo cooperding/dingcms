@@ -9,11 +9,11 @@ function submitForm(classId){
     //        return false;
     $('#form_'+classId).form('submit',{
         url:url,
-        //onSubmit:function(){
+        onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
         
         //$('#dialog').dialog('close');
-        //},
+        },
         success:function(msg){
             var data = $.parseJSON(msg);
             //alert(data.msg+'=======dede====');
@@ -49,7 +49,7 @@ function openDialog(classId,href,title){
         maximizable:true,
         cache: false,
         onClose:function(){
-            dialogOnClose(classId);
+            dialogOnClose();
         },
         buttons:[{
             text:'保存',
@@ -61,7 +61,7 @@ function openDialog(classId,href,title){
             text:'取消',
             iconCls:'icon-cancel',
             handler:function(){
-                dialogOnClose(classId);
+                dialogOnClose();
             }
         }
         ]
@@ -71,7 +71,7 @@ function openDialog(classId,href,title){
 /*
 * 关闭dialog时，销毁dialog代码
 */
-function dialogOnClose(classId){
+function dialogOnClose(){
     $('#dialog_cms').dialog('destroy');
     $('body.layout_index').append('<div id="dialog_cms"  data-options="iconCls:\'icon-save\'"></div>');
     var frame = $('iframe[src="about:blank"]');//destroy与iframe冲突问题，大概是内存释放的原因
@@ -258,8 +258,6 @@ function openTreeGrid(classId,urljson,hrefadd,hrefedit,hrefcancel){
                 var href = hrefcancel;
                 var title = '删除信息';
                 $.messager.confirm(title,href, function(){
-                    //alert(href);
-                    //return false;
                     $.ajax({
                         url:href,
                         type:'post',
@@ -290,10 +288,9 @@ function formAjax(data,classId){
             showType:'slide'
         });
         $('#treegrid_'+classId).treegrid('reload');
-        $('#datagrid_'+classId).treegrid('reload');
+        $('#datagrid_'+classId).datagrid('reload');
         if(data.isclose=='ok'){
-            $('#dialog_'+classId).dialog('close');
-            dialogOnClose(classId);
+            dialogOnClose();
         }
 
 

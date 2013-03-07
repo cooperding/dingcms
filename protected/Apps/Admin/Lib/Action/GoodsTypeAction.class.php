@@ -33,6 +33,11 @@ class GoodsTypeAction extends BaseAction {
      */
     public function add()
     {
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
         $this->display();
     }
 
@@ -45,9 +50,67 @@ class GoodsTypeAction extends BaseAction {
      */
     public function edit()
     {
+        $m = M('GoodsType');
+        $id = intval($_GET['id']);
+        $data = $m->where('id=' . $id)->find();
+        $radios = array(
+            'true' => '可用',
+            'false' => '禁用'
+        );
+        $this->assign('radios', $radios);
+        $this->assign('data', $data);
+        $this->assign('status', $data['status']);
         $this->display();
     }
-
+    /**
+     * insert
+     * 插入信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function insert()
+    {
+        $m = M('GoodsType');
+        $ename = $_POST['cat_name'];
+        if (empty($ename)) {
+            $this->dmsg('1', '商品类型名称不能为空！', false, true);
+        }
+        $_POST['status'] = $_POST['status']['0'];
+        if ($m->create($_POST)) {
+            $rs = $m->add();
+            if ($rs == true) {
+                $this->dmsg('2', ' 操作成功！', true);
+            } else {
+                $this->dmsg('1', '操作失败！', false, true);
+            }
+        } else {
+            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
+        }
+    }
+    /**
+     * update
+     * 更新信息
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function update()
+    {
+        $m = M('GoodsType');
+        $ename = $_POST['cat_name'];
+        $data['id'] = array('eq', intval($_POST['id']));
+        if (empty($ename)) {
+            $this->dmsg('1', '商品类型名称不能为空！', false, true);
+        }
+        $_POST['status'] = $_POST['status']['0'];
+        $rs = $m->where($data)->save($_POST);
+        if ($rs == true) {
+            $this->dmsg('2', ' 操作成功！', true);
+        } else {
+            $this->dmsg('1', '操作失败！', false, true);
+        }
+    }
     /**
      * delete
      * 留言删除
@@ -58,7 +121,7 @@ class GoodsTypeAction extends BaseAction {
     public function delete()
     {
         $id = intval($_POST['id']);
-        $m = M('Ads');
+        $m = M('GoodsType');
         $del = $m->where('id=' . $id)->delete();
         if ($del == true) {
             $this->dmsg('2', '操作成功！', true);
@@ -66,152 +129,29 @@ class GoodsTypeAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
+    
     /**
-     * sort
-     * 广告分类
+     * jsonList
+     * 取得列表信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function sort()
+    public function jsonList()
     {
-        $this->display();
-    }
-
-    /**
-     * sortadd
-     * 添加广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortadd()
-    {
-        $radios = array(
-            'true' => '启用',
-            'false' => '禁用'
-        );
-        $this->assign('radios', $radios);
-        $this->display();
-    }
-
-    /**
-     * sortedit
-     * 编辑广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortedit()
-    {
-        $id = $_GET['id'];
-        $m = M('AdsSort');
-        $data = $m->where('id=' . intval($id))->find();
-        $radios = array(
-            'true' => '启用',
-            'false' => '禁用'
-        );
-        $this->assign('radios', $radios);
-        $this->assign('status', $data['status']);
-        $this->assign('data', $data);
-        $this->display();
-    }
-
-    /**
-     * sortinsert
-     * 写入广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortinsert()
-    {
-        $m = M('AdsSort');
-        $condition['ename'] = trim($_POST['ename']);
-        if (empty($condition['ename'])) {
-            $this->dmsg('1', '请将信息输入完整！', false, true);
-        }
-        $_POST['status'] = $_POST['status']['0'];
-        if ($m->create()) {
-            $rs = $m->add($_POST);
-            if ($rs) {//存在值
-                $this->dmsg('2', '操作成功！', true);
-            } else {
-                $this->dmsg('1', '操作失败！', false, true);
-            }
-        } else {
-            $this->dmsg('1', '根据表单提交的POST数据创建数据对象失败！', false, true);
-        }
-    }
-/**
-     * sortupdate
-     * 更新广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortupdate()
-    {
-        $m = M('AdsSort');
-        $id = intval($_POST['id']);
-        $condition['ename'] = trim($_POST['ename']);
-        $condition['id'] = array('neq', $id);
-        if (empty($condition['ename'])) {
-            $this->dmsg('1', '请将信息输入完整！', false, true);
-        }
-        if ($m->field('id')->where($condition)->find()) {
-            $this->dmsg('1', '您输入的名称' . $condition['ename'] . '已经存在！', false, true);
-        }
-        $_POST['status'] = $_POST['status']['0'];
-        $rs = $m->save($_POST);
-        if ($rs == true) {
-            $this->dmsg('2', '操作成功！', true);
-        } else {
-            $this->dmsg('1', '操作失败！', false, true);
-        }//if
-    }
-    /**
-     * sortdelete
-     * 删除广告分类
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortdelete()
-    {
-        $m = M('AdsSort');
-        $l = M('Ads');
-        $id = intval($_POST['id']);
-        $condition['sort_id'] = array('eq', $id);
-        if ($l->field('id')->where($condition)->find()) {
-            $this->dmsg('1', '列表中含有该分类的信息，不能删除！', false, true);
-        }
-        $del = $m->where('id=' . $id)->delete();
-        if ($del == true) {
-            $this->dmsg('2', '操作成功！', true);
-        } else {
-            $this->dmsg('1', '操作失败！', false, true);
-        }//if
-    }
-    /**
-     * sortJson
-     * 返回sortjson模型分类数据
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     */
-    public function sortJson()
-    {
-        $m = M('AdsSort');
-        $list = $m->select();
-        $count = $m->count("id");
-        $a = array();
-        foreach ($list as $k => $v) {
-            $a[$k] = $v;
-        }
+        $m = M('GoodsType');
+        import('ORG.Util.Page'); // 导入分页类
+        $pageNumber = intval($_POST['page']);
+        $pageRows = intval($_POST['rows']);
+        $pageNumber = (($pageNumber == null || $pageNumber == 0) ? 1 : $pageNumber);
+        $pageRows = (($pageRows == FALSE) ? 10 : $pageRows);
+        $count = $m->count();
+        $page = new Page($count, $pageRows);
+        $firstRow = ($pageNumber - 1) * $pageRows;
+        $data = $m->limit($firstRow . ',' . $pageRows)->order('id desc')->select();
         $array = array();
         $array['total'] = $count;
-        $array['rows'] = $a;
+        $array['rows'] = $data;
         echo json_encode($array);
     }
 
