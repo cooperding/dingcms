@@ -1,0 +1,56 @@
+<form action="__APP__/News/insert" id="form_attributetab{$id}" method="post" enctype="multipart/form-data">
+
+    <div class="division">
+        <table>
+            <tbody>
+                <tr>
+                    <th>属性名称：</th>
+                    <td><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <th>文档副标题：</th>
+                    <td><input type="text" name="subtitle" value="{$data.subtitle}" /></td>
+                </tr>
+            <tr>
+                <th>所属商品类型：</th>
+                <td><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true"  value="0"  style="width:200px;"/></td>
+            </tr>
+            <tr>
+                <th>编辑：</th>
+                <td><input type="text" name="editor" value="{$data.editor}" /></td>
+            </tr>
+            <tr>
+                <th>作者：</th>
+                <td><input type="text" name="author" value="{$data.author}" /></td>
+            </tr>
+            <tr>
+                <th>来源：</th>
+                <td><input type="text" name="source" value="{$data.source}" /></td>
+            </tr>
+            <tr>
+                <th>来源网址：</th>
+                <td><input type="text" name="sourceurl" value="{$data.sourceurl}" /></td>
+            </tr>
+            <tr>
+                <th>关键词：</th>
+                <td><input type="text" name="keywords" value="{$data.keywords}" /></td>
+            </tr>
+            <tr>
+                <th>描述简介：</th>
+                <td><textarea name="description" rows="3" cols="30">{$data.description}</textarea></td>
+            </tr>
+            <tr>
+                <th>发布时间：</th>
+                <td>{$data.addtime|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            <tr>
+                <th>更新时间：</th>
+                <td>{$data.updatetime|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            <tr>
+                <th>审核状态：</th>
+                <td><html:radio name="status" radios="radios" checked="true"/></td>
+            </tr>
+            </tbody>
+        </table></div>
+</form>
