@@ -129,7 +129,7 @@ class GoodsTypeAction extends BaseAction {
             $this->dmsg('1', '操作失败！', false, true);
         }//if
     }
-    
+
     /**
      * jsonList
      * 取得列表信息
@@ -154,7 +154,7 @@ class GoodsTypeAction extends BaseAction {
         $array['rows'] = $data;
         echo json_encode($array);
     }
-
+    
 }
 
 ?>

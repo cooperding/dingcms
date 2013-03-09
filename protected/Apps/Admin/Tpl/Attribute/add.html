@@ -1,4 +1,4 @@
-<form action="__APP__/News/insert" id="form_attributetab{$id}" method="post" enctype="multipart/form-data">
+<form action="__APP__/Attribute/insert" id="form_attributetab{$id}" method="post" enctype="multipart/form-data">
 
     <div class="division">
         <table>
@@ -7,50 +7,57 @@
                     <th>属性名称：</th>
                     <td><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
                 </tr>
-                <tr>
-                    <th>文档副标题：</th>
-                    <td><input type="text" name="subtitle" value="{$data.subtitle}" /></td>
-                </tr>
             <tr>
                 <th>所属商品类型：</th>
-                <td><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/NavHead/jsonTree',required:true"  value="0"  style="width:200px;"/></td>
+                <td><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Attribute/jsonSortTree',required:true"  value="0"  style="width:200px;"/></td>
             </tr>
             <tr>
-                <th>编辑：</th>
-                <td><input type="text" name="editor" value="{$data.editor}" /></td>
+                <th>能否进行检索：</th>
+                <td><html:radio name="attr_index" radios="attr_index" checked="" /></td>
             </tr>
             <tr>
-                <th>作者：</th>
-                <td><input type="text" name="author" value="{$data.author}" /></td>
+                <th>相同属性值的商品是否关联？：</th>
+                <td><html:radio name="is_linked" radios="is_linked" checked="" />
+                <br/>
+                <span class="txt_mark">
+                不需要该属性成为检索商品条件的情况请选择不需要检索，需要该属性进行关键字检索商品时选择关键字检索，如果该属性检索时希望是指定某个范围时，选择范围检索。
+                </span>
+                </td>
             </tr>
             <tr>
-                <th>来源：</th>
-                <td><input type="text" name="source" value="{$data.source}" /></td>
+                <th>属性是否可选：</th>
+                <td><html:radio name="attr_input_type" radios="attr_input_type" checked="" />
+                <br/>
+                <span class="txt_mark">
+                选择"单选/复选属性"时，可以对商品该属性设置多个值，同时还能对不同属性值指定不同的价格加价，用户购买商品时需要选定具体的属性值。选择"唯一属性"时，商品的该属性值只能设置一个值，用户只能查看该值。
+                </span>
+                </td>
             </tr>
             <tr>
-                <th>来源网址：</th>
-                <td><input type="text" name="sourceurl" value="{$data.sourceurl}" /></td>
+                <th>该属性值的录入方式：</th>
+                <td><html:radio name="attr_type" radios="attr_type" checked="" /></td>
             </tr>
             <tr>
-                <th>关键词：</th>
-                <td><input type="text" name="keywords" value="{$data.keywords}" /></td>
-            </tr>
-            <tr>
-                <th>描述简介：</th>
-                <td><textarea name="description" rows="3" cols="30">{$data.description}</textarea></td>
-            </tr>
-            <tr>
-                <th>发布时间：</th>
-                <td>{$data.addtime|date="Y-m-d H:i:s",###}</td>
-            </tr>
-            <tr>
-                <th>更新时间：</th>
-                <td>{$data.updatetime|date="Y-m-d H:i:s",###}</td>
-            </tr>
-            <tr>
-                <th>审核状态：</th>
-                <td><html:radio name="status" radios="radios" checked="true"/></td>
+                <th>可选值列表：</th>
+                <td><textarea name="attr_values" rows="10" cols="60" readonly="readonly">{$data.attr_values}</textarea></td>
             </tr>
             </tbody>
         </table></div>
 </form>
+<script>
+    $(function(){
+        $('input[name="attr_type[]"]').click(function(){
+            var value = $(this).val();
+            if(value==0||value==2){
+                $('textarea[name="attr_values"]').attr('readonly',true);
+            }else if(value==1){
+                $('textarea[name="attr_values"]').removeAttr('readonly');
+            }
+        });
+        //页面加载后进行预选
+        var attr_type = 1;
+        if(attr_type==1){
+            $('textarea[name="attr_values"]').removeAttr('readonly');
+        }
+    })
+</script>

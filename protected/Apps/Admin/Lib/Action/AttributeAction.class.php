@@ -45,6 +45,29 @@ class AttributeAction extends BaseAction {
     public function add()
     {
         $id = intval($_GET['id']);
+        $attr_index = array(
+            '0' => ' 不需要检索 ',
+            '1' => ' 关键字检索 ',
+            '2' => ' 范围检索 '
+        );
+        $is_linked = array(
+            '0' => ' 否 ',
+            '1' => ' 是 '
+        );
+        $attr_type = array(
+            '0' => ' 唯一属性 ',
+            '1' => ' 单选属性 ',
+            '2' => ' 复选属性 '
+        );
+        $attr_input_type = array(
+            '0' => ' 手工录入 ',
+            '1' => ' 从下面的列表中选择（一行代表一个可选值） ',
+            '2' => ' 多行文本框 '
+        );
+        $this->assign('attr_index', $attr_index);
+        $this->assign('is_linked', $is_linked);
+        $this->assign('attr_input_type', $attr_input_type);
+        $this->assign('attr_type', $attr_type);
         $this->assign('id', $id);
         $this->display();
     }
@@ -58,6 +81,29 @@ class AttributeAction extends BaseAction {
      */
     public function edit()
     {
+        $attr_index = array(
+            '0' => ' 不需要检索 ',
+            '1' => ' 关键字检索 ',
+            '2' => ' 范围检索 '
+        );
+        $is_linked = array(
+            '0' => ' 否 ',
+            '1' => ' 是 '
+        );
+        $attr_type = array(
+            '0' => ' 唯一属性 ',
+            '1' => ' 单选属性 ',
+            '2' => ' 复选属性 '
+        );
+        $attr_input_type = array(
+            '0' => ' 手工录入 ',
+            '1' => ' 从下面的列表中选择（一行代表一个可选值） ',
+            '2' => ' 多行文本框 '
+        );
+        $this->assign('attr_index', $attr_index);
+        $this->assign('is_linked', $is_linked);
+        $this->assign('attr_input_type', $attr_input_type);
+        $this->assign('attr_type', $attr_type);
         $this->display();
     }
     /**
