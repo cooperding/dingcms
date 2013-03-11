@@ -81,6 +81,8 @@ class AttributeAction extends BaseAction {
      */
     public function edit()
     {
+        $m = M('Attribute');
+        $data = $m->where('id=' . intval($_GET['id']))->find();
         $attr_index = array(
             '0' => ' 不需要检索 ',
             '1' => ' 关键字检索 ',
@@ -104,6 +106,12 @@ class AttributeAction extends BaseAction {
         $this->assign('is_linked', $is_linked);
         $this->assign('attr_input_type', $attr_input_type);
         $this->assign('attr_type', $attr_type);
+        
+        $this->assign('radio_attr_index', $data['attr_index']);
+        $this->assign('radio_is_linked', $data['is_linked']);
+        $this->assign('radio_attr_input_type', $data['attr_input_type']);
+        $this->assign('radio_attr_type', $data['attr_type']);
+        $this->assign('data', $data);
         $this->display();
     }
     /**
@@ -116,11 +124,18 @@ class AttributeAction extends BaseAction {
     public function insert()
     {
         $m = M('Attribute');
-        $ename = $_POST['cat_name'];
+        $ename = $_POST['attr_name'];
+        $sort_id = $_POST['sort_id'];
         if (empty($ename)) {
             $this->dmsg('1', '商品类型名称不能为空！', false, true);
         }
-        $_POST['status'] = $_POST['status']['0'];
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['attr_index'] = $_POST['attr_index']['0'];
+        $_POST['is_linked'] = $_POST['is_linked']['0'];
+        $_POST['attr_input_type'] = $_POST['attr_input_type']['0'];
+        $_POST['attr_type'] = $_POST['attr_type']['0'];
         if ($m->create($_POST)) {
             $rs = $m->add();
             if ($rs == true) {
@@ -142,12 +157,19 @@ class AttributeAction extends BaseAction {
     public function update()
     {
         $m = M('Attribute');
-        $ename = $_POST['cat_name'];
+        $ename = $_POST['attr_name'];
         $data['id'] = array('eq', intval($_POST['id']));
+        $sort_id = $_POST['sort_id'];
         if (empty($ename)) {
             $this->dmsg('1', '商品类型名称不能为空！', false, true);
         }
-        $_POST['status'] = $_POST['status']['0'];
+        if ($sort_id == 0) {
+            $this->dmsg('1', '请选择所属分类！', false, true);
+        }
+        $_POST['attr_index'] = $_POST['attr_index']['0'];
+        $_POST['is_linked'] = $_POST['is_linked']['0'];
+        $_POST['attr_input_type'] = $_POST['attr_input_type']['0'];
+        $_POST['attr_type'] = $_POST['attr_type']['0'];
         $rs = $m->where($data)->save($_POST);
         if ($rs == true) {
             $this->dmsg('2', ' 操作成功！', true);

@@ -5,11 +5,11 @@
             <tbody>
                 <tr>
                     <th>属性名称：</th>
-                    <td><input type="text" name="title" value="{$data.title}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
+                    <td><input type="text" name="attr_name" value="{$data.attr_name}" data-options="required:true" class="easyui-validatebox"/><span class="red">*</span></td>
                 </tr>
             <tr>
                 <th>所属商品类型：</th>
-                <td><input name="parent_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Attribute/jsonSortTree',required:true"  value="0"  style="width:200px;"/></td>
+                <td><input name="sort_id" id="combotree" class="easyui-combotree combotree" data-options="url:'__APP__/Attribute/jsonSortTree',required:true"  value="0"  style="width:200px;"/></td>
             </tr>
             <tr>
                 <th>能否进行检索：</th>
@@ -54,10 +54,6 @@
                 $('textarea[name="attr_values"]').removeAttr('readonly');
             }
         });
-        //页面加载后进行预选
-        var attr_type = 1;
-        if(attr_type==1){
-            $('textarea[name="attr_values"]').removeAttr('readonly');
-        }
+        
     })
 </script>
