@@ -4,10 +4,11 @@
  *  classId 为当前表单的id
  */
 function submitForm(classId){
-    var url = $('#form_'+classId).attr('action');
+    //var url = $('#form_'+classId).attr('action');
+    var url = $('.form_dogocms').attr('action');
     //    alert(url);
     //        return false;
-    $('#form_'+classId).form('submit',{
+    $('.form_dogocms').form('submit',{
         url:url,
         onSubmit:function(){
         //$('#dialog').dialog('refresh', '__APP__/Setting/add');
