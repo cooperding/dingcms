@@ -1,0 +1,121 @@
+<div class="division">
+        <table>
+            <tbody>
+    <foreach name="filed" item="vo">
+        <tr>
+            <th>{$vo.ename}：</th><td>
+        <if condition="$vo.etype eq 'varchar'">
+            <input type="text" name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}" />
+            <elseif condition="$vo.etype eq 'textarea'"/>
+            <textarea name="filed[{$vo.emark}]" rows="3" cols="30">{$datafiled[$vo['emark']]}</textarea>
+            <elseif condition="$vo.etype eq 'htmltext'"/>
+            <script>
+                $(function() {
+                    KindEditor.create('#content_{$vo.emark}', {
+                        themeType : 'simple',
+                        allowFileManager : true,
+                        uploadJson:'__APP__/Upload/uploadImg',
+                        fileManagerJson :'__APP__/Upload/fileManagerJson',
+                        afterBlur : function() {
+                            this.sync();
+                        }
+                    });
+                });
+            </script>
+            <textarea id="content_{$vo.emark}" name="filed[{$vo.emark}]" style="width:720px;height:400px;visibility:hidden;">{$datafiled[$vo['emark']]|stripslashes}</textarea>
+            <elseif condition="$vo.etype eq 'int'"/>
+            <input type="text" name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}" />
+            <elseif condition="$vo.etype eq 'double'"/>
+            <input type="text" name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}" />
+            <elseif condition="$vo.etype eq 'datetime'"/>
+            <input type="text" class="easyui-datetimebox" data-options="required:true,showSeconds:false" name="filedtime[{$vo.emark}]" value="{$datafiled[$vo['emark']]|date='Y-m-d H:i:s',###}" />
+            <elseif condition="$vo.etype eq 'images'"/>
+            <script>
+                $(function() {
+                    var editor = KindEditor.editor({
+                        allowFileManager : true,
+                        uploadJson:'__APP__/Upload/uploadImg',
+                        fileManagerJson :'__APP__/Upload/fileManagerJson'
+                    });
+                    KindEditor('#image_{$vo.emark}').click(function() {
+                        editor.loadPlugin('image', function() {
+                            editor.plugin.imageDialog({
+                                imageUrl : KindEditor('#url_{$vo.emark}').val(),
+                                clickFn : function(url, title, width, height, border, align) {
+                                    KindEditor('#url_{$vo.emark}').val(url);
+                                    editor.hideDialog();
+                                }
+                            });
+                        });
+                    });
+                });
+            </script>
+            <input type="text" id="url_{$vo.emark}" name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}"/>
+            <input type="button" id="image_{$vo.emark}" value="选择图片" />
+            <elseif condition="($vo.etype eq 'addon') OR ($vo.etype eq 'media')"/>
+            <script>
+                $(function() {
+                    var editorfile = KindEditor.editor({
+                        allowFileManager : true,
+                        uploadJson:'__APP__/Upload/uploadImg',
+                        fileManagerJson :'__APP__/Upload/fileManagerJson'
+                    });
+                    KindEditor('#insertfile_{$vo.emark}').click(function() {
+                        editorfile.loadPlugin('insertfile', function() {
+                            editorfile.plugin.fileDialog({
+                                fileUrl : KindEditor('#url_{$vo.emark}').val(),
+                                clickFn : function(url, title) {
+                                    KindEditor('#url_{$vo.emark}').val(url);
+                                    editorfile.hideDialog();
+                                }
+                            });
+                        });
+                    });
+                });
+            </script>
+            <input type="text" id="url_{$vo.emark}" name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}"/>
+            <input type="button" id="insertfile_{$vo.emark}" value="选择文件" />
+            <elseif condition="$vo.etype eq 'select'"/>
+            <select name="filed[{$vo.emark}]">
+                <volist name="vo.opts" id="opts" key="k">
+                    <if condition="$datafiled[$vo['emark']] eq $opts">
+                        <option value="{$opts}" selected="selected">{$opts}</option>
+                        <else/>
+                        <option value="{$opts}">{$opts}</option>
+                    </if>
+                </volist>
+            </select>
+            <elseif condition="$vo.etype eq 'radio'"/>
+            <volist name="vo.opts" id="opts" key="k">
+                <if condition="$datafiled[$vo['emark']] eq $opts">
+                    <input name="filed[{$vo.emark}]" type="radio" value="{$opts}" checked="checked"/>{$opts}
+                    <else/>
+                    <input name="filed[{$vo.emark}]" type="radio" value="{$opts}"/>{$opts}
+                </if>
+            </volist>
+            <elseif condition="$vo.etype eq 'checkbox'"/>
+            <volist name="vo.opts" id="opts" key="k">
+                <php>
+                    $arr = explode(',',$datafiled[$vo['emark']]);
+                    if(in_array($opts,$arr)){
+                    echo '<input name="filedcheckbox['.$vo['emark'].'][]" type="checkbox" value="'.$opts.'" checked="checked"/>'.$opts;
+                    }else{
+                    echo '<input name="filedcheckbox['.$vo['emark'].'][]" type="checkbox" value="'.$opts.'"/>'.$opts;
+                    }
+                </php>
+            </volist>
+            <elseif condition="$vo.etype eq 'stepselect'"/>
+            <input name="filed[{$vo.emark}]" value="{$datafiled[$vo['emark']]}" class="easyui-combotree combotree"
+                   data-options="url:'__APP__/LinkPage/jsonTreeId?id={$vo.elink}'" style="width:200px;"/>
+        </if>
+        </td>
+        </tr>
+    </foreach>
+    <script>
+        $(function(){
+            $.parser.parse($('.tempmodel'));
+        })
+    </script>
+</tbody>
+        </table>
+    </div>

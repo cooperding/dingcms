@@ -23,19 +23,7 @@ class GoodsAction extends BaseAction {
     {
         $this->display();
     }
- /**
-     * test
-     * 测试
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     * @todo 测试之后删除
-     */
-    public function test()
-    {
-        $this->display();
-    }
-
+ 
     /**
      * add
      * 分类添加

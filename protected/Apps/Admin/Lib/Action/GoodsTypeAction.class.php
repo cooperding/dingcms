@@ -154,7 +154,22 @@ class GoodsTypeAction extends BaseAction {
         $array['rows'] = $data;
         echo json_encode($array);
     }
-    
+       /**
+     * jsonTree
+     * 类型json树结构数据
+     * @access public
+     * @return array
+     * @version dogocms 1.0
+     */
+    public function jsonTree()
+    {
+        //Load('extend');
+        $m = M('GoodsType');
+        $tree = $m->field('id,cat_name as text')->select();
+        //$tree = list_to_tree($tree, 'id', 'parent_id', 'children');
+        $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
+        echo json_encode($tree);
+    }
 }
 
 ?>

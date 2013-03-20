@@ -23,18 +23,6 @@ class GoodsSortAction extends BaseAction {
     {
         $this->display();
     }
- /**
-     * test
-     * 测试
-     * @access public
-     * @return array
-     * @version dogocms 1.0
-     * @todo 测试之后删除
-     */
-    public function test()
-    {
-        $this->display();
-    }
 
     /**
      * add
@@ -214,5 +202,6 @@ class GoodsSortAction extends BaseAction {
         $tree = array_merge(array(array('id' => 0, 'text' => L('sort_root_name'))), $tree);
         echo json_encode($tree);
     }
+ 
 
 }
