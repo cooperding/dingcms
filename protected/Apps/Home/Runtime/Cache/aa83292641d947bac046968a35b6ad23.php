@@ -16,7 +16,7 @@
         <div class="top wpall">
             <div class="box wp">
                 <div class="top_l f_left">
-                    <span class="L_passport">&nbsp;您好,欢迎来到admin管理先生网<a href="/index.php/member_login">请登录</a><a href="/index.php/member_reg">免费注册</a><a href="/index.php/member_login/forgetpwd">忘记密码</a></span></div>
+                    <span class="L_passport">&nbsp;您好,欢迎来到admin管理先生网<a href="/index.php/member_login">请登录</a><a href="<?php echo U('Passport/add');?>">免费注册</a><a href="/index.php/member_login/forgetpwd">忘记密码</a></span></div>
                 <div class="top_r f_right">
 
                 </div><!--top_r-->
