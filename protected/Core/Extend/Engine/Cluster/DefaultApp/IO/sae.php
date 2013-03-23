@@ -109,8 +109,20 @@ function file_delete($filename){
         return unlink($filename);
     }
 }
+//获得文件内容
+function file_get($filename){
+	if(IS_SAE){
+        $arr = explode('/', ltrim($filename, './'));
+        $domain = array_shift($arr);
+		$filePath = implode('/', $arr);
+		$s=new SaeStorage();
+		return $s->read($domain,$filePath);
+	}else{
+		return file_get_contents($filename);
+	}
+}
 //一般在IO专用配置中使用
-function file_url_root($domain=''){
+function file_domain($domain=''){
 	if(!IS_SAE) return '';
 	$s=new SaeStorage();
 	return rtrim($s->getUrl($domain,''),'/');

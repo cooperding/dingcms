@@ -141,9 +141,20 @@ function file_upload($src_file,$dest_file){
  * @return void
  */
 function file_delete($filename){
-	return delete($filename);
+	return unlink($filename);
 }
 
+
+/**
+ * 获得文件内容
+ * 
+ * @param string $filename 
+ * @access public
+ * @return void
+ */ 
+function file_get($filename){
+	return file_get_contents($filename);
+}
 /**
  * 获得文件显示地址的根路径
  * 
@@ -151,7 +162,7 @@ function file_delete($filename){
  * @access public
  * @return string
  */
-function file_url_root($domain=''){
+function file_domain($domain=''){
 	return '';
 }
 
