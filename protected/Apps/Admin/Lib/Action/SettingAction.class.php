@@ -20,26 +20,7 @@ class SettingAction extends BaseAction {
      * @version dogocms 1.0
      */
     public function index() {
-        $m = M('Setting');
-        $name = array(
-            array('id' => 1, 'text' => '站点设置'),
-            array('id' => 2, 'text' => '附件设置'),
-            array('id' => 3, 'text' => '信息相关'),
-            array('id' => 4, 'text' => '会员设置'),
-            array('id' => 5, 'text' => '邮箱设置'),
-            array('id' => 6, 'text' => '其它设置')
-        );
-        $array = array();
-        foreach ($name as $m => $n) {
-            foreach ($list as $k => $v) {
-                if ($m == $v['sys_gid']) {
-                    $array[$m]['title'] = $n;
-                    $array[$m]['slist'][] = $v;
-                }
-            }
-        }
-        $this->assign('list', $name);
-        $this->display('settinglist');
+        $this->display();
     }
 
     /**
@@ -50,14 +31,6 @@ class SettingAction extends BaseAction {
      * @version dogocms 1.0
      */
     public function add() {
-        $select = array(
-            '1' => '站点设置',
-            '2' => '附件设置',
-            '3' => '信息相关',
-            '4' => '会员设置',
-            '5' => '邮箱设置',
-            '6' => '其它设置'
-        );
         $radios = array(
             'text' => '文本',
             'radio' => '布尔型',
@@ -65,7 +38,6 @@ class SettingAction extends BaseAction {
         );
         $id = intval($_GET['id']);
         $this->assign('id', $id);
-        $this->assign('select', $select);
         $this->assign('radios', $radios);
         $this->display();
     }
@@ -82,20 +54,11 @@ class SettingAction extends BaseAction {
         $id = intval($_GET['id']);
         $condition['id'] = $id;
         $data = $m->where($condition)->find();
-        $select = array(
-            '1' => '站点设置',
-            '2' => '附件设置',
-            '3' => '信息相关',
-            '4' => '会员设置',
-            '5' => '邮箱设置',
-            '6' => '其它设置'
-        );
         $radios = array(
             'text' => '文本',
             'radio' => '布尔型',
             'textarea' => '多行文本'
         );
-        $this->assign('select', $select);
         $this->assign('radios', $radios);
         $this->assign('sys_gid', $data['sys_gid']);
         $this->assign('sys_type', $data['sys_type']);
@@ -154,13 +117,13 @@ class SettingAction extends BaseAction {
         if ($rs == true) {
             $this->dmsg('2', '修改成功！', true);
         } else {
-            $this->dmsg('1', '操作失败！', false, true);
+            $this->dmsg('1', '未有当作或者操作失败！', false, true);
         }
     }
 
     /**
      * settinglist
-     * 系统基本参数jsonTree树结构
+     * 系统基本参数调取不同id数据
      * @access public
      * @return array
      * @version dogocms 1.0
@@ -169,7 +132,7 @@ class SettingAction extends BaseAction {
         $m = M('Setting');
         $id = intval($_GET['id']);
         $this->assign('id', $id);
-        $this->display('settingtab');
+        $this->display('list');
     }
 
     /**
@@ -194,13 +157,13 @@ class SettingAction extends BaseAction {
     }
 
     /**
-     * fieldJsonId
-     * 取得field信息
+     * listJsonId
+     * 取得相应id下的列表信息
      * @access public
      * @return array
      * @version dogocms 1.0
      */
-    public function fieldJsonId() {
+    public function listJsonId() {
         $m = M('Setting');
         $id = intval($_GET['id']);
         $condition['sys_gid'] = $id;
@@ -229,7 +192,8 @@ class SettingAction extends BaseAction {
      * @version dogocms 1.0
      */
     public function jsonTree() {
-        $name = array(
+        Load('extend');
+        $sort = array(
             array('id' => 1, 'text' => '站点设置'),
             array('id' => 2, 'text' => '附件设置'),
             array('id' => 3, 'text' => '信息相关'),
@@ -237,8 +201,9 @@ class SettingAction extends BaseAction {
             array('id' => 5, 'text' => '邮箱设置'),
             array('id' => 6, 'text' => '其它设置')
         );
-        echo json_encode($name);
-
+        $tree = list_to_tree($sort, 'id', 'parent_id', 'children');
+        echo json_encode($tree);
     }
+    
 
 }

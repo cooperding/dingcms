@@ -8,11 +8,13 @@
                 </tr>
                 <tr>
                     <th>所属分组：</th>
-                    <td><html:select selected="" options="select" name="sys_gid" first="请选择所属分组" /></td>
-            </tr>
-            <tr>
-                <th>变量类型：</th>
-                <td><html:radio name="sys_type" checked="text" radios="radios" /></td>
+                    <td>
+                        <input name="sys_gid" class="easyui-combotree combotree" data-options="url:'__APP__/Setting/jsonTree',required:true," style="width:200px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>变量类型：</th>
+                    <td><html:radio name="sys_type" checked="text" radios="radios" /></td>
             </tr>
             <tr>
                 <th>参数值：</th><td><textarea name="sys_value" rows="3" cols="30"></textarea><span class="red">*选择布尔值输入否：1/是：2</span></td>

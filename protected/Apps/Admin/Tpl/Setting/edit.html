@@ -9,7 +9,9 @@
                 </tr>
                 <tr>
                     <th>所属分组：</th>
-                    <td><html:select selected="sys_gid" options="select" name="sys_gid" /></td>
+                    <td>
+                        <input name="sys_gid" class="easyui-combotree combotree" data-options="url:'__APP__/Setting/jsonTree',required:true," value="{$data.sys_gid}" style="width:200px;"/>
+                    </td>
             </tr>
             <tr>
                 <th>变量类型：</th>

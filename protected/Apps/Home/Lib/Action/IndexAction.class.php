@@ -16,14 +16,20 @@ class IndexAction extends BaseAction {
     public function index()
     {
         $m = M('Setting');
+        
         $title['sys_name'] = array('eq','cfg_title');
         $keywords['sys_name'] = array('eq','cfg_keywords');
         $description['sys_name'] = array('eq','cfg_description');
         $data_title = $m->where($title)->find();
         $data_keywords = $m->where($keywords)->find();
         $data_description = $m->where($description)->find();
-
-        $this->assign('title',$data_title['sys_value']);
+        $title = S('title');
+        if(empty($title)){
+            $title['sys_name'] = array('eq','cfg_title');
+            $data_title = $m->where($title)->find();
+            $title = S('title',$data_title['sys_value']);
+        }
+        $this->assign('title',$title);
         $this->assign('keywords',$data_keywords['sys_value']);
         $this->assign('description',$data_description['sys_value']);
         $this->display(':index');
