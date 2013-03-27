@@ -15,7 +15,7 @@ class SearchAction extends BaseAction {
     public function index()
     {
         //分析：根据提供的关键词查询title或者扩展内容表（暂定）,同时需要查询的表有分类表。
-        $words = $_POST['words'];
+        $words = addslashes($_GET['words']);
         if(!$words){
             echo '错误'; //跳转到错误页面
             exit;
@@ -44,6 +44,7 @@ class SearchAction extends BaseAction {
             }
         }
         $this->assign('dogocms', $list); // 赋值数据集
+        $this->assign('words', $words);
         $this->assign('page', $show); // 赋值分页输出
         $this->assign('title', $one_data['text']);
         $this->assign('keywords', $one_data['keywords']);

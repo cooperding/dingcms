@@ -24,11 +24,14 @@ class IndexAction extends BaseAction {
         $data_keywords = $m->where($keywords)->find();
         $data_description = $m->where($description)->find();
         $title = S('title');
+        echo HTML_PATH ;
         if(empty($title)){
             $title['sys_name'] = array('eq','cfg_title');
             $data_title = $m->where($title)->find();
-            $title = S('title',$data_title['sys_value']);
+            S('title',$data_title['sys_value']);
+            $title = $data_title['sys_value'];
         }
+        
         $this->assign('title',$title);
         $this->assign('keywords',$data_keywords['sys_value']);
         $this->assign('description',$data_description['sys_value']);

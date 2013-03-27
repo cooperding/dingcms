@@ -33,7 +33,7 @@
                         <div class="box">
                             <div class="usual">
                                 <div class="search_con">
-                                    <form action="__APP__/Search" method="post" target="_blank">
+                                    <form action="__APP__/Search" method="get" target="_blank">
                                         <input type="text" class="sinput" name="words">
                                         <input type="submit" value=" " class="search_sub">
                                     </form>
