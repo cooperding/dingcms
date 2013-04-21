@@ -73,6 +73,10 @@ class App {
             cookie('think_template',$templateSet,864000);
         }
         /* 模板相关目录常量 */
+        $templateSet =  cache('DOGOCMS_THEME');
+        if(empty($templateSet)){
+            $templateSet =  C('DEFAULT_THEME');
+        }
         define('THEME_NAME',   $templateSet);                  // 当前模板主题名称
         $group   =  defined('GROUP_NAME')?GROUP_NAME.'/':'';
         if(1==C('APP_GROUP_MODE')){ // 独立分组模式
